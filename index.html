@@ -1,332 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GERDSEN AI - Local AI Infrastructure for Privacy-Conscious Businesses</title>
-    <meta name="description" content="GERDSEN AI specializes in local LLM deployment, vector databases, and privacy-focused AI solutions for SMBs.">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="logo.png">
-    <style>
-        @font-face {
-            font-family: 'SF Mono';
-            src: local('SF Mono'), local('Monaco'), local('Inconsolata'), local('Fira Mono'), local('Droid Sans Mono'), local('Source Code Pro'), monospace;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-            background: #000;
-            color: #fff;
-        }
-        
-        .mono {
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .button-primary {
-            background: #007AFF;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .button-primary:hover {
-            background: #0051D5;
-            transform: translateY(-1px);
-        }
-        
-        .button-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .button-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-1px);
-        }
-        
-        .service-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
-        }
-        
-        .service-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            transition: color 0.3s ease;
-            font-weight: 400;
-        }
-        
-        .nav-link:hover {
-            color: #007AFF;
-        }
-    </style>
-</head>
-<body class="antialiased">
-    <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 glass-effect">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <img src="logo.png" alt="GERDSEN AI" class="h-10 w-10">
-                    <span class="text-xl font-semibold mono">GERDSEN AI</span>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#services" class="nav-link">Services</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+---
+layout: default
+title: Local AI Infrastructure for Privacy-Conscious Businesses
+---
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div class="text-center max-w-5xl mx-auto">
-            <img src="logo.png" alt="GERDSEN AI" class="h-48 w-48 mx-auto mb-12">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                Keep Your AI On-Premise,<br>
-                <span class="gradient-text">Keep Your Data Private</span>
-            </h1>
-            <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
-                Local LLM deployment and vector database solutions that put your security first. 
-                No cloud dependencies, no data leaks, just powerful AI infrastructure you control.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#contact" class="button-primary">Get Started</a>
-                <a href="#services" class="button-secondary">Learn More</a>
-            </div>
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center px-6 pt-20">
+    <div class="text-center max-w-5xl mx-auto">
+        <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="{{ site.title }}" class="h-48 w-48 mx-auto mb-12">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+            Keep Your AI On-Premise,<br>
+            <span class="gradient-text">Keep Your Data Private</span>
+        </h1>
+        <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
+            Local LLM deployment and vector database solutions that put your security first. 
+            No cloud dependencies, no data leaks, just powerful AI infrastructure you control.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact" class="button-primary">Get Started</a>
+            <a href="#services" class="button-secondary">Learn More</a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-32 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Our Services</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Local LLM Deployment -->
-                <div class="service-card">
-                    <div class="text-4xl mb-6 text-blue-500">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">Local LLM Deployment</h3>
-                    <p class="text-gray-400">
-                        Deploy powerful language models on your own infrastructure. Complete control, 
-                        zero cloud dependencies, maximum privacy.
-                    </p>
-                </div>
+<!-- Services Section -->
+<section id="services" class="py-32 px-6">
+    <div class="container mx-auto max-w-6xl">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Our Services</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            {% include service-card.html 
+                icon="fa-lock" 
+                color="blue-500" 
+                title="Local LLM Deployment" 
+                description="Deploy powerful language models on your own infrastructure. Complete control, zero cloud dependencies, maximum privacy." 
+            %}
+            
+            {% include service-card.html 
+                icon="fa-database" 
+                color="purple-500" 
+                title="Vector Database Solutions" 
+                description="Implement efficient vector databases for semantic search and AI applications. Optimized for on-premise deployment." 
+            %}
+            
+            {% include service-card.html 
+                icon="fa-rocket" 
+                color="pink-500" 
+                title="AI Process Automation" 
+                description="Automate your business processes with AI while keeping all data processing within your secure environment." 
+            %}
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-32 px-6">
+    <div class="container mx-auto max-w-6xl">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+            Why Choose <span class="gradient-text">{{ site.title }}?</span>
+        </h2>
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="space-y-8">
+                {% include feature-card.html 
+                    icon="fa-shield-alt" 
+                    color="blue-500" 
+                    title="Privacy First" 
+                    description="Your data never leaves your premises. We implement AI solutions that run entirely on your infrastructure, ensuring complete data sovereignty." 
+                %}
                 
-                <!-- Vector Database Solutions -->
-                <div class="service-card">
-                    <div class="text-4xl mb-6 text-purple-500">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">Vector Database Solutions</h3>
-                    <p class="text-gray-400">
-                        Implement efficient vector databases for semantic search and AI applications. 
-                        Optimized for on-premise deployment.
-                    </p>
-                </div>
+                {% include feature-card.html 
+                    icon="fa-lock" 
+                    color="purple-500" 
+                    title="Enterprise-Grade Security" 
+                    description="Built with security best practices from day one. Our solutions meet the strictest compliance requirements." 
+                %}
+            </div>
+            
+            <div class="space-y-8">
+                {% include feature-card.html 
+                    icon="fa-dollar-sign" 
+                    color="green-500" 
+                    title="Cost-Effective" 
+                    description="No recurring cloud costs or API fees. One-time implementation with predictable infrastructure costs." 
+                %}
                 
-                <!-- AI Process Automation -->
-                <div class="service-card">
-                    <div class="text-4xl mb-6 text-pink-500">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">AI Process Automation</h3>
-                    <p class="text-gray-400">
-                        Automate your business processes with AI while keeping all data processing 
-                        within your secure environment.
-                    </p>
-                </div>
+                {% include feature-card.html 
+                    icon="fa-map-marker-alt" 
+                    color="pink-500" 
+                    title="Louisiana-Based" 
+                    description="Proud to be part of Louisiana's growing tech ecosystem. Local support for local businesses." 
+                %}
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about" class="py-32 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
-                Why Choose <span class="gradient-text">GERDSEN AI?</span>
-            </h2>
+<!-- CTA Section -->
+<section class="py-32 px-6">
+    <div class="container mx-auto max-w-4xl text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Ready to Take Control of Your AI?
+        </h2>
+        <p class="text-xl text-gray-400 mb-12">
+            Let's discuss how local AI deployment can transform your business 
+            while keeping your data secure.
+        </p>
+        <a href="#contact" class="button-primary text-lg">Schedule a Consultation</a>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-32 px-6">
+    <div class="container mx-auto max-w-4xl">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Get in Touch</h2>
+        <div class="glass-effect rounded-2xl p-12">
             <div class="grid md:grid-cols-2 gap-12">
-                <div class="space-y-8">
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-blue-500 mt-1">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Privacy First</h3>
-                                <p class="text-gray-400">
-                                    Your data never leaves your premises. We implement AI solutions that run 
-                                    entirely on your infrastructure, ensuring complete data sovereignty.
-                                </p>
-                            </div>
-                        </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 mono">Contact Information</h3>
+                    <div class="space-y-4 text-gray-400">
+                        <p class="flex items-center space-x-3">
+                            <i class="fas fa-envelope w-5"></i>
+                            <span>{{ site.email }}</span>
+                        </p>
+                        <p class="flex items-center space-x-3">
+                            <i class="fas fa-map-pin w-5"></i>
+                            <span>Lafayette, Louisiana</span>
+                        </p>
+                        <p class="flex items-center space-x-3">
+                            <i class="fas fa-calendar w-5"></i>
+                            <span>Founded 2025</span>
+                        </p>
                     </div>
-                    
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-purple-500 mt-1">
-                                <i class="fas fa-lock"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Enterprise-Grade Security</h3>
-                                <p class="text-gray-400">
-                                    Built with security best practices from day one. Our solutions meet the 
-                                    strictest compliance requirements.
-                                </p>
-                            </div>
-                        </div>
+                    <div class="mt-8">
+                        <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
                     </div>
                 </div>
-                
-                <div class="space-y-8">
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-green-500 mt-1">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Cost-Effective</h3>
-                                <p class="text-gray-400">
-                                    No recurring cloud costs or API fees. One-time implementation with 
-                                    predictable infrastructure costs.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-pink-500 mt-1">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Louisiana-Based</h3>
-                                <p class="text-gray-400">
-                                    Proud to be part of Louisiana's growing tech ecosystem. Local support 
-                                    for local businesses.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 mono">Our Focus</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Local LLM Deployment</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Vector Database Implementation</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Privacy-First AI Solutions</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>SMB Process Automation</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>On-Premise AI Infrastructure</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-32 px-6">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                Ready to Take Control of Your AI?
-            </h2>
-            <p class="text-xl text-gray-400 mb-12">
-                Let's discuss how local AI deployment can transform your business 
-                while keeping your data secure.
-            </p>
-            <a href="#contact" class="button-primary text-lg">Schedule a Consultation</a>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-32 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Get in Touch</h2>
-            <div class="glass-effect rounded-2xl p-12">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-6 mono">Contact Information</h3>
-                        <div class="space-y-4 text-gray-400">
-                            <p class="flex items-center space-x-3">
-                                <i class="fas fa-envelope w-5"></i>
-                                <span>info@gerdsen.ai</span>
-                            </p>
-                            <p class="flex items-center space-x-3">
-                                <i class="fas fa-map-pin w-5"></i>
-                                <span>Lafayette, Louisiana</span>
-                            </p>
-                            <p class="flex items-center space-x-3">
-                                <i class="fas fa-calendar w-5"></i>
-                                <span>Founded 2025</span>
-                            </p>
-                        </div>
-                        <div class="mt-8">
-                            <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-6 mono">Our Focus</h3>
-                        <ul class="space-y-3 text-gray-400">
-                            <li class="flex items-center space-x-3">
-                                <i class="fas fa-check text-green-500"></i>
-                                <span>Local LLM Deployment</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <i class="fas fa-check text-green-500"></i>
-                                <span>Vector Database Implementation</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <i class="fas fa-check text-green-500"></i>
-                                <span>Privacy-First AI Solutions</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <i class="fas fa-check text-green-500"></i>
-                                <span>SMB Process Automation</span>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <i class="fas fa-check text-green-500"></i>
-                                <span>On-Premise AI Infrastructure</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-gray-800">
-        <div class="container mx-auto text-center">
-            <p class="text-gray-500">&copy; 2025 GERDSEN AI LLC. All rights reserved.</p>
-            <p class="text-sm text-gray-600 mt-2">
-                Proudly serving Louisiana businesses with secure, local AI solutions.
-            </p>
-        </div>
-    </footer>
-</body>
-</html>
+    </div>
+</section>

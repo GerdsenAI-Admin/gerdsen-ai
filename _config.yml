@@ -1,0 +1,33 @@
+# GERDSEN AI
+# Local AI Infrastructure for Privacy-Conscious Businesses
+
+title: GERDSEN AI
+email: info@gerdsen.ai
+description: >- 
+  GERDSEN AI specializes in local LLM deployment, vector databases, 
+  and privacy-focused AI solutions for SMBs. Keep your AI on-premise, 
+  keep your data private.
+baseurl: "/gerdsen-ai" 
+url: "https://gerdsenai-admin.github.io"
+twitter_username: 
+github_username: GerdsenAI-Admin
+
+# Build settings
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude files from build
+exclude:
+  - README.md
+  - DEPLOYMENT_GUIDE.md
+  - deploy.sh
+  - JEKYLL_SETUP.md
+  - Gemfile
+  - Gemfile.lock
+
+# Custom variables
+company:
+  founded: 2025
+  ein: "39-3468580"
+  location: "Lafayette, Louisiana"
