@@ -1,12 +1,12 @@
 # GERDSEN AI
 # Local AI Infrastructure for Privacy-Conscious Businesses
 
-title: GERDSEN AI
-email: info@gerdsen.ai
+title: GERDSEN AI - Full Stack AI Solutions
+email: garrett@gerdsen.ai
 description: >- 
-  GERDSEN AI specializes in local LLM deployment, vector databases, 
-  and privacy-focused AI solutions for SMBs. Keep your AI on-premise, 
-  keep your data private.
+  GERDSEN AI delivers Full Stack AI solutions: from local deployments to cloud workflows, 
+  model training to production systems. We handle every layer of your AI infrastructure 
+  with expertise in LLMs, vector databases, MLOps, and custom AI development.
 baseurl: "/gerdsen-ai" 
 url: "https://gerdsenai-admin.github.io"
 twitter_username: 

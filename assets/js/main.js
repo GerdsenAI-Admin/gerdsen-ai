@@ -1,3 +1,30 @@
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+    // Add mesh gradient background
+    const meshGradient = document.createElement('div');
+    meshGradient.className = 'mesh-gradient';
+    document.body.prepend(meshGradient);
+    
+    // Add light leak effect
+    const lightLeak = document.createElement('div');
+    lightLeak.className = 'light-leak';
+    document.body.appendChild(lightLeak);
+    
+    // Add reveal class to sections
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section, index) => {
+        if (index > 0) {
+            section.classList.add('reveal');
+        }
+    });
+    
+    // Initialize magnetic elements
+    initMagneticEffect();
+    
+    // Initialize cursor trail
+    initCursorTrail();
+});
+
 // Parallax Scrolling Effect
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
@@ -9,14 +36,13 @@ window.addEventListener('scroll', () => {
         element.style.transform = `translateY(${yPos}px)`;
     });
     
-    // Parallax for orbs
-    const orbs = document.querySelectorAll('.orb');
-    orbs.forEach((orb, index) => {
-        const speed = 0.1 * (index + 1);
+    // Mesh gradient parallax
+    const meshGradient = document.querySelector('.mesh-gradient::before');
+    if (meshGradient) {
+        const speed = 0.3;
         const yPos = scrolled * speed;
-        const xPos = Math.sin(scrolled * 0.001) * 50;
-        orb.style.transform = `translate(${xPos}px, ${yPos}px)`;
-    });
+        meshGradient.style.transform = `translate(${Math.sin(scrolled * 0.001) * 50}px, ${yPos}px) rotate(${scrolled * 0.1}deg)`;
+    }
 });
 
 // Reveal on Scroll Animation
@@ -50,6 +76,78 @@ window.addEventListener('scroll', () => {
     
     lastScroll = currentScroll;
 });
+
+// Magnetic Effect for Interactive Elements
+function initMagneticEffect() {
+    const magneticElements = document.querySelectorAll('.button-primary, .button-secondary, .service-card');
+    
+    magneticElements.forEach(element => {
+        element.classList.add('magnetic');
+        
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const distance = Math.sqrt(x * x + y * y);
+            const maxDistance = Math.max(rect.width, rect.height);
+            
+            if (distance < maxDistance) {
+                const strength = (maxDistance - distance) / maxDistance;
+                element.style.transform = `translate(${x * strength * 0.2}px, ${y * strength * 0.2}px)`;
+            }
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = 'translate(0, 0)';
+        });
+    });
+}
+
+// Cursor Trail Effect
+function initCursorTrail() {
+    const trailCount = 5;
+    const trails = [];
+    
+    for (let i = 0; i < trailCount; i++) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.opacity = (1 - i / trailCount) * 0.5;
+        trail.style.transform = 'scale(' + (1 - i / trailCount) + ')';
+        document.body.appendChild(trail);
+        trails.push(trail);
+    }
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let trailX = Array(trailCount).fill(0);
+    let trailY = Array(trailCount).fill(0);
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    function animateTrail() {
+        trailX[0] += (mouseX - trailX[0]) * 0.3;
+        trailY[0] += (mouseY - trailY[0]) * 0.3;
+        
+        trails[0].style.left = trailX[0] + 'px';
+        trails[0].style.top = trailY[0] + 'px';
+        
+        for (let i = 1; i < trailCount; i++) {
+            trailX[i] += (trailX[i - 1] - trailX[i]) * 0.3;
+            trailY[i] += (trailY[i - 1] - trailY[i]) * 0.3;
+            
+            trails[i].style.left = trailX[i] + 'px';
+            trails[i].style.top = trailY[i] + 'px';
+        }
+        
+        requestAnimationFrame(animateTrail);
+    }
+    
+    animateTrail();
+}
 
 // Modal Functions
 function openModal(modalId) {
@@ -100,68 +198,101 @@ if (heroSection) {
         
         const logo = heroSection.querySelector('img');
         if (logo) {
-            logo.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px)`;
+            logo.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px) scale(1.05)`;
+        }
+        
+        // Move mesh gradient based on mouse
+        const meshGradient = document.querySelector('.mesh-gradient');
+        if (meshGradient) {
+            meshGradient.style.transform = `translate(${mouseX * 30}px, ${mouseY * 30}px)`;
         }
     });
 }
 
-// Add Floating Elements
-function createFloatingElement() {
-    const shapes = ['circle', 'square', 'triangle'];
-    const colors = ['#007AFF', '#5856D6', '#AF52DE'];
-    
-    const element = document.createElement('div');
-    element.classList.add('floating-element');
-    
-    const size = Math.random() * 100 + 50;
-    const shape = shapes[Math.floor(Math.random() * shapes.length)];
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    
-    element.style.width = `${size}px`;
-    element.style.height = `${size}px`;
-    element.style.background = color;
-    element.style.left = `${Math.random() * 100}%`;
-    element.style.top = `${Math.random() * 100}%`;
-    element.style.opacity = '0.1';
-    element.style.filter = 'blur(50px)';
-    
-    if (shape === 'circle') {
-        element.style.borderRadius = '50%';
-    } else if (shape === 'triangle') {
-        element.style.width = '0';
-        element.style.height = '0';
-        element.style.borderLeft = `${size/2}px solid transparent`;
-        element.style.borderRight = `${size/2}px solid transparent`;
-        element.style.borderBottom = `${size}px solid ${color}`;
-        element.style.background = 'transparent';
+// Dynamic Blur Based on Scroll Speed
+let scrollTimeout;
+let isScrolling = false;
+
+window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+        document.body.classList.add('scrolling');
+        isScrolling = true;
     }
     
-    document.body.appendChild(element);
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('scrolling');
+        isScrolling = false;
+    }, 150);
+});
+
+// Add visual interest with random floating shapes
+function createFloatingShape() {
+    const shapes = ['circle', 'hexagon', 'triangle'];
+    const colors = ['#007AFF', '#5856D6', '#AF52DE', '#FF6B6B'];
     
-    // Remove element after animation
-    setTimeout(() => {
-        element.remove();
-    }, 20000);
+    const shape = document.createElement('div');
+    shape.className = 'floating-shape';
+    
+    const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 200 + 100;
+    const startX = Math.random() * window.innerWidth;
+    const duration = Math.random() * 20 + 10;
+    
+    shape.style.cssText = `
+        position: fixed;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${startX}px;
+        bottom: -${size}px;
+        background: ${color};
+        opacity: 0.1;
+        filter: blur(50px);
+        pointer-events: none;
+        z-index: 1;
+        animation: floatUp ${duration}s linear;
+    `;
+    
+    if (shapeType === 'circle') {
+        shape.style.borderRadius = '50%';
+    } else if (shapeType === 'hexagon') {
+        shape.style.clipPath = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)';
+    } else if (shapeType === 'triangle') {
+        shape.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+    }
+    
+    document.body.appendChild(shape);
+    
+    // Remove after animation
+    setTimeout(() => shape.remove(), duration * 1000);
 }
 
-// Create floating elements periodically
-setInterval(createFloatingElement, 5000);
+// Create shapes periodically
+setInterval(createFloatingShape, 3000);
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', () => {
-    // Add orbs to body
-    const orbsHTML = `
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    `;
-    document.body.insertAdjacentHTML('afterbegin', orbsHTML);
-    
-    // Add reveal class to sections
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section, index) => {
-        if (index > 0) { // Skip hero section
-            section.classList.add('reveal');
+// Add CSS for floating animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
         }
-    });
-});
+        10% {
+            opacity: 0.1;
+        }
+        90% {
+            opacity: 0.1;
+        }
+        100% {
+            transform: translateY(-120vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    
+    body.scrolling .blur-on-scroll {
+        filter: blur(2px);
+    }
+`;
+document.head.appendChild(style);

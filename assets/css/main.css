@@ -13,6 +13,22 @@ body {
     background: #000;
     color: #fff;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Noise Texture Overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    z-index: 1;
+    pointer-events: none;
+    background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);
 }
 
 .mono {
@@ -25,6 +41,19 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Animated Gradient Background */
+.gradient-bg {
+    background: linear-gradient(-45deg, #007AFF, #5856D6, #AF52DE, #FF6B6B);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Glass Effect */
@@ -57,6 +86,68 @@ body {
         rgba(255, 255, 255, 0) 50%, 
         rgba(255, 255, 255, 0.05) 100%);
     pointer-events: none;
+}
+
+/* Liquid Mesh Gradient */
+.mesh-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.mesh-gradient::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 20% 80%, #007AFF 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #5856D6 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, #AF52DE 0%, transparent 50%);
+    filter: blur(100px);
+    opacity: 0.4;
+    animation: meshMove 30s ease-in-out infinite;
+}
+
+@keyframes meshMove {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-10%, 10%) rotate(120deg); }
+    66% { transform: translate(10%, -10%) rotate(240deg); }
+}
+
+/* Light Leak Effect */
+.light-leak {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 45%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.1) 55%,
+        transparent 100%);
+    filter: blur(20px);
+    opacity: 0;
+    animation: lightLeak 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes lightLeak {
+    0%, 100% { opacity: 0; left: -100%; }
+    50% { opacity: 1; left: 100%; }
+}
+
+/* Magnetic Hover Effect */
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Parallax Container */
@@ -153,6 +244,7 @@ body {
     display: inline-block;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .button-primary::before {
@@ -166,6 +258,7 @@ body {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
+    z-index: -1;
 }
 
 .button-primary:hover::before {
@@ -205,6 +298,7 @@ body {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .service-card::before {
@@ -219,6 +313,12 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: -1;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .service-card:hover::before {
@@ -276,47 +376,35 @@ body {
     transform: translateY(0);
 }
 
-/* Parallax Background Orbs */
-.orb {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.3;
-    pointer-events: none;
-    animation: orb-float 30s infinite ease-in-out;
+/* Bento Grid Layout */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
 }
 
-.orb-1 {
-    width: 600px;
-    height: 600px;
-    background: #007AFF;
-    top: -300px;
-    left: -300px;
+.bento-item {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 32px;
+    transition: all 0.3s ease;
 }
 
-.orb-2 {
-    width: 400px;
-    height: 400px;
-    background: #5856D6;
-    bottom: -200px;
-    right: -200px;
-    animation-delay: 10s;
+.bento-item:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 122, 255, 0.1);
 }
 
-.orb-3 {
-    width: 500px;
-    height: 500px;
-    background: #AF52DE;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: 20s;
+.bento-item.large {
+    grid-column: span 2;
 }
 
-@keyframes orb-float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(100px, -100px) scale(1.1); }
-    66% { transform: translate(-100px, 100px) scale(0.9); }
+.bento-item.tall {
+    grid-row: span 2;
 }
 
 /* Smooth Scrolling */
@@ -324,7 +412,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Hide scrollbar but keep functionality */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -340,4 +428,30 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
+}
+
+/* Hero Logo Size Fix */
+.hero-logo {
+    width: 240px !important;
+    height: 240px !important;
+    transition: all 0.3s ease;
+}
+
+/* Navigation Logo Size */
+.nav-logo {
+    width: 48px !important;
+    height: 48px !important;
+}
+
+/* Cursor Trail Effect */
+.cursor-trail {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0, 122, 255, 0.3);
+    pointer-events: none;
+    filter: blur(10px);
+    transition: transform 0.1s ease;
+    z-index: 9999;
 }
