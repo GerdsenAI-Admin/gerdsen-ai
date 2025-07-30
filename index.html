@@ -19,6 +19,13 @@ title: Local AI Infrastructure for Privacy-Conscious Businesses
             <a href="#contact" class="button-primary">Get Started</a>
             <a href="#services" class="button-secondary">Learn More</a>
         </div>
+        
+        <!-- Demo Modal Button -->
+        <div class="mt-8">
+            <button onclick="openModal('demo-modal')" class="text-sm text-gray-500 hover:text-gray-300 transition">
+                View Demo Modal <i class="fas fa-external-link-alt ml-1"></i>
+            </button>
+        </div>
     </div>
 </section>
 
@@ -162,3 +169,46 @@ title: Local AI Infrastructure for Privacy-Conscious Businesses
         </div>
     </div>
 </section>
+
+<!-- Demo Modal -->
+<div id="demo-modal" class="modal-backdrop" onclick="closeModal('demo-modal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-start mb-6">
+            <h3 class="text-3xl font-bold gradient-text">Advanced AI Solutions</h3>
+            <button onclick="closeModal('demo-modal')" class="text-gray-400 hover:text-white transition">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4 text-gray-300">
+            <p>
+                Experience the power of local AI deployment with GERDSEN AI. Our solutions provide:
+            </p>
+            
+            <ul class="space-y-3 ml-4">
+                <li class="flex items-center space-x-3">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    <span>Complete data sovereignty and privacy</span>
+                </li>
+                <li class="flex items-center space-x-3">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    <span>No recurring cloud costs</span>
+                </li>
+                <li class="flex items-center space-x-3">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    <span>Enterprise-grade security</span>
+                </li>
+                <li class="flex items-center space-x-3">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    <span>Customized to your business needs</span>
+                </li>
+            </ul>
+            
+            <div class="pt-6">
+                <a href="#contact" onclick="closeModal('demo-modal')" class="button-primary">
+                    Schedule a Consultation
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
