@@ -175,9 +175,8 @@
         }
         
         .logo-container {
-            width: 350px;
-            height: 350px;
-            margin-bottom: 20px;
+            width: 400px;
+            height: 400px;
             position: relative;
             display: flex;
             align-items: center;
@@ -241,6 +240,7 @@
             opacity: 0; /* Initially completely hidden */
             will-change: transform, z-index, opacity;
             pointer-events: none; /* Prevent interaction with hidden content */
+            margin-top: 100vh; /* Push content down initially */
         }
         
         /* Active scroll state brings content forward */
@@ -829,6 +829,7 @@
                     if (content) {
                         content.style.opacity = shouldScroll ? "1" : "0";
                         content.style.pointerEvents = shouldScroll ? "auto" : "none";
+                        content.style.marginTop = shouldScroll ? "0" : "100vh";
                     }
                 }
             }
@@ -869,6 +870,7 @@
                 heroContent.style.opacity = "0";
                 heroContent.classList.remove('scrolled');
                 heroContent.style.pointerEvents = "none";
+                heroContent.style.marginTop = "100vh";
             }
             
             if (logoHero) {
@@ -1207,13 +1209,9 @@
 
 <!-- Hero Section with Gerdsen AI Logo as focal point -->
 <section class="hero-section" data-video-section id="home">
-    <!-- Video Background -->
-    <div class="video-container">
-        <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
-            <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
-            <!-- Fallback text for screen readers and browsers that don't support video -->
-            <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.</p>
-        </video>
+    <!-- Video Background - starts hidden/dark -->
+    <div class="video-container" style="background: #000;">
+        <!-- No video initially, just dark background -->
     </div>
     
     <!-- Logo Hero Element with Animated Video -->
@@ -1225,7 +1223,6 @@
                 <img src="assets/images/gerdsen-ai-logo.png" alt="Gerdsen AI Logo">
             </video>
         </div>
-        <h2 class="logo-text">GerdsenAI</h2>
     </div>
     
     <!-- Hero Content (initially hidden, pushed down) -->
