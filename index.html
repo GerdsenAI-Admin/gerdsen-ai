@@ -3,9 +3,34 @@ layout: default
 title: Full Stack AI Solutions - From Concept to Production
 ---
 
-<!-- Hero Section -->
-<section class="min-h-screen flex items-center justify-center px-6 pt-20">
-    <div class="text-center max-w-5xl mx-auto">
+<!-- Hero Section with Video Background -->
+<section class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+    <!-- Layered Background -->
+    <div class="absolute inset-0 z-0">
+        <!-- Base Background Image -->
+        <img src="{{ '/assets/images/hero-bg-1.png' | relative_url }}" 
+             alt="Background" 
+             class="absolute inset-0 w-full h-full object-cover opacity-10">
+        
+        <!-- Video Overlay -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-20">
+            <source src="{{ '/assets/images/hero-video.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
+    </div>
+    
+    <!-- Particles Overlay -->
+    <div class="absolute inset-0 z-1">
+        <img src="{{ '/assets/images/hero_banner_particles.png' | relative_url }}" 
+             alt="Particles" 
+             class="w-full h-full object-cover opacity-30 mix-blend-screen"
+             data-scroll="parallax" 
+             data-speed="0.5">
+    </div>
+    
+    <div class="text-center max-w-5xl mx-auto relative z-10">
         <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="{{ site.title }}" class="hero-logo mx-auto mb-12">
         <h1 class="text-5xl md:text-7xl font-bold mb-6">
             Full Stack AI Solutions<br>
@@ -80,6 +105,59 @@ title: Full Stack AI Solutions - From Concept to Production
                 description="Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance." 
             %}
         </div>
+    </div>
+</section>
+
+<!-- Neural Network Showcase Section -->
+<section class="py-32 px-6 relative overflow-hidden">
+    <div class="container mx-auto max-w-6xl relative z-10">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+            Powered by <span class="gradient-text">Advanced Neural Networks</span>
+        </h2>
+        
+        <!-- Neural Network Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="neural-showcase" data-scroll="scale-in">
+                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
+                    <source src="{{ '/assets/images/Neural_G_1.mp4' | relative_url }}" type="video/mp4">
+                </video>
+                <h3 class="text-xl font-semibold mt-4">Deep Learning</h3>
+                <p class="text-gray-400 text-sm mt-2">Advanced neural architectures for complex pattern recognition</p>
+            </div>
+            
+            <div class="neural-showcase" data-scroll="scale-in" data-scroll-delay="100">
+                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
+                    <source src="{{ '/assets/images/Neural_G_2.mp4' | relative_url }}" type="video/mp4">
+                </video>
+                <h3 class="text-xl font-semibold mt-4">Computer Vision</h3>
+                <p class="text-gray-400 text-sm mt-2">State-of-the-art image and video processing capabilities</p>
+            </div>
+            
+            <div class="neural-showcase" data-scroll="scale-in" data-scroll-delay="200">
+                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
+                    <source src="{{ '/assets/images/Neural_G_3.mp4' | relative_url }}" type="video/mp4">
+                </video>
+                <h3 class="text-xl font-semibold mt-4">Natural Language</h3>
+                <p class="text-gray-400 text-sm mt-2">Sophisticated NLP for human-like text understanding</p>
+            </div>
+            
+            <div class="neural-showcase" data-scroll="scale-in" data-scroll-delay="300">
+                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
+                    <source src="{{ '/assets/images/Neural_G_4.mp4' | relative_url }}" type="video/mp4">
+                </video>
+                <h3 class="text-xl font-semibold mt-4">Predictive Analytics</h3>
+                <p class="text-gray-400 text-sm mt-2">Advanced forecasting and decision support systems</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Brain Visual -->
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5">
+        <img src="{{ '/assets/images/ai-brain-visual.png' | relative_url }}" 
+             alt="AI Brain" 
+             class="w-[800px] h-[800px]"
+             data-scroll="rotate"
+             data-speed="0.1">
     </div>
 </section>
 
@@ -178,6 +256,21 @@ title: Full Stack AI Solutions - From Concept to Production
                     description="Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems." 
                 %}
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Promotional Video Section -->
+<section class="py-32 px-6 relative overflow-hidden" data-scroll="fade-up">
+    <div class="container mx-auto max-w-6xl">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+            See Our <span class="gradient-text">AI in Action</span>
+        </h2>
+        <div class="relative rounded-2xl overflow-hidden glass-effect p-1">
+            <video controls playsinline class="w-full rounded-xl" data-scroll="scale-in">
+                <source src="{{ '/assets/images/hero-promo.mp4' | relative_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
     </div>
 </section>

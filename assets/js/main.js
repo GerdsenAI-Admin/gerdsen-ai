@@ -10,40 +10,162 @@ document.addEventListener('DOMContentLoaded', () => {
     lightLeak.className = 'light-leak';
     document.body.appendChild(lightLeak);
     
-    // Add reveal class to sections
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section, index) => {
-        if (index > 0) {
-            section.classList.add('reveal');
-        }
-    });
+    // Initialize scroll effects
+    initScrollEffects();
+    initAppleScrollAnimations();
     
     // Initialize magnetic elements
     initMagneticEffect();
     
     // Initialize cursor trail
     initCursorTrail();
+    
+    // Initialize parallax for data-scroll="parallax" elements
+    initParallaxElements();
 });
 
-// Parallax Scrolling Effect
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.parallax-layer');
+// Apple-style Scroll Animations
+function initAppleScrollAnimations() {
+    // Add data attributes for scroll animations
+    const heroSection = document.querySelector('.min-h-screen');
+    if (heroSection) {
+        const heroLogo = heroSection.querySelector('.hero-logo');
+        const heroTitle = heroSection.querySelector('h1');
+        const heroText = heroSection.querySelector('p');
+        const heroButtons = heroSection.querySelector('.flex');
+        
+        if (heroLogo) heroLogo.setAttribute('data-scroll', 'zoom-out');
+        if (heroTitle) heroTitle.setAttribute('data-scroll', 'fade-up');
+        if (heroText) heroText.setAttribute('data-scroll', 'fade-up-delay');
+        if (heroButtons) heroButtons.setAttribute('data-scroll', 'fade-up-delay-2');
+    }
     
-    parallaxElements.forEach(element => {
-        const speed = element.dataset.speed || 0.5;
-        const yPos = -(scrolled * speed);
-        element.style.transform = `translateY(${yPos}px)`;
+    // Add scroll attributes to service cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach((card, index) => {
+        card.setAttribute('data-scroll', 'scale-in');
+        card.setAttribute('data-scroll-delay', index * 100);
     });
     
-    // Mesh gradient parallax
-    const meshGradient = document.querySelector('.mesh-gradient::before');
-    if (meshGradient) {
-        const speed = 0.3;
-        const yPos = scrolled * speed;
-        meshGradient.style.transform = `translate(${Math.sin(scrolled * 0.001) * 50}px, ${yPos}px) rotate(${scrolled * 0.1}deg)`;
+    // Add to bento items
+    const bentoItems = document.querySelectorAll('.bento-item');
+    bentoItems.forEach((item, index) => {
+        item.setAttribute('data-scroll', 'slide-up');
+        item.setAttribute('data-scroll-delay', index * 50);
+    });
+}
+
+// Parallax Elements
+function initParallaxElements() {
+    const parallaxElements = document.querySelectorAll('[data-scroll="parallax"]');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        
+        parallaxElements.forEach(element => {
+            const speed = element.dataset.speed || 0.5;
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translateY(${yPos}px)`;
+        });
+    });
+}
+
+// Advanced Scroll Effects
+function initScrollEffects() {
+    let ticking = false;
+    let lastScrollY = 0;
+    
+    function updateScrollEffects() {
+        const scrollY = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        
+        // Parallax effect for hero section
+        const hero = document.querySelector('.min-h-screen');
+        if (hero) {
+            const heroLogo = hero.querySelector('.hero-logo');
+            const heroContent = hero.querySelector('.text-center');
+            
+            if (heroLogo) {
+                // Scale and fade logo on scroll
+                const scale = Math.max(0.5, 1 - scrollY * 0.001);
+                const opacity = Math.max(0, 1 - scrollY * 0.002);
+                heroLogo.style.transform = `scale(${scale})`;
+                heroLogo.style.opacity = opacity;
+            }
+            
+            if (heroContent) {
+                // Parallax for content
+                const translateY = scrollY * 0.3;
+                heroContent.style.transform = `translateY(${translateY}px)`;
+            }
+        }
+        
+        // Handle scroll-triggered animations
+        const scrollElements = document.querySelectorAll('[data-scroll]');
+        scrollElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
+            const delay = element.getAttribute('data-scroll-delay') || 0;
+            
+            // Check if element is in viewport
+            if (elementTop < windowHeight * 0.8 && elementBottom > 0) {
+                setTimeout(() => {
+                    element.classList.add('scroll-animated');
+                    
+                    // Apply specific animation based on data-scroll value
+                    const animation = element.getAttribute('data-scroll');
+                    switch(animation) {
+                        case 'zoom-out':
+                            element.style.animation = 'zoomOut 1.5s ease-out forwards';
+                            break;
+                        case 'fade-up':
+                            element.style.animation = 'fadeUp 1s ease-out forwards';
+                            break;
+                        case 'fade-up-delay':
+                            element.style.animation = 'fadeUp 1s ease-out 0.2s forwards';
+                            break;
+                        case 'fade-up-delay-2':
+                            element.style.animation = 'fadeUp 1s ease-out 0.4s forwards';
+                            break;
+                        case 'scale-in':
+                            element.style.animation = 'scaleIn 0.8s ease-out forwards';
+                            break;
+                        case 'slide-up':
+                            element.style.animation = 'slideUp 0.8s ease-out forwards';
+                            break;
+                        case 'rotate':
+                            const rotateSpeed = element.dataset.speed || 1;
+                            element.style.animation = `rotate ${60 / rotateSpeed}s linear infinite`;
+                            break;
+                    }
+                }, delay);
+            }
+        });
+        
+        // Update mesh gradient position based on scroll
+        const meshGradient = document.querySelector('.mesh-gradient');
+        if (meshGradient) {
+            const scrollProgress = scrollY / (document.body.scrollHeight - windowHeight);
+            meshGradient.style.transform = `translateY(${scrollProgress * 100}px)`;
+        }
+        
+        lastScrollY = scrollY;
+        ticking = false;
     }
-});
+    
+    function requestTick() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateScrollEffects);
+            ticking = true;
+        }
+    }
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', requestTick);
+    
+    // Initial call
+    updateScrollEffects();
+}
 
 // Reveal on Scroll Animation
 const revealElements = document.querySelectorAll('.reveal');
@@ -197,7 +319,7 @@ if (heroSection) {
         const mouseY = e.clientY / window.innerHeight - 0.5;
         
         const logo = heroSection.querySelector('img');
-        if (logo) {
+        if (logo && !logo.classList.contains('scroll-animated')) {
             logo.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px) scale(1.05)`;
         }
         
@@ -248,10 +370,10 @@ function createFloatingShape() {
         bottom: -${size}px;
         background: ${color};
         opacity: 0.1;
-        filter: blur(50px);
-        pointer-events: none;
-        z-index: 1;
+        filter: blur(40px);
         animation: floatUp ${duration}s linear;
+        pointer-events: none;
+        z-index: 0;
     `;
     
     if (shapeType === 'circle') {
@@ -264,35 +386,31 @@ function createFloatingShape() {
     
     document.body.appendChild(shape);
     
-    // Remove after animation
-    setTimeout(() => shape.remove(), duration * 1000);
+    shape.addEventListener('animationend', () => {
+        shape.remove();
+    });
 }
 
-// Create shapes periodically
+// Create floating shapes periodically
 setInterval(createFloatingShape, 3000);
 
 // Add CSS for floating animation
 const style = document.createElement('style');
 style.textContent = `
     @keyframes floatUp {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.1;
-        }
-        90% {
-            opacity: 0.1;
-        }
-        100% {
+        to {
             transform: translateY(-120vh) rotate(360deg);
             opacity: 0;
         }
     }
     
-    body.scrolling .blur-on-scroll {
-        filter: blur(2px);
+    .scrolling * {
+        transition: filter 0.3s ease;
+    }
+    
+    .scrolling .service-card,
+    .scrolling .bento-item {
+        filter: blur(1px);
     }
 `;
 document.head.appendChild(style);
