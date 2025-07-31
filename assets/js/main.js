@@ -1,3 +1,66 @@
+// Mobile Navigation Toggle
+function initMobileNavigation() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    if (!mobileMenuBtn || !mobileMenu) return;
+    
+    let isMenuOpen = false;
+    
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+            mobileMenu.classList.remove('mobile-menu-hidden');
+            mobileMenu.classList.add('mobile-menu-visible');
+            hamburger.classList.add('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        } else {
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Close menu when clicking on mobile nav links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Handle escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMenuOpen) {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
 // Apple-style Scroll Effects
 document.addEventListener('DOMContentLoaded', () => {
     // Fix Jekyll template issues with video sources
@@ -5,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize single consolidated scroll system
     initConsolidatedScrollSystem();
+    
+    // Initialize mobile navigation
+    initMobileNavigation();
     
     // Initialize Apple-inspired effects
     initMagneticElements();
@@ -266,17 +332,30 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY & PARTICLE EFFECTS - 100% opacity and particles on first scroll
+        // 5. HERO TEXT VISIBILITY & PARTICLE EFFECTS - 100% opacity and scroll-responsive particles
         if (heroContent) {
             if (scrollY > 1) {
                 // Text becomes 100% visible immediately on any scroll - CSS handles centering
                 heroContent.style.opacity = '1';
                 
-                // Trigger particle effects on first scroll
+                // Trigger particle effects on first scroll with scroll-responsive intensity
                 const particlesContainer = document.querySelector('.particles-container');
                 if (particlesContainer) {
-                    particlesContainer.style.opacity = '0.4'; // Subtle spark effect
+                    // Make particles more visible and responsive to scroll
+                    const scrollIntensity = Math.min(scrollY / (windowHeight * 0.5), 1);
+                    const baseOpacity = 0.7; // Higher base visibility
+                    const scrollOpacity = baseOpacity + (scrollIntensity * 0.3);
+                    
+                    particlesContainer.style.opacity = Math.min(scrollOpacity, 1);
                     heroSection.classList.add('show-particles');
+                    
+                    // Add scroll-based particle movement
+                    const particles = document.querySelectorAll('.particle');
+                    particles.forEach((particle, index) => {
+                        const speed = 0.5 + (index % 3) * 0.2; // Varying speeds
+                        const offset = scrollY * speed;
+                        particle.style.transform = `translateY(-${offset}px)`;
+                    });
                 }
             } else {
                 // Text starts invisible - becomes visible on scroll
