@@ -172,29 +172,38 @@
             transform: scale(1) translateZ(0);
             transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
             will-change: transform, opacity, filter, z-index;
+            pointer-events: auto;
         }
         
         .logo-container {
-            width: 400px;
-            height: 400px;
+            width: min(90vw, 800px);
+            height: min(90vw, 800px);
+            max-width: 100%;
+            max-height: 80vh;
+            aspect-ratio: 1 / 1;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             border-radius: 15px;
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 70px rgba(0, 100, 255, 0.5);
         }
         
         .hero-logo {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(78, 115, 248, 0.4));
+            object-fit: cover;
+            filter: drop-shadow(0 0 30px rgba(78, 115, 248, 0.8));
             transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
             background: transparent;
             max-width: 100%;
             max-height: 100%;
+            opacity: 1;
+            z-index: 10;
+            transform: scale(1.2);
         }
         
         .logo-text {
@@ -658,6 +667,11 @@
             .bento-item.large {
                 grid-column: span 2;
             }
+            
+            .logo-container {
+                width: min(90vw, 600px);
+                height: min(90vw, 600px);
+            }
         }
 
         @media (max-width: 768px) {
@@ -671,6 +685,16 @@
             
             .section-content {
                 padding: 0 20px;
+            }
+            
+            .logo-container {
+                width: min(85vw, 400px);
+                height: min(85vw, 400px);
+                margin: 0 auto;
+            }
+            
+            .logo-container div[style*="font-size: 200px"] {
+                font-size: 100px !important;
             }
             
             .services-grid,
@@ -896,16 +920,84 @@
             
             // Ensure the video is properly loaded and playing
             if (logoVideo) {
+                console.log('Logo video element found:', logoVideo);
+                
+                // Force visibility
+                logoVideo.style.opacity = "1";
+                logoVideo.style.visibility = "visible";
+                
+                // Check if video sources are available
+                const sources = logoVideo.querySelectorAll('source');
+                console.log(`Found ${sources.length} video sources`);
+                sources.forEach(source => {
+                    console.log(`Video source: ${source.src}`);
+                    // Try to preload the video source
+                    const tempVideo = document.createElement('video');
+                    tempVideo.src = source.src;
+                    tempVideo.load();
+                });
+                
+                // Add debug info when video loads
+                logoVideo.addEventListener('loadeddata', () => {
+                    console.log('Logo video loaded successfully!');
+                    // Make a visual indicator that video loaded
+                    document.querySelector('.logo-container').style.boxShadow = '0 0 50px rgba(0, 255, 100, 0.5)';
+                });
+                
+                // Add debug info for errors
+                logoVideo.addEventListener('error', (e) => {
+                    console.error('Logo video error:', e);
+                    document.querySelector('.logo-container').style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
+                    
+                    // Try the next source if available
+                    const sources = logoVideo.querySelectorAll('source');
+                    const currentSource = Array.from(sources).findIndex(s => s.src === logoVideo.currentSrc);
+                    
+                    if (currentSource < sources.length - 1) {
+                        console.log(`Trying next video source: ${sources[currentSource + 1].src}`);
+                        logoVideo.src = sources[currentSource + 1].src;
+                        logoVideo.load();
+                        logoVideo.play().catch(err => console.log('Could not play next source:', err));
+                    }
+                });
+                
+                // Try to play the video
                 logoVideo.play().catch(e => {
                     console.log('Auto-play prevented. User interaction needed:', e);
+                    
                     // Add visual cue that interaction is needed
                     logoVideo.setAttribute('poster', 'assets/images/gerdsen-ai-logo.png');
                     
+                    // Add a click-to-play overlay that's more noticeable
+                    const container = document.querySelector('.logo-container');
+                    container.style.background = 'rgba(0, 122, 255, 0.1)';
+                    
+                    // Create a play button overlay
+                    const playButton = document.createElement('div');
+                    playButton.innerHTML = '<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); border-radius: 15px; z-index: 20;"><div style="width: 80px; height: 80px; background: rgba(0, 122, 255, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div><div style="margin-top: 15px; color: white; font-size: 18px; font-weight: 500;">Click to Play</div></div>';
+                    container.appendChild(playButton.firstChild);
+                    
                     // Allow clicking anywhere to start video
                     document.addEventListener('click', () => {
-                        logoVideo.play().catch(err => console.log('Still cannot play video:', err));
+                        logoVideo.play().catch(err => {
+                            console.log('Still cannot play video:', err);
+                            // If we still can't play, try the next source
+                            const sources = logoVideo.querySelectorAll('source');
+                            if (sources.length > 1) {
+                                logoVideo.src = sources[1].src;
+                                logoVideo.load();
+                                logoVideo.play().catch(finalErr => console.log('Could not play alternate source:', finalErr));
+                            }
+                        });
                     }, { once: true });
                 });
+            } else {
+                console.error('Logo video element not found!');
+                // Create a fallback logo if video element isn't found
+                const container = document.querySelector('.logo-container');
+                if (container) {
+                    container.innerHTML = '<div style="font-size: 180px; font-weight: bold; background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 30px rgba(78, 115, 248, 0.8);">G</div>';
+                }
             }
         });
         
@@ -1217,8 +1309,15 @@
     <!-- Logo Hero Element with Animated Video -->
     <div class="logo-hero">
         <div class="logo-container">
-            <video autoplay muted loop playsinline preload="auto" class="hero-logo" id="logo-video">
+            <!-- Added a static background element visible behind video -->
+            <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 1;">
+                <div style="font-size: 200px; font-weight: bold; background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 30px rgba(78, 115, 248, 0.8);">G</div>
+            </div>
+            <video autoplay muted loop playsinline preload="auto" class="hero-logo" id="logo-video" style="z-index: 2; position: relative;">
                 <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
+                <source src="assets/images/hero-video.mp4" type="video/mp4">
+                <source src="assets/images/hero-promo.mp4" type="video/mp4">
+                <source src="assets/images/white_black_smoke_1.mp4" type="video/mp4">
                 <!-- Fallback for browsers that don't support video -->
                 <img src="assets/images/gerdsen-ai-logo.png" alt="Gerdsen AI Logo">
             </video>
