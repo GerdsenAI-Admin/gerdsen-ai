@@ -274,18 +274,18 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY - Simplified and predictable
+        // 5. HERO TEXT VISIBILITY - Maintain CSS centering
         if (heroContent) {
             if (scrollY > heroVideoTransitionPoint * 0.3) {
-                // Text becomes visible and stays visible
+                // Text becomes visible and stays centered
                 heroContent.style.opacity = '1';
-                heroContent.style.transform = 'translate3d(0, 0, 0)';
+                heroContent.style.transform = 'translate(-50%, -50%)'; // Maintain CSS centering
             } else {
-                // Text starts invisible
+                // Text starts invisible but centered
                 const progress = scrollY / (heroVideoTransitionPoint * 0.3);
                 const opacityValue = Math.min(progress * 1.5, 1);
                 heroContent.style.opacity = opacityValue;
-                heroContent.style.transform = `translate3d(0, ${(1-progress) * 20}px, 0)`;
+                heroContent.style.transform = `translate(-50%, calc(-50% + ${(1-progress) * 20}px))`; // Keep centered while animating
             }
         }
         
