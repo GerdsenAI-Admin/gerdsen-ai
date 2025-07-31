@@ -337,10 +337,11 @@ function triggerInitialAnimations() {
     const heroVideo = document.querySelector('.hero-section .background-video');
     const heroContent = document.querySelector('.hero-section .hero-content');
     
-    // Ensure hero content is hidden initially
+    // Ensure hero content is hidden initially - CSS handles centering
     if (heroContent) {
         heroContent.style.opacity = '0';
-        heroContent.style.transform = 'translate3d(0, 30px, -20px)';
+        // REMOVED: heroContent.style.transform - this was breaking CSS centering
+        // CSS transform: translate(-50%, -50%) handles positioning
     }
     
     if (heroVideo) {
