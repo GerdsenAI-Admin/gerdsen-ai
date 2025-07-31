@@ -4,30 +4,13 @@ title: Full Stack AI Solutions - From Concept to Production
 ---
 
 <!-- Hero Section with Video Background -->
-<section class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
-    <!-- Layered Background -->
-    <div class="absolute inset-0 z-0">
-        <!-- Base Background Image -->
-        <img src="{{ '/assets/images/hero-bg-1.png' | relative_url }}" 
-             alt="Background" 
-             class="absolute inset-0 w-full h-full object-cover opacity-10">
-        
-        <!-- Video Overlay -->
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30">
-            <source src="{{ '/assets/images/Neural_G_1.mp4' | relative_url }}" type="video/mp4">
+<section class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden" id="hero">
+    <!-- Video Background with Scroll Animation -->
+    <div class="video-background" data-video-section="hero">
+        <video autoplay muted loop playsinline class="video-bg" id="hero-video">
+            <source src="{{ '/assets/images/Neural_G_5.mp4' | relative_url }}" type="video/mp4">
         </video>
-        
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
-    </div>
-    
-    <!-- Particles Overlay -->
-    <div class="absolute inset-0 z-1">
-        <img src="{{ '/assets/images/hero_banner_particles.png' | relative_url }}" 
-             alt="Particles" 
-             class="w-full h-full object-cover opacity-30 mix-blend-screen"
-             data-scroll="parallax" 
-             data-speed="0.5">
+        <div class="video-overlay"></div>
     </div>
     
     <div class="text-center max-w-5xl mx-auto relative z-10">
@@ -58,9 +41,17 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
-<!-- Services Section -->
-<section id="services" class="py-32 px-6">
-    <div class="container mx-auto max-w-6xl">
+<!-- Services Section with Video Background -->
+<section id="services" class="py-32 px-6 relative overflow-hidden video-section" data-video-section="services">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video muted loop playsinline class="video-bg">
+            <source src="{{ '/assets/images/hero-video.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="container mx-auto max-w-6xl relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Our Full Stack AI Services</h2>
         <div class="grid md:grid-cols-3 gap-8 mb-12">
             {% include service-card.html 
@@ -111,62 +102,17 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
-<!-- Neural Network Showcase Section -->
-<section class="py-32 px-6 relative overflow-hidden">
-    <div class="container mx-auto max-w-6xl relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
-            Powered by <span class="gradient-text">Advanced Neural Networks</span>
-        </h2>
-        
-        <!-- Neural Network Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="neural-showcase" data-scroll="scale-in">
-                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
-                    <source src="{{ '/assets/images/Neural_G_1.mp4' | relative_url }}" type="video/mp4">
-                </video>
-                <h3 class="text-xl font-semibold mt-4">Deep Learning</h3>
-                <p class="text-gray-400 text-sm mt-2">Advanced neural architectures for complex pattern recognition</p>
-            </div>
-            
-            <div class="neural-showcase" data-scroll="scale-in" data-scroll-delay="100">
-                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
-                    <source src="{{ '/assets/images/Neural_G_2.mp4' | relative_url }}" type="video/mp4">
-                </video>
-                <h3 class="text-xl font-semibold mt-4">Computer Vision</h3>
-                <p class="text-gray-400 text-sm mt-2">State-of-the-art image and video processing capabilities</p>
-            </div>
-            
-            <div class="neural-showcase" data-scroll="scale-in" data-scroll-delay="200">
-                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
-                    <source src="{{ '/assets/images/Neural_G_3.mp4' | relative_url }}" type="video/mp4">
-                </video>
-                <h3 class="text-xl font-semibold mt-4">Natural Language</h3>
-                <p class="text-gray-400 text-sm mt-2">Sophisticated NLP for human-like text understanding</p>
-            </div>
-            
-            <div class="neural-showcase" data-scroll="scale-in" data-scroll-delay="300">
-                <video autoplay muted loop playsinline class="w-full h-64 object-cover rounded-lg">
-                    <source src="{{ '/assets/images/Neural_G_4.mp4' | relative_url }}" type="video/mp4">
-                </video>
-                <h3 class="text-xl font-semibold mt-4">Predictive Analytics</h3>
-                <p class="text-gray-400 text-sm mt-2">Advanced forecasting and decision support systems</p>
-            </div>
-        </div>
+<!-- Tech Stack Section with Video Background -->
+<section class="py-32 px-6 relative overflow-hidden video-section" data-video-section="tech-stack">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video muted loop playsinline class="video-bg">
+            <source src="{{ '/assets/images/hero-promo.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
     </div>
     
-    <!-- Background Brain Visual -->
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5">
-        <img src="{{ '/assets/images/ai-brain-visual.png' | relative_url }}" 
-             alt="AI Brain" 
-             class="w-[800px] h-[800px]"
-             data-scroll="rotate"
-             data-speed="0.1">
-    </div>
-</section>
-
-<!-- Tech Stack Section -->
-<section class="py-32 px-6 glass-effect">
-    <div class="container mx-auto max-w-6xl">
+    <div class="container mx-auto max-w-6xl relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
             Our <span class="gradient-text">Technology Stack</span>
         </h2>
@@ -221,9 +167,17 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
-<!-- About Section -->
-<section id="about" class="py-32 px-6">
-    <div class="container mx-auto max-w-6xl">
+<!-- About Section with Video Background -->
+<section id="about" class="py-32 px-6 relative overflow-hidden video-section" data-video-section="about">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video muted loop playsinline class="video-bg">
+            <source src="{{ '/assets/images/Neural_G_1.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="container mx-auto max-w-6xl relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
             Why Choose <span class="gradient-text">GERDSEN AI?</span>
         </h2>
@@ -263,9 +217,17 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
-<!-- Promotional Video Section -->
-<section class="py-32 px-6 relative overflow-hidden" data-scroll="fade-up">
-    <div class="container mx-auto max-w-6xl">
+<!-- Promotional Video Section with Background -->
+<section class="py-32 px-6 relative overflow-hidden video-section" data-scroll="fade-up" data-video-section="promo">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video muted loop playsinline class="video-bg">
+            <source src="{{ '/assets/images/Neural_G_4.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="container mx-auto max-w-6xl relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
             See Our <span class="gradient-text">AI in Action</span>
         </h2>
@@ -278,9 +240,17 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-32 px-6">
-    <div class="container mx-auto max-w-4xl text-center">
+<!-- CTA Section with Video Background -->
+<section class="py-32 px-6 relative overflow-hidden video-section" data-video-section="cta">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video muted loop playsinline class="video-bg">
+            <source src="{{ '/assets/images/Neural_G_3.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="container mx-auto max-w-4xl text-center relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">
             Ready to Build Your AI Future?
         </h2>
@@ -292,9 +262,17 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
-<!-- Contact Section -->
-<section id="contact" class="py-32 px-6">
-    <div class="container mx-auto max-w-4xl">
+<!-- Contact Section with Video Background -->
+<section id="contact" class="py-32 px-6 relative overflow-hidden video-section" data-video-section="contact">
+    <!-- Video Background -->
+    <div class="video-background">
+        <video muted loop playsinline class="video-bg">
+            <source src="{{ '/assets/images/Neural_G_2.mp4' | relative_url }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="container mx-auto max-w-4xl relative z-10">
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Let's Build Something Amazing</h2>
         <div class="glass-effect rounded-2xl p-12">
             <div class="grid md:grid-cols-2 gap-12">

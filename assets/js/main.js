@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     lightLeak.className = 'light-leak';
     document.body.appendChild(lightLeak);
     
+    // Initialize video scroll effects
+    initVideoScrollEffects();
+    
     // Initialize scroll effects
     initScrollEffects();
     initAppleScrollAnimations();
@@ -19,10 +22,79 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize cursor trail
     initCursorTrail();
-    
-    // Initialize parallax for data-scroll="parallax" elements
-    initParallaxElements();
 });
+
+// Apple-style Video Scroll Effects
+function initVideoScrollEffects() {
+    const videos = document.querySelectorAll('.video-bg');
+    const videoSections = document.querySelectorAll('.video-section, #hero');
+    
+    // Create Intersection Observer for video playback
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target.querySelector('.video-bg');
+            if (video) {
+                if (entry.isIntersecting) {
+                    video.play().catch(e => console.log('Video play failed:', e));
+                    video.classList.add('playing');
+                } else {
+                    video.pause();
+                    video.classList.remove('playing');
+                }
+            }
+        });
+    }, {
+        threshold: 0.25
+    });
+    
+    // Observe all video sections
+    videoSections.forEach(section => {
+        videoObserver.observe(section);
+    });
+    
+    // Scroll-based video animation
+    let ticking = false;
+    function updateVideoEffects() {
+        const scrollY = window.pageYOffset;
+        
+        videoSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const video = section.querySelector('.video-bg');
+            
+            if (video && rect.top < window.innerHeight && rect.bottom > 0) {
+                // Calculate scroll progress through the section
+                const sectionTop = rect.top + scrollY;
+                const sectionHeight = section.offsetHeight;
+                const scrollProgress = (scrollY - sectionTop + window.innerHeight) / (sectionHeight + window.innerHeight);
+                
+                // Apply parallax effect
+                const translateY = scrollProgress * 50 - 25;
+                const scale = 1.2 - (scrollProgress * 0.2);
+                const opacity = 0.3 + (Math.abs(0.5 - scrollProgress) * 0.4);
+                
+                video.style.transform = `translate(-50%, calc(-50% + ${translateY}px)) scale(${scale})`;
+                video.style.opacity = opacity;
+                
+                // Adjust video playback rate based on scroll
+                if (video.playbackRate) {
+                    video.playbackRate = 0.5 + (scrollProgress * 0.5);
+                }
+            }
+        });
+        
+        ticking = false;
+    }
+    
+    function requestVideoTick() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateVideoEffects);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestVideoTick);
+    updateVideoEffects(); // Initial call
+}
 
 // Apple-style Scroll Animations
 function initAppleScrollAnimations() {
@@ -55,21 +127,6 @@ function initAppleScrollAnimations() {
     });
 }
 
-// Parallax Elements
-function initParallaxElements() {
-    const parallaxElements = document.querySelectorAll('[data-scroll="parallax"]');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        
-        parallaxElements.forEach(element => {
-            const speed = element.dataset.speed || 0.5;
-            const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    });
-}
-
 // Advanced Scroll Effects
 function initScrollEffects() {
     let ticking = false;
@@ -78,27 +135,6 @@ function initScrollEffects() {
     function updateScrollEffects() {
         const scrollY = window.pageYOffset;
         const windowHeight = window.innerHeight;
-        
-        // Parallax effect for hero section
-        const hero = document.querySelector('.min-h-screen');
-        if (hero) {
-            const heroLogo = hero.querySelector('.hero-logo');
-            const heroContent = hero.querySelector('.text-center');
-            
-            if (heroLogo) {
-                // Scale and fade logo on scroll
-                const scale = Math.max(0.5, 1 - scrollY * 0.001);
-                const opacity = Math.max(0, 1 - scrollY * 0.002);
-                heroLogo.style.transform = `scale(${scale})`;
-                heroLogo.style.opacity = opacity;
-            }
-            
-            if (heroContent) {
-                // Parallax for content
-                const translateY = scrollY * 0.3;
-                heroContent.style.transform = `translateY(${translateY}px)`;
-            }
-        }
         
         // Handle scroll-triggered animations
         const scrollElements = document.querySelectorAll('[data-scroll]');
@@ -132,10 +168,6 @@ function initScrollEffects() {
                             break;
                         case 'slide-up':
                             element.style.animation = 'slideUp 0.8s ease-out forwards';
-                            break;
-                        case 'rotate':
-                            const rotateSpeed = element.dataset.speed || 1;
-                            element.style.animation = `rotate ${60 / rotateSpeed}s linear infinite`;
                             break;
                     }
                 }, delay);
