@@ -268,16 +268,14 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY - Immediate 100% visibility on first scroll
+        // 5. HERO TEXT VISIBILITY - 100% opacity on first scroll
         if (heroContent) {
             if (scrollY > 1) {
                 // Text becomes 100% visible immediately on any scroll - CSS handles centering
                 heroContent.style.opacity = '1';
-                heroContent.style.textShadow = '0 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.1)'; // Strong text shadow for contrast
             } else {
-                // Text starts at reduced visibility - instantly visible on scroll
-                heroContent.style.opacity = '0.1';
-                heroContent.style.textShadow = 'none';
+                // Text starts invisible - becomes visible on scroll
+                heroContent.style.opacity = '0';
             }
         }
         
