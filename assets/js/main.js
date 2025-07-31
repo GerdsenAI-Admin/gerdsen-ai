@@ -275,7 +275,7 @@ function initConsolidatedScrollSystem() {
                 // Trigger particle effects on first scroll
                 const particlesContainer = document.querySelector('.particles-container');
                 if (particlesContainer) {
-                    particlesContainer.style.opacity = '0.6'; // Make particles visible
+                    particlesContainer.style.opacity = '0.4'; // Subtle spark effect
                     heroSection.classList.add('show-particles');
                 }
             } else {
@@ -427,17 +427,17 @@ function createParticleEffect() {
         particlesContainer.className = 'particles-container';
         heroSection.appendChild(particlesContainer);
         
-        // Create multiple particle elements
-        for (let i = 0; i < 40; i++) {
+        // Create many tiny spark-like particles
+        for (let i = 0; i < 80; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             
-            // Randomize initial position and animation properties
-            const size = Math.random() * 60 + 40; // 40-100px
+            // Tiny spark/snow-like particles
+            const size = Math.random() * 3 + 1; // 1-4px tiny sparks
             const posX = Math.random() * 120 - 10; // -10% to 110%
             const posY = Math.random() * 120 - 10; // -10% to 110%
-            const delay = Math.random() * 5; // 0-5s delay
-            const duration = Math.random() * 15 + 10; // 10-25s animation
+            const delay = Math.random() * 8; // 0-8s delay
+            const duration = Math.random() * 20 + 15; // 15-35s slow drift
             
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;

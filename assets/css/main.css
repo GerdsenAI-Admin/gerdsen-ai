@@ -206,35 +206,52 @@ body {
 
 .particle {
     position: absolute;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.03) 40%, transparent 70%);
+    background: rgba(255, 255, 255, 0.9); /* Bright white sparks */
     border-radius: 50%;
     opacity: 0;
     transform: scale(0);
-    animation: float-particle 20s linear infinite, fade-in-out 10s ease-in-out infinite;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8), 0 0 4px rgba(255, 255, 255, 0.4); /* Glow effect */
+    animation: float-spark 25s linear infinite, sparkle 3s ease-in-out infinite;
 }
 
-@keyframes float-particle {
+@keyframes float-spark {
     0% {
-        transform: translate(0, 0) scale(0.5);
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
     }
     25% {
-        transform: translate(-10%, -15%) scale(0.8);
+        transform: translate(-20px, -30px) scale(0.8);
+        opacity: 1;
     }
     50% {
-        transform: translate(10%, -25%) scale(1);
+        transform: translate(15px, -60px) scale(1.2);
+        opacity: 0.6;
     }
     75% {
-        transform: translate(-5%, -35%) scale(0.8);
+        transform: translate(-10px, -90px) scale(0.6);
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.3;
     }
     100% {
-        transform: translate(0, -50%) scale(0.5);
+        transform: translate(0, -120px) scale(0.4);
+        opacity: 0;
     }
 }
 
-@keyframes fade-in-out {
-    0%, 100% { opacity: 0; }
-    20%, 80% { opacity: 0.3; }
-    50% { opacity: 0.5; }
+@keyframes sparkle {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2);
+    }
 }
 
 .hero-title {
