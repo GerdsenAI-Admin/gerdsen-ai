@@ -226,21 +226,19 @@ function initConsolidatedScrollSystem() {
             // Navigation stays fixed - no movement
         }
         
-        // 3. ELEMENT ANIMATIONS (fade in on scroll)
+        // 3. ELEMENT ANIMATIONS (fade in on scroll) - FIXED: Make elements 100% visible
         animElements.forEach(element => {
             const rect = element.getBoundingClientRect();
             const elementTop = rect.top + scrollY;
             
             const distanceFromTop = scrollY + windowHeight - elementTop;
-            const scrollProgress = Math.min(Math.max(distanceFromTop / (windowHeight + rect.height), 0), 1);
+            const scrollProgress = Math.min(Math.max(distanceFromTop / (windowHeight * 0.3), 0), 1);
             
-            if (scrollProgress > 0) {
+            if (scrollProgress > 0.1) {
                 element.classList.add('in-view');
-                const yTransform = (1 - scrollProgress) * 30;
-                const opacityValue = Math.min(scrollProgress * 1.3, 1);
-                
-                element.style.transform = `translate3d(0, ${yTransform}px, 0)`;
-                element.style.opacity = opacityValue;
+                // Make elements 100% visible when in view
+                element.style.transform = `translate3d(0, 0, 0)`;
+                element.style.opacity = '1';
             }
         });
         
@@ -268,13 +266,25 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY - 100% opacity on first scroll
+        // 5. HERO TEXT VISIBILITY & PARTICLE EFFECTS - 100% opacity and particles on first scroll
         if (heroContent) {
             if (scrollY > 1) {
                 // Text becomes 100% visible immediately on any scroll - CSS handles centering
                 heroContent.style.opacity = '1';
+                
+                // Trigger particle effects on first scroll
+                const particlesContainer = document.querySelector('.particles-container');
+                if (particlesContainer) {
+                    particlesContainer.style.opacity = '0.6'; // Make particles visible
+                    heroSection.classList.add('show-particles');
+                }
             } else {
                 // Text starts invisible - becomes visible on scroll
+                const particlesContainer = document.querySelector('.particles-container');
+                if (particlesContainer) {
+                    particlesContainer.style.opacity = '0'; // Hide particles initially
+                    heroSection.classList.remove('show-particles');
+                }
                 heroContent.style.opacity = '0';
             }
         }
