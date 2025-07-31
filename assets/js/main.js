@@ -19,26 +19,58 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerInitialAnimations();
 });
 
-// Fix video sources for GitHub Pages deployment
+// Fix video sources for GitHub Pages deployment and ensure proper loading
 function fixVideoSources() {
-    const videoElements = document.querySelectorAll('video source');
+    const videoElements = document.querySelectorAll('video');
     const basePath = window.location.hostname === 'gerdsen.ai' ? '' : '/gerdsen-ai';
     
-    videoElements.forEach(source => {
-        let src = source.getAttribute('src');
-        if (!src) return;
+    // First pass - fix sources
+    videoElements.forEach(video => {
+        const sources = video.querySelectorAll('source');
         
-        // Fix paths for GitHub Pages
-        if (src.startsWith('/') && !src.startsWith(basePath)) {
-            // Add the GitHub Pages base path if needed
-            src = basePath + src;
-            source.setAttribute('src', src);
-        }
+        sources.forEach(source => {
+            let src = source.getAttribute('src');
+            if (!src) return;
+            
+            // Fix paths for GitHub Pages
+            if (src.startsWith('/') && !src.startsWith(basePath)) {
+                src = basePath + src;
+                source.setAttribute('src', src);
+            }
+        });
         
-        // Force video reload regardless of path changes
-        const video = source.parentElement;
+        // Add load event listener to mark videos as loaded
+        video.addEventListener('loadeddata', () => {
+            video.classList.add('loaded');
+            
+            // If it's a hero video, mark the hero section as video-loaded
+            if (video.closest('.hero-section')) {
+                const heroSection = video.closest('.hero-section');
+                heroSection.classList.add('video-loaded');
+                console.log('Hero video loaded successfully');
+            }
+        });
+        
+        // Add error handling for debugging
+        video.addEventListener('error', (e) => {
+            console.error('Video loading error:', e);
+        });
+        
+        // Force video reload
         video.load();
-        video.play().catch(e => console.log('Video autoplay issue:', e));
+        
+        // Attempt to play the video
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('Video autoplay issue:', error);
+                // Add user interaction detection for autoplay issues
+                document.addEventListener('click', () => {
+                    video.play().catch(e => console.log('Still cannot play video:', e));
+                }, { once: true });
+            });
+        }
     });
 }
 
@@ -110,7 +142,7 @@ function initScrollBasedAnimations() {
 function initAdvancedParallax() {
     const parallaxItems = document.querySelectorAll('[data-video-parallax], .section-title, .hero-title, .hero-description');
     let lastScrollY = 0;
-    const heroVideoTransitionPoint = window.innerHeight * 0.3; // Transition point for hero video effect
+    const heroVideoTransitionPoint = window.innerHeight * 0.15; // Lower transition point to show effect sooner
     
     // Create a scroll handler for smooth parallax with enhanced sequence
     const parallaxHandler = throttle(() => {
@@ -118,41 +150,57 @@ function initAdvancedParallax() {
         const windowHeight = window.innerHeight;
         const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
         
+        // Add/remove scrolled class for hero section based on scroll position
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+            if (scrollY > heroVideoTransitionPoint / 2) {
+                heroSection.classList.add('scrolled');
+            } else {
+                heroSection.classList.remove('scrolled');
+            }
+        }
+        
         // Process hero video backgrounds - enhanced sequence animation
         document.querySelectorAll('.hero-section [data-video-parallax]').forEach((video) => {
             const section = video.closest('[data-video-section]');
             if (!section) return;
             
             const rect = section.getBoundingClientRect();
-            const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.7), 1);
+            const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.5), 1);
             
             // Animation Phases:
-            // 1. Initial state - full scale video
-            // 2. As scroll begins - video stays in place while text animates
-            // 3. At transition point - video zooms out/exits
-            // 4. After transition - particle/smoke effects visible
+            // 1. Initial state - full scale prominent video (large, clear)
+            // 2. As scroll begins - video starts to blur and recede while text becomes visible
+            // 3. At transition point - video continues to blur and move back in z-space
+            // 4. After transition - particles/smoke effects visible with video as background
             
             if (scrollY < heroVideoTransitionPoint) {
-                // Phase 1-2: Initial to scroll begins - static with minor parallax
+                // Phase 1-2: Initial to scroll begins - start with large clear video
                 const yPos = -(rect.top * 0.2); // Slight parallax effect
-                const initialScale = 1.1;
-                video.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0) scale(${initialScale})`;
-                video.style.opacity = 0.8;
+                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.05; // Start larger, slightly reduce
+                const initialBlur = (scrollY / heroVideoTransitionPoint) * 2; // Start adding slight blur
+                const zPos = -(scrollY / heroVideoTransitionPoint) * 10; // Start moving back slightly
+                
+                video.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), ${zPos}px) scale(${initialScale})`;
+                video.style.filter = `blur(${initialBlur}px)`;
+                video.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.3; // Start with full opacity
             } else {
-                // Phase 3-4: Transition to zoomed out
-                const zoomOutProgress = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.4), 1);
-                const scaleValue = 1.1 * (1 - zoomOutProgress) + 0.7 * zoomOutProgress; // Zoom out from 1.1 to 0.7
-                const yOffset = zoomOutProgress * -100; // Move up as it zooms out
-                const zOffset = zoomOutProgress * 100; // Move back in z-space
-                const opacityValue = 0.8 * (1 - zoomOutProgress) + 0.4 * zoomOutProgress; // Fade as it zooms out
+                // Phase 3-4: More pronounced transition effect
+                const progressBeyondTransition = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
+                const scaleValue = 1.1 - progressBeyondTransition * 0.15; // Reduce from 1.1 to 0.95
+                const blurValue = 2 + progressBeyondTransition * 6; // Increase blur from 2px to 8px
+                const zOffset = -10 - progressBeyondTransition * 40; // Move further back in z-space
+                const yOffset = progressBeyondTransition * -20; // Slight move up as it recedes
+                const opacityValue = 0.7 - progressBeyondTransition * 0.2; // More pronounced fade
                 
                 video.style.transform = `translate3d(-50%, calc(-50% + ${yOffset}px), ${zOffset}px) scale(${scaleValue})`;
+                video.style.filter = `blur(${blurValue}px)`;
                 video.style.opacity = opacityValue;
                 
-                // Add smoke effect class once we reach a certain threshold
-                if (zoomOutProgress > 0.5 && !section.classList.contains('show-particles')) {
+                // Add smoke/particle effect when sufficiently scrolled
+                if (progressBeyondTransition > 0.3 && !section.classList.contains('show-particles')) {
                     section.classList.add('show-particles');
-                } else if (zoomOutProgress <= 0.3 && section.classList.contains('show-particles')) {
+                } else if (progressBeyondTransition <= 0.2 && section.classList.contains('show-particles')) {
                     section.classList.remove('show-particles');
                 }
             }
@@ -185,26 +233,35 @@ function initAdvancedParallax() {
             const rect = section.getBoundingClientRect();
             
             // Different speeds and effects for different elements
-            if (item.classList.contains('hero-title') || item.classList.contains('hero-description')) {
-                // Special animation for hero text elements - stay visible longer
-                const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.8), 1);
+            if (item.classList.contains('hero-title') || item.classList.contains('hero-description') || 
+                item.classList.contains('hero-buttons')) {
+                // Special animation for hero text elements - initially hidden, then appear on scroll
+                const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.6), 1);
                 
-                // Make text elements enter and stay until the video starts to zoom out
-                if (scrollY < heroVideoTransitionPoint) {
-                    // Phase 1-2: Text appears and stays
-                    const entryProgress = Math.min(scrollY / (heroVideoTransitionPoint * 0.5), 1);
-                    const yOffset = 50 * (1 - entryProgress);
-                    const opacityValue = Math.min(entryProgress * 1.5, 1);
+                if (scrollY < heroVideoTransitionPoint * 0.5) {
+                    // Phase 1: Text hidden initially
+                    const initialProgress = Math.min(scrollY / (heroVideoTransitionPoint * 0.5), 1);
+                    const yOffset = 30 * (1 - initialProgress);
+                    const opacityValue = Math.min(initialProgress * 2, 0.3); // Start appearing but faintly
+                    const zOffset = -20 + initialProgress * 10; // Move from back to front
                     
-                    item.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+                    item.style.transform = `translate3d(0, ${yOffset}px, ${zOffset}px)`;
+                    item.style.opacity = opacityValue;
+                } else if (scrollY < heroVideoTransitionPoint * 3) {
+                    // Phase 2-3: Text becomes fully visible as video blurs
+                    const visibleProgress = Math.min((scrollY - heroVideoTransitionPoint * 0.5) / (heroVideoTransitionPoint * 1.5), 1);
+                    const zOffset = -10 + visibleProgress * 30; // Continue moving forward in z-space
+                    const opacityValue = 0.3 + visibleProgress * 0.7; // Increase opacity to full
+                    
+                    item.style.transform = `translate3d(0, 0, ${zOffset}px)`;
                     item.style.opacity = opacityValue;
                 } else {
-                    // Phase 3-4: Text fades out as video zooms out
-                    const exitProgress = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
-                    const yOffset = -50 * exitProgress;
-                    const opacityValue = 1 - exitProgress;
+                    // Phase 4: Text stays visible but starts subtle fade as user scrolls far down
+                    const exitProgress = Math.min((scrollY - heroVideoTransitionPoint * 3) / (windowHeight * 0.5), 1);
+                    const yOffset = -20 * exitProgress;
+                    const opacityValue = 1 - exitProgress * 0.3;
                     
-                    item.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+                    item.style.transform = `translate3d(0, ${yOffset}px, 20px)`;
                     item.style.opacity = opacityValue;
                 }
             } else {
@@ -267,14 +324,36 @@ function triggerInitialAnimations() {
     // Create particles for hero section
     createParticleEffect();
     
-    // Staggered animation for hero elements with enhanced timing
+    // Initial state: video prominently displayed, text initially hidden
+    const heroSection = document.querySelector('.hero-section');
+    const heroVideo = document.querySelector('.hero-section .background-video');
+    const heroContent = document.querySelector('.hero-section .hero-content');
+    
+    // Ensure hero content is hidden initially
+    if (heroContent) {
+        heroContent.style.opacity = '0';
+        heroContent.style.transform = 'translate3d(0, 30px, -20px)';
+        heroContent.style.zIndex = '1'; // Lower z-index initially
+    }
+    
+    if (heroVideo) {
+        // Set initial video state - large, clear, and prominent
+        heroVideo.style.opacity = '1'; // Fully visible initially
+        heroVideo.style.transform = 'translate(-50%, -50%) scale(1.15)';
+        heroVideo.style.filter = 'blur(0px)';
+    }
+    
+    // Staggered animation for hero elements only after scroll
     setTimeout(() => {
         const heroElements = document.querySelectorAll('.hero-section [data-scroll-fade]');
         heroElements.forEach((el, index) => {
+            // Initially make sure these are invisible until scroll
+            el.style.opacity = '0';
+            el.style.transform = 'translate3d(0, 30px, -20px)';
+            
+            // We'll trigger their visibility on scroll instead of immediately
             setTimeout(() => {
                 el.classList.add('in-view');
-                el.style.opacity = 1;
-                el.style.transform = 'translate3d(0, 0, 0)';
             }, index * 200); // Stagger effect
         });
     }, 500); // Delayed start to ensure video is loaded
@@ -285,7 +364,8 @@ function triggerInitialAnimations() {
     });
     
     // Initialize all video backgrounds with priority loading for hero
-    const heroVideo = document.querySelector('.hero-section .background-video');
+    // We already have a heroVideo variable, so no need to redeclare it
+    // Load and play the hero video if it exists
     if (heroVideo) {
         heroVideo.load();
         heroVideo.play()
