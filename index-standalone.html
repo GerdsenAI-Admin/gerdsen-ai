@@ -12,6 +12,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace !important;
+        }
+
+        /* Global font override to ensure San Francisco Mono everywhere */
+        body, h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace !important;
         }
 
         html {
@@ -19,12 +25,13 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
             background: #000;
             color: #fff;
             overflow-x: hidden;
             line-height: 1.6;
             min-height: 200vh; /* Make page scrollable */
+            font-weight: 400;
         }
 
         /* Apple-style Section Structure */
@@ -495,7 +502,7 @@
             margin-top: 40px;
         }
 
-        /* Navigation */
+        /* Navigation - Always Visible, Never Disappears */
         nav {
             position: fixed;
             top: 0;
@@ -504,13 +511,30 @@
             z-index: 1000;
             padding: 20px 40px;
             backdrop-filter: blur(20px);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             transition: all 0.3s ease;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+            font-weight: 500;
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            min-height: 60px;
         }
 
         nav.scrolled {
-            padding: 15px 40px;
+            padding: 12px 40px;
             background: rgba(0, 0, 0, 0.95);
+            transform: translateY(0) scale(0.95);
+            min-height: 50px;
+        }
+
+        /* Prevent nav from ever being hidden */
+        nav.hidden {
+            transform: translateY(0) scale(0.9) !important;
+            opacity: 0.95 !important;
+            padding: 8px 40px !important;
+            min-height: 45px !important;
         }
 
         /* Glass Effect */

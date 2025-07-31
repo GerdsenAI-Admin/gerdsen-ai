@@ -7,6 +7,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace !important;
+}
+
+/* Global font override to ensure San Francisco Mono everywhere */
+body, h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace !important;
 }
 
 html {
@@ -14,11 +20,12 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
     background: #000;
     color: #fff;
     overflow-x: hidden;
     line-height: 1.6;
+    font-weight: 400;
 }
 
 /* Apple-style Section Structure */
@@ -80,7 +87,7 @@ body {
     transform: translate(-50%, -50%) scale(1.0) translateZ(-20px);
 }
 
-/* Video Overlay for better text readability */
+/* Video Overlay - Reduced Darkness for Better Visibility */
 .video-container::after {
     content: '';
     position: absolute;
@@ -88,31 +95,36 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%); /* Lighter initial overlay */
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%); /* Much lighter overlay */
     pointer-events: none;
     transition: background 0.8s ease;
 }
 
-/* Darker overlay when scrolled for better text contrast */
+/* Slightly darker overlay when scrolled - but still readable */
 .hero-section.scrolled .video-container::after {
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
 }
 
-/* Hero Content */
+/* Hero Content - Improved Visibility */
 .hero-content {
     position: relative;
-    z-index: 1; /* Lower z-index initially */
+    z-index: 10; /* Higher z-index for better visibility */
     text-align: center;
     max-width: 1200px;
     padding: 0 40px;
-    opacity: 0; /* Start with invisible text */
+    opacity: 1; /* Make visible by default */
     transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), z-index 0.01s linear 0.4s;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.4); /* Subtle background for contrast */
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
 }
 
-/* Hero content will become visible and move to front when scrolling begins */
+/* Hero content enhanced when scrolling */
 .hero-section.scrolled .hero-content {
     opacity: 1;
-    z-index: 10; /* Higher z-index when scrolled */
+    z-index: 15; /* Even higher z-index when scrolled */
+    background: rgba(0, 0, 0, 0.6);
 }
 
 /* Particles for Hero Animation */
@@ -171,20 +183,25 @@ body {
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(30px) translateZ(0);
+    opacity: 1; /* Make visible by default */
+    transform: translateY(0) translateZ(0);
     transition: opacity 1s ease, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .hero-description {
     font-size: clamp(1.2rem, 2vw, 1.5rem);
-    color: rgba(255, 255, 255, 1); /* Increased from 0.8 to 1 for better contrast */
+    color: rgba(255, 255, 255, 1);
     max-width: 800px;
     margin: 0 auto 40px;
-    opacity: 0;
-    transform: translateY(30px) translateZ(0);
+    opacity: 1; /* Make visible by default */
+    transform: translateY(0) translateZ(0);
     transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Added text shadow for better contrast */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    font-weight: 400;
 }
 
 .hero-buttons {
@@ -192,19 +209,24 @@ body {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    opacity: 0;
-    transform: translateY(30px) translateZ(0);
+    opacity: 1; /* Make visible by default */
+    transform: translateY(0) translateZ(0);
     transition: opacity 1.4s ease, transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
 }
 
-/* Section Content */
+/* Section Content - Enhanced Visibility */
 .section-content {
     position: relative;
     z-index: 10;
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
 }
 
 .section-title {
@@ -213,6 +235,9 @@ body {
     text-align: center;
     margin-bottom: 60px;
     letter-spacing: -0.02em;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 /* Gradient Text */
@@ -522,7 +547,7 @@ body {
     margin-top: 40px;
 }
 
-/* Navigation */
+/* Navigation - Always Visible, Never Disappears */
 nav {
     position: fixed;
     top: 0;
@@ -531,13 +556,30 @@ nav {
     z-index: 1000;
     padding: 20px 40px;
     backdrop-filter: blur(20px);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+    font-weight: 500;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    min-height: 60px;
 }
 
 nav.scrolled {
-    padding: 15px 40px;
+    padding: 12px 40px;
     background: rgba(0, 0, 0, 0.95);
+    transform: translateY(0) scale(0.95);
+    min-height: 50px;
+}
+
+/* Prevent nav from ever being hidden */
+nav.hidden {
+    transform: translateY(0) scale(0.9) !important;
+    opacity: 0.95 !important;
+    padding: 8px 40px !important;
+    min-height: 45px !important;
 }
 
 /* Apple-style navigation with tab effects */
