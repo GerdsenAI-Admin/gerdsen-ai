@@ -1,483 +1,292 @@
----
-layout: default
-title: Full Stack AI Solutions - From Concept to Production
----
-
-<!-- Hero Section with Neural_G_5 Video Background -->
-<section class="hero-section" data-video-section id="home">
-    <!-- Video Background -->
-    <div class="video-container">
-        <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
-            <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
-            <source src="assets/images/hero-video.mp4" type="video/mp4">
-            <source src="assets/images/hero-promo.mp4" type="video/mp4">
-            <source src="assets/images/white_black_smoke_1.mp4" type="video/mp4">
-            <!-- Fallback text for screen readers and browsers that don't support video -->
-            <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.</p>
-        </video>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack AI Solutions - From Concept to Production - GERDSEN AI</title>
+    <meta name="description" content="Full stack AI solutions from concept to production. We architect, build, and deploy AI systems across the entire stack.">
     
-    <!-- Logo Hero Element with Animated Video -->
-    <div class="logo-hero">
-        <div class="logo-container" style="background-color: rgba(0, 0, 0, 0.3); box-shadow: 0 0 70px rgba(0, 100, 255, 0.5);">
-            <!-- Added a static background element visible behind video -->
-            <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                <div style="font-size: 200px; font-weight: bold; background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 30px rgba(78, 115, 248, 0.8);">G</div>
+    <!-- Apple-style Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- OpenGraph Tags for Social Sharing -->
+    <meta property="og:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta property="og:description" content="We architect, build, and deploy AI systems across the entire stack. From concept to production, local or cloud.">
+    <meta property="og:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+    <meta property="og:url" content="https://gerdsen.ai/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta name="twitter:description" content="Full stack AI solutions from concept to production.">
+    <meta name="twitter:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://gerdsen.ai/">
+    
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gerdsen-ai-logo.png">
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl font-semibold mono">GERDSEN AI</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
             </div>
-            <video autoplay muted loop playsinline preload="auto" class="hero-logo" id="logo-video" style="position: relative; object-fit: cover; transform: scale(1.2);">
+        </div>
+    </nav>
+
+    <!-- Hero Section with Neural_G_5 Video Background - THE MAIN ATTRACTION -->
+    <section class="hero-section" data-video-section id="home">
+        <!-- Video Background -->
+        <div class="video-container">
+            <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
                 <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
-                <source src="assets/images/hero-video.mp4" type="video/mp4">
-                <source src="assets/images/hero-promo.mp4" type="video/mp4">
-                <source src="assets/images/white_black_smoke_1.mp4" type="video/mp4">
-                <!-- Fallback for browsers that don't support video -->
-                <img src="assets/images/gerdsen-ai-logo.png" alt="Gerdsen AI Logo">
+                <!-- Fallback text for screen readers and browsers that don't support video -->
+                <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.</p>
             </video>
         </div>
-    </div>
-    
-    <!-- Hero Content -->
-    <div class="hero-content">
-        <h1 class="hero-title" data-scroll-fade>
-            Full Stack AI Solutions<br>
-            <span class="gradient-text">From Concept to Production</span>
-        </h1>
-        <p class="hero-description" data-scroll-fade data-delay="200">
-            We architect, build, and deploy AI systems across the entire stack. Local or cloud, 
-            training or inference, POC or production - we deliver comprehensive AI solutions 
-            tailored to your business needs.
-        </p>
-        <div class="hero-buttons" data-scroll-fade data-delay="400">
-            <a href="#contact" class="button-primary">Start Your AI Journey</a>
-            <a href="#services" class="button-secondary">Explore Our Stack</a>
-        </div>
-    </div>
-</section>
-
-<!-- Services Section with hero-video.mp4 -->
-<section id="services" class="content-section" data-video-section>
-    <div class="video-container">
-        <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="AI technology visualization background">
-            <source src="assets/images/hero-video.mp4" type="video/mp4">
-            <!-- Fallback text for screen readers -->
-            <p>Your browser does not support HTML5 video. The background shows AI technology visualization.</p>
-        </video>
-    </div>
-    
-    <div class="section-content">
-        <h2 class="section-title" data-scroll-fade>Our Full Stack AI Services</h2>
-        <div class="services-grid" data-scroll-fade data-delay="200">
-            <div class="service-card">
-                <div class="text-4xl mb-6 text-blue-500">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4 mono">AI Strategy & Consulting</h3>
-                <p class="text-gray-400">Define your AI roadmap. We assess your needs, identify opportunities, and architect solutions that deliver real business value.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="text-4xl mb-6 text-purple-500">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4 mono">Custom AI Development</h3>
-                <p class="text-gray-400">Build bespoke AI solutions. From LLMs to computer vision, we develop and integrate AI models tailored to your specific use cases.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="text-4xl mb-6 text-pink-500">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4 mono">Production Deployment</h3>
-                <p class="text-gray-400">Scale with confidence. We handle MLOps, infrastructure, monitoring, and optimization for both cloud and on-premise deployments.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="text-4xl mb-6 text-green-500">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4 mono">Model Training & Fine-tuning</h3>
-                <p class="text-gray-400">Optimize AI for your domain. We train custom models, fine-tune existing ones, and implement RAG systems with your data.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="text-4xl mb-6 text-yellow-500">
-                    <i class="fas fa-cloud"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4 mono">Cloud & Hybrid Workflows</h3>
-                <p class="text-gray-400">Flexible infrastructure solutions. We design cost-effective architectures spanning AWS, Azure, GCP, and private clouds.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="text-4xl mb-6 text-red-500">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4 mono">Secure Local Deployment</h3>
-                <p class="text-gray-400">Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance.</p>
-            </div>
-        </div>
-        <div class="text-center mt-12">
-            <a href="#" class="button-primary magnetic">Schedule a Consultation</a>
-        </div>
-    </div>
-</section>
-
-<!-- Tech Stack Section with hero-promo.mp4 -->
-<section class="content-section tech-stack" data-video-section>
-    <div class="video-container">
-        <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Technology stack visualization background">
-            <source src="assets/images/hero-promo.mp4" type="video/mp4">
-            <!-- Fallback text for screen readers -->
-            <p>Your browser does not support HTML5 video. The background shows technology stack visualization.</p>
-        </video>
-    </div>
-    
-    <div class="section-content">
-        <h2 class="section-title" data-scroll-fade>
-            Our <span class="gradient-text">Technology Stack</span>
-        </h2>
-        <div class="bento-grid" data-scroll-fade data-delay="200">
-            <div class="bento-item large">
-                <h3 class="text-2xl font-bold mb-4 flex items-center">
-                    <i class="fas fa-layer-group mr-3 text-blue-500"></i>
-                    Foundation Models
-                </h3>
-                <p class="text-gray-400">GPT-4, Claude, Llama, Mistral, Gemini, and custom fine-tuned models. We work with the best models for your use case.</p>
-            </div>
-            
-            <div class="bento-item">
-                <h3 class="text-xl font-bold mb-3 flex items-center">
-                    <i class="fas fa-database mr-3 text-purple-500"></i>
-                    Vector Databases
-                </h3>
-                <p class="text-gray-400 text-sm">Pinecone, Weaviate, Qdrant, pgvector</p>
-            </div>
-            
-            <div class="bento-item">
-                <h3 class="text-xl font-bold mb-3 flex items-center">
-                    <i class="fas fa-tools mr-3 text-pink-500"></i>
-                    MLOps Tools
-                </h3>
-                <p class="text-gray-400 text-sm">MLflow, Weights & Biases, Kubeflow, Ray</p>
-            </div>
-            
-            <div class="bento-item tall">
-                <h3 class="text-xl font-bold mb-3 flex items-center">
-                    <i class="fas fa-server mr-3 text-green-500"></i>
-                    Infrastructure
-                </h3>
-                <ul class="text-gray-400 text-sm space-y-2">
-                    <li>• AWS SageMaker</li>
-                    <li>• Azure ML</li>
-                    <li>• Google Vertex AI</li>
-                    <li>• NVIDIA DGX</li>
-                    <li>• Kubernetes</li>
-                    <li>• Local GPU Clusters</li>
-                </ul>
-            </div>
-            
-            <div class="bento-item">
-                <h3 class="text-xl font-bold mb-3 flex items-center">
-                    <i class="fas fa-code-branch mr-3 text-yellow-500"></i>
-                    Frameworks
-                </h3>
-                <p class="text-gray-400 text-sm">PyTorch, TensorFlow, JAX, Hugging Face, LangChain</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Apple-Style Sticky Product Showcase -->
-<section class="sticky-section">
-    <div class="sticky-container">
-        <div class="section-content">
-            <div class="text-center mb-12">
-                <h2 class="callout-text" data-scroll-fade>
-                    Experience <span class="gradient-text">Real-time AI</span>
-                </h2>
-                <p class="callout-small mb-12" data-scroll-fade data-delay="200">
-                    Powerful on-device models that run locally
-                </p>
-            </div>
-            
-            <div class="product-display" data-scroll-fade data-delay="300">
-                <div class="product-rotate">
-                    <!-- Placeholder for a 3D product image -->
-                    <img src="https://placehold.co/800x500/000/fff?text=AI+Model+Visualization" alt="3D visualization of an AI model architecture showing neural networks and data processing pathways">
-                </div>
-            </div>
-            
-            <div class="text-center mt-8 reveal-content">
-                <a href="#contact" class="button-apple-buy">Learn More</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- About Section -->
-<section id="about" class="content-section no-video">
-    <div class="section-content">
-        <h2 class="section-title" data-scroll-fade>
-            Why Choose <span class="gradient-text">GERDSEN AI?</span>
-        </h2>
-        <div class="features-grid" data-scroll-fade data-delay="200">
-            <div class="feature-item">
-                <div class="glass-effect rounded-xl p-8">
-                    <div class="flex items-start space-x-4">
-                        <div class="text-2xl text-blue-500 mt-1">
-                            <i class="fas fa-infinity"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
-                            <p class="text-gray-400">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="feature-item">
-                <div class="glass-effect rounded-xl p-8">
-                    <div class="flex items-start space-x-4">
-                        <div class="text-2xl text-purple-500 mt-1">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-2">Flexible Deployment</h3>
-                            <p class="text-gray-400">Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="feature-item">
-                <div class="glass-effect rounded-xl p-8">
-                    <div class="flex items-start space-x-4">
-                        <div class="text-2xl text-green-500 mt-1">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-2">Production-Ready Solutions</h3>
-                            <p class="text-gray-400">We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="feature-item">
-                <div class="glass-effect rounded-xl p-8">
-                    <div class="flex items-start space-x-4">
-                        <div class="text-2xl text-pink-500 mt-1">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-2">Ongoing Partnership</h3>
-                            <p class="text-gray-400">Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Apple-style Color Transition Section -->
-<section class="content-section color-transition">
-    <div class="section-content">
-        <h2 class="section-title" data-scroll-fade>
-            The Future of <span class="gradient-text">AI Development</span>
-        </h2>
         
-        <div class="text-center mb-12 reveal-content">
-            <p class="text-xl mb-8">
-                We deliver solutions that evolve with your business needs
+        <!-- Logo Hero Element -->
+        <div class="logo-hero">
+            <div class="logo-container">
+                <!-- Properly positioned G fallback -->
+                <div class="logo-fallback">
+                    <div class="gradient-g">G</div>
+                </div>
+                <video autoplay muted loop playsinline preload="auto" class="hero-logo" id="logo-video">
+                    <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
+                    <!-- Fallback for browsers that don't support video -->
+                    <img src="assets/images/gerdsen-ai-logo.png" alt="Gerdsen AI Logo">
+                </video>
+            </div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-title" data-scroll-fade>
+                Full Stack AI Solutions<br>
+                <span class="gradient-text">From Concept to Production</span>
+            </h1>
+            <p class="hero-description" data-scroll-fade data-delay="200">
+                We architect, build, and deploy AI systems across the entire stack. Local or cloud, 
+                training or inference, POC or production - we deliver comprehensive AI solutions 
+                tailored to your business needs.
+            </p>
+            <div class="hero-buttons" data-scroll-fade data-delay="400">
+                <a href="#contact" class="button-primary">Start Your AI Journey</a>
+                <a href="#services" class="button-secondary">Explore Our Stack</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section - Clean design, no competing video -->
+    <section id="services" class="content-section">
+        <div class="section-content">
+            <h2 class="section-title" data-scroll-fade>Our Full Stack AI Services</h2>
+            <div class="services-grid" data-scroll-fade data-delay="200">
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-blue-500">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">AI Strategy & Consulting</h3>
+                    <p class="text-gray-400">Define your AI roadmap. We assess your needs, identify opportunities, and architect solutions that deliver real business value.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-purple-500">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Custom AI Development</h3>
+                    <p class="text-gray-400">Build bespoke AI solutions. From LLMs to computer vision, we develop and integrate AI models tailored to your specific use cases.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-pink-500">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Production Deployment</h3>
+                    <p class="text-gray-400">Scale with confidence. We handle MLOps, infrastructure, monitoring, and optimization for both cloud and on-premise deployments.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-green-500">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Model Training & Fine-tuning</h3>
+                    <p class="text-gray-400">Optimize AI for your domain. We train custom models, fine-tune existing ones, and implement RAG systems with your data.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-yellow-500">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Cloud & Hybrid Workflows</h3>
+                    <p class="text-gray-400">Flexible infrastructure solutions. We design cost-effective architectures spanning AWS, Azure, GCP, and private clouds.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-red-500">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Secure Local Deployment</h3>
+                    <p class="text-gray-400">Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance.</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="button-primary magnetic">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section no-video">
+        <div class="section-content">
+            <h2 class="section-title" data-scroll-fade>
+                Why Choose <span class="gradient-text">GERDSEN AI?</span>
+            </h2>
+            <div class="features-grid" data-scroll-fade data-delay="200">
+                <div class="feature-item">
+                    <div class="glass-effect rounded-xl p-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl text-blue-500 mt-1">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
+                                <p class="text-gray-400">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="glass-effect rounded-xl p-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl text-purple-500 mt-1">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2">Flexible Deployment</h3>
+                                <p class="text-gray-400">Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="glass-effect rounded-xl p-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl text-green-500 mt-1">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2">Production-Ready Solutions</h3>
+                                <p class="text-gray-400">We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="glass-effect rounded-xl p-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-2xl text-pink-500 mt-1">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-semibold mb-2">Ongoing Partnership</h3>
+                                <p class="text-gray-400">Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section contact-section no-video">
+        <div class="section-content">
+            <h2 class="section-title text-center" data-scroll-fade>Let's Build Something Amazing</h2>
+            <div class="contact-grid" data-scroll-fade data-delay="200">
+                <div class="contact-info">
+                    <h3 class="text-2xl font-semibold mb-6 mono">Contact Information</h3>
+                    <div class="space-y-4 text-gray-400">
+                        <p class="flex items-center space-x-3">
+                            <i class="fas fa-envelope w-5"></i>
+                            <span>contact@gerdsen.ai</span>
+                        </p>
+                        <p class="flex items-center space-x-3">
+                            <i class="fas fa-map-pin w-5"></i>
+                            <span>Lafayette, Louisiana</span>
+                        </p>
+                        <p class="flex items-center space-x-3">
+                            <i class="fas fa-calendar w-5"></i>
+                            <span>Founded 2025</span>
+                        </p>
+                    </div>
+                    <div class="mt-8">
+                        <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
+                    </div>
+                </div>
+                <div class="expertise-info">
+                    <h3 class="text-2xl font-semibold mb-6 mono">Our Expertise</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Large Language Models (LLMs)</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Computer Vision & NLP</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>MLOps & Infrastructure</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Cloud & Edge Deployment</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>Custom AI Development</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-gray-800">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-500">&copy; 2025 GERDSEN AI LLC. All rights reserved.</p>
+            <p class="text-sm text-gray-600 mt-2">
+                Proudly serving Louisiana businesses with secure, local AI solutions.
             </p>
         </div>
-        
-        <div class="specs-grid" data-scroll-fade data-delay="200">
-            <div class="spec-item">
-                <div class="spec-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <div class="spec-title">Processing Speed</div>
-                <div class="spec-value">Up to 10x faster than traditional solutions</div>
-            </div>
-            
-            <div class="spec-item">
-                <div class="spec-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <div class="spec-title">Deployment Time</div>
-                <div class="spec-value">From prototype to production in days, not months</div>
-            </div>
-            
-            <div class="spec-item">
-                <div class="spec-icon">
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div class="spec-title">Data Security</div>
-                <div class="spec-value">Enterprise-grade encryption & local processing</div>
-            </div>
-        </div>
-    </div>
-</section>
+    </footer>
 
-<!-- Apple-style Expandable Specs Section -->
-<section class="specs-section">
-    <div class="specs-container">
-        <h2 class="section-title" data-scroll-fade>Technical Specifications</h2>
-        
-        <div class="expandable-section" data-scroll-fade data-delay="200">
-            <div class="expandable-header">
-                <h3>Model Architectures</h3>
-                <div class="expandable-icon"></div>
-            </div>
-            <div class="expandable-content">
-                <table class="compare-table">
-                    <tr>
-                        <th>Type</th>
-                        <th>Use Cases</th>
-                        <th>Deployment</th>
-                    </tr>
-                    <tr>
-                        <td>Transformer-based LLMs</td>
-                        <td>Text generation, summarization, Q&A</td>
-                        <td>Cloud / Local</td>
-                    </tr>
-                    <tr>
-                        <td>Vision Transformers</td>
-                        <td>Image recognition, object detection</td>
-                        <td>Edge / Cloud</td>
-                    </tr>
-                    <tr>
-                        <td>Hybrid Architectures</td>
-                        <td>Multi-modal applications</td>
-                        <td>Custom deployment</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        
-        <div class="expandable-section" data-scroll-fade data-delay="300">
-            <div class="expandable-header">
-                <h3>Infrastructure Requirements</h3>
-                <div class="expandable-icon"></div>
-            </div>
-            <div class="expandable-content">
-                <table class="compare-table">
-                    <tr>
-                        <th>Deployment Type</th>
-                        <th>Minimum Specs</th>
-                        <th>Recommended Specs</th>
-                    </tr>
-                    <tr>
-                        <td>Cloud-based</td>
-                        <td>4 vCPUs, 16GB RAM</td>
-                        <td>8+ vCPUs, 32GB+ RAM, GPU acceleration</td>
-                    </tr>
-                    <tr>
-                        <td>On-premise Server</td>
-                        <td>8 cores, 32GB RAM, NVIDIA T4</td>
-                        <td>16+ cores, 64GB+ RAM, NVIDIA A100</td>
-                    </tr>
-                    <tr>
-                        <td>Edge Deployment</td>
-                        <td>Quad-core ARM, 8GB RAM</td>
-                        <td>NVIDIA Jetson or Apple Silicon</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="content-section cta-section no-video">
-    <div class="section-content text-center">
-        <h2 class="section-title" data-scroll-fade>
-            Ready to Build Your AI Future?
-        </h2>
-        <p class="text-xl text-gray-400 mb-12" data-scroll-fade data-delay="200">
-            Whether you need a complete AI transformation or targeted solutions, 
-            we have the expertise to deliver results across the entire stack.
-        </p>
-        <a href="#contact" class="button-primary text-lg" data-scroll-fade data-delay="400">Schedule a Consultation</a>
-    </div>
-</section>
-
-<!-- Apple-style Image Gallery Section -->
-<section class="content-section no-video">
-    <div class="section-content">
-        <h2 class="section-title" data-scroll-fade>Solutions Showcase</h2>
-        
-        <div class="image-gallery" data-scroll-fade data-delay="200">
-            <div class="gallery-container">
-                <div class="gallery-item">
-                    <img src="https://placehold.co/1200x500/000/fff?text=AI+Solution+1" alt="Enterprise-scale AI solution deployed for data analytics showing interactive dashboard and model performance metrics">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/1200x500/000/fff?text=AI+Solution+2" alt="On-premise AI deployment for a manufacturing client showcasing computer vision system for quality control">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://placehold.co/1200x500/000/fff?text=AI+Solution+3" alt="Custom large language model implementation for automated customer support with privacy-focused architecture">
-                </div>
-            </div>
-            <div class="gallery-nav">
-                <div class="gallery-dot"></div>
-                <div class="gallery-dot"></div>
-                <div class="gallery-dot"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="content-section contact-section no-video">
-    <div class="section-content">
-        <h2 class="section-title text-center" data-scroll-fade>Let's Build Something Amazing</h2>
-        <div class="contact-grid" data-scroll-fade data-delay="200">
-            <div class="contact-info">
-                <h3 class="text-2xl font-semibold mb-6 mono">Contact Information</h3>
-                <div class="space-y-4 text-gray-400">
-                    <p class="flex items-center space-x-3">
-                        <i class="fas fa-envelope w-5"></i>
-                        <span>contact@gerdsen.ai</span>
-                    </p>
-                    <p class="flex items-center space-x-3">
-                        <i class="fas fa-map-pin w-5"></i>
-                        <span>Lafayette, Louisiana</span>
-                    </p>
-                    <p class="flex items-center space-x-3">
-                        <i class="fas fa-calendar w-5"></i>
-                        <span>Founded 2025</span>
-                    </p>
-                </div>
-                <div class="mt-8">
-                    <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
-                </div>
-            </div>
-            <div class="expertise-info">
-                <h3 class="text-2xl font-semibold mb-6 mono">Our Expertise</h3>
-                <ul class="space-y-3 text-gray-400">
-                    <li class="flex items-center space-x-3">
-                        <i class="fas fa-check text-green-500"></i>
-                        <span>Large Language Models (LLMs)</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <i class="fas fa-check text-green-500"></i>
-                        <span>Computer Vision & NLP</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <i class="fas fa-check text-green-500"></i>
-                        <span>MLOps & Infrastructure</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <i class="fas fa-check text-green-500"></i>
-                        <span>Cloud & Edge Deployment</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <i class="fas fa-check text-green-500"></i>
-                        <span>Custom AI Development</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

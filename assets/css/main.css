@@ -56,6 +56,54 @@ body {
     margin-top: -20px; /* Slight overlap to eliminate gaps */
 }
 
+/* Logo Hero Element Positioning - Fix for floating G */
+.logo-hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.logo-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 70px rgba(0, 100, 255, 0.5);
+}
+
+.logo-fallback {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.gradient-g {
+    font-size: 200px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(78, 115, 248, 0.8);
+}
+
+.hero-logo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.2);
+    z-index: 2;
+}
+
 /* Improved visibility for all content elements */
 .service-card, .bento-item, .feature-item, .section-title {
     opacity: 0;
