@@ -938,4 +938,25 @@ nav {
         transition: opacity 0.3s ease;
     }
     
-    .video-controls
+    .video-controls:hover {
+        opacity: 1;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus styles for accessibility */
+.button-primary:focus,
+.button-secondary:focus,
+.gallery-dot:focus,
+.video-controls:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+}

@@ -1301,9 +1301,16 @@
 
 <!-- Hero Section with Gerdsen AI Logo as focal point -->
 <section class="hero-section" data-video-section id="home">
-    <!-- Video Background - starts hidden/dark -->
-    <div class="video-container" style="background: #000;">
-        <!-- No video initially, just dark background -->
+    <!-- Video Background -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
+            <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
+            <source src="assets/images/hero-video.mp4" type="video/mp4">
+            <source src="assets/images/hero-promo.mp4" type="video/mp4">
+            <source src="assets/images/white_black_smoke_1.mp4" type="video/mp4">
+            <!-- Fallback text for screen readers and browsers that don't support video -->
+            <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.</p>
+        </video>
     </div>
     
     <!-- Logo Hero Element with Animated Video -->
