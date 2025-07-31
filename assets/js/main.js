@@ -216,20 +216,14 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 2. NAVIGATION EFFECTS
+        // 2. NAVIGATION EFFECTS - Keep stationary
         if (nav) {
             if (scrollY > 50) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
             }
-            
-            // Hide/show based on scroll direction
-            if (scrollY > lastScrollY && scrollY > 100) {
-                nav.style.top = '-80px';
-            } else {
-                nav.style.top = '0';
-            }
+            // Navigation stays fixed - no movement
         }
         
         // 3. ELEMENT ANIMATIONS (fade in on scroll)
@@ -274,18 +268,16 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY - Maintain CSS centering
+        // 5. HERO TEXT VISIBILITY - Let CSS handle positioning
         if (heroContent) {
             if (scrollY > heroVideoTransitionPoint * 0.3) {
-                // Text becomes visible and stays centered
+                // Text becomes visible - CSS handles centering
                 heroContent.style.opacity = '1';
-                heroContent.style.transform = 'translate(-50%, -50%)'; // Maintain CSS centering
             } else {
-                // Text starts invisible but centered
+                // Text starts invisible - NO transforms, let CSS center it
                 const progress = scrollY / (heroVideoTransitionPoint * 0.3);
                 const opacityValue = Math.min(progress * 1.5, 1);
                 heroContent.style.opacity = opacityValue;
-                heroContent.style.transform = `translate(-50%, calc(-50% + ${(1-progress) * 20}px))`; // Keep centered while animating
             }
         }
         
