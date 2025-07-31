@@ -244,8 +244,8 @@ body {
     letter-spacing: -0.03em;
     margin-bottom: 30px;
     opacity: 0;
-    transform: translateY(30px) translateZ(0);
-    transition: opacity 1s ease, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    /* REMOVED transform - was causing positioning conflicts */
+    transition: opacity 1s ease;
 }
 
 .hero-description {
@@ -254,8 +254,8 @@ body {
     max-width: 800px;
     margin: 0 auto 40px;
     opacity: 0;
-    transform: translateY(30px) translateZ(0);
-    transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    /* REMOVED transform - was causing positioning conflicts */
+    transition: opacity 1.2s ease;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Added text shadow for better contrast */
 }
 
@@ -265,8 +265,8 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     opacity: 0;
-    transform: translateY(30px) translateZ(0);
-    transition: opacity 1.4s ease, transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+    /* REMOVED transform - was causing positioning conflicts */
+    transition: opacity 1.4s ease;
 }
 
 /* Section Content */

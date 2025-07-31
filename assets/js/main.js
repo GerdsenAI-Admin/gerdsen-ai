@@ -357,7 +357,8 @@ function triggerInitialAnimations() {
         heroElements.forEach((el, index) => {
             // Initially make sure these are invisible until scroll
             el.style.opacity = '0';
-            el.style.transform = 'translate3d(0, 30px, -20px)';
+            // REMOVED: el.style.transform - was causing positioning conflicts
+            // CSS handles all positioning, JavaScript only handles opacity
             
             // We'll trigger their visibility on scroll instead of immediately
             setTimeout(() => {
