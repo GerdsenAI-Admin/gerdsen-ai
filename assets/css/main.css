@@ -857,15 +857,6 @@ body {
     background-color: rgba(0,0,0,0.4);
 }
 
-/* Enhanced nav transitions */
-nav {
-    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-                transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-                top 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-    will-change: transform, top, background-color;
-    backface-visibility: hidden;
-}
-
 /* No Video Sections */
 .no-video {
     background: #000;
