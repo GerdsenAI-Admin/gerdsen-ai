@@ -7,8 +7,8 @@ description: >-
   GERDSEN AI delivers Full Stack AI solutions: from local deployments to cloud workflows, 
   model training to production systems. We handle every layer of your AI infrastructure 
   with expertise in LLMs, vector databases, MLOps, and custom AI development.
-baseurl: "/gerdsen-ai" 
-url: "https://gerdsenai-admin.github.io"
+baseurl: "" 
+url: "https://gerdsen.ai"
 twitter_username: 
 github_username: GerdsenAI-Admin
 
