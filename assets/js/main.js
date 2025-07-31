@@ -250,17 +250,17 @@ function initConsolidatedScrollSystem() {
             
             if (scrollY < heroVideoTransitionPoint) {
                 const yPos = -(rect.top * 0.2);
-                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.25; // Faster scale reduction
-                const initialBlur = (scrollY / heroVideoTransitionPoint) * 8; // More aggressive blur
+                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.35; // Even faster scale reduction
+                const initialBlur = (scrollY / heroVideoTransitionPoint) * 12; // More aggressive blur
                 
                 heroVideo.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0) scale(${initialScale})`;
                 heroVideo.style.filter = `blur(${initialBlur}px)`;
-                heroVideo.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.6; // More dimming
+                heroVideo.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.75; // More dimming
             } else {
                 const progressBeyondTransition = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
-                const scaleValue = 0.9 - progressBeyondTransition * 0.15; // Smaller final scale
-                const blurValue = 8 + progressBeyondTransition * 10; // Heavier blur
-                const opacityValue = 0.4 - progressBeyondTransition * 0.2; // More dimmed
+                const scaleValue = 0.8 - progressBeyondTransition * 0.2; // Even smaller final scale
+                const blurValue = 12 + progressBeyondTransition * 15; // Heavier blur
+                const opacityValue = 0.25 - progressBeyondTransition * 0.15; // Much more dimmed
                 
                 heroVideo.style.transform = `translate3d(-50%, -50%, 0) scale(${scaleValue})`;
                 heroVideo.style.filter = `blur(${blurValue}px)`;
