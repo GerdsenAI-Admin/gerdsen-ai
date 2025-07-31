@@ -178,12 +178,13 @@ body {
 
 .hero-description {
     font-size: clamp(1.2rem, 2vw, 1.5rem);
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 1); /* Increased from 0.8 to 1 for better contrast */
     max-width: 800px;
     margin: 0 auto 40px;
     opacity: 0;
     transform: translateY(30px) translateZ(0);
     transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Added text shadow for better contrast */
 }
 
 .hero-buttons {
@@ -282,6 +283,7 @@ body {
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 122, 255, 0.3); /* Added box shadow for better visibility */
 }
 
 .button-primary:hover {
@@ -892,6 +894,77 @@ nav {
     .button-secondary {
         width: 100%;
         text-align: center;
+        padding: 18px 32px; /* Increased padding for better tap targets */
+        margin-bottom: 12px; /* Added margin for better spacing */
+    }
+    
+    /* Improved mobile tap targets */
+    .nav-link, 
+    .apple-nav-link {
+        padding: 12px 16px; /* Increased padding for better tap targets */
+        margin: 4px;
+        display: inline-block;
+    }
+    
+    /* Improved spacing for services grid on mobile */
+    .service-card {
+        padding: 30px;
+        margin-bottom: 20px;
+    }
+    
+    /* Improved gallery navigation dots for mobile */
+    .gallery-dot {
+        width: 12px; /* Increased from 8px */
+        height: 12px; /* Increased from 8px */
+        margin: 0 6px; /* Added margin for better spacing */
+    }
+    
+    /* Video controls for accessibility on mobile */
+    .video-controls {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        z-index: 15;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        width: 44px; /* Minimum size for tap targets */
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    
+    .video-controls:hover,
+    .video-controls:focus {
+        opacity: 1;
+    }
+    
+    /* Expandable header bigger touch target */
+    .expandable-header {
+        padding: 25px 0;
+    }
+    
+    /* Larger icon for expandable sections */
+    .expandable-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .expandable-icon::before {
+        width: 20px;
+        height: 2px;
+        top: 9px;
+    }
+    
+    .expandable-icon::after {
+        width: 2px;
+        height: 20px;
+        top: 0;
+        left: 9px;
     }
 }
 
@@ -932,14 +1005,24 @@ nav {
 
 /* Navigation Link Styles */
 .nav-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 1); /* Increased from 0.8 to 1 for better contrast */
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
     font-weight: 400;
+    padding: 8px 12px; /* Added padding for better tap targets */
+    border-radius: 4px; /* Added border radius for better visual */
 }
 
 .nav-link:hover {
-    color: #007AFF;
+    color: #fff;
+    background-color: rgba(0, 122, 255, 0.2); /* Added background color for better hover state */
+}
+
+/* Active state for navigation */
+.nav-link.active {
+    color: #fff;
+    background-color: rgba(0, 122, 255, 0.4);
+    font-weight: 500;
 }
 
 /* Apple-style product display */
@@ -986,7 +1069,8 @@ nav {
 .callout-small {
     font-size: clamp(1.3rem, 3vw, 1.8rem);
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 1); /* Increased from 0.8 to 1 for better contrast */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Added text shadow for better contrast */
 }
 
 /* Apple-style tech specs expandable */

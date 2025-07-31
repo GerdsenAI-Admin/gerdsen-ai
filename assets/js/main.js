@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerInitialAnimations();
 });
 
-// Fix video sources for GitHub Pages deployment and ensure proper loading
+// Fix video sources for GitHub Pages deployment and ensure proper loading with improved error handling
 function fixVideoSources() {
     const videoElements = document.querySelectorAll('video');
     const basePath = window.location.hostname === 'gerdsen.ai' ? '' : '/gerdsen-ai';
@@ -27,6 +27,7 @@ function fixVideoSources() {
     // First pass - fix sources
     videoElements.forEach(video => {
         const sources = video.querySelectorAll('source');
+        const videoContainer = video.closest('.video-container');
         
         sources.forEach(source => {
             let src = source.getAttribute('src');
@@ -51,27 +52,142 @@ function fixVideoSources() {
             }
         });
         
-        // Add error handling for debugging
+        // Enhanced error handling
         video.addEventListener('error', (e) => {
             console.error('Video loading error:', e);
+            
+            // Add fallback background if video fails to load
+            if (videoContainer) {
+                videoContainer.classList.add('video-error');
+                
+                // Apply a gradient background as fallback
+                videoContainer.style.background = 'linear-gradient(135deg, #000 0%, #222 50%, #000 100%)';
+                
+                // Show error message only in development
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'video-error-message';
+                    errorMsg.textContent = 'Video could not be loaded. Please check the console for details.';
+                    errorMsg.style.position = 'absolute';
+                    errorMsg.style.bottom = '10px';
+                    errorMsg.style.left = '10px';
+                    errorMsg.style.color = 'rgba(255,255,255,0.7)';
+                    errorMsg.style.fontSize = '12px';
+                    errorMsg.style.padding = '5px';
+                    errorMsg.style.zIndex = '10';
+                    videoContainer.appendChild(errorMsg);
+                }
+            }
         });
+        
+        // Add accessibility controls for videos
+        addVideoControls(video, videoContainer);
         
         // Force video reload
         video.load();
         
-        // Attempt to play the video
-        const playPromise = video.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log('Video autoplay issue:', error);
-                // Add user interaction detection for autoplay issues
-                document.addEventListener('click', () => {
-                    video.play().catch(e => console.log('Still cannot play video:', e));
-                }, { once: true });
-            });
+        // Attempt to play the video with improved mobile handling
+        playVideoWithFallbacks(video);
+    });
+}
+
+// Add accessibility controls to videos
+function addVideoControls(video, container) {
+    // Skip if container doesn't exist
+    if (!container) return;
+    
+    // Create control button
+    const controlBtn = document.createElement('button');
+    controlBtn.className = 'video-controls';
+    controlBtn.setAttribute('aria-label', 'Toggle video playback');
+    controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    
+    // Add button to container
+    container.appendChild(controlBtn);
+    
+    // Toggle play/pause on button click
+    controlBtn.addEventListener('click', () => {
+        if (video.paused) {
+            video.play();
+            controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            video.pause();
+            controlBtn.innerHTML = '<i class="fas fa-play"></i>';
         }
     });
+    
+    // Update button state when video state changes
+    video.addEventListener('play', () => {
+        controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    });
+    
+    video.addEventListener('pause', () => {
+        controlBtn.innerHTML = '<i class="fas fa-play"></i>';
+    });
+    
+    // Hide controls initially
+    controlBtn.style.opacity = '0';
+    
+    // Show controls on hover
+    container.addEventListener('mouseenter', () => {
+        controlBtn.style.opacity = '0.7';
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        controlBtn.style.opacity = '0';
+    });
+}
+
+// Play video with improved fallbacks and mobile handling
+function playVideoWithFallbacks(video) {
+    // Detect mobile devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Different handling based on device type
+    if (isMobile) {
+        // On mobile, only attempt to play hero videos automatically
+        if (video.closest('.hero-section')) {
+            attemptPlayback(video);
+        } else {
+            // For non-hero videos on mobile, wait until they're in viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        attemptPlayback(video);
+                        observer.unobserve(video);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            observer.observe(video);
+        }
+    } else {
+        // On desktop, attempt to play all videos
+        attemptPlayback(video);
+    }
+}
+
+// Helper function to attempt video playback
+function attemptPlayback(video) {
+    const playPromise = video.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log('Video autoplay issue:', error);
+            
+            // Mark video as having autoplay issues
+            video.setAttribute('data-autoplay-failed', 'true');
+            
+            // Add user interaction detection for autoplay issues
+            document.addEventListener('click', () => {
+                if (video.getAttribute('data-autoplay-failed') === 'true') {
+                    video.play().then(() => {
+                        video.removeAttribute('data-autoplay-failed');
+                    }).catch(e => console.log('Still cannot play video:', e));
+                }
+            }, { once: true });
+        });
+    }
 }
 
 // Advanced Scroll-Based Animations - Apple Style
@@ -473,17 +589,76 @@ function throttle(func, wait = 16) {
     };
 }
 
-// Video Loading Optimization
+// Enhanced Video Loading Optimization
 document.addEventListener('DOMContentLoaded', () => {
     const videos = document.querySelectorAll('.background-video');
     
+    // Detect connection speed
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const isSaveData = connection && connection.saveData;
+    const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+    
+    // Detect mobile devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
     videos.forEach(video => {
-        // Ensure videos start playing
-        video.play().catch(e => {
-            console.log('Video autoplay failed:', e);
-        });
+        // Check for slow connection or save-data mode
+        if (isSaveData || isSlowConnection) {
+            // Show a message about data saving mode if needed
+            const container = video.closest('.video-container');
+            if (container) {
+                container.classList.add('video-data-saving');
+                container.style.background = 'linear-gradient(135deg, #000 0%, #111 50%, #000 100%)';
+                
+                // Create static image fallback
+                const staticImage = document.createElement('div');
+                staticImage.className = 'static-fallback';
+                staticImage.style.position = 'absolute';
+                staticImage.style.top = '0';
+                staticImage.style.left = '0';
+                staticImage.style.width = '100%';
+                staticImage.style.height = '100%';
+                staticImage.style.background = 'radial-gradient(ellipse at center, rgba(0,122,255,0.1) 0%, rgba(0,0,0,0) 70%)';
+                container.appendChild(staticImage);
+            }
+            
+            // Prevent video loading
+            video.setAttribute('preload', 'none');
+            video.pause();
+            
+            console.log('Video loading disabled due to data saving mode or slow connection');
+            return;
+        }
         
-        // Optimize video loading
+        // Mobile optimization - lower quality for mobile
+        if (isMobile) {
+            // Add data-mobile attribute to mark for potential quality switching
+            video.setAttribute('data-mobile', 'true');
+            
+            // Mobile-specific optimizations can be added here
+            // For example, we could switch to a lower quality video source for mobile
+        }
+        
+        // Optimize video loading with visibility detection
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Only load when in viewport
+                    entry.target.classList.add('loaded');
+                    
+                    // Attempt to play only when visible
+                    entry.target.play().catch(e => {
+                        console.log('Video autoplay failed:', e);
+                    });
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        observer.observe(video);
+        
+        // Handle loadeddata event
         video.addEventListener('loadeddata', () => {
             video.classList.add('loaded');
         });
