@@ -199,7 +199,7 @@ function initConsolidatedScrollSystem() {
     const colorSections = document.querySelectorAll('.color-transition');
     
     let lastScrollY = 0;
-    const heroVideoTransitionPoint = window.innerHeight * 0.04; // 200% faster blur - reduced from 0.08
+    const heroVideoTransitionPoint = window.innerHeight * 0.01; // First mm of scroll triggers blur
     
     // Single consolidated scroll handler
     const masterScrollHandler = throttle(() => {
@@ -244,23 +244,23 @@ function initConsolidatedScrollSystem() {
             }
         });
         
-        // 4. VIDEO PARALLAX EFFECTS
+        // 4. VIDEO PARALLAX EFFECTS - Immediate blur/scale/dim on first scroll
         if (heroVideo && heroSection) {
             const rect = heroSection.getBoundingClientRect();
             
             if (scrollY < heroVideoTransitionPoint) {
                 const yPos = -(rect.top * 0.2);
-                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.05;
-                const initialBlur = (scrollY / heroVideoTransitionPoint) * 2;
+                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.25; // Faster scale reduction
+                const initialBlur = (scrollY / heroVideoTransitionPoint) * 8; // More aggressive blur
                 
                 heroVideo.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0) scale(${initialScale})`;
                 heroVideo.style.filter = `blur(${initialBlur}px)`;
-                heroVideo.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.3;
+                heroVideo.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.6; // More dimming
             } else {
                 const progressBeyondTransition = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
-                const scaleValue = 1.1 - progressBeyondTransition * 0.15;
-                const blurValue = 2 + progressBeyondTransition * 6;
-                const opacityValue = 0.7 - progressBeyondTransition * 0.2;
+                const scaleValue = 0.9 - progressBeyondTransition * 0.15; // Smaller final scale
+                const blurValue = 8 + progressBeyondTransition * 10; // Heavier blur
+                const opacityValue = 0.4 - progressBeyondTransition * 0.2; // More dimmed
                 
                 heroVideo.style.transform = `translate3d(-50%, -50%, 0) scale(${scaleValue})`;
                 heroVideo.style.filter = `blur(${blurValue}px)`;
