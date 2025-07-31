@@ -55,7 +55,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 10; /* High z-index initially to be prominent */
+            z-index: 10; /* Lower than logo initially */
             will-change: transform, filter, opacity, z-index;
             transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
@@ -79,7 +79,7 @@
         
         /* Active scroll state for videos */
         .video-container.scrolled {
-            z-index: 0; /* Move behind content when scrolled */
+            z-index: 5; /* Move further behind content when scrolled */
             transform: translateZ(-50px) scale(0.95);
         }
         
@@ -167,43 +167,34 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 20; /* Highest z-index initially - this is the star! */
+            z-index: 75; /* High z-index initially - this is the star! */
             opacity: 1;
             transform: scale(1) translateZ(0);
             transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
             will-change: transform, opacity, filter, z-index;
-            pointer-events: auto;
         }
         
         .logo-container {
-            width: min(90vw, 800px);
-            height: min(90vw, 800px);
-            max-width: 100%;
-            max-height: 80vh;
-            aspect-ratio: 1 / 1;
+            width: 400px;
+            height: 400px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             border-radius: 15px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 70px rgba(0, 100, 255, 0.5);
+            background-color: transparent;
         }
         
         .hero-logo {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            filter: drop-shadow(0 0 30px rgba(78, 115, 248, 0.8));
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(78, 115, 248, 0.4));
             transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
             background: transparent;
             max-width: 100%;
             max-height: 100%;
-            opacity: 1;
-            z-index: 10;
-            transform: scale(1.2);
         }
         
         .logo-text {
@@ -223,7 +214,7 @@
             opacity: 0;
             filter: blur(20px);
             transform: scale(0.8) translateZ(-100px);
-            z-index: 0; /* Move behind everything */
+            z-index: 25; /* Move behind content but not everything */
         }
         
         /* Ensure video elements in the logo container behave properly */
@@ -245,17 +236,16 @@
             max-width: 1200px;
             padding: 0 40px;
             transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-            transform: translateY(50px);
+            transform: translateY(100vh) translateZ(-50px); /* Use transform instead of margin */
             opacity: 0; /* Initially completely hidden */
             will-change: transform, z-index, opacity;
             pointer-events: none; /* Prevent interaction with hidden content */
-            margin-top: 100vh; /* Push content down initially */
         }
         
         /* Active scroll state brings content forward */
         .hero-content.scrolled {
             z-index: 30; /* Highest z-index when scrolled */
-            transform: translateY(0); /* Push forward in 3D space */
+            transform: translateY(0) translateZ(0); /* Move to normal position with no offset */
             opacity: 1; /* Fully visible */
             pointer-events: auto; /* Re-enable interaction when visible */
         }
@@ -667,11 +657,6 @@
             .bento-item.large {
                 grid-column: span 2;
             }
-            
-            .logo-container {
-                width: min(90vw, 600px);
-                height: min(90vw, 600px);
-            }
         }
 
         @media (max-width: 768px) {
@@ -685,16 +670,6 @@
             
             .section-content {
                 padding: 0 20px;
-            }
-            
-            .logo-container {
-                width: min(85vw, 400px);
-                height: min(85vw, 400px);
-                margin: 0 auto;
-            }
-            
-            .logo-container div[style*="font-size: 200px"] {
-                font-size: 100px !important;
             }
             
             .services-grid,
@@ -854,19 +829,15 @@
                         content.style.opacity = shouldScroll ? "1" : "0";
                         content.style.pointerEvents = shouldScroll ? "auto" : "none";
                         content.style.marginTop = shouldScroll ? "0" : "100vh";
+                        // Use transform for better performance
+                        content.style.transform = shouldScroll ? "translateY(0) translateZ(0)" : "translateY(100vh) translateZ(-50px)";
                     }
                 }
             }
         }
         
-        // Add multiple event listeners for better compatibility
-        window.addEventListener('scroll', updateHeroScroll);
-        window.addEventListener('wheel', updateHeroScroll);
-        document.addEventListener('scroll', updateHeroScroll);
-        
-        // Check on load and after a delay
-        updateHeroScroll();
-        setTimeout(updateHeroScroll, 100);
+        // Initialize the unified scroll handler (removing duplicates)
+        // updateHeroScroll will be handled by the unified handler below
         
         document.addEventListener('DOMContentLoaded', () => {
             // Fix video sources
@@ -894,12 +865,12 @@
                 heroContent.style.opacity = "0";
                 heroContent.classList.remove('scrolled');
                 heroContent.style.pointerEvents = "none";
-                heroContent.style.marginTop = "100vh";
+                heroContent.style.transform = "translateY(100vh) translateZ(-50px)"; // Use transform instead of margin
             }
             
             if (logoHero) {
                 logoHero.style.opacity = "1";
-                logoHero.style.zIndex = "20";
+                logoHero.style.zIndex = "75"; // Updated z-index
                 logoHero.classList.remove('scrolled');
             }
             
@@ -920,84 +891,16 @@
             
             // Ensure the video is properly loaded and playing
             if (logoVideo) {
-                console.log('Logo video element found:', logoVideo);
-                
-                // Force visibility
-                logoVideo.style.opacity = "1";
-                logoVideo.style.visibility = "visible";
-                
-                // Check if video sources are available
-                const sources = logoVideo.querySelectorAll('source');
-                console.log(`Found ${sources.length} video sources`);
-                sources.forEach(source => {
-                    console.log(`Video source: ${source.src}`);
-                    // Try to preload the video source
-                    const tempVideo = document.createElement('video');
-                    tempVideo.src = source.src;
-                    tempVideo.load();
-                });
-                
-                // Add debug info when video loads
-                logoVideo.addEventListener('loadeddata', () => {
-                    console.log('Logo video loaded successfully!');
-                    // Make a visual indicator that video loaded
-                    document.querySelector('.logo-container').style.boxShadow = '0 0 50px rgba(0, 255, 100, 0.5)';
-                });
-                
-                // Add debug info for errors
-                logoVideo.addEventListener('error', (e) => {
-                    console.error('Logo video error:', e);
-                    document.querySelector('.logo-container').style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
-                    
-                    // Try the next source if available
-                    const sources = logoVideo.querySelectorAll('source');
-                    const currentSource = Array.from(sources).findIndex(s => s.src === logoVideo.currentSrc);
-                    
-                    if (currentSource < sources.length - 1) {
-                        console.log(`Trying next video source: ${sources[currentSource + 1].src}`);
-                        logoVideo.src = sources[currentSource + 1].src;
-                        logoVideo.load();
-                        logoVideo.play().catch(err => console.log('Could not play next source:', err));
-                    }
-                });
-                
-                // Try to play the video
                 logoVideo.play().catch(e => {
                     console.log('Auto-play prevented. User interaction needed:', e);
-                    
                     // Add visual cue that interaction is needed
                     logoVideo.setAttribute('poster', 'assets/images/gerdsen-ai-logo.png');
                     
-                    // Add a click-to-play overlay that's more noticeable
-                    const container = document.querySelector('.logo-container');
-                    container.style.background = 'rgba(0, 122, 255, 0.1)';
-                    
-                    // Create a play button overlay
-                    const playButton = document.createElement('div');
-                    playButton.innerHTML = '<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); border-radius: 15px; z-index: 20;"><div style="width: 80px; height: 80px; background: rgba(0, 122, 255, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div><div style="margin-top: 15px; color: white; font-size: 18px; font-weight: 500;">Click to Play</div></div>';
-                    container.appendChild(playButton.firstChild);
-                    
                     // Allow clicking anywhere to start video
                     document.addEventListener('click', () => {
-                        logoVideo.play().catch(err => {
-                            console.log('Still cannot play video:', err);
-                            // If we still can't play, try the next source
-                            const sources = logoVideo.querySelectorAll('source');
-                            if (sources.length > 1) {
-                                logoVideo.src = sources[1].src;
-                                logoVideo.load();
-                                logoVideo.play().catch(finalErr => console.log('Could not play alternate source:', finalErr));
-                            }
-                        });
+                        logoVideo.play().catch(err => console.log('Still cannot play video:', err));
                     }, { once: true });
                 });
-            } else {
-                console.error('Logo video element not found!');
-                // Create a fallback logo if video element isn't found
-                const container = document.querySelector('.logo-container');
-                if (container) {
-                    container.innerHTML = '<div style="font-size: 180px; font-weight: bold; background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 30px rgba(78, 115, 248, 0.8);">G</div>';
-                }
             }
         });
         
@@ -1173,19 +1076,40 @@
                 }
             });
             
-            // Handle scroll events with debugging - using various scroll detection methods
-            const handleScroll = () => {
-                // Try multiple methods to get scroll position
-                const scrollTop = window.pageYOffset || 
-                                document.documentElement.scrollTop || 
-                                document.body.scrollTop || 
-                                window.scrollY || 0;
+            // Unified scroll handler to prevent conflicts and improve performance
+            let ticking = false;
+            
+            function unifiedScrollHandler() {
+                const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
                 
-                console.log('Scroll position:', scrollTop, 'Window height:', window.innerHeight);
+                // Handle hero transitions
+                updateHeroScroll();
                 
-                // Simple scroll detection for hero section
+                // Handle scroll animation for other elements
+                handleScrollAnimation();
+                
+                // Handle depth scroll effects
+                handleDepthScroll(scrollTop);
+                
+                ticking = false;
+            }
+            
+            function requestScrollUpdate() {
+                if (!ticking) {
+                    requestAnimationFrame(unifiedScrollHandler);
+                    ticking = true;
+                }
+            }
+            
+            // Single optimized scroll listener
+            window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+            
+            // Handle other sections scroll
+            function handleDepthScroll(scrollTop) {
                 const heroSection = document.querySelector('.hero-section');
                 if (heroSection) {
+                    const sectionTop = heroSection.offsetTop;
+                    const sectionHeight = heroSection.offsetHeight;
                     const videoContainer = heroSection.querySelector('.video-container');
                     const backgroundVideo = heroSection.querySelector('.background-video');
                     const content = heroSection.querySelector('.hero-content');
@@ -1196,50 +1120,37 @@
                     
                     // Transition when scrolled more than 50px (lowered threshold)
                     if (scrollTop > 50) {
-                        console.log('Adding scrolled class - content should appear');
                         // Scrolled state - content forward, logo and video back
                         if (videoContainer) videoContainer.classList.add('scrolled');
                         if (backgroundVideo) backgroundVideo.classList.add('scrolled');
                         if (logoHero) logoHero.classList.add('scrolled');
                         if (content) {
                             content.classList.add('scrolled');
-                            content.style.opacity = "1"; // Force opacity
-                            content.style.pointerEvents = "auto"; // Force pointer events
-                            content.style.marginTop = "0"; // Force margin reset
+                            content.style.opacity = "1";
+                            content.style.pointerEvents = "auto";
+                            content.style.transform = "translateY(0) translateZ(0)"; // Use transform instead of margin
                         }
                         if (title) title.classList.add('scrolled');
                         if (description) description.classList.add('scrolled');
                         if (buttons) buttons.classList.add('scrolled');
                     } else {
-                        console.log('Removing scrolled class - logo should be prominent');
                         // Initial state - logo forward, content hidden
                         if (videoContainer) videoContainer.classList.remove('scrolled');
                         if (backgroundVideo) backgroundVideo.classList.remove('scrolled');
                         if (logoHero) logoHero.classList.remove('scrolled');
                         if (content) {
                             content.classList.remove('scrolled');
-                            content.style.opacity = "0"; // Force opacity
-                            content.style.pointerEvents = "none"; // Force pointer events
-                            content.style.marginTop = "100vh"; // Force margin
+                            content.style.opacity = "0";
+                            content.style.pointerEvents = "none";
+                            content.style.transform = "translateY(100vh) translateZ(-50px)"; // Use transform instead of margin
                         }
                         if (title) title.classList.remove('scrolled');
                         if (description) description.classList.remove('scrolled');
                         if (buttons) buttons.classList.remove('scrolled');
                     }
                 }
-            };
-            
-            // Add scroll event listeners
-            window.addEventListener('scroll', handleScroll);
-            window.addEventListener('wheel', handleScroll); // Alternative scroll detection
-            document.addEventListener('scroll', handleScroll); // Document scroll
-            
-            // Also check on resize
-            window.addEventListener('resize', () => {
-                console.log('Window resized');
-                handleScroll();
                 
-                // Handle other sections
+                // Handle other sections depth effects
                 const otherSections = document.querySelectorAll('.content-section[data-video-section]');
                 otherSections.forEach(section => {
                     const sectionTop = section.offsetTop;
@@ -1260,13 +1171,16 @@
                         }
                     }
                 });
-            });
+            }
+            
+            // Also check on resize
+            window.addEventListener('resize', requestScrollUpdate);
             
             // Initial check
-            handleScroll();
+            unifiedScrollHandler();
             
             // Force a scroll check after a short delay
-            setTimeout(handleScroll, 100);
+            setTimeout(unifiedScrollHandler, 100);
         }
         
         // Initialize smooth scroll for anchor links
@@ -1309,15 +1223,8 @@
     <!-- Logo Hero Element with Animated Video -->
     <div class="logo-hero">
         <div class="logo-container">
-            <!-- Added a static background element visible behind video -->
-            <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 1;">
-                <div style="font-size: 200px; font-weight: bold; background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 30px rgba(78, 115, 248, 0.8);">G</div>
-            </div>
-            <video autoplay muted loop playsinline preload="auto" class="hero-logo" id="logo-video" style="z-index: 2; position: relative;">
+            <video autoplay muted loop playsinline preload="auto" class="hero-logo" id="logo-video">
                 <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
-                <source src="assets/images/hero-video.mp4" type="video/mp4">
-                <source src="assets/images/hero-promo.mp4" type="video/mp4">
-                <source src="assets/images/white_black_smoke_1.mp4" type="video/mp4">
                 <!-- Fallback for browsers that don't support video -->
                 <img src="assets/images/gerdsen-ai-logo.png" alt="Gerdsen AI Logo">
             </video>
