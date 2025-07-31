@@ -229,7 +229,7 @@ window.addEventListener('scroll', () => {
 // Add visual interest with random floating shapes
 function createFloatingShape() {
     const shapes = ['circle', 'hexagon', 'triangle'];
-    const colors = ['#007AFF', '#5856D6', '#AF52DE', '#FF6B6B'];
+    const colors = ['rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.9)', 'rgba(255, 255, 255, 0.6)', 'rgba(0, 0, 0, 0.7)'];
     
     const shape = document.createElement('div');
     shape.className = 'floating-shape';
