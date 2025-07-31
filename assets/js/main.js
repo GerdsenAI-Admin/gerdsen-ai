@@ -19,24 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerInitialAnimations();
 });
 
-// Fix video sources that might be using Jekyll templating
+// Fix video sources for GitHub Pages deployment
 function fixVideoSources() {
     const videoElements = document.querySelectorAll('video source');
+    const basePath = window.location.hostname === 'gerdsen.ai' ? '' : '/gerdsen-ai';
+    
     videoElements.forEach(source => {
-        const src = source.getAttribute('src');
-        // If the source contains Jekyll templating, replace with direct path
-        if (src && src.includes('{{')) {
-            // Extract the path from the Jekyll template
-            const pathMatch = src.match(/'([^']+)'/);
-            if (pathMatch && pathMatch[1]) {
-                // Use the direct path instead
-                source.setAttribute('src', pathMatch[1]);
-                // Force video reload
-                const video = source.parentElement;
-                video.load();
-                video.play().catch(e => console.log('Video autoplay issue:', e));
-            }
+        let src = source.getAttribute('src');
+        if (!src) return;
+        
+        // Fix paths for GitHub Pages
+        if (src.startsWith('/') && !src.startsWith(basePath)) {
+            // Add the GitHub Pages base path if needed
+            src = basePath + src;
+            source.setAttribute('src', src);
         }
+        
+        // Force video reload regardless of path changes
+        const video = source.parentElement;
+        video.load();
+        video.play().catch(e => console.log('Video autoplay issue:', e));
     });
 }
 
@@ -104,40 +106,76 @@ function initScrollBasedAnimations() {
     scrollHandler();
 }
 
-// Advanced Parallax System
+// Advanced Parallax System with Apple-style Animation Sequence
 function initAdvancedParallax() {
     const parallaxItems = document.querySelectorAll('[data-video-parallax], .section-title, .hero-title, .hero-description');
+    let lastScrollY = 0;
+    const heroVideoTransitionPoint = window.innerHeight * 0.3; // Transition point for hero video effect
     
-    // Create a scroll handler for smooth parallax
+    // Create a scroll handler for smooth parallax with enhanced sequence
     const parallaxHandler = throttle(() => {
         const scrollY = window.scrollY;
         const windowHeight = window.innerHeight;
+        const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
         
-        // Process video backgrounds
-        document.querySelectorAll('[data-video-parallax]').forEach((video, index) => {
+        // Process hero video backgrounds - enhanced sequence animation
+        document.querySelectorAll('.hero-section [data-video-parallax]').forEach((video) => {
+            const section = video.closest('[data-video-section]');
+            if (!section) return;
+            
+            const rect = section.getBoundingClientRect();
+            const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.7), 1);
+            
+            // Animation Phases:
+            // 1. Initial state - full scale video
+            // 2. As scroll begins - video stays in place while text animates
+            // 3. At transition point - video zooms out/exits
+            // 4. After transition - particle/smoke effects visible
+            
+            if (scrollY < heroVideoTransitionPoint) {
+                // Phase 1-2: Initial to scroll begins - static with minor parallax
+                const yPos = -(rect.top * 0.2); // Slight parallax effect
+                const initialScale = 1.1;
+                video.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0) scale(${initialScale})`;
+                video.style.opacity = 0.8;
+            } else {
+                // Phase 3-4: Transition to zoomed out
+                const zoomOutProgress = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.4), 1);
+                const scaleValue = 1.1 * (1 - zoomOutProgress) + 0.7 * zoomOutProgress; // Zoom out from 1.1 to 0.7
+                const yOffset = zoomOutProgress * -100; // Move up as it zooms out
+                const zOffset = zoomOutProgress * 100; // Move back in z-space
+                const opacityValue = 0.8 * (1 - zoomOutProgress) + 0.4 * zoomOutProgress; // Fade as it zooms out
+                
+                video.style.transform = `translate3d(-50%, calc(-50% + ${yOffset}px), ${zOffset}px) scale(${scaleValue})`;
+                video.style.opacity = opacityValue;
+                
+                // Add smoke effect class once we reach a certain threshold
+                if (zoomOutProgress > 0.5 && !section.classList.contains('show-particles')) {
+                    section.classList.add('show-particles');
+                } else if (zoomOutProgress <= 0.3 && section.classList.contains('show-particles')) {
+                    section.classList.remove('show-particles');
+                }
+            }
+        });
+        
+        // Process other video backgrounds normally
+        document.querySelectorAll(':not(.hero-section) [data-video-parallax]').forEach((video) => {
             const section = video.closest('[data-video-section]');
             if (!section) return;
             
             const rect = section.getBoundingClientRect();
             
-            // Different speeds for different elements - more depth
+            // Standard parallax for non-hero videos
             const speed = 0.5;
-            
-            // Calculate parallax offset
             const yPos = -(rect.top * speed);
-            
-            // Apply transform with enhanced 3D effect
             const scale = 1.1 + (Math.abs(rect.top) / windowHeight) * 0.15;
-            const depthOffset = Math.abs(rect.top) / windowHeight * 30; // 3D effect
+            const depthOffset = Math.abs(rect.top) / windowHeight * 30;
             
             video.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), ${-depthOffset}px) scale(${Math.min(scale, 1.4)})`;
-            
-            // Adjust opacity based on scroll position
-            const opacity = 0.65 - (Math.abs(rect.top) / windowHeight) * 0.35;
-            video.style.opacity = Math.max(0.3, Math.min(0.65, opacity));
+            video.style.opacity = Math.max(0.3, Math.min(0.65, 0.65 - (Math.abs(rect.top) / windowHeight) * 0.35));
         });
         
-        // Process text elements for floating effect (like Apple)
+        // Process text elements for enhanced floating effect
         parallaxItems.forEach(item => {
             if (item.hasAttribute('data-video-parallax')) return; // Skip videos
             
@@ -146,17 +184,42 @@ function initAdvancedParallax() {
             
             const rect = section.getBoundingClientRect();
             
-            // Different speeds for different elements
-            const speed = item.classList.contains('hero-title') ? 0.2 : 
-                          item.classList.contains('hero-description') ? 0.25 :
-                          item.classList.contains('section-title') ? 0.15 : 0.1;
-            
-            // Only apply if in view with some margin
-            if (rect.top < windowHeight + 100 && rect.bottom > -100) {
-                const yPos = -(rect.top * speed);
-                item.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            // Different speeds and effects for different elements
+            if (item.classList.contains('hero-title') || item.classList.contains('hero-description')) {
+                // Special animation for hero text elements - stay visible longer
+                const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.8), 1);
+                
+                // Make text elements enter and stay until the video starts to zoom out
+                if (scrollY < heroVideoTransitionPoint) {
+                    // Phase 1-2: Text appears and stays
+                    const entryProgress = Math.min(scrollY / (heroVideoTransitionPoint * 0.5), 1);
+                    const yOffset = 50 * (1 - entryProgress);
+                    const opacityValue = Math.min(entryProgress * 1.5, 1);
+                    
+                    item.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+                    item.style.opacity = opacityValue;
+                } else {
+                    // Phase 3-4: Text fades out as video zooms out
+                    const exitProgress = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
+                    const yOffset = -50 * exitProgress;
+                    const opacityValue = 1 - exitProgress;
+                    
+                    item.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+                    item.style.opacity = opacityValue;
+                }
+            } else {
+                // Standard parallax for other text elements
+                const speed = item.classList.contains('section-title') ? 0.15 : 0.1;
+                
+                // Only apply if in view with some margin
+                if (rect.top < windowHeight + 100 && rect.bottom > -100) {
+                    const yPos = -(rect.top * speed);
+                    item.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                }
             }
         });
+        
+        lastScrollY = scrollY;
     }, 10);
     
     window.addEventListener('scroll', parallaxHandler);
@@ -199,9 +262,12 @@ function initNavigation() {
     window.addEventListener('scroll', navHandler);
 }
 
-// Enhanced Initial Animations
+// Enhanced Initial Animations with Apple-style Sequence
 function triggerInitialAnimations() {
-    // Staggered animation for hero elements
+    // Create particles for hero section
+    createParticleEffect();
+    
+    // Staggered animation for hero elements with enhanced timing
     setTimeout(() => {
         const heroElements = document.querySelectorAll('.hero-section [data-scroll-fade]');
         heroElements.forEach((el, index) => {
@@ -211,26 +277,79 @@ function triggerInitialAnimations() {
                 el.style.transform = 'translate3d(0, 0, 0)';
             }, index * 200); // Stagger effect
         });
-    }, 100);
+    }, 500); // Delayed start to ensure video is loaded
     
     // Add animation classes to all sections
     document.querySelectorAll('section').forEach(section => {
         section.classList.add('animate-ready');
     });
     
-    // Initialize all video backgrounds
-    document.querySelectorAll('.background-video').forEach(video => {
-        // Force video reload with direct paths
-        video.load();
-        video.play().catch(e => console.log('Video autoplay issue:', e));
-    });
+    // Initialize all video backgrounds with priority loading for hero
+    const heroVideo = document.querySelector('.hero-section .background-video');
+    if (heroVideo) {
+        heroVideo.load();
+        heroVideo.play()
+            .then(() => {
+                heroVideo.classList.add('loaded');
+                document.querySelector('.hero-section').classList.add('video-loaded');
+            })
+            .catch(e => console.log('Hero video autoplay issue:', e));
+    }
+    
+    // Load other videos with lower priority
+    setTimeout(() => {
+        document.querySelectorAll(':not(.hero-section) .background-video').forEach(video => {
+            video.load();
+            video.play().catch(e => console.log('Video autoplay issue:', e));
+            
+            // Add loaded class after video starts playing
+            video.addEventListener('playing', () => {
+                video.classList.add('loaded');
+            });
+        });
+    }, 1000);
     
     // Reveal any dynamic content that should be shown immediately
     setTimeout(() => {
         document.querySelectorAll('.reveal-content').forEach(el => {
             el.classList.add('active');
         });
-    }, 500);
+    }, 800);
+}
+
+// Create particle effect for hero section smoke/particles
+function createParticleEffect() {
+    const heroSection = document.querySelector('.hero-section');
+    if (!heroSection) return;
+    
+    // Create particle container if it doesn't exist
+    if (!document.querySelector('.particles-container')) {
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = 'particles-container';
+        heroSection.appendChild(particlesContainer);
+        
+        // Create multiple particle elements
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Randomize initial position and animation properties
+            const size = Math.random() * 60 + 40; // 40-100px
+            const posX = Math.random() * 120 - 10; // -10% to 110%
+            const posY = Math.random() * 120 - 10; // -10% to 110%
+            const delay = Math.random() * 5; // 0-5s delay
+            const duration = Math.random() * 15 + 10; // 10-25s animation
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.top = `${posY}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
 }
 
 // Smooth Scroll for Navigation Links
