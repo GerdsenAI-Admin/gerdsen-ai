@@ -1,6 +1,61 @@
 ---
 ---
 
+/* Fix for content visibility on all devices */
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 640px) {
+    .container {
+        max-width: 640px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+}
+
+/* Ensure hero section is properly sized */
+.min-h-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fix z-index stacking */
+.relative.z-10 {
+    z-index: 10;
+    position: relative;
+}
+
+/* Ensure all sections are visible */
+section:not(.min-h-screen) {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
 /* SF Mono Font Stack */
 @font-face {
     font-family: 'SF Mono';
@@ -14,6 +69,14 @@ body {
     color: #fff;
     overflow-x: hidden;
     position: relative;
+    min-height: 100vh;
+}
+
+/* Ensure sections have proper spacing */
+section {
+    position: relative;
+    width: 100%;
+    overflow: visible;
 }
 
 /* Noise Texture Overlay */
@@ -435,12 +498,22 @@ html {
     width: 240px !important;
     height: 240px !important;
     transition: all 0.3s ease;
+    background: transparent;
+    isolation: isolate;
+}
+
+/* Remove black background from logo */
+.hero-logo,
+.nav-logo {
+    filter: drop-shadow(0 0 20px rgba(0, 122, 255, 0.3));
+    background-color: transparent;
 }
 
 /* Navigation Logo Size */
 .nav-logo {
     width: 48px !important;
     height: 48px !important;
+    background: transparent;
 }
 
 /* Cursor Trail Effect */
@@ -565,9 +638,41 @@ video {
     mix-blend-mode: screen;
 }
 
-/* Responsive Video Grid */
-@media (max-width: 768px) {
+/* Responsive adjustments for better desktop visibility */
+@media (min-width: 768px) {
     .neural-showcase video {
-        height: 200px;
+        height: 320px;
     }
+    
+    section {
+        min-height: auto;
+    }
+}
+
+/* Ensure all content is visible */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Fix for sections being cut off */
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure video backgrounds don't block content */
+.absolute.inset-0 {
+    pointer-events: none;
+}
+
+/* Make sure all interactive elements are clickable */
+a, button, .button-primary, .button-secondary {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
