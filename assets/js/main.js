@@ -199,7 +199,7 @@ function initConsolidatedScrollSystem() {
     const colorSections = document.querySelectorAll('.color-transition');
     
     let lastScrollY = 0;
-    const heroVideoTransitionPoint = window.innerHeight * 0.15;
+    const heroVideoTransitionPoint = window.innerHeight * 0.08; // Faster blur - reduced from 0.15
     
     // Single consolidated scroll handler
     const masterScrollHandler = throttle(() => {
@@ -268,15 +268,15 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY - Let CSS handle positioning
+        // 5. HERO TEXT VISIBILITY - Synced with video blur timing
         if (heroContent) {
-            if (scrollY > heroVideoTransitionPoint * 0.3) {
-                // Text becomes visible - CSS handles centering
+            if (scrollY > heroVideoTransitionPoint * 0.5) {
+                // Text becomes visible as video blurs - CSS handles centering
                 heroContent.style.opacity = '1';
             } else {
-                // Text starts invisible - NO transforms, let CSS center it
-                const progress = scrollY / (heroVideoTransitionPoint * 0.3);
-                const opacityValue = Math.min(progress * 1.5, 1);
+                // Text starts invisible - phases in with video blur
+                const progress = scrollY / (heroVideoTransitionPoint * 0.5);
+                const opacityValue = Math.min(progress * 2, 1); // Faster fade-in
                 heroContent.style.opacity = opacityValue;
             }
         }
