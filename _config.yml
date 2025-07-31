@@ -1,33 +1,8 @@
-# GERDSEN AI
-# Full Stack AI Solutions - From Concept to Production
+# Jekyll Configuration
 
-title: GERDSEN AI - Full Stack AI Solutions
-email: garrett@gerdsen.ai
-description: >- 
-  GERDSEN AI delivers Full Stack AI solutions: from local deployments to cloud workflows, 
-  model training to production systems. We handle every layer of your AI infrastructure 
-  with expertise in LLMs, vector databases, MLOps, and custom AI development.
-baseurl: "" 
-url: "https://gerdsen.ai"
-twitter_username: 
-github_username: GerdsenAI-Admin
+title: GerdsenAI Website
+description: Placeholder for the main description
+author: GerdsenAI Team
+baseurl: /gerdsen-ai
 
-# Build settings
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
-# Exclude files from build
-exclude:
-  - README.md
-  - DEPLOYMENT_GUIDE.md
-  - deploy.sh
-  - JEKYLL_SETUP.md
-  - Gemfile
-  - Gemfile.lock
-
-# Custom variables
-company:
-  founded: 2025
-  ein: "39-3468580"
-  location: "Lafayette, Louisiana"
+google_analytics: 'UA-XXXXX-Y'

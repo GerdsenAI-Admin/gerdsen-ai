@@ -1,0 +1,13 @@
+@import 'bootstrap';
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+
+body {
+  color: $primary-color;
+  background-color: $secondary-color;
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+}
