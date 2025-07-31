@@ -1,3 +1,154 @@
+// Continuous Particle Animation
+function startParticleAnimation() {
+    let animationFrameId;
+    
+    function animateParticles() {
+        const particles = document.querySelectorAll('.particle');
+        const currentTime = Date.now();
+        const scrollY = window.scrollY;
+        
+        particles.forEach((particle, index) => {
+            // Autonomous floating movement
+            const autonomousX = Math.sin(currentTime * 0.001 + index * 0.5) * 15;
+            const autonomousY = Math.cos(currentTime * 0.0008 + index * 0.3) * 10;
+            
+            // Scroll-based movement (only if scrolled)
+            let scrollX = 0;
+            let scrollY_offset = 0;
+            
+            if (scrollY > 1) {
+                const baseSpeed = 0.8 + (index % 5) * 0.3;
+                scrollY_offset = scrollY * baseSpeed;
+                scrollX = Math.sin(scrollY * 0.01 + index) * 20;
+            }
+            
+            // Combine movements
+            const totalX = autonomousX + scrollX;
+            const totalY = -scrollY_offset + autonomousY;
+            
+            // Apply transform
+            particle.style.transform = `translate(${totalX}px, ${totalY}px)`;
+        });
+        
+        animationFrameId = requestAnimationFrame(animateParticles);
+    }
+    
+    // Start the animation loop
+    animateParticles();
+    
+    // Stop animation when page is hidden (performance optimization)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            cancelAnimationFrame(animationFrameId);
+        } else {
+            animateParticles();
+        }
+    });
+}
+
+// Contact Form Handler
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusDiv = document.getElementById('form-status');
+    
+    if (!form) return;
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            company: formData.get('company') || 'Not specified',
+            project: formData.get('project') || 'Not specified',
+            message: formData.get('message')
+        };
+        
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        
+        try {
+            // Using Formspree for form handling (replace with your endpoint)
+            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    company: data.company,
+                    project: data.project,
+                    message: data.message,
+                    _replyto: data.email,
+                    _subject: `New inquiry from ${data.name} - ${data.project}`,
+                    _autoconfirm: 'Thank you for contacting GERDSEN AI! We have received your message and will get back to you within 24 hours.'
+                })
+            });
+            
+            if (response.ok) {
+                // Success
+                statusDiv.className = 'form-status success';
+                statusDiv.textContent = 'Message sent successfully! You will receive a confirmation email shortly.';
+                statusDiv.style.display = 'block';
+                
+                // Reset form
+                form.reset();
+                
+                // Send confirmation email to user (using EmailJS)
+                await sendConfirmationEmail(data);
+                
+            } else {
+                throw new Error('Form submission failed');
+            }
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // Error handling
+            statusDiv.className = 'form-status error';
+            statusDiv.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at contact@gerdsen.ai';
+            statusDiv.style.display = 'block';
+        } finally {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+            
+            // Hide status after 10 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 10000);
+        }
+    });
+}
+
+// Send confirmation email to user
+async function sendConfirmationEmail(data) {
+    try {
+        // This would use EmailJS or similar service for confirmation emails
+        // For now, we'll just log it (replace with actual email service)
+        console.log('Would send confirmation email to:', data.email);
+        
+        // Example using EmailJS (you'd need to set up EmailJS account and template)
+        /*
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            to_email: data.email,
+            from_name: 'GERDSEN AI',
+            to_name: data.name,
+            message: 'Thank you for contacting us! We will get back to you within 24 hours.'
+        });
+        */
+        
+    } catch (error) {
+        console.error('Confirmation email error:', error);
+        // Don't show this error to user as main form submission was successful
+    }
+}
+
 // Mobile Navigation Toggle
 function initMobileNavigation() {
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -80,6 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initial animation trigger
     triggerInitialAnimations();
+    
+    // Initialize contact form
+    initContactForm();
+    
+    // Start continuous particle animation
+    startParticleAnimation();
 });
 
 // Fix video sources for GitHub Pages deployment and ensure proper loading with improved error handling
@@ -349,13 +506,7 @@ function initConsolidatedScrollSystem() {
                     particlesContainer.style.opacity = Math.min(scrollOpacity, 1);
                     heroSection.classList.add('show-particles');
                     
-                    // Add scroll-based particle movement
-                    const particles = document.querySelectorAll('.particle');
-                    particles.forEach((particle, index) => {
-                        const speed = 0.5 + (index % 3) * 0.2; // Varying speeds
-                        const offset = scrollY * speed;
-                        particle.style.transform = `translateY(-${offset}px)`;
-                    });
+                    // Particle movement is now handled by startParticleAnimation()
                 }
             } else {
                 // Text starts invisible - becomes visible on scroll

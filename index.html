@@ -209,50 +209,98 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="content-section contact-section no-video">
-        <div class="section-content">
-            <h2 class="section-title text-center" data-scroll-fade>Let's Build Something Amazing</h2>
-            <div class="contact-grid" data-scroll-fade data-delay="200">
-                <div class="contact-info">
-                    <h3 class="text-2xl font-semibold mb-6 mono">Contact Information</h3>
-                    <div class="space-y-4 text-gray-400">
-                        <p class="flex items-center space-x-3">
+<section id="contact" class="content-section contact-section no-video">
+    <div class="section-content">
+    <h2 class="section-title" data-scroll-fade>Let's Build Something Amazing</h2>
+    
+    <!-- Contact Form -->
+    <div class="contact-form" data-scroll-fade data-delay="200">
+    <form id="contact-form" method="POST">
+    <div class="form-group">
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+    <label for="company">Company</label>
+        <input type="text" id="company" name="company">
+    </div>
+    
+    <div class="form-group">
+            <label for="project">Project Type</label>
+            <select id="project" name="project" class="form-group input">
+            <option value="">Select a project type</option>
+            <option value="ai-consulting">AI Strategy & Consulting</option>
+        <option value="custom-ai">Custom AI Development</option>
+    <option value="deployment">Production Deployment</option>
+    <option value="training">Model Training & Fine-tuning</option>
+        <option value="infrastructure">Cloud & Infrastructure</option>
+        <option value="other">Other</option>
+    </select>
+    </div>
+    
+    <div class="form-group">
+    <label for="message">Message *</label>
+    <textarea id="message" name="message" placeholder="Tell us about your AI project or needs..." required></textarea>
+    </div>
+    
+    <button type="submit" class="form-submit" id="submit-btn">
+    Send Message
+    </button>
+    
+    <div id="form-status" class="form-status" style="display: none;"></div>
+    </form>
+    </div>
+    
+    <!-- Contact Information -->
+    <div class="contact-info-footer" data-scroll-fade data-delay="400">
+            <div class="contact-grid-footer">
+                <div class="contact-info-item">
+                    <h3 class="text-xl font-semibold mb-4 mono">Contact Information</h3>
+                    <div class="space-y-3 text-gray-400">
+                        <p class="flex items-center justify-center space-x-3">
                             <i class="fas fa-envelope w-5"></i>
                             <span>contact@gerdsen.ai</span>
                         </p>
-                        <p class="flex items-center space-x-3">
+                        <p class="flex items-center justify-center space-x-3">
                             <i class="fas fa-map-pin w-5"></i>
                             <span>Lafayette, Louisiana</span>
                         </p>
-                        <p class="flex items-center space-x-3">
+                        <p class="flex items-center justify-center space-x-3">
                             <i class="fas fa-calendar w-5"></i>
                             <span>Founded 2025</span>
                         </p>
                     </div>
-                    <div class="mt-8">
+                    <div class="mt-6">
                         <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
                     </div>
                 </div>
-                <div class="expertise-info">
-                    <h3 class="text-2xl font-semibold mb-6 mono">Our Expertise</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-center space-x-3">
+                
+                <div class="expertise-info-item">
+                    <h3 class="text-xl font-semibold mb-4 mono">Our Expertise</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center justify-center space-x-3">
                             <i class="fas fa-check text-green-500"></i>
                             <span>Large Language Models (LLMs)</span>
                         </li>
-                        <li class="flex items-center space-x-3">
+                        <li class="flex items-center justify-center space-x-3">
                             <i class="fas fa-check text-green-500"></i>
                             <span>Computer Vision & NLP</span>
                         </li>
-                        <li class="flex items-center space-x-3">
+                        <li class="flex items-center justify-center space-x-3">
                             <i class="fas fa-check text-green-500"></i>
                             <span>MLOps & Infrastructure</span>
                         </li>
-                        <li class="flex items-center space-x-3">
+                        <li class="flex items-center justify-center space-x-3">
                             <i class="fas fa-check text-green-500"></i>
                             <span>Cloud & Edge Deployment</span>
                         </li>
-                        <li class="flex items-center space-x-3">
+                        <li class="flex items-center justify-center space-x-3">
                             <i class="fas fa-check text-green-500"></i>
                             <span>Custom AI Development</span>
                         </li>
@@ -260,7 +308,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="py-12 px-6 border-t border-gray-800">
