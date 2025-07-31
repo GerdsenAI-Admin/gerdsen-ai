@@ -250,12 +250,12 @@ function initConsolidatedScrollSystem() {
             
             if (scrollY < heroVideoTransitionPoint) {
                 const yPos = -(rect.top * 0.2);
-                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.35; // Even faster scale reduction
-                const initialBlur = (scrollY / heroVideoTransitionPoint) * 12; // More aggressive blur
+                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.45; // Even more aggressive scale reduction
+                const initialBlur = (scrollY / heroVideoTransitionPoint) * 18; // Much more aggressive blur
                 
                 heroVideo.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0) scale(${initialScale})`;
                 heroVideo.style.filter = `blur(${initialBlur}px)`;
-                heroVideo.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.75; // More dimming
+                heroVideo.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.85; // Much more dimming
             } else {
                 const progressBeyondTransition = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
                 const scaleValue = 0.8 - progressBeyondTransition * 0.2; // Even smaller final scale
@@ -268,15 +268,15 @@ function initConsolidatedScrollSystem() {
             }
         }
         
-        // 5. HERO TEXT VISIBILITY - Synced with video blur timing
+        // 5. HERO TEXT VISIBILITY - Faster text appearance with less scroll
         if (heroContent) {
-            if (scrollY > heroVideoTransitionPoint * 0.5) {
-                // Text becomes visible as video blurs - CSS handles centering
+            if (scrollY > heroVideoTransitionPoint * 0.2) {
+                // Text becomes fully visible very quickly - CSS handles centering
                 heroContent.style.opacity = '1';
             } else {
-                // Text starts invisible - phases in with video blur
-                const progress = scrollY / (heroVideoTransitionPoint * 0.5);
-                const opacityValue = Math.min(progress * 2, 1); // Faster fade-in
+                // Text starts invisible - phases in much faster with video blur
+                const progress = scrollY / (heroVideoTransitionPoint * 0.2);
+                const opacityValue = Math.min(progress * 3, 1); // Much faster fade-in
                 heroContent.style.opacity = opacityValue;
             }
         }
