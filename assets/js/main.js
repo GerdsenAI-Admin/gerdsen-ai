@@ -1,33 +1,52 @@
-// Continuous Particle Animation
+// Continuous Particle Animation - Enhanced for full page liveliness
 function startParticleAnimation() {
     let animationFrameId;
     
     function animateParticles() {
         const particles = document.querySelectorAll('.particle');
+        const globalParticles = document.querySelectorAll('.global-particle');
         const currentTime = Date.now();
         const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
         
+        // Animate hero particles
         particles.forEach((particle, index) => {
-            // Autonomous floating movement
-            const autonomousX = Math.sin(currentTime * 0.001 + index * 0.5) * 15;
-            const autonomousY = Math.cos(currentTime * 0.0008 + index * 0.3) * 10;
+            // Enhanced autonomous floating movement
+            const autonomousX = Math.sin(currentTime * 0.002 + index * 0.7) * 25;
+            const autonomousY = Math.cos(currentTime * 0.0015 + index * 0.5) * 15;
+            const rotationalX = Math.sin(currentTime * 0.003 + index) * 10;
             
-            // Scroll-based movement (only if scrolled)
+            // Scroll-based movement (more dramatic)
             let scrollX = 0;
             let scrollY_offset = 0;
             
             if (scrollY > 1) {
-                const baseSpeed = 0.8 + (index % 5) * 0.3;
-                scrollY_offset = scrollY * baseSpeed;
-                scrollX = Math.sin(scrollY * 0.01 + index) * 20;
+                const speed = parseFloat(particle.getAttribute('data-speed')) || 1;
+                const baseSpeed = 1.2 + (index % 7) * 0.4; // More varied speeds
+                scrollY_offset = scrollY * baseSpeed * speed;
+                scrollX = Math.sin(scrollY * 0.015 + index) * 30; // More side movement
             }
             
-            // Combine movements
-            const totalX = autonomousX + scrollX;
+            // Combine all movements for liveliness
+            const totalX = autonomousX + scrollX + rotationalX;
             const totalY = -scrollY_offset + autonomousY;
             
-            // Apply transform
-            particle.style.transform = `translate(${totalX}px, ${totalY}px)`;
+            // Apply transform with rotation for more dynamic feel
+            const rotation = Math.sin(currentTime * 0.001 + index) * 20;
+            particle.style.transform = `translate(${totalX}px, ${totalY}px) rotate(${rotation}deg)`;
+            
+            // Dynamic opacity based on movement
+            const dynamicOpacity = 0.7 + Math.sin(currentTime * 0.003 + index) * 0.3;
+            particle.style.opacity = Math.min(dynamicOpacity, 1);
+        });
+        
+        // Animate global particles for page liveliness
+        globalParticles.forEach((particle, index) => {
+            const floatX = Math.sin(currentTime * 0.001 + index * 0.3) * 20;
+            const floatY = Math.cos(currentTime * 0.0008 + index * 0.4) * 15;
+            const pulse = 0.8 + Math.sin(currentTime * 0.004 + index) * 0.2;
+            
+            particle.style.transform = `translate(${floatX}px, ${floatY}px) scale(${pulse})`;
         });
         
         animationFrameId = requestAnimationFrame(animateParticles);
@@ -43,6 +62,47 @@ function startParticleAnimation() {
         } else {
             animateParticles();
         }
+    });
+}
+
+// Parallax Particles Background with Tilt-Shift Effect
+function initParallaxParticlesBackground() {
+    const particlesBg = document.getElementById('particles-bg');
+    if (!particlesBg) return;
+    
+    // Fix background image path for GitHub Pages
+    const basePath = window.location.hostname === 'gerdsen.ai' ? '' : '/gerdsen-ai';
+    const imagePath = `${basePath}/assets/images/hero_banner_particles.png`;
+    particlesBg.style.backgroundImage = `url('${imagePath}')`;
+    
+    // Mouse move parallax effect
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        // Calculate tilt amounts (subtle movement)
+        const tiltX = (mouseX - 0.5) * 20; // Max 10px movement
+        const tiltY = (mouseY - 0.5) * 20; // Max 10px movement
+        
+        // Apply transform with subtle scale for depth
+        const scale = 1 + (Math.abs(mouseX - 0.5) + Math.abs(mouseY - 0.5)) * 0.02;
+        
+        particlesBg.style.transform = `translate(${tiltX}px, ${tiltY}px) scale(${scale})`;
+    });
+    
+    // Scroll-based opacity change
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        // Fade out particles as we scroll (but keep them stationary)
+        const opacity = Math.max(0.2, 0.6 - (scrollY / windowHeight) * 0.4);
+        particlesBg.style.opacity = opacity;
+    });
+    
+    // Reset on mouse leave
+    document.addEventListener('mouseleave', () => {
+        particlesBg.style.transform = 'translate(0px, 0px) scale(1)';
     });
 }
 
@@ -216,6 +276,9 @@ function initMobileNavigation() {
 document.addEventListener('DOMContentLoaded', () => {
     // Fix Jekyll template issues with video sources
     fixVideoSources();
+    
+    // Initialize parallax particles background
+    initParallaxParticlesBackground();
     
     // Initialize single consolidated scroll system
     initConsolidatedScrollSystem();
@@ -657,17 +720,17 @@ function createParticleEffect() {
         particlesContainer.className = 'particles-container';
         heroSection.appendChild(particlesContainer);
         
-        // Create many tiny spark-like particles
-        for (let i = 0; i < 80; i++) {
+        // Create many tiny spark-like particles with trails
+        for (let i = 0; i < 120; i++) { // Increased count for more alive feel
             const particle = document.createElement('div');
             particle.className = 'particle';
             
             // Tiny spark/snow-like particles
-            const size = Math.random() * 3 + 1; // 1-4px tiny sparks
+            const size = Math.random() * 4 + 2; // 2-6px sparks with trails
             const posX = Math.random() * 120 - 10; // -10% to 110%
-            const posY = Math.random() * 120 - 10; // -10% to 110%
-            const delay = Math.random() * 8; // 0-8s delay
-            const duration = Math.random() * 20 + 15; // 15-35s slow drift
+            const posY = Math.random() * 150 + 50; // Start lower, cover more area
+            const delay = Math.random() * 10; // 0-10s delay
+            const duration = Math.random() * 15 + 20; // 20-35s slower drift
             
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
@@ -676,9 +739,66 @@ function createParticleEffect() {
             particle.style.animationDelay = `${delay}s`;
             particle.style.animationDuration = `${duration}s`;
             
+            // Add random movement patterns
+            particle.setAttribute('data-speed', Math.random() * 2 + 0.5); // 0.5-2.5 speed
+            particle.setAttribute('data-direction', Math.random() * 360); // Random direction
+            
             particlesContainer.appendChild(particle);
         }
+        
+        // Add global particles that appear throughout scroll
+        createGlobalParticles();
     }
+}
+
+// Create particles that appear throughout the entire page
+function createGlobalParticles() {
+    const body = document.body;
+    const globalContainer = document.createElement('div');
+    globalContainer.className = 'global-particles-container';
+    globalContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 5;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 1s ease;
+    `;
+    
+    // Create floating particles for the entire page
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'global-particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 3 + 1}px;
+            height: ${Math.random() * 3 + 1}px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+            animation: global-float ${Math.random() * 20 + 30}s linear infinite;
+            animation-delay: ${Math.random() * 10}s;
+        `;
+        globalContainer.appendChild(particle);
+    }
+    
+    body.appendChild(globalContainer);
+    
+    // Show global particles when scrolling
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        if (scrollY > window.innerHeight * 0.3) {
+            globalContainer.style.opacity = '0.4';
+        } else {
+            globalContainer.style.opacity = '0';
+        }
+    });
 }
 
 // Smooth Scroll for Navigation Links

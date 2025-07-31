@@ -44,10 +44,38 @@
                 <div class="flex items-center space-x-3">
                     <span class="text-xl font-semibold mono">GERDSEN AI</span>
                 </div>
+                
+                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#services" class="nav-link">Services</a>
                     <a href="#about" class="nav-link">About</a>
                     <a href="#contact" class="nav-link">Contact</a>
+                    <a href="https://github.com/gerdsen-ai" target="_blank" rel="noopener noreferrer" class="nav-link">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-blue-400 transition-colors" aria-label="Toggle mobile menu" aria-expanded="false">
+                        <div class="hamburger">
+                            <div class="line line1"></div>
+                            <div class="line line2"></div>
+                            <div class="line line3"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden mobile-menu-hidden overflow-hidden transition-all duration-300 ease-in-out">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-black bg-opacity-95 backdrop-blur-md rounded-lg mt-4">
+                    <a href="#services" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">Services</a>
+                    <a href="#about" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">About</a>
+                    <a href="#contact" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">Contact</a>
+                    <a href="https://github.com/gerdsen-ai" target="_blank" rel="noopener noreferrer" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
                 </div>
             </div>
         </div>
@@ -55,6 +83,9 @@
 
     <!-- Hero Section with Neural_G_5 Video Background - THE MAIN ATTRACTION -->
     <section class="hero-section" data-video-section id="home">
+        <!-- Stationary Parallax Particles Background -->
+        <div class="particles-background" id="particles-bg"></div>
+        
         <!-- Video Background -->
         <div class="video-container">
             <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
@@ -82,6 +113,183 @@
             </div>
         </div>
     </section>
+
+    <!-- Modals -->
+    <div id="expertise-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-infinity text-blue-500 mr-3"></i>End-to-End Expertise</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-blue-400">Our Complete Process:</h3>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Discovery & Strategy:</strong> We assess your needs, identify opportunities, and create a comprehensive AI roadmap.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Architecture & Design:</strong> Custom AI solutions designed for your specific use cases and technical requirements.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Development & Training:</strong> Model development, fine-tuning, and integration with your existing systems.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Deployment & Optimization:</strong> Production deployment with monitoring, scaling, and continuous optimization.</span>
+                    </li>
+                </ul>
+                
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="text-sm text-gray-300"><strong>Result:</strong> A complete AI solution that delivers measurable business value from day one.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="deployment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-balance-scale text-purple-500 mr-3"></i>Flexible Deployment</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-purple-400">Deployment Options:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-cloud mr-2"></i>Cloud-Native</h4>
+                        <p class="text-sm text-gray-300">AWS, Azure, GCP with auto-scaling, managed services, and global deployment.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-server mr-2"></i>On-Premise</h4>
+                        <p class="text-sm text-gray-300">Complete data privacy with local deployment on your infrastructure.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-network-wired mr-2"></i>Hybrid</h4>
+                        <p class="text-sm text-gray-300">Best of both worlds - sensitive data stays local, scale in the cloud.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-purple-400">Why Flexibility Matters:</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-shield-alt text-green-500 mt-1"></i>
+                        <span><strong>Compliance:</strong> Meet strict regulatory requirements (HIPAA, SOC2, GDPR)</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-dollar-sign text-green-500 mt-1"></i>
+                        <span><strong>Cost Optimization:</strong> Right-size your infrastructure for optimal performance/cost ratio</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-lock text-green-500 mt-1"></i>
+                        <span><strong>Data Security:</strong> Keep sensitive data exactly where you need it</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="production-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-line text-green-500 mr-3"></i>Production-Ready Solutions</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-green-400">Enterprise-Grade Features:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-tachometer-alt text-blue-500 mt-1"></i>
+                            <span><strong>High Performance:</strong> Optimized for low latency and high throughput</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-expand-arrows-alt text-blue-500 mt-1"></i>
+                            <span><strong>Auto-Scaling:</strong> Handles traffic spikes automatically</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-heartbeat text-blue-500 mt-1"></i>
+                            <span><strong>Health Monitoring:</strong> 24/7 system monitoring and alerting</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-undo text-purple-500 mt-1"></i>
+                            <span><strong>Disaster Recovery:</strong> Automated backups and failover</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-code-branch text-purple-500 mt-1"></i>
+                            <span><strong>CI/CD Pipeline:</strong> Continuous integration and deployment</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-chart-bar text-purple-500 mt-1"></i>
+                            <span><strong>Performance Analytics:</strong> Detailed metrics and optimization insights</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-900 bg-opacity-30 p-4 rounded-lg border border-green-500">
+                    <p class="text-sm"><strong>Production Promise:</strong> Every solution we deliver is tested, documented, and ready for enterprise-scale deployment with SLA guarantees.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="partnership-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-users text-pink-500 mr-3"></i>Ongoing Partnership</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-pink-400">Continuous Partnership Services:</h3>
+                <div class="space-y-4 mb-6">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-chart-line mr-2"></i>Performance Optimization</h4>
+                        <p class="text-sm text-gray-300">Regular model retraining, performance tuning, and system optimization to maintain peak efficiency.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-tools mr-2"></i>System Maintenance</h4>
+                        <p class="text-sm text-gray-300">Proactive monitoring, security updates, and infrastructure maintenance to ensure 99.9% uptime.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-rocket mr-2"></i>Feature Evolution</h4>
+                        <p class="text-sm text-gray-300">Continuous enhancement with new features, model improvements, and technology upgrades.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-pink-400 mb-2"><i class="fas fa-graduation-cap mr-2"></i>Team Training</h4>
+                        <p class="text-sm text-gray-300">Ongoing training for your team to maximize the value of your AI investment.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-pink-400">Partnership Models:</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-handshake text-green-500 mt-1"></i>
+                        <span><strong>Managed Services:</strong> We handle everything while you focus on your business</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-users-cog text-green-500 mt-1"></i>
+                        <span><strong>Collaborative Support:</strong> Work alongside your team with expert guidance</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-phone text-green-500 mt-1"></i>
+                        <span><strong>On-Demand Consulting:</strong> Expert support whenever you need it</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <!-- Services Section - Clean design, no competing video -->
     <section id="services" class="content-section">
@@ -146,65 +354,69 @@
     <section id="about" class="content-section no-video">
         <div class="section-content">
             <h2 class="section-title" data-scroll-fade>
-                Why Choose <span class="gradient-text">GERDSEN AI?</span>
+            Why Choose <span class="gradient-text">GERDSEN AI?</span>
             </h2>
             <div class="features-grid" data-scroll-fade data-delay="200">
-                <div class="feature-item">
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-blue-500 mt-1">
-                                <i class="fas fa-infinity"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
-                                <p class="text-gray-400">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
-                            </div>
-                        </div>
+            <div class="feature-item modal-trigger" data-modal="expertise-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-blue-500 mt-1">
+            <i class="fas fa-infinity"></i>
+            </div>
+            <div>
+            <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
+            <p class="text-gray-400">From initial consultation to production deployment...</p>
+                <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                </div>
+                </div>
+                </div>
+            </div>
+            
+            <div class="feature-item modal-trigger" data-modal="deployment-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-purple-500 mt-1">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            <div>
+            <h3 class="text-2xl font-semibold mb-2">Flexible Deployment</h3>
+                <p class="text-gray-400">Cloud, on-premise, or hybrid solutions...</p>
+                    <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                    </div>
                     </div>
                 </div>
-                
-                <div class="feature-item">
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-purple-500 mt-1">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Flexible Deployment</h3>
-                                <p class="text-gray-400">Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-green-500 mt-1">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Production-Ready Solutions</h3>
-                                <p class="text-gray-400">We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="glass-effect rounded-xl p-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-pink-500 mt-1">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Ongoing Partnership</h3>
-                                <p class="text-gray-400">Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems.</p>
-                            </div>
+            </div>
+            
+            <div class="feature-item modal-trigger" data-modal="production-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-green-500 mt-1">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2">Production-Ready Solutions</h3>
+                    <p class="text-gray-400">We don't just build POCs...</p>
+                        <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <div class="feature-item modal-trigger" data-modal="partnership-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-pink-500 mt-1">
+            <i class="fas fa-users"></i>
+            </div>
+            <div>
+                    <h3 class="text-2xl font-semibold mb-2">Ongoing Partnership</h3>
+                        <p class="text-gray-400">Your AI journey doesn't end at deployment...</p>
+                            <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -259,55 +471,27 @@
     
     <!-- Contact Information -->
     <div class="contact-info-footer" data-scroll-fade data-delay="400">
-            <div class="contact-grid-footer">
-                <div class="contact-info-item">
-                    <h3 class="text-xl font-semibold mb-4 mono">Contact Information</h3>
-                    <div class="space-y-3 text-gray-400">
-                        <p class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-envelope w-5"></i>
-                            <span>contact@gerdsen.ai</span>
-                        </p>
-                        <p class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-map-pin w-5"></i>
-                            <span>Lafayette, Louisiana</span>
-                        </p>
-                        <p class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-calendar w-5"></i>
-                            <span>Founded 2025</span>
-                        </p>
-                    </div>
-                    <div class="mt-6">
-                        <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
-                    </div>
-                </div>
-                
-                <div class="expertise-info-item">
-                    <h3 class="text-xl font-semibold mb-4 mono">Our Expertise</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-check text-green-500"></i>
-                            <span>Large Language Models (LLMs)</span>
-                        </li>
-                        <li class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-check text-green-500"></i>
-                            <span>Computer Vision & NLP</span>
-                        </li>
-                        <li class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-check text-green-500"></i>
-                            <span>MLOps & Infrastructure</span>
-                        </li>
-                        <li class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-check text-green-500"></i>
-                            <span>Cloud & Edge Deployment</span>
-                        </li>
-                        <li class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-check text-green-500"></i>
-                            <span>Custom AI Development</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="contact-info-item">
+    <h3 class="text-xl font-semibold mb-4 mono">Contact Information</h3>
+    <div class="space-y-3 text-gray-400">
+    <p class="flex items-center justify-center space-x-3">
+    <i class="fas fa-envelope w-5"></i>
+    <span>contact@gerdsen.ai</span>
+    </p>
+    <p class="flex items-center justify-center space-x-3">
+    <i class="fas fa-map-pin w-5"></i>
+    <span>Lafayette, Louisiana</span>
+    </p>
+    <p class="flex items-center justify-center space-x-3">
+    <i class="fas fa-calendar w-5"></i>
+    <span>Founded 2025</span>
+    </p>
+    </div>
+    <div class="mt-6">
+    <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
+    </div>
+    </div>
+    </div>
     </div>
 </section>
 
