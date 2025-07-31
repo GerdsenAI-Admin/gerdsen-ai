@@ -1,333 +1,107 @@
-// Initialize on DOM load
+// Apple-style Scroll Effects
 document.addEventListener('DOMContentLoaded', () => {
-    // Add mesh gradient background
-    const meshGradient = document.createElement('div');
-    meshGradient.className = 'mesh-gradient';
-    document.body.prepend(meshGradient);
+    // Initialize scroll animations
+    initScrollAnimations();
+    initVideoParallax();
+    initNavigation();
     
-    // Add light leak effect
-    const lightLeak = document.createElement('div');
-    lightLeak.className = 'light-leak';
-    document.body.appendChild(lightLeak);
-    
-    // Initialize video scroll effects
-    initVideoScrollEffects();
-    
-    // Initialize scroll effects
-    initScrollEffects();
-    initAppleScrollAnimations();
-    
-    // Initialize magnetic elements
-    initMagneticEffect();
-    
-    // Initialize cursor trail
-    initCursorTrail();
+    // Initial animation trigger
+    triggerInitialAnimations();
 });
 
-// Apple-style Video Scroll Effects
-function initVideoScrollEffects() {
-    const videos = document.querySelectorAll('.video-bg');
-    const videoSections = document.querySelectorAll('.video-section, #hero');
+// Scroll Animation Observer
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
     
-    // Create Intersection Observer for video playback
-    const videoObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            const video = entry.target.querySelector('.video-bg');
-            if (video) {
-                if (entry.isIntersecting) {
-                    video.play().catch(e => console.log('Video play failed:', e));
-                    video.classList.add('playing');
-                } else {
-                    video.pause();
-                    video.classList.remove('playing');
-                }
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
             }
         });
-    }, {
-        threshold: 0.25
-    });
+    }, observerOptions);
     
-    // Observe all video sections
-    videoSections.forEach(section => {
-        videoObserver.observe(section);
+    // Observe all fade elements
+    document.querySelectorAll('[data-scroll-fade]').forEach(el => {
+        observer.observe(el);
     });
-    
-    // Scroll-based video animation
+}
+
+// Video Parallax Effect
+function initVideoParallax() {
+    const videos = document.querySelectorAll('[data-video-parallax]');
     let ticking = false;
-    function updateVideoEffects() {
-        const scrollY = window.pageYOffset;
+    
+    function updateVideoParallax() {
+        const scrolled = window.pageYOffset;
         
-        videoSections.forEach(section => {
+        videos.forEach((video, index) => {
+            const section = video.closest('[data-video-section]');
+            if (!section) return;
+            
             const rect = section.getBoundingClientRect();
-            const video = section.querySelector('.video-bg');
+            const speed = 0.5;
             
-            if (video && rect.top < window.innerHeight && rect.bottom > 0) {
-                // Calculate scroll progress through the section
-                const sectionTop = rect.top + scrollY;
-                const sectionHeight = section.offsetHeight;
-                const scrollProgress = (scrollY - sectionTop + window.innerHeight) / (sectionHeight + window.innerHeight);
-                
-                // Apply parallax effect
-                const translateY = scrollProgress * 50 - 25;
-                const scale = 1.2 - (scrollProgress * 0.2);
-                const opacity = 0.3 + (Math.abs(0.5 - scrollProgress) * 0.4);
-                
-                video.style.transform = `translate(-50%, calc(-50% + ${translateY}px)) scale(${scale})`;
-                video.style.opacity = opacity;
-                
-                // Adjust video playback rate based on scroll
-                if (video.playbackRate) {
-                    video.playbackRate = 0.5 + (scrollProgress * 0.5);
-                }
-            }
+            // Calculate parallax offset
+            const yPos = -(rect.top * speed);
+            
+            // Apply transform with scale
+            const scale = 1.1 + (Math.abs(rect.top) / window.innerHeight) * 0.1;
+            video.style.transform = `translate(-50%, calc(-50% + ${yPos}px)) scale(${Math.min(scale, 1.3)})`;
+            
+            // Adjust opacity based on scroll position
+            const opacity = 0.6 - (Math.abs(rect.top) / window.innerHeight) * 0.3;
+            video.style.opacity = Math.max(0.3, Math.min(0.6, opacity));
         });
         
-        ticking = false;
-    }
-    
-    function requestVideoTick() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateVideoEffects);
-            ticking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', requestVideoTick);
-    updateVideoEffects(); // Initial call
-}
-
-// Apple-style Scroll Animations
-function initAppleScrollAnimations() {
-    // Add data attributes for scroll animations
-    const heroSection = document.querySelector('.min-h-screen');
-    if (heroSection) {
-        const heroLogo = heroSection.querySelector('.hero-logo');
-        const heroTitle = heroSection.querySelector('h1');
-        const heroText = heroSection.querySelector('p');
-        const heroButtons = heroSection.querySelector('.flex');
-        
-        if (heroLogo) heroLogo.setAttribute('data-scroll', 'zoom-out');
-        if (heroTitle) heroTitle.setAttribute('data-scroll', 'fade-up');
-        if (heroText) heroText.setAttribute('data-scroll', 'fade-up-delay');
-        if (heroButtons) heroButtons.setAttribute('data-scroll', 'fade-up-delay-2');
-    }
-    
-    // Add scroll attributes to service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach((card, index) => {
-        card.setAttribute('data-scroll', 'scale-in');
-        card.setAttribute('data-scroll-delay', index * 100);
-    });
-    
-    // Add to bento items
-    const bentoItems = document.querySelectorAll('.bento-item');
-    bentoItems.forEach((item, index) => {
-        item.setAttribute('data-scroll', 'slide-up');
-        item.setAttribute('data-scroll-delay', index * 50);
-    });
-}
-
-// Advanced Scroll Effects
-function initScrollEffects() {
-    let ticking = false;
-    let lastScrollY = 0;
-    
-    function updateScrollEffects() {
-        const scrollY = window.pageYOffset;
-        const windowHeight = window.innerHeight;
-        
-        // Handle scroll-triggered animations
-        const scrollElements = document.querySelectorAll('[data-scroll]');
-        scrollElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const elementBottom = element.getBoundingClientRect().bottom;
-            const delay = element.getAttribute('data-scroll-delay') || 0;
-            
-            // Check if element is in viewport
-            if (elementTop < windowHeight * 0.8 && elementBottom > 0) {
-                setTimeout(() => {
-                    element.classList.add('scroll-animated');
-                    
-                    // Apply specific animation based on data-scroll value
-                    const animation = element.getAttribute('data-scroll');
-                    switch(animation) {
-                        case 'zoom-out':
-                            element.style.animation = 'zoomOut 1.5s ease-out forwards';
-                            break;
-                        case 'fade-up':
-                            element.style.animation = 'fadeUp 1s ease-out forwards';
-                            break;
-                        case 'fade-up-delay':
-                            element.style.animation = 'fadeUp 1s ease-out 0.2s forwards';
-                            break;
-                        case 'fade-up-delay-2':
-                            element.style.animation = 'fadeUp 1s ease-out 0.4s forwards';
-                            break;
-                        case 'scale-in':
-                            element.style.animation = 'scaleIn 0.8s ease-out forwards';
-                            break;
-                        case 'slide-up':
-                            element.style.animation = 'slideUp 0.8s ease-out forwards';
-                            break;
-                    }
-                }, delay);
-            }
-        });
-        
-        // Update mesh gradient position based on scroll
-        const meshGradient = document.querySelector('.mesh-gradient');
-        if (meshGradient) {
-            const scrollProgress = scrollY / (document.body.scrollHeight - windowHeight);
-            meshGradient.style.transform = `translateY(${scrollProgress * 100}px)`;
-        }
-        
-        lastScrollY = scrollY;
         ticking = false;
     }
     
     function requestTick() {
         if (!ticking) {
-            window.requestAnimationFrame(updateScrollEffects);
+            window.requestAnimationFrame(updateVideoParallax);
             ticking = true;
         }
     }
     
-    // Listen for scroll events
     window.addEventListener('scroll', requestTick);
+    window.addEventListener('resize', requestTick);
     
     // Initial call
-    updateScrollEffects();
+    updateVideoParallax();
 }
 
-// Reveal on Scroll Animation
-const revealElements = document.querySelectorAll('.reveal');
-const revealOnScroll = () => {
-    revealElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+// Navigation Effects
+function initNavigation() {
+    const nav = document.querySelector('nav');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
         
-        if (elementTop < windowHeight - 100) {
-            element.classList.add('active');
-        }
-    });
-};
-
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
-
-// Navigation Blur Effect
-const nav = document.querySelector('nav');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 50) {
-        nav.classList.add('nav-blur');
-    } else {
-        nav.classList.remove('nav-blur');
-    }
-    
-    lastScroll = currentScroll;
-});
-
-// Magnetic Effect for Interactive Elements
-function initMagneticEffect() {
-    const magneticElements = document.querySelectorAll('.button-primary, .button-secondary, .service-card');
-    
-    magneticElements.forEach(element => {
-        element.classList.add('magnetic');
-        
-        element.addEventListener('mousemove', (e) => {
-            const rect = element.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            const distance = Math.sqrt(x * x + y * y);
-            const maxDistance = Math.max(rect.width, rect.height);
-            
-            if (distance < maxDistance) {
-                const strength = (maxDistance - distance) / maxDistance;
-                element.style.transform = `translate(${x * strength * 0.2}px, ${y * strength * 0.2}px)`;
-            }
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            element.style.transform = 'translate(0, 0)';
-        });
-    });
-}
-
-// Cursor Trail Effect
-function initCursorTrail() {
-    const trailCount = 5;
-    const trails = [];
-    
-    for (let i = 0; i < trailCount; i++) {
-        const trail = document.createElement('div');
-        trail.className = 'cursor-trail';
-        trail.style.opacity = (1 - i / trailCount) * 0.5;
-        trail.style.transform = 'scale(' + (1 - i / trailCount) + ')';
-        document.body.appendChild(trail);
-        trails.push(trail);
-    }
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let trailX = Array(trailCount).fill(0);
-    let trailY = Array(trailCount).fill(0);
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    function animateTrail() {
-        trailX[0] += (mouseX - trailX[0]) * 0.3;
-        trailY[0] += (mouseY - trailY[0]) * 0.3;
-        
-        trails[0].style.left = trailX[0] + 'px';
-        trails[0].style.top = trailY[0] + 'px';
-        
-        for (let i = 1; i < trailCount; i++) {
-            trailX[i] += (trailX[i - 1] - trailX[i]) * 0.3;
-            trailY[i] += (trailY[i - 1] - trailY[i]) * 0.3;
-            
-            trails[i].style.left = trailX[i] + 'px';
-            trails[i].style.top = trailY[i] + 'px';
+        if (currentScroll > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
         }
         
-        requestAnimationFrame(animateTrail);
-    }
-    
-    animateTrail();
+        lastScroll = currentScroll;
+    });
 }
 
-// Modal Functions
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+// Trigger Initial Animations
+function triggerInitialAnimations() {
+    // Animate hero content on load
+    setTimeout(() => {
+        const heroElements = document.querySelectorAll('.hero-section [data-scroll-fade]');
+        heroElements.forEach(el => {
+            el.classList.add('in-view');
+        });
+    }, 100);
 }
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// Close modal on backdrop click
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal-backdrop')) {
-        const modals = document.querySelectorAll('.modal-backdrop');
-        modals.forEach(modal => modal.classList.remove('active'));
-        document.body.style.overflow = '';
-    }
-});
 
 // Smooth Scroll for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -335,114 +109,71 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            const offsetTop = target.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: offsetTop - 80,
+                behavior: 'smooth'
             });
         }
     });
 });
 
-// Mouse Parallax for Hero Section
-const heroSection = document.querySelector('.min-h-screen');
-if (heroSection) {
-    heroSection.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
-        
-        const logo = heroSection.querySelector('img');
-        if (logo && !logo.classList.contains('scroll-animated')) {
-            logo.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px) scale(1.05)`;
+// Performance Optimization - Throttle scroll events
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
         }
-        
-        // Move mesh gradient based on mouse
-        const meshGradient = document.querySelector('.mesh-gradient');
-        if (meshGradient) {
-            meshGradient.style.transform = `translate(${mouseX * 30}px, ${mouseY * 30}px)`;
-        }
-    });
+    }
 }
 
-// Dynamic Blur Based on Scroll Speed
-let scrollTimeout;
-let isScrolling = false;
-
-window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-        document.body.classList.add('scrolling');
-        isScrolling = true;
-    }
+// Video Loading Optimization
+document.addEventListener('DOMContentLoaded', () => {
+    const videos = document.querySelectorAll('.background-video');
     
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        document.body.classList.remove('scrolling');
-        isScrolling = false;
-    }, 150);
+    videos.forEach(video => {
+        // Ensure videos start playing
+        video.play().catch(e => {
+            console.log('Video autoplay failed:', e);
+        });
+        
+        // Optimize video loading
+        video.addEventListener('loadeddata', () => {
+            video.classList.add('loaded');
+        });
+    });
 });
 
-// Add visual interest with random floating shapes
-function createFloatingShape() {
-    const shapes = ['circle', 'hexagon', 'triangle'];
-    const colors = ['rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.9)', 'rgba(255, 255, 255, 0.6)', 'rgba(0, 0, 0, 0.7)'];
-    
-    const shape = document.createElement('div');
-    shape.className = 'floating-shape';
-    
-    const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const size = Math.random() * 200 + 100;
-    const startX = Math.random() * window.innerWidth;
-    const duration = Math.random() * 20 + 10;
-    
-    shape.style.cssText = `
-        position: fixed;
-        width: ${size}px;
-        height: ${size}px;
-        left: ${startX}px;
-        bottom: -${size}px;
-        background: ${color};
-        opacity: 0.1;
-        filter: blur(40px);
-        animation: floatUp ${duration}s linear;
-        pointer-events: none;
-        z-index: 0;
-    `;
-    
-    if (shapeType === 'circle') {
-        shape.style.borderRadius = '50%';
-    } else if (shapeType === 'hexagon') {
-        shape.style.clipPath = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)';
-    } else if (shapeType === 'triangle') {
-        shape.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+// Disable right-click on videos (optional)
+document.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'VIDEO') {
+        e.preventDefault();
     }
-    
-    document.body.appendChild(shape);
-    
-    shape.addEventListener('animationend', () => {
-        shape.remove();
-    });
+});
+
+// Handle Mobile Touch Events for Better Performance
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    if (touchEndY < touchStartY - 50) {
+        // Swiped up
+    }
+    if (touchEndY > touchStartY + 50) {
+        // Swiped down
+    }
 }
-
-// Create floating shapes periodically
-setInterval(createFloatingShape, 3000);
-
-// Add CSS for floating animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes floatUp {
-        to {
-            transform: translateY(-120vh) rotate(360deg);
-            opacity: 0;
-        }
-    }
-    
-    .scrolling * {
-        transition: filter 0.3s ease;
-    }
-    
-    .scrolling .service-card,
-    .scrolling .bento-item {
-        filter: blur(1px);
-    }
-`;
-document.head.appendChild(style);
