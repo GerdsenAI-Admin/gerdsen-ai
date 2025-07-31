@@ -6,6 +6,26 @@
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ page.description | default: site.description }}">
     
+    <!-- Apple-style Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- OpenGraph Tags for Social Sharing -->
+    <meta property="og:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta property="og:description" content="We architect, build, and deploy AI systems across the entire stack. From concept to production, local or cloud.">
+    <meta property="og:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+    <meta property="og:url" content="https://gerdsen.ai/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta name="twitter:description" content="Full stack AI solutions from concept to production.">
+    <meta name="twitter:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://gerdsen.ai/">
+    
     <!-- External CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
