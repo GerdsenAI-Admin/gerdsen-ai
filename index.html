@@ -3,12 +3,17 @@ layout: default
 title: Full Stack AI Solutions - From Concept to Production
 ---
 
+<!-- Apple-style Meta Tags -->
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Full stack AI solutions from concept to production. We architect, build, and deploy AI systems across the entire stack.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
 <!-- Hero Section with Neural_G_5 Video Background -->
-<section class="hero-section" data-video-section>
+<section class="hero-section" data-video-section id="home">
     <!-- Video Background -->
     <div class="video-container">
         <video autoplay muted loop playsinline class="background-video" data-video-parallax>
-            <source src="{{ '/assets/images/Neural_G_5.mp4' | relative_url }}" type="video/mp4">
+            <source src="/assets/images/Neural_G_5.mp4" type="video/mp4">
         </video>
     </div>
     
@@ -34,54 +39,63 @@ title: Full Stack AI Solutions - From Concept to Production
 <section id="services" class="content-section" data-video-section>
     <div class="video-container">
         <video autoplay muted loop playsinline class="background-video" data-video-parallax>
-            <source src="{{ '/assets/images/hero-video.mp4' | relative_url }}" type="video/mp4">
+            <source src="/assets/images/hero-video.mp4" type="video/mp4">
         </video>
     </div>
     
     <div class="section-content">
         <h2 class="section-title" data-scroll-fade>Our Full Stack AI Services</h2>
         <div class="services-grid" data-scroll-fade data-delay="200">
-            {% include service-card.html 
-                icon="fa-brain" 
-                color="blue-500" 
-                title="AI Strategy & Consulting" 
-                description="Define your AI roadmap. We assess your needs, identify opportunities, and architect solutions that deliver real business value." 
-            %}
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-blue-500">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">AI Strategy & Consulting</h3>
+                <p class="text-gray-400">Define your AI roadmap. We assess your needs, identify opportunities, and architect solutions that deliver real business value.</p>
+            </div>
             
-            {% include service-card.html 
-                icon="fa-code" 
-                color="purple-500" 
-                title="Custom AI Development" 
-                description="Build bespoke AI solutions. From LLMs to computer vision, we develop and integrate AI models tailored to your specific use cases." 
-            %}
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-purple-500">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Custom AI Development</h3>
+                <p class="text-gray-400">Build bespoke AI solutions. From LLMs to computer vision, we develop and integrate AI models tailored to your specific use cases.</p>
+            </div>
             
-            {% include service-card.html 
-                icon="fa-rocket" 
-                color="pink-500" 
-                title="Production Deployment" 
-                description="Scale with confidence. We handle MLOps, infrastructure, monitoring, and optimization for both cloud and on-premise deployments." 
-            %}
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-pink-500">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Production Deployment</h3>
+                <p class="text-gray-400">Scale with confidence. We handle MLOps, infrastructure, monitoring, and optimization for both cloud and on-premise deployments.</p>
+            </div>
             
-            {% include service-card.html 
-                icon="fa-graduation-cap" 
-                color="green-500" 
-                title="Model Training & Fine-tuning" 
-                description="Optimize AI for your domain. We train custom models, fine-tune existing ones, and implement RAG systems with your data." 
-            %}
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-green-500">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Model Training & Fine-tuning</h3>
+                <p class="text-gray-400">Optimize AI for your domain. We train custom models, fine-tune existing ones, and implement RAG systems with your data.</p>
+            </div>
             
-            {% include service-card.html 
-                icon="fa-cloud" 
-                color="yellow-500" 
-                title="Cloud & Hybrid Workflows" 
-                description="Flexible infrastructure solutions. We design cost-effective architectures spanning AWS, Azure, GCP, and private clouds." 
-            %}
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-yellow-500">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Cloud & Hybrid Workflows</h3>
+                <p class="text-gray-400">Flexible infrastructure solutions. We design cost-effective architectures spanning AWS, Azure, GCP, and private clouds.</p>
+            </div>
             
-            {% include service-card.html 
-                icon="fa-shield-alt" 
-                color="red-500" 
-                title="Secure Local Deployment" 
-                description="Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance." 
-            %}
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-red-500">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Secure Local Deployment</h3>
+                <p class="text-gray-400">Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance.</p>
+            </div>
+        </div>
+        <div class="text-center mt-12">
+            <a href="#" class="button-primary magnetic">Schedule a Consultation</a>
         </div>
     </div>
 </section>
@@ -90,7 +104,7 @@ title: Full Stack AI Solutions - From Concept to Production
 <section class="content-section tech-stack" data-video-section>
     <div class="video-container">
         <video autoplay muted loop playsinline class="background-video" data-video-parallax>
-            <source src="{{ '/assets/images/hero-promo.mp4' | relative_url }}" type="video/mp4">
+            <source src="/assets/images/hero-promo.mp4" type="video/mp4">
         </video>
     </div>
     
@@ -149,6 +163,33 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
+<!-- Apple-Style Sticky Product Showcase -->
+<section class="sticky-section">
+    <div class="sticky-container">
+        <div class="section-content">
+            <div class="text-center mb-12">
+                <h2 class="callout-text" data-scroll-fade>
+                    Experience <span class="gradient-text">Real-time AI</span>
+                </h2>
+                <p class="callout-small mb-12" data-scroll-fade data-delay="200">
+                    Powerful on-device models that run locally
+                </p>
+            </div>
+            
+            <div class="product-display" data-scroll-fade data-delay="300">
+                <div class="product-rotate">
+                    <!-- Placeholder for a 3D product image -->
+                    <img src="https://placehold.co/800x500/000/fff?text=AI+Model+Visualization" alt="AI Model Visualization">
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 reveal-content">
+                <a href="#contact" class="button-apple-buy">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- About Section -->
 <section id="about" class="content-section no-video">
     <div class="section-content">
@@ -157,39 +198,169 @@ title: Full Stack AI Solutions - From Concept to Production
         </h2>
         <div class="features-grid" data-scroll-fade data-delay="200">
             <div class="feature-item">
-                {% include feature-card.html 
-                    icon="fa-infinity" 
-                    color="blue-500" 
-                    title="End-to-End Expertise" 
-                    description="From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise." 
-                %}
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl text-blue-500 mt-1">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
+                            <p class="text-gray-400">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="feature-item">
-                {% include feature-card.html 
-                    icon="fa-balance-scale" 
-                    color="purple-500" 
-                    title="Flexible Deployment" 
-                    description="Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements." 
-                %}
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl text-purple-500 mt-1">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2">Flexible Deployment</h3>
+                            <p class="text-gray-400">Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="feature-item">
-                {% include feature-card.html 
-                    icon="fa-chart-line" 
-                    color="green-500" 
-                    title="Production-Ready Solutions" 
-                    description="We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance." 
-                %}
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl text-green-500 mt-1">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2">Production-Ready Solutions</h3>
+                            <p class="text-gray-400">We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="feature-item">
-                {% include feature-card.html 
-                    icon="fa-users" 
-                    color="pink-500" 
-                    title="Ongoing Partnership" 
-                    description="Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems." 
-                %}
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl text-pink-500 mt-1">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2">Ongoing Partnership</h3>
+                            <p class="text-gray-400">Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Apple-style Color Transition Section -->
+<section class="content-section color-transition">
+    <div class="section-content">
+        <h2 class="section-title" data-scroll-fade>
+            The Future of <span class="gradient-text">AI Development</span>
+        </h2>
+        
+        <div class="text-center mb-12 reveal-content">
+            <p class="text-xl mb-8">
+                We deliver solutions that evolve with your business needs
+            </p>
+        </div>
+        
+        <div class="specs-grid" data-scroll-fade data-delay="200">
+            <div class="spec-item">
+                <div class="spec-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="spec-title">Processing Speed</div>
+                <div class="spec-value">Up to 10x faster than traditional solutions</div>
+            </div>
+            
+            <div class="spec-item">
+                <div class="spec-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="spec-title">Deployment Time</div>
+                <div class="spec-value">From prototype to production in days, not months</div>
+            </div>
+            
+            <div class="spec-item">
+                <div class="spec-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="spec-title">Data Security</div>
+                <div class="spec-value">Enterprise-grade encryption & local processing</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Apple-style Expandable Specs Section -->
+<section class="specs-section">
+    <div class="specs-container">
+        <h2 class="section-title" data-scroll-fade>Technical Specifications</h2>
+        
+        <div class="expandable-section" data-scroll-fade data-delay="200">
+            <div class="expandable-header">
+                <h3>Model Architectures</h3>
+                <div class="expandable-icon"></div>
+            </div>
+            <div class="expandable-content">
+                <table class="compare-table">
+                    <tr>
+                        <th>Type</th>
+                        <th>Use Cases</th>
+                        <th>Deployment</th>
+                    </tr>
+                    <tr>
+                        <td>Transformer-based LLMs</td>
+                        <td>Text generation, summarization, Q&A</td>
+                        <td>Cloud / Local</td>
+                    </tr>
+                    <tr>
+                        <td>Vision Transformers</td>
+                        <td>Image recognition, object detection</td>
+                        <td>Edge / Cloud</td>
+                    </tr>
+                    <tr>
+                        <td>Hybrid Architectures</td>
+                        <td>Multi-modal applications</td>
+                        <td>Custom deployment</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="expandable-section" data-scroll-fade data-delay="300">
+            <div class="expandable-header">
+                <h3>Infrastructure Requirements</h3>
+                <div class="expandable-icon"></div>
+            </div>
+            <div class="expandable-content">
+                <table class="compare-table">
+                    <tr>
+                        <th>Deployment Type</th>
+                        <th>Minimum Specs</th>
+                        <th>Recommended Specs</th>
+                    </tr>
+                    <tr>
+                        <td>Cloud-based</td>
+                        <td>4 vCPUs, 16GB RAM</td>
+                        <td>8+ vCPUs, 32GB+ RAM, GPU acceleration</td>
+                    </tr>
+                    <tr>
+                        <td>On-premise Server</td>
+                        <td>8 cores, 32GB RAM, NVIDIA T4</td>
+                        <td>16+ cores, 64GB+ RAM, NVIDIA A100</td>
+                    </tr>
+                    <tr>
+                        <td>Edge Deployment</td>
+                        <td>Quad-core ARM, 8GB RAM</td>
+                        <td>NVIDIA Jetson or Apple Silicon</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -209,6 +380,32 @@ title: Full Stack AI Solutions - From Concept to Production
     </div>
 </section>
 
+<!-- Apple-style Image Gallery Section -->
+<section class="content-section no-video">
+    <div class="section-content">
+        <h2 class="section-title" data-scroll-fade>Solutions Showcase</h2>
+        
+        <div class="image-gallery" data-scroll-fade data-delay="200">
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="https://placehold.co/1200x500/000/fff?text=AI+Solution+1" alt="AI Solution 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/1200x500/000/fff?text=AI+Solution+2" alt="AI Solution 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/1200x500/000/fff?text=AI+Solution+3" alt="AI Solution 3">
+                </div>
+            </div>
+            <div class="gallery-nav">
+                <div class="gallery-dot"></div>
+                <div class="gallery-dot"></div>
+                <div class="gallery-dot"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Contact Section -->
 <section id="contact" class="content-section contact-section no-video">
     <div class="section-content">
@@ -219,7 +416,7 @@ title: Full Stack AI Solutions - From Concept to Production
                 <div class="space-y-4 text-gray-400">
                     <p class="flex items-center space-x-3">
                         <i class="fas fa-envelope w-5"></i>
-                        <span>{{ site.email }}</span>
+                        <span>contact@gerdsen.ai</span>
                     </p>
                     <p class="flex items-center space-x-3">
                         <i class="fas fa-map-pin w-5"></i>

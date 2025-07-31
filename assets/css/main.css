@@ -2,6 +2,7 @@
 ---
 
 /* Reset and Base Styles */
+/* Inspired by Apple.com product pages */
 * {
     margin: 0;
     padding: 0;
@@ -140,6 +141,50 @@ body {
     background-clip: text;
 }
 
+/* Dynamic Color Transition - Apple Style */
+.color-transition {
+    transition: background 1.5s cubic-bezier(0.42, 0, 0.58, 1);
+    background: linear-gradient(
+        180deg,
+        #000 0%,
+        #050505 50%,
+        #0a0a0a 100%
+    );
+}
+
+.color-transition.light {
+    background: linear-gradient(
+        180deg,
+        #f5f5f7 0%,
+        #f0f0f2 50%,
+        #ebebed 100%
+    );
+    color: #1d1d1f;
+}
+
+/* Apple-style Section with Sticky Elements */
+.sticky-section {
+    position: relative;
+    height: 300vh;
+    overflow: hidden;
+}
+
+.sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.sticky-content {
+    transition: transform 0.5s cubic-bezier(0.42, 0, 0.58, 1), 
+                opacity 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
 /* Buttons */
 .button-primary {
     display: inline-block;
@@ -150,15 +195,45 @@ body {
     font-weight: 500;
     font-size: 17px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .button-primary:hover {
     background: #0051D5;
     transform: scale(1.05);
     box-shadow: 0 10px 30px rgba(0, 122, 255, 0.3);
+}
+
+/* Apple-style button with magnetic hover */
+.button-primary.magnetic {
+    transform-style: preserve-3d;
+    transform: perspective(800px);
+}
+
+.button-primary.magnetic::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 80%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.button-primary.magnetic:hover::after {
+    opacity: 1;
 }
 
 .button-secondary {
@@ -170,14 +245,36 @@ body {
     font-weight: 500;
     font-size: 17px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
 .button-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: scale(1.05);
+}
+
+/* Apple-style "Buy" button */
+.button-apple-buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0071e3;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 980px;
+    font-size: 17px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    letter-spacing: -0.01em;
+}
+
+.button-apple-buy:hover {
+    background: #0077ED;
 }
 
 /* Services Grid */
@@ -188,43 +285,129 @@ body {
     margin-top: 60px;
 }
 
-/* Service Card */
+/* Service Card - Enhanced with Apple-like 3D Effects */
 .service-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 40px;
-    transition: all 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0, 0, 0);
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .service-card:hover {
     background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translate3d(0, -8px, 20px) rotateX(2deg);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Bento Grid */
+/* Add subtle highlight effect on hover */
+.service-card:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 70%);
+    transform: translateX(-100%);
+    transition: transform 0.8s ease;
+    pointer-events: none;
+}
+
+.service-card:hover:after {
+    transform: translateX(100%);
+}
+
+/* Apple-style product card with 3D perspective */
+.product-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.product-card:hover {
+    transform: rotateY(5deg) rotateX(2deg) translateZ(10px);
+}
+
+.product-card-image {
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.product-card:hover .product-card-image {
+    transform: translateZ(30px) scale(1.05);
+}
+
+.product-card-content {
+    margin-top: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.product-card:hover .product-card-content {
+    transform: translateZ(20px);
+}
+
+/* Bento Grid - Enhanced with Apple-like 3D Effects */
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin-top: 60px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .bento-item {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
     padding: 32px;
-    transition: all 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0, 0, 0);
+    position: relative;
+    overflow: hidden;
 }
 
 .bento-item:hover {
-    transform: translateY(-4px);
+    transform: translate3d(0, -6px, 30px) rotateX(2deg);
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Subtle glow effect on hover */
+.bento-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.bento-item:hover:before {
+    opacity: 1;
 }
 
 .bento-item.large {
@@ -266,12 +449,53 @@ nav {
     padding: 20px 40px;
     backdrop-filter: blur(20px);
     background: rgba(0, 0, 0, 0.8);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 nav.scrolled {
     padding: 15px 40px;
     background: rgba(0, 0, 0, 0.95);
+}
+
+/* Apple-style navigation with tab effects */
+.apple-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.apple-nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    position: relative;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.apple-nav-link:hover {
+    color: #fff;
+}
+
+.apple-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.apple-nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 /* Glass Effect */
@@ -282,18 +506,21 @@ nav.scrolled {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Scroll Animations */
+/* Advanced Scroll Animations - Apple Style */
 [data-scroll-fade] {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translate3d(0, 30px, 0);
+    transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
+                transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: opacity, transform;
 }
 
 [data-scroll-fade].in-view {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
+/* Apply different delays for staggered animations */
 [data-delay="200"] {
     transition-delay: 0.2s;
 }
@@ -302,9 +529,73 @@ nav.scrolled {
     transition-delay: 0.4s;
 }
 
-/* Video Parallax Effect */
+/* Animation Classes for Service Cards */
+.service-card, .bento-item, .feature-item {
+    transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1),
+                transform 1s cubic-bezier(0.19, 1, 0.22, 1),
+                background-color 0.4s ease;
+    will-change: transform, opacity;
+    perspective: 1000px; /* 3D effect */
+}
+
+/* Section Animation Readiness */
+section {
+    position: relative;
+    z-index: 1;
+    overflow: visible; /* Allow elements to animate outside section bounds */
+}
+
+/* Animation timing adjustments */
+.hero-title {
+    transition-duration: 1.5s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.hero-description {
+    transition-duration: 1.7s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Enhanced Video Parallax Effect */
 .video-parallax-active {
-    transform: translate(-50%, -50%) scale(1.2) !important;
+    transform: translate3d(-50%, -50%, 0) scale(1.2) !important;
+}
+
+/* 3D Perspective for depth */
+body {
+    perspective: 1px;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+/* Content layers for depth effect */
+.section-content {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Video container enhancements */
+.video-container {
+    transform-style: preserve-3d;
+    will-change: transform;
+    z-index: 0;
+}
+
+/* Enhanced background videos */
+.background-video {
+    will-change: transform, opacity;
+    transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1),
+                opacity 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    backface-visibility: hidden;
+}
+
+/* Enhanced nav transitions */
+nav {
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
+                transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
+                top 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    will-change: transform, top, background-color;
+    backface-visibility: hidden;
 }
 
 /* No Video Sections */
@@ -320,6 +611,133 @@ nav.scrolled {
 .contact-section {
     padding: 120px 0;
     min-height: auto;
+}
+
+/* Apple-style Product Specs Section */
+.specs-section {
+    padding: 100px 0;
+    background: #000;
+}
+
+.specs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.spec-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    padding: 30px;
+    transition: transform 0.5s cubic-bezier(0.42, 0, 0.58, 1),
+                background-color 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.spec-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+}
+
+.spec-icon {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #007AFF;
+}
+
+.spec-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.spec-value {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Apple-style Compare Table */
+.compare-table {
+    width: 100%;
+    margin-top: 50px;
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+.compare-table th {
+    padding: 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.compare-table td {
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.compare-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Apple-style image gallery */
+.image-gallery {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 40px 0;
+}
+
+.gallery-container {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+    height: 100%;
+}
+
+.gallery-item {
+    flex: 0 0 100%;
+    height: 100%;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.gallery-dot.active {
+    background: rgba(255, 255, 255, 1);
 }
 
 /* Responsive */
@@ -425,4 +843,114 @@ nav.scrolled {
 
 .nav-link:hover {
     color: #007AFF;
+}
+
+/* Apple-style product display */
+.product-display {
+    position: relative;
+    perspective: 1000px;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.product-rotate {
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.product-rotate img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Dynamic content reveal animation */
+.reveal-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.42, 0, 0.58, 1),
+                transform 1s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.reveal-content.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Apple-style callout text */
+.callout-text {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 30px 0;
+}
+
+.callout-small {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Apple-style tech specs expandable */
+.expandable-section {
+    margin: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.expandable-header {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.expandable-header h3 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.expandable-icon {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.expandable-icon::before,
+.expandable-icon::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+}
+
+.expandable-icon::before {
+    width: 16px;
+    height: 2px;
+    top: 7px;
+    left: 0;
+}
+
+.expandable-icon::after {
+    width: 2px;
+    height: 16px;
+    top: 0;
+    left: 7px;
+    transition: transform 0.3s ease;
+}
+
+.expandable-section.open .expandable-icon::after {
+    transform: rotate(90deg);
+}
+
+.expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.expandable-section.open .expandable-content {
+    max-height: 1000px;
 }

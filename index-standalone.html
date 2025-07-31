@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack AI Solutions - From Concept to Production</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Apple-style Section Structure */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .content-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 80px 0;
+        }
+
+        /* Video Background Container */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%) scale(1.1);
+            z-index: -1;
+            opacity: 0.6;
+            transition: transform 0.3s ease;
+        }
+
+        /* Video Overlay for better text readability */
+        .video-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 40px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-description {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Section Content */
+        .section-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: -0.02em;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #AF52DE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Buttons */
+        .button-primary {
+            display: inline-block;
+            background: #007AFF;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 17px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .button-primary:hover {
+            background: #0051D5;
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.3);
+        }
+
+        .button-secondary {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 17px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        /* Service Card - Enhanced with Apple-like 3D Effects */
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            transform: translate3d(0, 0, 0);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translate3d(0, -8px, 20px) rotateX(2deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Add subtle highlight effect on hover */
+        .service-card:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 70%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .service-card:hover:after {
+            transform: translateX(100%);
+        }
+
+        /* Bento Grid - Enhanced with Apple-like 3D Effects */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .bento-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            transform: translate3d(0, 0, 0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item:hover {
+            transform: translate3d(0, -6px, 30px) rotateX(2deg);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Subtle glow effect on hover */
+        .bento-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .bento-item:hover:before {
+            opacity: 1;
+        }
+
+        .bento-item.large {
+            grid-column: span 2;
+        }
+
+        .bento-item.tall {
+            grid-row: span 2;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px;
+            margin-top: 40px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 40px;
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Advanced Scroll Animations - Apple Style */
+        [data-scroll-fade] {
+            opacity: 0;
+            transform: translate3d(0, 30px, 0);
+            transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
+                        transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            will-change: opacity, transform;
+        }
+
+        [data-scroll-fade].in-view {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* Apply different delays for staggered animations */
+        [data-delay="200"] {
+            transition-delay: 0.2s;
+        }
+
+        [data-delay="400"] {
+            transition-delay: 0.4s;
+        }
+
+        /* Animation Classes for Service Cards */
+        .service-card, .bento-item, .feature-item {
+            transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1),
+                        transform 1s cubic-bezier(0.19, 1, 0.22, 1),
+                        background-color 0.4s ease;
+            will-change: transform, opacity;
+            perspective: 1000px; /* 3D effect */
+        }
+
+        /* Section Animation Readiness */
+        section {
+            position: relative;
+            z-index: 1;
+            overflow: visible; /* Allow elements to animate outside section bounds */
+        }
+
+        /* Animation timing adjustments */
+        .hero-title {
+            transition-duration: 1.5s;
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .hero-description {
+            transition-duration: 1.7s;
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Enhanced Video Parallax Effect */
+        .video-parallax-active {
+            transform: translate3d(-50%, -50%, 0) scale(1.2) !important;
+        }
+
+        /* 3D Perspective for depth */
+        body {
+            perspective: 1px;
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* Content layers for depth effect */
+        .section-content {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* Video container enhancements */
+        .video-container {
+            transform-style: preserve-3d;
+            will-change: transform;
+            z-index: 0;
+        }
+
+        /* Enhanced background videos */
+        .background-video {
+            will-change: transform, opacity;
+            transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1),
+                        opacity 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+            backface-visibility: hidden;
+        }
+
+        /* Enhanced nav transitions */
+        nav {
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
+                        transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
+                        top 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            will-change: transform, top, background-color;
+            backface-visibility: hidden;
+        }
+
+        /* No Video Sections */
+        .no-video {
+            background: #000;
+        }
+
+        .cta-section {
+            padding: 120px 0;
+            min-height: auto;
+        }
+
+        .contact-section {
+            padding: 120px 0;
+            min-height: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bento-item.large {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-description {
+                font-size: 1.2rem;
+            }
+            
+            .section-content {
+                padding: 0 20px;
+            }
+            
+            .services-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bento-item.large,
+            .bento-item.tall {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .button-primary,
+            .button-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* SF Mono Font for Code/Technical Elements */
+        .mono {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+        }
+
+        /* Feature Card Icon Styling */
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Navigation Link Styles */
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 400;
+        }
+
+        .nav-link:hover {
+            color: #007AFF;
+        }
+
+        /* Utilities */
+        .text-4xl { font-size: 2.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-blue-500 { color: #3b82f6; }
+        .text-purple-500 { color: #8b5cf6; }
+        .text-pink-500 { color: #ec4899; }
+        .text-green-500 { color: #22c55e; }
+        .text-yellow-500 { color: #eab308; }
+        .text-red-500 { color: #ef4444; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-x-3 > * + * { margin-left: 0.75rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .text-center { text-align: center; }
+        .w-5 { width: 1.25rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .p-8 { padding: 2rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="#" class="nav-link">GERDSEN AI</a>
+    </div>
+</nav>
+
+<!-- Hero Section with Neural_G_5 Video Background -->
+<section class="hero-section" data-video-section>
+    <!-- Video Background -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="background-video" data-video-parallax>
+            <source src="/assets/images/Neural_G_5.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="hero-content">
+        <h1 class="hero-title" data-scroll-fade>
+            Full Stack AI Solutions<br>
+            <span class="gradient-text">From Concept to Production</span>
+        </h1>
+        <p class="hero-description" data-scroll-fade data-delay="200">
+            We architect, build, and deploy AI systems across the entire stack. Local or cloud, 
+            training or inference, POC or production - we deliver comprehensive AI solutions 
+            tailored to your business needs.
+        </p>
+        <div class="hero-buttons" data-scroll-fade data-delay="400">
+            <a href="#contact" class="button-primary">Start Your AI Journey</a>
+            <a href="#services" class="button-secondary">Explore Our Stack</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section with hero-video.mp4 -->
+<section id="services" class="content-section" data-video-section>
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="background-video" data-video-parallax>
+            <source src="/assets/images/hero-video.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div class="section-content">
+        <h2 class="section-title" data-scroll-fade>Our Full Stack AI Services</h2>
+        <div class="services-grid" data-scroll-fade data-delay="200">
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-blue-500">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">AI Strategy & Consulting</h3>
+                <p class="text-gray-400">Define your AI roadmap. We assess your needs, identify opportunities, and architect solutions that deliver real business value.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-purple-500">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Custom AI Development</h3>
+                <p class="text-gray-400">Build bespoke AI solutions. From LLMs to computer vision, we develop and integrate AI models tailored to your specific use cases.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-pink-500">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Production Deployment</h3>
+                <p class="text-gray-400">Scale with confidence. We handle MLOps, infrastructure, monitoring, and optimization for both cloud and on-premise deployments.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-green-500">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Model Training & Fine-tuning</h3>
+                <p class="text-gray-400">Optimize AI for your domain. We train custom models, fine-tune existing ones, and implement RAG systems with your data.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-yellow-500">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Cloud & Hybrid Workflows</h3>
+                <p class="text-gray-400">Flexible infrastructure solutions. We design cost-effective architectures spanning AWS, Azure, GCP, and private clouds.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="text-4xl mb-6 text-red-500">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 mono">Secure Local Deployment</h3>
+                <p class="text-gray-400">Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack Section with hero-promo.mp4 -->
+<section class="content-section tech-stack" data-video-section>
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="background-video" data-video-parallax>
+            <source src="/assets/images/hero-promo.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div class="section-content">
+        <h2 class="section-title" data-scroll-fade>
+            Our <span class="gradient-text">Technology Stack</span>
+        </h2>
+        <div class="bento-grid" data-scroll-fade data-delay="200">
+            <div class="bento-item large">
+                <h3 class="text-2xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-layer-group mr-3 text-blue-500"></i>
+                    Foundation Models
+                </h3>
+                <p class="text-gray-400">GPT-4, Claude, Llama, Mistral, Gemini, and custom fine-tuned models. We work with the best models for your use case.</p>
+            </div>
+            
+            <div class="bento-item">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-database mr-3 text-purple-500"></i>
+                    Vector Databases
+                </h3>
+                <p class="text-gray-400 text-sm">Pinecone, Weaviate, Qdrant, pgvector</p>
+            </div>
+            
+            <div class="bento-item">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-tools mr-3 text-pink-500"></i>
+                    MLOps Tools
+                </h3>
+                <p class="text-gray-400 text-sm">MLflow, Weights & Biases, Kubeflow, Ray</p>
+            </div>
+            
+            <div class="bento-item tall">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-server mr-3 text-green-500"></i>
+                    Infrastructure
+                </h3>
+                <ul class="text-gray-400 text-sm space-y-2">
+                    <li>• AWS SageMaker</li>
+                    <li>• Azure ML</li>
+                    <li>• Google Vertex AI</li>
+                    <li>• NVIDIA DGX</li>
+                    <li>• Kubernetes</li>
+                    <li>• Local GPU Clusters</li>
+                </ul>
+            </div>
+            
+            <div class="bento-item">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-code-branch mr-3 text-yellow-500"></i>
+                    Frameworks
+                </h3>
+                <p class="text-gray-400 text-sm">PyTorch, TensorFlow, JAX, Hugging Face, LangChain</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="content-section no-video">
+    <div class="section-content">
+        <h2 class="section-title" data-scroll-fade>
+            Why Choose <span class="gradient-text">GERDSEN AI?</span>
+        </h2>
+        <div class="features-grid" data-scroll-fade data-delay="200">
+            <div class="feature-item">
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl text-blue-500 mt-1">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
+                            <p class="text-gray-400">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl text-purple-500 mt-1">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
