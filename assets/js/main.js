@@ -199,7 +199,7 @@ function initConsolidatedScrollSystem() {
     const colorSections = document.querySelectorAll('.color-transition');
     
     let lastScrollY = 0;
-    const heroVideoTransitionPoint = window.innerHeight * 0.08; // Faster blur - reduced from 0.15
+    const heroVideoTransitionPoint = window.innerHeight * 0.04; // 200% faster blur - reduced from 0.08
     
     // Single consolidated scroll handler
     const masterScrollHandler = throttle(() => {
