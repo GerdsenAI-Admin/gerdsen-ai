@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browser Test Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        .info { color: blue; }
+        h2 { margin-top: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <h1>Gerdsen AI Website - Browser Test Results</h1>
+    
+    <div class="result-box">
+        <h2>Test Instructions</h2>
+        <ol>
+            <li>Open the Gerdsen AI website in another tab</li>
+            <li>Open browser DevTools (F12)</li>
+            <li>Copy and run this code in the console:</li>
+        </ol>
+        <pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto;">
+// Test dynamic header and video coverage
+const testResults = {
+    viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        aspectRatio: (window.innerWidth / window.innerHeight).toFixed(2)
+    },
+    header: {
+        logoSize: window.getComputedStyle(document.querySelector('.nav-logo')).fontSize,
+        linkSize: window.getComputedStyle(document.querySelector('.nav-link')).fontSize
+    },
+    video: (() => {
+        const v = document.querySelector('.background-video');
+        const rect = v.getBoundingClientRect();
+        return {
+            width: rect.width,
+            height: rect.height,
+            coversWidth: rect.width >= window.innerWidth,
+            coversHeight: rect.height >= window.innerHeight,
+            transform: window.getComputedStyle(v).transform
+        };
+    })()
+};
+
+console.table(testResults);
+console.log('Full Coverage:', testResults.video.coversWidth && testResults.video.coversHeight ? '✅' : '❌');
+        </pre>
+    </div>
+    
+    <div class="result-box">
+        <h2>Expected Results</h2>
+        <table>
+            <tr>
+                <th>Screen Size</th>
+                <th>Expected Logo Size</th>
+                <th>Expected Video Coverage</th>
+            </tr>
+            <tr>
+                <td>Mobile (375px)</td>
+                <td>~16px</td>
+                <td>120% width/height</td>
+            </tr>
+            <tr>
+                <td>Tablet (768px)</td>
+                <td>~17-18px</td>
+                <td>120% width/height</td>
+            </tr>
+            <tr>
+                <td>Desktop (1920px)</td>
+                <td>~24-26px</td>
+                <td>120% width (16:9), 130% (21:9)</td>
+            </tr>
+            <tr>
+                <td>Ultra-wide (3440px)</td>
+                <td>~28px</td>
+                <td>130% width coverage</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="result-box">
+        <h2>What to Check</h2>
+        <ul>
+            <li><strong>Dynamic Header:</strong> Logo font-size should change as you resize the window</li>
+            <li><strong>Video Coverage:</strong> No black bars should be visible at any screen size</li>
+            <li><strong>Animation Visibility:</strong> The Neural G animation should remain centered and visible</li>
+        </ul>
+        
+        <p><strong>Quick Test:</strong> Resize your browser window and watch if:</p>
+        <ol>
+            <li>The header text gets smaller/larger</li>
+            <li>The video always covers the full viewport</li>
+            <li>The Neural G animation doesn't get cut off on wide screens</li>
+        </ol>
+    </div>
+</body>
+</html>

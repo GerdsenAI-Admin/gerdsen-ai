@@ -1,0 +1,162 @@
+/* 
+ * HERO SECTION CUTOFF FIX
+ * Add this to the end of your main.css file
+ * Fixes content being cut off on mobile and ultra-wide screens
+ */
+
+/* ========================================
+   1. CORE FIX - Dynamic Viewport Height
+   ======================================== */
+.hero-section {
+    /* Use min-height instead of fixed height */
+    min-height: 100vh;
+    min-height: 100dvh; /* dvh = dynamic viewport height (accounts for mobile browser UI) */
+    height: auto; /* Allow content to determine height if needed */
+}
+
+/* ========================================
+   2. MOBILE FIXES (< 768px)
+   ======================================== */
+@media (max-width: 768px) {
+    /* Adjust hero section for mobile */
+    .hero-section {
+        padding-top: 70px;    /* Space for fixed navigation */
+        padding-bottom: 30px; /* Ensure bottom content is visible */
+    }
+    
+    /* Optimize video for mobile */
+    .background-video {
+        /* Increase coverage to prevent black bars */
+        width: 150vw;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+        /* Simplify transform for better performance */
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Adjust content spacing */
+    .hero-content {
+        padding: 0 20px; /* Reduce horizontal padding */
+    }
+    
+    /* Slightly smaller hero text on mobile */
+    .hero-title {
+        font-size: clamp(2rem, 7vw, 3.5rem); /* Smaller minimum size */
+        margin-bottom: 20px; /* Less margin */
+    }
+    
+    .hero-description {
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        margin-bottom: 30px; /* Less margin */
+    }
+    
+    /* Stack buttons vertically on very small screens */
+    @media (max-width: 400px) {
+        .hero-buttons {
+            flex-direction: column;
+            align-items: stretch;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        
+        .button-primary,
+        .button-secondary {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+/* ========================================
+   3. ULTRA-WIDE FIXES (> 2560px)
+   ======================================== */
+@media (min-width: 2560px) {
+    /* Increase content max-width for ultra-wide */
+    .hero-content {
+        max-width: 1600px;
+        padding: 0 60px;
+    }
+    
+    /* Scale up text for large screens */
+    .hero-title {
+        font-size: clamp(3rem, 4vw, 8rem);
+    }
+    
+    .hero-description {
+        font-size: clamp(1.25rem, 1.5vw, 2rem);
+        max-width: 1000px;
+    }
+    
+    /* Ensure video covers ultra-wide screens */
+    .background-video {
+        width: 140vw;
+        min-width: 100%;
+    }
+}
+
+/* ========================================
+   4. SPECIAL CASES
+   ======================================== */
+
+/* iPhone notch/home indicator safe areas */
+@supports (padding: max(0px)) {
+    .hero-section {
+        padding-bottom: max(30px, env(safe-area-inset-bottom));
+    }
+}
+
+/* Landscape mobile (common issue area) */
+@media (max-width: 896px) and (orientation: landscape) {
+    .hero-section {
+        min-height: 100vh;
+        padding-top: 60px;
+        padding-bottom: 20px;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.75rem, 5vw, 3rem);
+        margin-bottom: 15px;
+    }
+    
+    .hero-description {
+        font-size: clamp(0.875rem, 2vw, 1.1rem);
+        margin-bottom: 20px;
+    }
+}
+
+/* Very tall screens (ensure content stays centered) */
+@media (min-height: 1000px) {
+    .hero-content {
+        margin-top: -5vh; /* Slight upward adjustment */
+    }
+}
+
+/* ========================================
+   5. FALLBACK FOR OLDER BROWSERS
+   ======================================== */
+@supports not (height: 100dvh) {
+    /* Fallback for browsers that don't support dvh */
+    .hero-section {
+        min-height: 100vh;
+        /* Add extra padding as safety margin */
+        padding-bottom: 50px;
+    }
+}
+
+/* ========================================
+   6. DEBUG HELPERS (remove in production)
+   ======================================== */
+/*
+.hero-section {
+    outline: 2px solid red;
+}
+
+.hero-content {
+    outline: 2px solid green;
+}
+
+.background-video {
+    outline: 2px solid blue;
+}
+*/
