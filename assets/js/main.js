@@ -1,567 +1,456 @@
-// Apple-style Scroll Effects
-document.addEventListener('DOMContentLoaded', () => {
-    // Fix Jekyll template issues with video sources
-    fixVideoSources();
+// Firefly Particle System
+function createFireflies() {
+    const fireflyContainer = document.getElementById('firefly-container');
+    if (!fireflyContainer) return;
     
-    // Initialize animation systems
-    initScrollBasedAnimations();
-    initAdvancedParallax();
-    initNavigation();
-    
-    // Initialize Apple-inspired effects
-    initMagneticElements();
-    initProductRotation();
-    initExpandableSections();
-    initImageGallery();
-    initDynamicColorTransitions();
-    
-    // Initial animation trigger
-    triggerInitialAnimations();
-});
-
-// Fix video sources for GitHub Pages deployment and ensure proper loading with improved error handling
-function fixVideoSources() {
-    const videoElements = document.querySelectorAll('video');
-    const basePath = window.location.hostname === 'gerdsen.ai' ? '' : '/gerdsen-ai';
-    
-    // First pass - fix sources
-    videoElements.forEach(video => {
-        const sources = video.querySelectorAll('source');
-        const videoContainer = video.closest('.video-container');
+    // Create 60 fireflies for better coverage without overwhelming
+    for (let i = 0; i < 60; i++) {
+        const firefly = document.createElement('div');
+        firefly.className = 'firefly';
         
-        sources.forEach(source => {
-            let src = source.getAttribute('src');
-            if (!src) return;
-            
-            // Fix paths for GitHub Pages
-            if (src.startsWith('/') && !src.startsWith(basePath)) {
-                src = basePath + src;
-                source.setAttribute('src', src);
-            }
-        });
+        // Random starting positions across the entire viewport
+        firefly.style.left = Math.random() * 100 + '%';
+        firefly.style.top = (Math.random() * 200 - 50) + '%'; // Start some off-screen
         
-        // Add load event listener to mark videos as loaded
-        video.addEventListener('loadeddata', () => {
-            video.classList.add('loaded');
-            
-            // If it's a hero video, mark the hero section as video-loaded
-            if (video.closest('.hero-section')) {
-                const heroSection = video.closest('.hero-section');
-                heroSection.classList.add('video-loaded');
-                console.log('Hero video loaded successfully');
-            }
-        });
+        // Random animation delay and duration (slower)
+        firefly.style.animationDelay = Math.random() * 40 + 's';
+        firefly.style.animationDuration = (40 + Math.random() * 20) + 's';
         
-        // Enhanced error handling
-        video.addEventListener('error', (e) => {
-            console.error('Video loading error:', e);
-            
-            // Add fallback background if video fails to load
-            if (videoContainer) {
-                videoContainer.classList.add('video-error');
-                
-                // Apply a gradient background as fallback
-                videoContainer.style.background = 'linear-gradient(135deg, #000 0%, #222 50%, #000 100%)';
-                
-                // Show error message only in development
-                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    const errorMsg = document.createElement('div');
-                    errorMsg.className = 'video-error-message';
-                    errorMsg.textContent = 'Video could not be loaded. Please check the console for details.';
-                    errorMsg.style.position = 'absolute';
-                    errorMsg.style.bottom = '10px';
-                    errorMsg.style.left = '10px';
-                    errorMsg.style.color = 'rgba(255,255,255,0.7)';
-                    errorMsg.style.fontSize = '12px';
-                    errorMsg.style.padding = '5px';
-                    errorMsg.style.zIndex = '10';
-                    videoContainer.appendChild(errorMsg);
-                }
-            }
-        });
+        // Random size variation
+        const size = 2 + Math.random() * 4;
+        firefly.style.width = size + 'px';
+        firefly.style.height = size + 'px';
         
-        // Add accessibility controls for videos
-        addVideoControls(video, videoContainer);
-        
-        // Force video reload
-        video.load();
-        
-        // Attempt to play the video with improved mobile handling
-        playVideoWithFallbacks(video);
-    });
+        fireflyContainer.appendChild(firefly);
+    }
 }
 
-// Add accessibility controls to videos
-function addVideoControls(video, container) {
-    // Skip if container doesn't exist
-    if (!container) return;
+// Full Page Animated Smoke Background with Enhanced Parallax
+function initParallaxParticlesBackground() {
+    const particlesBg = document.getElementById('particles-bg');
+    const fireflyContainer = document.getElementById('firefly-container');
+    const heroSection = document.querySelector('.hero-section');
+    const steamLayer = document.getElementById('steam-layer');
+    const cloudLayer = document.getElementById('cloud-layer');
+    const smokeLayers = document.querySelectorAll('.smoke-layer');
     
-    // Create control button
-    const controlBtn = document.createElement('button');
-    controlBtn.className = 'video-controls';
-    controlBtn.setAttribute('aria-label', 'Toggle video playback');
-    controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    if (!particlesBg || !heroSection) return;
     
-    // Add button to container
-    container.appendChild(controlBtn);
+    // Track neural G video blur state
+    let neuralGBlurred = false;
+    let particlesShown = false;
+    let firefliesShown = false;
     
-    // Toggle play/pause on button click
-    controlBtn.addEventListener('click', () => {
-        if (video.paused) {
-            video.play();
-            controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        } else {
-            video.pause();
-            controlBtn.innerHTML = '<i class="fas fa-play"></i>';
-        }
-    });
+    // IMMEDIATE blur on scroll start
+    let scrollTimeout;
+    let isScrolling = false;
     
-    // Update button state when video state changes
-    video.addEventListener('play', () => {
-        controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    });
-    
-    video.addEventListener('pause', () => {
-        controlBtn.innerHTML = '<i class="fas fa-play"></i>';
-    });
-    
-    // Hide controls initially
-    controlBtn.style.opacity = '0';
-    
-    // Show controls on hover
-    container.addEventListener('mouseenter', () => {
-        controlBtn.style.opacity = '0.7';
-    });
-    
-    container.addEventListener('mouseleave', () => {
-        controlBtn.style.opacity = '0';
-    });
-}
-
-// Play video with improved fallbacks and mobile handling
-function playVideoWithFallbacks(video) {
-    // Detect mobile devices
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    // Different handling based on device type
-    if (isMobile) {
-        // On mobile, only attempt to play hero videos automatically
-        if (video.closest('.hero-section')) {
-            attemptPlayback(video);
-        } else {
-            // For non-hero videos on mobile, wait until they're in viewport
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        attemptPlayback(video);
-                        observer.unobserve(video);
+    // Enhanced scroll handler for immediate blur
+    function handleImmediateScroll() {
+        const scrollY = window.pageYOffset;
+        
+        // IMMEDIATE blur and dim on ANY scroll
+        if (scrollY > 5 && !heroSection.classList.contains('scrolled')) {
+            heroSection.classList.add('scrolled');
+            neuralGBlurred = true;
+            
+            // Show smoke effect after a short delay
+            if (!particlesShown) {
+                setTimeout(() => {
+                    particlesBg.classList.add('show');
+                    particlesShown = true;
+                    
+                    // Show fireflies
+                    if (fireflyContainer && !firefliesShown) {
+                        fireflyContainer.classList.add('show');
+                        firefliesShown = true;
+                        createFireflies();
                     }
-                });
-            }, { threshold: 0.1 });
-            
-            observer.observe(video);
-        }
-    } else {
-        // On desktop, attempt to play all videos
-        attemptPlayback(video);
-    }
-}
-
-// Helper function to attempt video playback
-function attemptPlayback(video) {
-    const playPromise = video.play();
-    
-    if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            console.log('Video autoplay issue:', error);
-            
-            // Mark video as having autoplay issues
-            video.setAttribute('data-autoplay-failed', 'true');
-            
-            // Add user interaction detection for autoplay issues
-            document.addEventListener('click', () => {
-                if (video.getAttribute('data-autoplay-failed') === 'true') {
-                    video.play().then(() => {
-                        video.removeAttribute('data-autoplay-failed');
-                    }).catch(e => console.log('Still cannot play video:', e));
-                }
-            }, { once: true });
-        });
-    }
-}
-
-// Advanced Scroll-Based Animations - Apple Style
-function initScrollBasedAnimations() {
-    // Track all animatable elements
-    const animElements = document.querySelectorAll('[data-scroll-fade], .service-card, .bento-item, .feature-item');
-    
-    // Create a throttled scroll handler
-    const scrollHandler = throttle(() => {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        
-        // Process each element
-        animElements.forEach(element => {
-            const rect = element.getBoundingClientRect();
-            const elementTop = rect.top + scrollY;
-            const elementVisible = 150; // Trigger point
-            
-            // Calculate scroll progress (0 to 1)
-            const distanceFromTop = window.scrollY + windowHeight - elementTop;
-            const scrollProgress = Math.min(Math.max(distanceFromTop / (windowHeight + rect.height), 0), 1);
-            
-            // Apply different effects based on element type
-            if (scrollProgress > 0) {
-                // Set the element as in view
-                element.classList.add('in-view');
-                
-                // Apply scroll-linked animations - transform based on scroll progress
-                const yTransform = (1 - scrollProgress) * 30; // Start at 30px up, end at 0
-                const opacityValue = Math.min(scrollProgress * 1.3, 1); // Opacity from 0 to 1
-                
-                // Apply transforms with slight variations based on element position
-                const xOffset = element.dataset.scrollDirection === 'left' ? -20 * (1-scrollProgress) : 
-                               (element.dataset.scrollDirection === 'right' ? 20 * (1-scrollProgress) : 0);
-                
-                // Apply 3D transform for depth effect
-                element.style.transform = `translate3d(${xOffset}px, ${yTransform}px, 0)`;
-                element.style.opacity = opacityValue;
+                }, 300);
             }
-        });
-    }, 15); // Throttle to ~60fps
-    
-    // Assign varied directional movement to elements for more dynamic effect
-    const directions = ['left', 'right', ''];
-    const delayValues = [0, 100, 200, 300, 400];
-    
-    animElements.forEach((el, index) => {
-        // Assign random direction for varied movement
-        const direction = directions[index % directions.length];
-        if (direction) {
-            el.dataset.scrollDirection = direction;
+        } else if (scrollY <= 5 && heroSection.classList.contains('scrolled')) {
+            heroSection.classList.remove('scrolled');
         }
         
-        // Assign staggered delay
-        const delayIndex = index % delayValues.length;
-        el.style.transitionDelay = `${delayValues[delayIndex]}ms`;
+        // Track scrolling state
+        isScrolling = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 150);
+    }
+    
+    // Use non-throttled handler for immediate response
+    window.addEventListener('scroll', handleImmediateScroll, { passive: true });
+    
+    // Mouse move parallax with enhanced depth
+    let mouseX = 0.5;
+    let mouseY = 0.5;
+    let currentX = 0.5;
+    let currentY = 0.5;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX / window.innerWidth;
+        mouseY = e.clientY / window.innerHeight;
     });
     
-    // Add scroll event
-    window.addEventListener('scroll', scrollHandler);
-    window.addEventListener('resize', scrollHandler);
+    // Smooth animation loop for all parallax effects
+    let scrollY = 0;
+    let targetScrollY = 0;
+    let frame = 0;
     
-    // Initial call
-    scrollHandler();
-}
-
-// Advanced Parallax System with Apple-style Animation Sequence
-function initAdvancedParallax() {
-    const parallaxItems = document.querySelectorAll('[data-video-parallax], .section-title, .hero-title, .hero-description');
-    let lastScrollY = 0;
-    const heroVideoTransitionPoint = window.innerHeight * 0.15; // Lower transition point to show effect sooner
-    
-    // Create a scroll handler for smooth parallax with enhanced sequence
-    const parallaxHandler = throttle(() => {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
+    function animateAll() {
+        frame++;
+        targetScrollY = window.pageYOffset;
         
-        // Add/remove scrolled class for hero section based on scroll position
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            if (scrollY > heroVideoTransitionPoint / 2) {
-                heroSection.classList.add('scrolled');
-            } else {
-                heroSection.classList.remove('scrolled');
+        // Smooth scroll interpolation
+        scrollY += (targetScrollY - scrollY) * 0.1;
+        
+        // Smooth mouse interpolation
+        currentX += (mouseX - currentX) * 0.05;
+        currentY += (mouseY - currentY) * 0.05;
+        
+        // Calculate multi-layer parallax
+        const mouseOffsetX = (currentX - 0.5) * 2;
+        const mouseOffsetY = (currentY - 0.5) * 2;
+        
+        // Animate smoke layers with parallax
+        if (particlesBg && particlesShown) {
+            // Overall smoke container parallax
+            const smokeParallaxY = -(scrollY * 0.3);
+            particlesBg.style.transform = `translateY(${smokeParallaxY}px)`;
+            
+            // Individual smoke layers parallax
+            smokeLayers.forEach((layer, index) => {
+                const speed = 0.1 + (index * 0.05);
+                const offsetX = mouseOffsetX * (10 + index * 5);
+                const offsetY = mouseOffsetY * (10 + index * 5) + (scrollY * speed);
+                layer.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
+            });
+            
+            // Apply blur when scrolled
+            if (scrollY > 600 && !particlesBg.classList.contains('blurred')) {
+                particlesBg.classList.add('blurred');
+            } else if (scrollY <= 600 && particlesBg.classList.contains('blurred')) {
+                particlesBg.classList.remove('blurred');
             }
         }
         
-        // Process hero video backgrounds - enhanced sequence animation
-        document.querySelectorAll('.hero-section [data-video-parallax]').forEach((video) => {
-            const section = video.closest('[data-video-section]');
-            if (!section) return;
-            
-            const rect = section.getBoundingClientRect();
-            const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.5), 1);
-            
-            // Animation Phases:
-            // 1. Initial state - full scale prominent video (large, clear)
-            // 2. As scroll begins - video starts to blur and recede while text becomes visible
-            // 3. At transition point - video continues to blur and move back in z-space
-            // 4. After transition - particles/smoke effects visible with video as background
-            
-            if (scrollY < heroVideoTransitionPoint) {
-                // Phase 1-2: Initial to scroll begins - start with large clear video
-                const yPos = -(rect.top * 0.2); // Slight parallax effect
-                const initialScale = 1.15 - (scrollY / heroVideoTransitionPoint) * 0.05; // Start larger, slightly reduce
-                const initialBlur = (scrollY / heroVideoTransitionPoint) * 2; // Start adding slight blur
-                const zPos = -(scrollY / heroVideoTransitionPoint) * 10; // Start moving back slightly
-                
-                video.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), ${zPos}px) scale(${initialScale})`;
-                video.style.filter = `blur(${initialBlur}px)`;
-                video.style.opacity = 1 - (scrollY / heroVideoTransitionPoint) * 0.3; // Start with full opacity
-            } else {
-                // Phase 3-4: More pronounced transition effect
-                const progressBeyondTransition = Math.min((scrollY - heroVideoTransitionPoint) / (windowHeight * 0.3), 1);
-                const scaleValue = 1.1 - progressBeyondTransition * 0.15; // Reduce from 1.1 to 0.95
-                const blurValue = 2 + progressBeyondTransition * 6; // Increase blur from 2px to 8px
-                const zOffset = -10 - progressBeyondTransition * 40; // Move further back in z-space
-                const yOffset = progressBeyondTransition * -20; // Slight move up as it recedes
-                const opacityValue = 0.7 - progressBeyondTransition * 0.2; // More pronounced fade
-                
-                video.style.transform = `translate3d(-50%, calc(-50% + ${yOffset}px), ${zOffset}px) scale(${scaleValue})`;
-                video.style.filter = `blur(${blurValue}px)`;
-                video.style.opacity = opacityValue;
-                
-                // Add smoke/particle effect when sufficiently scrolled
-                if (progressBeyondTransition > 0.3 && !section.classList.contains('show-particles')) {
-                    section.classList.add('show-particles');
-                } else if (progressBeyondTransition <= 0.2 && section.classList.contains('show-particles')) {
-                    section.classList.remove('show-particles');
-                }
-            }
-        });
-        
-        // Process other video backgrounds normally
-        document.querySelectorAll(':not(.hero-section) [data-video-parallax]').forEach((video) => {
-            const section = video.closest('[data-video-section]');
-            if (!section) return;
-            
-            const rect = section.getBoundingClientRect();
-            
-            // Standard parallax for non-hero videos
-            const speed = 0.5;
-            const yPos = -(rect.top * speed);
-            const scale = 1.1 + (Math.abs(rect.top) / windowHeight) * 0.15;
-            const depthOffset = Math.abs(rect.top) / windowHeight * 30;
-            
-            video.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), ${-depthOffset}px) scale(${Math.min(scale, 1.4)})`;
-            video.style.opacity = Math.max(0.3, Math.min(0.65, 0.65 - (Math.abs(rect.top) / windowHeight) * 0.35));
-        });
-        
-        // Process text elements for enhanced floating effect
-        parallaxItems.forEach(item => {
-            if (item.hasAttribute('data-video-parallax')) return; // Skip videos
-            
-            const section = item.closest('section');
-            if (!section) return;
-            
-            const rect = section.getBoundingClientRect();
-            
-            // Different speeds and effects for different elements
-            if (item.classList.contains('hero-title') || item.classList.contains('hero-description') || 
-                item.classList.contains('hero-buttons')) {
-                // Special animation for hero text elements - initially hidden, then appear on scroll
-                const scrollProgress = Math.min(Math.abs(rect.top) / (windowHeight * 0.6), 1);
-                
-                if (scrollY < heroVideoTransitionPoint * 0.5) {
-                    // Phase 1: Text hidden initially
-                    const initialProgress = Math.min(scrollY / (heroVideoTransitionPoint * 0.5), 1);
-                    const yOffset = 30 * (1 - initialProgress);
-                    const opacityValue = Math.min(initialProgress * 2, 0.3); // Start appearing but faintly
-                    const zOffset = -20 + initialProgress * 10; // Move from back to front
-                    
-                    item.style.transform = `translate3d(0, ${yOffset}px, ${zOffset}px)`;
-                    item.style.opacity = opacityValue;
-                } else if (scrollY < heroVideoTransitionPoint * 3) {
-                    // Phase 2-3: Text becomes fully visible as video blurs
-                    const visibleProgress = Math.min((scrollY - heroVideoTransitionPoint * 0.5) / (heroVideoTransitionPoint * 1.5), 1);
-                    const zOffset = -10 + visibleProgress * 30; // Continue moving forward in z-space
-                    const opacityValue = 0.3 + visibleProgress * 0.7; // Increase opacity to full
-                    
-                    item.style.transform = `translate3d(0, 0, ${zOffset}px)`;
-                    item.style.opacity = opacityValue;
-                } else {
-                    // Phase 4: Text stays visible but starts subtle fade as user scrolls far down
-                    const exitProgress = Math.min((scrollY - heroVideoTransitionPoint * 3) / (windowHeight * 0.5), 1);
-                    const yOffset = -20 * exitProgress;
-                    const opacityValue = 1 - exitProgress * 0.3;
-                    
-                    item.style.transform = `translate3d(0, ${yOffset}px, 20px)`;
-                    item.style.opacity = opacityValue;
-                }
-            } else {
-                // Standard parallax for other text elements
-                const speed = item.classList.contains('section-title') ? 0.15 : 0.1;
-                
-                // Only apply if in view with some margin
-                if (rect.top < windowHeight + 100 && rect.bottom > -100) {
-                    const yPos = -(rect.top * speed);
-                    item.style.transform = `translate3d(0, ${yPos}px, 0)`;
-                }
-            }
-        });
-        
-        lastScrollY = scrollY;
-    }, 10);
-    
-    window.addEventListener('scroll', parallaxHandler);
-    window.addEventListener('resize', parallaxHandler);
-    
-    // Initial call
-    parallaxHandler();
-}
-
-// Enhanced Navigation Effects
-function initNavigation() {
-    const nav = document.querySelector('nav');
-    let lastScroll = 0;
-    
-    const navHandler = throttle(() => {
-        const currentScroll = window.pageYOffset;
-        
-        // Add glass effect when scrolled
-        if (currentScroll > 50) {
-            nav.classList.add('scrolled');
-            // Add subtle parallax to navigation
-            nav.style.transform = `translate3d(0, ${currentScroll * 0.02}px, 0)`;
-        } else {
-            nav.classList.remove('scrolled');
-            nav.style.transform = 'translate3d(0, 0, 0)';
+        // Steam layer parallax
+        if (steamLayer) {
+            const steamParallaxY = -(scrollY * 0.3);
+            const steamRotation = Math.sin(frame * 0.001) * 2;
+            steamLayer.style.transform = `
+                translateY(${steamParallaxY}px) 
+                translateX(${mouseOffsetX * 5}px)
+                rotate(${steamRotation}deg)
+            `;
         }
         
-        // Hide/show based on scroll direction (like Apple)
-        if (currentScroll > lastScroll && currentScroll > 100) {
-            // Scrolling down - hide nav
-            nav.style.top = '-80px';
-        } else {
-            // Scrolling up - show nav
-            nav.style.top = '0';
+        // Cloud layer parallax
+        if (cloudLayer) {
+            const cloudParallaxY = -(scrollY * 0.4);
+            const cloudDrift = Math.sin(frame * 0.0005) * 10;
+            cloudLayer.style.transform = `
+                translateY(${cloudParallaxY}px) 
+                translateX(${cloudDrift + mouseOffsetX * 8}px)
+            `;
         }
         
-        lastScroll = currentScroll;
-    }, 10);
+        // Firefly container parallax
+        if (fireflyContainer && firefliesShown) {
+            const fireflyParallaxY = -(scrollY * 0.2);
+            fireflyContainer.style.transform = `
+                translateY(${fireflyParallaxY}px)
+                translateX(${mouseOffsetX * 3}px)
+            `;
+        }
+        
+        requestAnimationFrame(animateAll);
+    }
+    animateAll();
     
-    window.addEventListener('scroll', navHandler);
+    // Reset on mouse leave
+    document.addEventListener('mouseleave', () => {
+        mouseX = 0.5;
+        mouseY = 0.5;
+    });
+    
+    console.log('Enhanced smoke effect initialized');
 }
 
-// Enhanced Initial Animations with Apple-style Sequence
-function triggerInitialAnimations() {
-    // Create particles for hero section
-    createParticleEffect();
-    
-    // Initial state: video prominently displayed, text initially hidden
+// Scroll-based Animations with Immediate Response
+function initScrollAnimations() {
     const heroSection = document.querySelector('.hero-section');
-    const heroVideo = document.querySelector('.hero-section .background-video');
-    const heroContent = document.querySelector('.hero-section .hero-content');
+    const heroContent = document.querySelector('.hero-content');
+    const heroTitle = document.querySelector('.hero-title');
+    const heroDescription = document.querySelector('.hero-description');
+    const heroButtons = document.querySelector('.hero-buttons');
+    const scrollElements = document.querySelectorAll('[data-scroll-fade]');
     
-    // Ensure hero content is hidden initially
-    if (heroContent) {
-        heroContent.style.opacity = '0';
-        heroContent.style.transform = 'translate3d(0, 30px, -20px)';
-        heroContent.style.zIndex = '1'; // Lower z-index initially
-    }
+    // Set initial states
+    if (heroTitle) heroTitle.style.opacity = '0';
+    if (heroDescription) heroDescription.style.opacity = '0';
+    if (heroButtons) heroButtons.style.opacity = '0';
     
-    if (heroVideo) {
-        // Set initial video state - large, clear, and prominent
-        heroVideo.style.opacity = '1'; // Fully visible initially
-        heroVideo.style.transform = 'translate(-50%, -50%) scale(1.15)';
-        heroVideo.style.filter = 'blur(0px)';
-    }
+    let contentShown = false;
     
-    // Staggered animation for hero elements only after scroll
-    setTimeout(() => {
-        const heroElements = document.querySelectorAll('.hero-section [data-scroll-fade]');
-        heroElements.forEach((el, index) => {
-            // Initially make sure these are invisible until scroll
-            el.style.opacity = '0';
-            el.style.transform = 'translate3d(0, 30px, -20px)';
+    function handleScroll() {
+        const scrollY = window.scrollY;
+        
+        // Show hero content immediately when scrolled
+        if (scrollY > 5 && !contentShown) {
+            contentShown = true;
             
-            // We'll trigger their visibility on scroll instead of immediately
+            // Content appears as video dims
+            if (heroTitle) {
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translateY(0)';
+            }
+            
             setTimeout(() => {
-                el.classList.add('in-view');
-            }, index * 200); // Stagger effect
-        });
-    }, 500); // Delayed start to ensure video is loaded
-    
-    // Add animation classes to all sections
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('animate-ready');
-    });
-    
-    // Initialize all video backgrounds with priority loading for hero
-    // We already have a heroVideo variable, so no need to redeclare it
-    // Load and play the hero video if it exists
-    if (heroVideo) {
-        heroVideo.load();
-        heroVideo.play()
-            .then(() => {
-                heroVideo.classList.add('loaded');
-                document.querySelector('.hero-section').classList.add('video-loaded');
-            })
-            .catch(e => console.log('Hero video autoplay issue:', e));
-    }
-    
-    // Load other videos with lower priority
-    setTimeout(() => {
-        document.querySelectorAll(':not(.hero-section) .background-video').forEach(video => {
-            video.load();
-            video.play().catch(e => console.log('Video autoplay issue:', e));
+                if (heroDescription) {
+                    heroDescription.style.opacity = '1';
+                    heroDescription.style.transform = 'translateY(0)';
+                }
+            }, 200);
             
-            // Add loaded class after video starts playing
-            video.addEventListener('playing', () => {
-                video.classList.add('loaded');
-            });
-        });
-    }, 1000);
-    
-    // Reveal any dynamic content that should be shown immediately
-    setTimeout(() => {
-        document.querySelectorAll('.reveal-content').forEach(el => {
-            el.classList.add('active');
-        });
-    }, 800);
-}
-
-// Create particle effect for hero section smoke/particles
-function createParticleEffect() {
-    const heroSection = document.querySelector('.hero-section');
-    if (!heroSection) return;
-    
-    // Create particle container if it doesn't exist
-    if (!document.querySelector('.particles-container')) {
-        const particlesContainer = document.createElement('div');
-        particlesContainer.className = 'particles-container';
-        heroSection.appendChild(particlesContainer);
+            setTimeout(() => {
+                if (heroButtons) {
+                    heroButtons.style.opacity = '1';
+                    heroButtons.style.transform = 'translateY(0)';
+                }
+            }, 400);
+        } else if (scrollY <= 5 && contentShown) {
+            contentShown = false;
+            
+            // Hide hero content
+            if (heroTitle) {
+                heroTitle.style.opacity = '0';
+                heroTitle.style.transform = 'translateY(20px)';
+            }
+            if (heroDescription) {
+                heroDescription.style.opacity = '0';
+                heroDescription.style.transform = 'translateY(20px)';
+            }
+            if (heroButtons) {
+                heroButtons.style.opacity = '0';
+                heroButtons.style.transform = 'translateY(20px)';
+            }
+        }
         
-        // Create multiple particle elements
-        for (let i = 0; i < 40; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
+        // Animate other scroll elements
+        scrollElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
+            const windowHeight = window.innerHeight;
             
-            // Randomize initial position and animation properties
-            const size = Math.random() * 60 + 40; // 40-100px
-            const posX = Math.random() * 120 - 10; // -10% to 110%
-            const posY = Math.random() * 120 - 10; // -10% to 110%
-            const delay = Math.random() * 5; // 0-5s delay
-            const duration = Math.random() * 15 + 10; // 10-25s animation
+            if (elementTop < windowHeight * 0.8 && elementBottom > 0) {
+                element.classList.add('in-view');
+            }
+        });
+        
+        // Animate service cards
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach((card, index) => {
+            const cardTop = card.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${posX}%`;
-            particle.style.top = `${posY}%`;
-            particle.style.animationDelay = `${delay}s`;
-            particle.style.animationDuration = `${duration}s`;
+            if (cardTop < windowHeight * 0.8) {
+                setTimeout(() => {
+                    card.classList.add('in-view');
+                }, index * 100);
+            }
+        });
+        
+        // Animate feature items
+        const featureItems = document.querySelectorAll('.feature-item');
+        featureItems.forEach((item, index) => {
+            const itemTop = item.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
             
-            particlesContainer.appendChild(particle);
-        }
+            if (itemTop < windowHeight * 0.8) {
+                setTimeout(() => {
+                    item.classList.add('in-view');
+                }, index * 100);
+            }
+        });
     }
+    
+    // Use non-throttled for immediate response on scroll start
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check
+    handleScroll();
 }
 
-// Smooth Scroll for Navigation Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({
-                top: offsetTop - 80,
-                behavior: 'smooth'
+// Modal Functionality
+function initModals() {
+    const modalTriggers = document.querySelectorAll('.modal-trigger');
+    const modals = document.querySelectorAll('.modal');
+    const modalCloses = document.querySelectorAll('.modal-close');
+    
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const modalId = trigger.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+    
+    modalCloses.forEach(close => {
+        close.addEventListener('click', () => {
+            const modal = close.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+    
+    // Close on outside click
+    modals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+    
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modals.forEach(modal => {
+                modal.style.display = 'none';
             });
+            document.body.style.overflow = 'auto';
         }
     });
-});
+}
+
+// Mobile Navigation Toggle
+function initMobileNavigation() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    if (!mobileMenuBtn || !mobileMenu) return;
+    
+    let isMenuOpen = false;
+    
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+            mobileMenu.classList.remove('mobile-menu-hidden');
+            mobileMenu.classList.add('mobile-menu-visible');
+            hamburger.classList.add('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        } else {
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Close menu when clicking on mobile nav links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Handle escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMenuOpen) {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('mobile-menu-visible');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            hamburger.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// Contact Form Handler
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusDiv = document.getElementById('form-status');
+    
+    if (!form) return;
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            company: formData.get('company') || 'Not specified',
+            project: formData.get('project') || 'Not specified',
+            message: formData.get('message')
+        };
+        
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        
+        try {
+            // Simulate form submission (replace with actual endpoint)
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Success
+            statusDiv.className = 'form-status success';
+            statusDiv.textContent = 'Message sent successfully! We\'ll get back to you within 24 hours.';
+            statusDiv.style.display = 'block';
+            
+            // Reset form
+            form.reset();
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // Error handling
+            statusDiv.className = 'form-status error';
+            statusDiv.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at contact@gerdsen.ai';
+            statusDiv.style.display = 'block';
+        } finally {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+            
+            // Hide status after 10 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 10000);
+        }
+    });
+}
 
 // Performance Optimization - Enhanced Throttle
 function throttle(func, wait = 16) {
@@ -589,306 +478,50 @@ function throttle(func, wait = 16) {
     };
 }
 
-// Enhanced Video Loading Optimization
+// Main Initialization - DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-    const videos = document.querySelectorAll('.background-video');
+    console.log('Initializing Gerdsen AI website...');
     
-    // Detect connection speed
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const isSaveData = connection && connection.saveData;
-    const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+    // Initialize parallax particles background FIRST
+    initParallaxParticlesBackground();
     
-    // Detect mobile devices
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Initialize scroll animations
+    initScrollAnimations();
     
-    videos.forEach(video => {
-        // Check for slow connection or save-data mode
-        if (isSaveData || isSlowConnection) {
-            // Show a message about data saving mode if needed
-            const container = video.closest('.video-container');
-            if (container) {
-                container.classList.add('video-data-saving');
-                container.style.background = 'linear-gradient(135deg, #000 0%, #111 50%, #000 100%)';
-                
-                // Create static image fallback
-                const staticImage = document.createElement('div');
-                staticImage.className = 'static-fallback';
-                staticImage.style.position = 'absolute';
-                staticImage.style.top = '0';
-                staticImage.style.left = '0';
-                staticImage.style.width = '100%';
-                staticImage.style.height = '100%';
-                staticImage.style.background = 'radial-gradient(ellipse at center, rgba(0,122,255,0.1) 0%, rgba(0,0,0,0) 70%)';
-                container.appendChild(staticImage);
-            }
-            
-            // Prevent video loading
-            video.setAttribute('preload', 'none');
-            video.pause();
-            
-            console.log('Video loading disabled due to data saving mode or slow connection');
+    // Initialize modals
+    initModals();
+    
+    // Initialize mobile navigation
+    initMobileNavigation();
+    
+    // Initialize contact form
+    initContactForm();
+    
+    console.log('Website initialization complete!');
+});
+
+// Smooth Scroll for Navigation Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        
+        // Special handling for home link
+        if (targetId === '#home') {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             return;
         }
         
-        // Mobile optimization - lower quality for mobile
-        if (isMobile) {
-            // Add data-mobile attribute to mark for potential quality switching
-            video.setAttribute('data-mobile', 'true');
-            
-            // Mobile-specific optimizations can be added here
-            // For example, we could switch to a lower quality video source for mobile
-        }
-        
-        // Optimize video loading with visibility detection
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Only load when in viewport
-                    entry.target.classList.add('loaded');
-                    
-                    // Attempt to play only when visible
-                    entry.target.play().catch(e => {
-                        console.log('Video autoplay failed:', e);
-                    });
-                    
-                    observer.unobserve(entry.target);
-                }
+        const target = document.querySelector(targetId);
+        if (target) {
+            const offsetTop = target.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: offsetTop - 80, // Account for fixed nav
+                behavior: 'smooth'
             });
-        }, { threshold: 0.1 });
-        
-        observer.observe(video);
-        
-        // Handle loadeddata event
-        video.addEventListener('loadeddata', () => {
-            video.classList.add('loaded');
-        });
+        }
     });
 });
-
-// Disable right-click on videos (optional)
-document.addEventListener('contextmenu', (e) => {
-    if (e.target.tagName === 'VIDEO') {
-        e.preventDefault();
-    }
-});
-
-// Handle Mobile Touch Events for Better Performance
-let touchStartY = 0;
-let touchEndY = 0;
-
-document.addEventListener('touchstart', (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-}, { passive: true });
-
-document.addEventListener('touchend', (e) => {
-    touchEndY = e.changedTouches[0].screenY;
-    handleSwipe();
-}, { passive: true });
-
-function handleSwipe() {
-    if (touchEndY < touchStartY - 50) {
-        // Swiped up
-    }
-    if (touchEndY > touchStartY + 50) {
-        // Swiped down
-    }
-}
-
-// Apple-style Magnetic Elements (like buttons on Apple.com)
-function initMagneticElements() {
-    const magneticElements = document.querySelectorAll('.magnetic, .button-primary.magnetic');
-    
-    magneticElements.forEach(element => {
-        element.addEventListener('mousemove', (e) => {
-            const rect = element.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            // Calculate distance from center (0-1)
-            const distance = Math.sqrt(x*x + y*y);
-            const maxDistance = Math.sqrt(rect.width * rect.width + rect.height * rect.height) / 2;
-            const normalizedDistance = Math.min(distance / maxDistance, 1);
-            
-            // Calculate rotation and movement amounts (stronger when closer to center)
-            const strength = 15; // Max movement in pixels
-            const rotateStrength = 2; // Max rotation in degrees
-            const moveX = x * (strength * (1 - normalizedDistance*0.5)) / rect.width;
-            const moveY = y * (strength * (1 - normalizedDistance*0.5)) / rect.height;
-            const rotateX = -moveY * rotateStrength;
-            const rotateY = moveX * rotateStrength;
-            
-            // Apply transforms with cubic-bezier easing (Apple-style)
-            element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px) translateX(${moveX}px) translateY(${moveY}px)`;
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            // Reset transforms with smooth transition back
-            element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0) translateX(0) translateY(0)';
-        });
-    });
-}
-
-// Apple-style Product Rotation (like Mac Studio 360 view)
-function initProductRotation() {
-    const productElements = document.querySelectorAll('.product-rotate');
-    
-    productElements.forEach(element => {
-        let isRotating = false;
-        let startX = 0;
-        let currentRotation = 0;
-        
-        // For mouse drag rotation
-        element.addEventListener('mousedown', (e) => {
-            isRotating = true;
-            startX = e.clientX;
-            element.style.transition = 'none'; // Disable transition for smooth dragging
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isRotating) return;
-            
-            const deltaX = e.clientX - startX;
-            const rotationAmount = deltaX * 0.5; // Adjust rotation sensitivity
-            
-            element.style.transform = `rotateY(${currentRotation + rotationAmount}deg)`;
-        });
-        
-        document.addEventListener('mouseup', (e) => {
-            if (!isRotating) return;
-            
-            isRotating = false;
-            currentRotation = currentRotation + ((e.clientX - startX) * 0.5);
-            startX = 0;
-            element.style.transition = 'transform 0.5s cubic-bezier(0.42, 0, 0.58, 1)';
-        });
-        
-        // For automatic rotation on scroll
-        window.addEventListener('scroll', () => {
-            const rect = element.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            
-            // Only rotate when element is in view
-            if (rect.top < viewportHeight && rect.bottom > 0) {
-                const scrollPosition = window.scrollY;
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
-                
-                // Calculate rotation based on scroll position
-                const scrollPercentage = scrollPosition / (documentHeight - windowHeight);
-                const rotationValue = scrollPercentage * 360; // Full 360-degree rotation
-                
-                element.style.transform = `rotateY(${rotationValue}deg)`;
-            }
-        });
-    });
-}
-
-// Apple-style Expandable Sections (like tech specs on product pages)
-function initExpandableSections() {
-    const expandableSections = document.querySelectorAll('.expandable-section');
-    
-    expandableSections.forEach(section => {
-        const header = section.querySelector('.expandable-header');
-        const content = section.querySelector('.expandable-content');
-        
-        header.addEventListener('click', () => {
-            // Toggle the open class
-            const isOpen = section.classList.toggle('open');
-            
-            // Set maximum height for animation
-            if (isOpen) {
-                content.style.maxHeight = content.scrollHeight + 'px';
-            } else {
-                content.style.maxHeight = '0';
-            }
-        });
-    });
-}
-
-// Apple-style Image Gallery (like product galleries)
-function initImageGallery() {
-    const galleries = document.querySelectorAll('.image-gallery');
-    
-    galleries.forEach(gallery => {
-        const container = gallery.querySelector('.gallery-container');
-        const items = gallery.querySelectorAll('.gallery-item');
-        const dots = gallery.querySelectorAll('.gallery-dot');
-        
-        // Skip if no items
-        if (items.length === 0) return;
-        
-        // Set up click events for dots
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                // Update active dot
-                dots.forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
-                
-                // Slide to the selected image
-                container.style.transform = `translateX(-${index * 100}%)`;
-            });
-        });
-        
-        // Set first dot as active initially
-        if (dots.length > 0) {
-            dots[0].classList.add('active');
-        }
-        
-        // Touch/swipe support
-        let startX = 0;
-        let currentIndex = 0;
-        
-        gallery.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        }, { passive: true });
-        
-        gallery.addEventListener('touchend', (e) => {
-            const diffX = startX - e.changedTouches[0].clientX;
-            
-            // Detect if it was a significant swipe
-            if (Math.abs(diffX) > 50) {
-                if (diffX > 0 && currentIndex < items.length - 1) {
-                    // Swipe left, go to next
-                    currentIndex++;
-                } else if (diffX < 0 && currentIndex > 0) {
-                    // Swipe right, go to previous
-                    currentIndex--;
-                }
-                
-                // Update the gallery
-                container.style.transform = `translateX(-${currentIndex * 100}%)`;
-                
-                // Update dots
-                dots.forEach(d => d.classList.remove('active'));
-                if (dots[currentIndex]) {
-                    dots[currentIndex].classList.add('active');
-                }
-            }
-        }, { passive: true });
-    });
-}
-
-// Apple-style Dynamic Color Transitions
-function initDynamicColorTransitions() {
-    const colorSections = document.querySelectorAll('.color-transition');
-    
-    window.addEventListener('scroll', throttle(() => {
-        colorSections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            
-            // Calculate how much of the section is in view (0-1)
-            const visiblePercentage = Math.min(
-                Math.max(0, (viewportHeight - rect.top) / viewportHeight),
-                1
-            );
-            
-            // Toggle light/dark class based on scroll position
-            if (visiblePercentage > 0.5) {
-                section.classList.add('light');
-            } else {
-                section.classList.remove('light');
-            }
-        });
-    }, 100));
-}

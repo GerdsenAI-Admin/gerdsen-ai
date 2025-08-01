@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Test - Gerdsen AI</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #0f0;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            z-index: 100000;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .test-title {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .test-value {
+            color: #0f0;
+            font-weight: bold;
+        }
+        .test-label {
+            color: #888;
+            display: inline-block;
+            width: 150px;
+        }
+        .status-good {
+            color: #0f0;
+        }
+        .status-bad {
+            color: #f00;
+        }
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            z-index: 1;
+        }
+        .viewport-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #0a0;
+        }
+        .iframe-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+            transition: all 0.3s ease;
+            transform-origin: top left;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-wrapper" id="iframe-wrapper">
+        <iframe id="test-frame" src="file:///Volumes/gerdsenai/Documents/GerdsenAI_Website/gerdsen-ai/index.html"></iframe>
+    </div>
+    
+    <div class="test-container">
+        <h2 style="color: #fff; margin-top: 0;">Gerdsen AI Responsive Tester</h2>
+        
+        <div class="viewport-controls">
+            <button onclick="setViewport(375, 667)">Mobile</button>
+            <button onclick="setViewport(768, 1024)">Tablet</button>
+            <button onclick="setViewport(1366, 768)">Laptop</button>
+            <button onclick="setViewport(1920, 1080)">Desktop</button>
+            <button onclick="setViewport(2560, 1440)">Wide</button>
+            <button onclick="setViewport(3440, 1440)">Ultra-wide</button>
+            <button onclick="resetViewport()">Reset</button>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">📐 Viewport Info</div>
+            <div><span class="test-label">Size:</span> <span class="test-value" id="viewport-size">-</span></div>
+            <div><span class="test-label">Aspect Ratio:</span> <span class="test-value" id="aspect-ratio">-</span></div>
+            <div><span class="test-label">Type:</span> <span class="test-value" id="aspect-type">-</span></div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">📝 Header Text</div>
+            <div><span class="test-label">Logo Size:</span> <span class="test-value" id="logo-size">-</span></div>
+            <div><span class="test-label">Link Size:</span> <span class="test-value" id="link-size">-</span></div>
+            <div><span class="test-label">Dynamic:</span> <span class="test-value" id="text-dynamic">-</span></div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">🎥 Video Coverage</div>
+            <div><span class="test-label">Video Size:</span> <span class="test-value" id="video-size">-</span></div>
+            <div><span class="test-label">H Coverage:</span> <span class="test-value" id="h-coverage">-</span></div>
+            <div><span class="test-label">V Coverage:</span> <span class="test-value" id="v-coverage">-</span></div>
+            <div><span class="test-label">Full Coverage:</span> <span class="test-value" id="full-coverage">-</span></div>
+            <div><span class="test-label">Animation Visible:</span> <span class="test-value" id="animation-visible">-</span></div>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('iframe-wrapper');
+        const iframe = document.getElementById('test-frame');
+        let currentScale = 1;
+        
+        function setViewport(width, height) {
+            const maxWidth = window.innerWidth - 450; // Leave room for test panel
+            const maxHeight = window.innerHeight - 40;
+            
+            const scaleX = maxWidth / width;
+            const scaleY = maxHeight / height;
+            currentScale = Math.min(scaleX, scaleY, 1);
+            
+            wrapper.style.width = width + 'px';
+            wrapper.style.height = height + 'px';
+            wrapper.style.transform = `scale(${currentScale})`;
+            
+            // Update iframe to match
+            iframe.style.width = width + 'px';
+            iframe.style.height = height + 'px';
+            
+            setTimeout(updateTests, 500);
+        }
+        
+        function resetViewport() {
+            wrapper.style.width = '100vw';
+            wrapper.style.height = '100vh';
+            wrapper.style.transform = 'scale(1)';
+            iframe.style.width = '100vw';
+            iframe.style.height = '100vh';
+            currentScale = 1;
+            
+            setTimeout(updateTests, 500);
+        }
+        
+        function updateTests() {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const iframeWin = iframe.contentWindow;
+                
+                // Get actual iframe viewport size
+                const viewportWidth = parseInt(iframe.style.width) || iframeWin.innerWidth;
+                const viewportHeight = parseInt(iframe.style.height) || iframeWin.innerHeight;
+                const aspectRatio = viewportWidth / viewportHeight;
+                
+                // Update viewport info
+                document.getElementById('viewport-size').textContent = `${viewportWidth}x${viewportHeight}`;
+                document.getElementById('aspect-ratio').textContent = aspectRatio.toFixed(2);
+                document.getElementById('aspect-type').textContent = 
+                    aspectRatio > 2.33 ? 'Ultra-wide (21:9)' : 
+                    aspectRatio > 1.77 ? 'Wide (16:9)' : 
+                    aspectRatio > 1.5 ? 'Standard' : 'Portrait';
+                
+                // Test header text
+                const logo = iframeDoc.querySelector('.nav-logo');
+                const links = iframeDoc.querySelectorAll('.nav-link');
+                
+                if (logo) {
+                    const logoSize = iframeWin.getComputedStyle(logo).fontSize;
+                    document.getElementById('logo-size').textContent = logoSize;
+                    
+                    // Check if it's actually dynamic
+                    const logoPixels = parseFloat(logoSize);
+                    const isDynamic = (viewportWidth < 1200 && logoPixels < 24) || 
+                                     (viewportWidth > 1600 && logoPixels > 24);
+                    document.getElementById('text-dynamic').textContent = isDynamic ? '✅ Yes' : '❌ No';
+                    document.getElementById('text-dynamic').className = isDynamic ? 'test-value status-good' : 'test-value status-bad';
+                }
+                
+                if (links.length > 0) {
+                    document.getElementById('link-size').textContent = iframeWin.getComputedStyle(links[0]).fontSize;
+                }
+                
+                // Test video coverage
+                const video = iframeDoc.querySelector('.background-video');
+                if (video) {
+                    const videoRect = video.getBoundingClientRect();
+                    
+                    document.getElementById('video-size').textContent = 
+                        `${Math.round(videoRect.width)}x${Math.round(videoRect.height)}`;
+                    
+                    const hCoverage = (videoRect.width / viewportWidth * 100).toFixed(1);
+                    const vCoverage = (videoRect.height / viewportHeight * 100).toFixed(1);
+                    
+                    document.getElementById('h-coverage').textContent = hCoverage + '%';
+                    document.getElementById('v-coverage').textContent = vCoverage + '%';
+                    
+                    const fullCoverage = videoRect.width >= viewportWidth && videoRect.height >= viewportHeight;
+                    document.getElementById('full-coverage').textContent = fullCoverage ? '✅ Yes' : '❌ No';
+                    document.getElementById('full-coverage').className = fullCoverage ? 'test-value status-good' : 'test-value status-bad';
+                    
+                    // Check if neural G animation is cut off (rough estimate)
+                    const videoCenterX = videoRect.left + videoRect.width / 2;
+                    const videoCenterY = videoRect.top + videoRect.height / 2;
+                    const animationVisible = 
+                        videoCenterX > viewportWidth * 0.2 && 
+                        videoCenterX < viewportWidth * 0.8;
+                    
+                    document.getElementById('animation-visible').textContent = animationVisible ? '✅ Yes' : '⚠️ Partial';
+                    document.getElementById('animation-visible').className = animationVisible ? 'test-value status-good' : 'test-value status-bad';
+                }
+                
+            } catch (e) {
+                console.error('Test error:', e);
+            }
+        }
+        
+        // Initial test
+        setTimeout(updateTests, 2000);
+        
+        // Update on iframe load
+        iframe.onload = () => {
+            setTimeout(updateTests, 1000);
+        };
+        
+        // Periodic updates
+        setInterval(updateTests, 2000);
+    </script>
+</body>
+</html>

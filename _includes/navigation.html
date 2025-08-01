@@ -1,14 +1,44 @@
 <!-- Navigation -->
-<nav class="fixed w-full top-0 z-50 transition-all duration-300">
+<nav class="fixed w-full top-0 z-50 transition-all duration-300" id="main-nav">
     <div class="container mx-auto px-6 py-4">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <span class="text-xl font-semibold mono">GERDSEN AI</span>
             </div>
+            
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="{{ '/#services' | relative_url }}" class="nav-link">Services</a>
-                <a href="{{ '/#about' | relative_url }}" class="nav-link">About</a>
-                <a href="{{ '/#contact' | relative_url }}" class="nav-link">Contact</a>
+                <a href="{{ '/#services' | relative_url }}" class="nav-link hover:text-blue-400 transition-colors">Services</a>
+                <a href="{{ '/#about' | relative_url }}" class="nav-link hover:text-blue-400 transition-colors">About</a>
+                <a href="{{ '/#contact' | relative_url }}" class="nav-link hover:text-blue-400 transition-colors">Contact</a>
+                <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer" class="nav-link hover:text-blue-400 transition-colors flex items-center space-x-2" aria-label="Visit our GitHub">
+                    <i class="fab fa-github text-xl"></i>
+                    <span class="hidden lg:inline">GitHub</span>
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-white focus:outline-none focus:ring-2 focus:ring-blue-400 p-2 rounded" aria-label="Toggle mobile menu">
+                    <div class="hamburger">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden mobile-menu-hidden transition-all duration-300 overflow-hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-black bg-opacity-95 backdrop-blur-lg rounded-lg mt-4">
+                <a href="{{ '/#services' | relative_url }}" class="mobile-nav-link block px-3 py-2 text-white hover:text-blue-400 transition-colors">Services</a>
+                <a href="{{ '/#about' | relative_url }}" class="mobile-nav-link block px-3 py-2 text-white hover:text-blue-400 transition-colors">About</a>
+                <a href="{{ '/#contact' | relative_url }}" class="mobile-nav-link block px-3 py-2 text-white hover:text-blue-400 transition-colors">Contact</a>
+                <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer" class="mobile-nav-link block px-3 py-2 text-white hover:text-blue-400 transition-colors flex items-center space-x-2">
+                    <i class="fab fa-github text-xl"></i>
+                    <span>GitHub</span>
+                </a>
             </div>
         </div>
     </div>
