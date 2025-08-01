@@ -1,4 +1,47 @@
----
+/* Additional smoke layers for depth */
+.particles-background .smoke-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.particles-background .smoke-layer:nth-child(1) {
+    background: 
+        radial-gradient(ellipse at 25% 50%, 
+            rgba(190, 180, 230, 0.12) 0%, 
+            transparent 50%);
+    animation: smokeDrift 20s ease-in-out infinite;
+}
+
+.particles-background .smoke-layer:nth-child(2) {
+    background: 
+        radial-gradient(ellipse at 75% 40%, 
+            rgba(200, 190, 240, 0.1) 0%, 
+            transparent 45%);
+    animation: smokeDrift 25s ease-in-out infinite reverse;
+}
+
+.particles-background .smoke-layer:nth-child(3) {
+    background: 
+        radial-gradient(ellipse at 50% 80%, 
+            rgba(180, 180, 220, 0.11) 0%, 
+            transparent 55%);
+    animation: smokeDrift 30s ease-in-out infinite;
+    animation-delay: -10s;
+}
+
+@keyframes smokeDrift {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(50px) translateY(-30px);
+        opacity: 1;
+    }
+}---
 ---
 
 /* Font Face Declarations - SF Mono */
@@ -53,33 +96,98 @@ body {
     z-index: 0;
 }
 
-/* Full Page Particles Background with Parallax - Enhanced Scrolling */
+/* Full Page Animated Smoke Background - Enhanced */
 .particles-background {
     position: fixed;
-    top: -100%;
-    left: -50%;
-    width: 200%;
-    height: 300%;
-    background-image: url('../images/hero_banner_particles.png');
-    background-size: cover;
-    background-position: center 0;
-    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     opacity: 0;
     will-change: transform;
     transition: opacity 3s ease-in-out;
-    filter: blur(0px);
     pointer-events: none;
-    transform: translateY(var(--parallax-y, 0px)) translateX(var(--parallax-x, 0px)) scale(1.2);
+    overflow: hidden;
+}
+
+/* Remove image reference and create animated smoke layers */
+.particles-background::before,
+.particles-background::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+}
+
+.particles-background::before {
+    background: 
+        radial-gradient(ellipse 600px 400px at 20% 40%, 
+            rgba(150, 150, 200, 0.2) 0%, 
+            rgba(100, 100, 150, 0.1) 30%,
+            transparent 60%),
+        radial-gradient(ellipse 800px 600px at 80% 30%, 
+            rgba(170, 150, 200, 0.15) 0%, 
+            rgba(120, 100, 150, 0.08) 25%,
+            transparent 55%),
+        radial-gradient(ellipse 700px 500px at 50% 70%, 
+            rgba(160, 160, 210, 0.12) 0%, 
+            rgba(110, 110, 160, 0.06) 35%,
+            transparent 65%);
+    filter: blur(40px);
+    animation: smokeFlow 25s ease-in-out infinite;
+}
+
+.particles-background::after {
+    background: 
+        radial-gradient(ellipse 900px 500px at 70% 20%, 
+            rgba(180, 170, 220, 0.18) 0%, 
+            rgba(130, 120, 170, 0.09) 30%,
+            transparent 60%),
+        radial-gradient(ellipse 700px 700px at 30% 60%, 
+            rgba(160, 150, 200, 0.14) 0%, 
+            rgba(115, 110, 155, 0.07) 35%,
+            transparent 65%);
+    filter: blur(50px);
+    animation: smokeFlow 30s ease-in-out infinite reverse;
+    opacity: 0.8;
+}
+
+@keyframes smokeFlow {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% {
+        transform: translate(5%, -10%) rotate(2deg) scale(1.1);
+    }
+    50% {
+        transform: translate(-5%, 5%) rotate(-1deg) scale(0.95);
+    }
+    75% {
+        transform: translate(3%, -5%) rotate(1deg) scale(1.05);
+    }
 }
 
 .particles-background.show {
-    opacity: 0.5;
-    animation: particlesReveal 4s ease-in-out;
+    opacity: 1;
+    animation: smokeReveal 4s ease-in-out;
+}
+
+@keyframes smokeReveal {
+    0% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .particles-background.blurred {
-    filter: blur(2px);
+    filter: blur(4px) brightness(0.8);
     opacity: 0.7;
 }
 
@@ -239,41 +347,7 @@ body {
     }
 }
 
-.particles-background::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at center, 
-        transparent 0%, 
-        transparent 30%, 
-        rgba(0,0,0,0.1) 40%, 
-        rgba(0,0,0,0.2) 50%, 
-        rgba(0,0,0,0.4) 70%, 
-        rgba(0,0,0,0.6) 100%);
-    pointer-events: none;
-    mix-blend-mode: multiply;
-}
 
-@keyframes particlesReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(10%) scale(1.2);
-        filter: blur(15px);
-    }
-    50% {
-        opacity: 0.2;
-        transform: translateY(5%) scale(1.15);
-        filter: blur(8px);
-    }
-    100% {
-        opacity: 0.5;
-        transform: translateY(0) scale(1.1);
-        filter: blur(0px);
-    }
-}
 
 /* Navigation */
 nav {
@@ -819,34 +893,36 @@ footer {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
     animation: modalFadeIn 0.3s ease;
     overflow: hidden;
 }
 
 .modal-content {
     background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0.03) 100%);
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.08) 30%,
+        rgba(255, 255, 255, 0.05) 60%,
+        rgba(255, 255, 255, 0.02) 100%);
     margin: auto;
     padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
     width: 90%;
     max-width: 800px;
     max-height: 85vh;
     height: auto;
     overflow-y: auto;
     overflow-x: hidden;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.2);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.2);
     box-shadow: 
-        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-        0 0 80px rgba(0, 122, 255, 0.15),
-        0 20px 70px rgba(0, 0, 0, 0.5);
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+        0 0 120px rgba(100, 150, 255, 0.3),
+        0 0 80px rgba(255, 255, 255, 0.15),
+        0 20px 70px rgba(0, 0, 0, 0.3);
     animation: modalSlideIn 0.3s ease;
     position: relative;
     top: 50%;
@@ -867,19 +943,32 @@ footer {
     right: -2px;
     bottom: -2px;
     background: linear-gradient(45deg, 
-        #007AFF, 
-        #5856D6, 
-        #AF52DE, 
-        #007AFF);
-    border-radius: 20px;
+        #00ffff40,
+        #007bff40, 
+        #5856d640, 
+        #af52de40,
+        #00ffff40);
+    border-radius: 24px;
     opacity: 0;
     z-index: -1;
     transition: opacity 0.3s ease;
-    filter: blur(10px);
+    filter: blur(20px);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: scale(1.02);
+    }
 }
 
 .modal-content:hover::before {
-    opacity: 0.3;
+    opacity: 0.6;
 }
 
 .modal-header {
@@ -887,15 +976,18 @@ footer {
     justify-content: space-between;
     align-items: center;
     padding: 30px 30px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.02) 100%);
 }
 
 .modal-close {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     padding: 5px;
     border-radius: 50%;
     width: 40px;
@@ -903,26 +995,71 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
 
 .modal-close:hover {
     color: white;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: rotate(90deg);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Frost effect for modal background */
+.modal::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, 
+        transparent 0%,
+        rgba(100, 150, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.02) 100%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .modal-body {
     padding: 30px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .modal-body h3 {
     margin-bottom: 15px;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 10px rgba(100, 150, 255, 0.5);
 }
 
 .modal-body ul {
     padding-left: 0;
     list-style: none;
+}
+
+.modal-body ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-body ul li:last-child {
+    border-bottom: none;
+}
+
+/* Result box styling in modals */
+.modal-body .bg-gray-800 {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.12) 0%, 
+        rgba(255, 255, 255, 0.08) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        inset 0 1px 3px rgba(255, 255, 255, 0.2),
+        0 0 30px rgba(100, 150, 255, 0.1);
+    border-radius: 12px;
 }
 
 .modal-header h2 {
@@ -931,10 +1068,12 @@ footer {
     color: white;
     display: flex;
     align-items: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .modal-header h2 i {
     margin-right: 12px;
+    filter: drop-shadow(0 0 8px currentColor);
 }
 
 @keyframes modalFadeIn {
@@ -951,6 +1090,19 @@ footer {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/* Icons in modals - add glow */
+.modal .text-blue-400, .modal .text-blue-500,
+.modal .text-purple-400, .modal .text-purple-500,
+.modal .text-green-400, .modal .text-green-500 {
+    filter: drop-shadow(0 0 12px currentColor);
+    animation: iconGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes iconGlow {
+    0% { filter: drop-shadow(0 0 8px currentColor); }
+    100% { filter: drop-shadow(0 0 16px currentColor); }
 }
 
 /* Responsive Design */

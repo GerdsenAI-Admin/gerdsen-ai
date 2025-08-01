@@ -25,13 +25,14 @@ function createFireflies() {
     }
 }
 
-// Full Page Particles Background with Enhanced Parallax and Scrolling
+// Full Page Animated Smoke Background with Enhanced Parallax
 function initParallaxParticlesBackground() {
     const particlesBg = document.getElementById('particles-bg');
     const fireflyContainer = document.getElementById('firefly-container');
     const heroSection = document.querySelector('.hero-section');
     const steamLayer = document.getElementById('steam-layer');
     const cloudLayer = document.getElementById('cloud-layer');
+    const smokeLayers = document.querySelectorAll('.smoke-layer');
     
     if (!particlesBg || !heroSection) return;
     
@@ -53,7 +54,7 @@ function initParallaxParticlesBackground() {
             heroSection.classList.add('scrolled');
             neuralGBlurred = true;
             
-            // Show particles after a short delay
+            // Show smoke effect after a short delay
             if (!particlesShown) {
                 setTimeout(() => {
                     particlesBg.classList.add('show');
@@ -113,15 +114,19 @@ function initParallaxParticlesBackground() {
         const mouseOffsetX = (currentX - 0.5) * 2;
         const mouseOffsetY = (currentY - 0.5) * 2;
         
-        // Particles background - full parallax scrolling
+        // Animate smoke layers with parallax
         if (particlesBg && particlesShown) {
-            const particleParallaxY = -(scrollY * 0.6);
-            const particleParallaxX = mouseOffsetX * 20;
-            const particleTiltX = mouseOffsetX * 10;
-            const particleTiltY = mouseOffsetY * 10;
+            // Overall smoke container parallax
+            const smokeParallaxY = -(scrollY * 0.3);
+            particlesBg.style.transform = `translateY(${smokeParallaxY}px)`;
             
-            particlesBg.style.setProperty('--parallax-y', `${particleParallaxY}px`);
-            particlesBg.style.setProperty('--parallax-x', `${particleParallaxX}px`);
+            // Individual smoke layers parallax
+            smokeLayers.forEach((layer, index) => {
+                const speed = 0.1 + (index * 0.05);
+                const offsetX = mouseOffsetX * (10 + index * 5);
+                const offsetY = mouseOffsetY * (10 + index * 5) + (scrollY * speed);
+                layer.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
+            });
             
             // Apply blur when scrolled
             if (scrollY > 600 && !particlesBg.classList.contains('blurred')) {
@@ -171,7 +176,7 @@ function initParallaxParticlesBackground() {
         mouseY = 0.5;
     });
     
-    console.log('Enhanced parallax system initialized');
+    console.log('Enhanced smoke effect initialized');
 }
 
 // Scroll-based Animations with Immediate Response
