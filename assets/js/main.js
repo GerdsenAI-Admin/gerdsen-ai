@@ -25,150 +25,156 @@ function createFireflies() {
     }
 }
 
-// Full Page Particles Background with Parallax
+// Full Page Particles Background with Enhanced Parallax and Scrolling
 function initParallaxParticlesBackground() {
     const particlesBg = document.getElementById('particles-bg');
     const fireflyContainer = document.getElementById('firefly-container');
-    if (!particlesBg) return;
+    const heroSection = document.querySelector('.hero-section');
+    const steamLayer = document.getElementById('steam-layer');
+    const cloudLayer = document.getElementById('cloud-layer');
+    
+    if (!particlesBg || !heroSection) return;
     
     // Track neural G video blur state
     let neuralGBlurred = false;
     let particlesShown = false;
     let firefliesShown = false;
     
-    // Watch for neural G blur before showing particles
-    const heroSection = document.querySelector('.hero-section');
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                if (heroSection.classList.contains('scrolled') && !neuralGBlurred) {
-                    neuralGBlurred = true;
+    // IMMEDIATE blur on scroll start
+    let scrollTimeout;
+    let isScrolling = false;
+    
+    // Enhanced scroll handler for immediate blur
+    function handleImmediateScroll() {
+        const scrollY = window.pageYOffset;
+        
+        // IMMEDIATE blur and dim on ANY scroll
+        if (scrollY > 5 && !heroSection.classList.contains('scrolled')) {
+            heroSection.classList.add('scrolled');
+            neuralGBlurred = true;
+            
+            // Show particles after a short delay
+            if (!particlesShown) {
+                setTimeout(() => {
+                    particlesBg.classList.add('show');
+                    particlesShown = true;
                     
-                    // Show fireflies first (faster)
-                    setTimeout(() => {
-                        if (fireflyContainer && !firefliesShown) {
-                            fireflyContainer.classList.add('show');
-                            firefliesShown = true;
-                            createFireflies();
-                            console.log('Fireflies activated');
-                        }
-                    }, 500); // 500ms after blur
-                    
-                    // Show particles background later (slower)
-                    setTimeout(() => {
-                        particlesBg.classList.add('show');
-                        particlesShown = true;
-                        console.log('Particles background revealed after neural G blur');
-                    }, 1500); // 1.5s after blur
-                }
+                    // Show fireflies
+                    if (fireflyContainer && !firefliesShown) {
+                        fireflyContainer.classList.add('show');
+                        firefliesShown = true;
+                        createFireflies();
+                    }
+                }, 300);
             }
-        });
-    });
+        } else if (scrollY <= 5 && heroSection.classList.contains('scrolled')) {
+            heroSection.classList.remove('scrolled');
+        }
+        
+        // Track scrolling state
+        isScrolling = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 150);
+    }
     
-    observer.observe(heroSection, { attributes: true });
+    // Use non-throttled handler for immediate response
+    window.addEventListener('scroll', handleImmediateScroll, { passive: true });
     
-    console.log('Particles background initialized, waiting for neural G blur...')
-    
-    // Mouse move parallax/tilt-shift effect
+    // Mouse move parallax with enhanced depth
     let mouseX = 0.5;
     let mouseY = 0.5;
     let currentX = 0.5;
     let currentY = 0.5;
     
     document.addEventListener('mousemove', (e) => {
-        if (!particlesShown) return;
-        
         mouseX = e.clientX / window.innerWidth;
         mouseY = e.clientY / window.innerHeight;
     });
     
-    // Smooth animation loop for parallax
-    function animateParallax() {
-        if (!particlesShown) {
-            requestAnimationFrame(animateParallax);
-            return;
-        }
+    // Smooth animation loop for all parallax effects
+    let scrollY = 0;
+    let targetScrollY = 0;
+    let frame = 0;
+    
+    function animateAll() {
+        frame++;
+        targetScrollY = window.pageYOffset;
         
-        // Smooth interpolation
+        // Smooth scroll interpolation
+        scrollY += (targetScrollY - scrollY) * 0.1;
+        
+        // Smooth mouse interpolation
         currentX += (mouseX - currentX) * 0.05;
         currentY += (mouseY - currentY) * 0.05;
         
-        // Calculate tilt-shift effect
-        const tiltX = (currentX - 0.5) * 15;
-        const tiltY = (currentY - 0.5) * 15;
-        const rotateX = (currentY - 0.5) * 5;
-        const rotateY = (currentX - 0.5) * -5;
+        // Calculate multi-layer parallax
+        const mouseOffsetX = (currentX - 0.5) * 2;
+        const mouseOffsetY = (currentY - 0.5) * 2;
         
-        // Apply transforms with rotation
-        particlesBg.style.transform = `
-            translate(${tiltX}px, ${tiltY}px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            rotate(15deg)
-            scale(1.2)
-        `;
-        
-        requestAnimationFrame(animateParallax);
-    }
-    animateParallax();
-    
-    // Scroll-based effects with enhanced parallax
-    let scrollY = 0;
-    let targetScrollY = 0;
-    let lastScrollTime = Date.now();
-    
-    // Update scroll handler
-    function updateScroll() {
-        targetScrollY = window.pageYOffset;
-        
-        // Check if we should blur the neural G
-        if (targetScrollY > 50 && !heroSection.classList.contains('scrolled')) {
-            heroSection.classList.add('scrolled');
-        } else if (targetScrollY <= 50 && heroSection.classList.contains('scrolled')) {
-            heroSection.classList.remove('scrolled');
-        }
-    }
-    
-    window.addEventListener('scroll', updateScroll, { passive: true });
-    
-    // Smooth scroll animation with parallax
-    function animateScroll() {
-        const currentTime = Date.now();
-        const deltaTime = Math.min((currentTime - lastScrollTime) / 1000, 0.1);
-        lastScrollTime = currentTime;
-        
-        // Smooth interpolation
-        scrollY += (targetScrollY - scrollY) * 0.1;
-        
-        // Apply parallax scrolling to particles background
-        if (particlesShown) {
-            const parallaxSpeed = 0.5;
-            const yPos = -(scrollY * parallaxSpeed);
-            particlesBg.style.setProperty('--parallax-y', `${yPos}px`);
+        // Particles background - full parallax scrolling
+        if (particlesBg && particlesShown) {
+            const particleParallaxY = -(scrollY * 0.6);
+            const particleParallaxX = mouseOffsetX * 20;
+            const particleTiltX = mouseOffsetX * 10;
+            const particleTiltY = mouseOffsetY * 10;
+            
+            particlesBg.style.setProperty('--parallax-y', `${particleParallaxY}px`);
+            particlesBg.style.setProperty('--parallax-x', `${particleParallaxX}px`);
+            
+            // Apply blur when scrolled
+            if (scrollY > 600 && !particlesBg.classList.contains('blurred')) {
+                particlesBg.classList.add('blurred');
+            } else if (scrollY <= 600 && particlesBg.classList.contains('blurred')) {
+                particlesBg.classList.remove('blurred');
+            }
         }
         
-        // Progressive blur effect
-        const blurAmount = Math.min(scrollY * 0.002, 2);
-        
-        // Apply blur class when scrolled enough
-        if (scrollY > 600 && !particlesBg.classList.contains('blurred')) {
-            particlesBg.classList.add('blurred');
-        } else if (scrollY <= 600 && particlesBg.classList.contains('blurred')) {
-            particlesBg.classList.remove('blurred');
+        // Steam layer parallax
+        if (steamLayer) {
+            const steamParallaxY = -(scrollY * 0.3);
+            const steamRotation = Math.sin(frame * 0.001) * 2;
+            steamLayer.style.transform = `
+                translateY(${steamParallaxY}px) 
+                translateX(${mouseOffsetX * 5}px)
+                rotate(${steamRotation}deg)
+            `;
         }
         
-        requestAnimationFrame(animateScroll);
+        // Cloud layer parallax
+        if (cloudLayer) {
+            const cloudParallaxY = -(scrollY * 0.4);
+            const cloudDrift = Math.sin(frame * 0.0005) * 10;
+            cloudLayer.style.transform = `
+                translateY(${cloudParallaxY}px) 
+                translateX(${cloudDrift + mouseOffsetX * 8}px)
+            `;
+        }
+        
+        // Firefly container parallax
+        if (fireflyContainer && firefliesShown) {
+            const fireflyParallaxY = -(scrollY * 0.2);
+            fireflyContainer.style.transform = `
+                translateY(${fireflyParallaxY}px)
+                translateX(${mouseOffsetX * 3}px)
+            `;
+        }
+        
+        requestAnimationFrame(animateAll);
     }
-    animateScroll();
+    animateAll();
     
     // Reset on mouse leave
     document.addEventListener('mouseleave', () => {
         mouseX = 0.5;
         mouseY = 0.5;
     });
+    
+    console.log('Enhanced parallax system initialized');
 }
 
-// Scroll-based Animations
+// Scroll-based Animations with Immediate Response
 function initScrollAnimations() {
     const heroSection = document.querySelector('.hero-section');
     const heroContent = document.querySelector('.hero-content');
@@ -182,49 +188,50 @@ function initScrollAnimations() {
     if (heroDescription) heroDescription.style.opacity = '0';
     if (heroButtons) heroButtons.style.opacity = '0';
     
-    let hasScrolled = false;
+    let contentShown = false;
     
     function handleScroll() {
         const scrollY = window.scrollY;
         
-        // Show hero content when scrolled
-        if (scrollY > 50 && !hasScrolled) {
-            hasScrolled = true;
+        // Show hero content immediately when scrolled
+        if (scrollY > 5 && !contentShown) {
+            contentShown = true;
             
-            // Add scrolled class to hero section
-            if (heroSection) heroSection.classList.add('scrolled');
-            
-            // Animate hero content in sequence
-            setTimeout(() => {
-                if (heroContent) heroContent.style.opacity = '1';
-                if (heroTitle) {
-                    heroTitle.style.opacity = '1';
-                    heroTitle.style.transform = 'translateY(0)';
-                }
-            }, 300);
+            // Content appears as video dims
+            if (heroTitle) {
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translateY(0)';
+            }
             
             setTimeout(() => {
                 if (heroDescription) {
                     heroDescription.style.opacity = '1';
                     heroDescription.style.transform = 'translateY(0)';
                 }
-            }, 600);
+            }, 200);
             
             setTimeout(() => {
                 if (heroButtons) {
                     heroButtons.style.opacity = '1';
                     heroButtons.style.transform = 'translateY(0)';
                 }
-            }, 900);
-        } else if (scrollY <= 50 && hasScrolled) {
-            hasScrolled = false;
-            if (heroSection) heroSection.classList.remove('scrolled');
+            }, 400);
+        } else if (scrollY <= 5 && contentShown) {
+            contentShown = false;
             
             // Hide hero content
-            if (heroContent) heroContent.style.opacity = '0';
-            if (heroTitle) heroTitle.style.opacity = '0';
-            if (heroDescription) heroDescription.style.opacity = '0';
-            if (heroButtons) heroButtons.style.opacity = '0';
+            if (heroTitle) {
+                heroTitle.style.opacity = '0';
+                heroTitle.style.transform = 'translateY(20px)';
+            }
+            if (heroDescription) {
+                heroDescription.style.opacity = '0';
+                heroDescription.style.transform = 'translateY(20px)';
+            }
+            if (heroButtons) {
+                heroButtons.style.opacity = '0';
+                heroButtons.style.transform = 'translateY(20px)';
+            }
         }
         
         // Animate other scroll elements
@@ -265,8 +272,8 @@ function initScrollAnimations() {
         });
     }
     
-    // Use throttled scroll handler
-    window.addEventListener('scroll', throttle(handleScroll, 16));
+    // Use non-throttled for immediate response on scroll start
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     // Initial check
     handleScroll();

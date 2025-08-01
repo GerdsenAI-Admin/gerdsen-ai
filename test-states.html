@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Website State Tester</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+            margin: 0;
+        }
+        .test-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            border: 2px solid #0f0;
+            padding: 20px;
+            z-index: 100000;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+        .test-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(0,255,0,0.1);
+            border-radius: 4px;
+        }
+        .label {
+            color: #888;
+            display: inline-block;
+            width: 150px;
+        }
+        .value {
+            color: #0f0;
+            font-weight: bold;
+        }
+        .fail {
+            color: #f00;
+        }
+        .pass {
+            color: #0f0;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px 0 0;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #0a0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-panel">
+        <h2 class="test-title">Gerdsen AI Website State Tester</h2>
+        <div id="results"></div>
+        <button onclick="testInitialState()">Test Initial State</button>
+        <button onclick="testScrollState()">Test Scroll State</button>
+        <button onclick="resetScroll()">Reset to Top</button>
+    </div>
+
+    <iframe id="testFrame" src="file:///Volumes/gerdsenai/Documents/GerdsenAI_Website/gerdsen-ai/index.html" 
+            style="width: 100vw; height: 100vh; border: none; position: fixed; top: 0; left: 0; z-index: 1;">
+    </iframe>
+
+    <script>
+        function getTestResults(win, doc) {
+            try {
+                const video = doc.querySelector('.background-video');
+                const heroContent = doc.querySelector('.hero-content');
+                const heroSection = doc.querySelector('.hero-section');
+                
+                if (!video || !heroContent) {
+                    return { error: 'Required elements not found' };
+                }
+                
+                const videoStyles = win.getComputedStyle(video);
+                const heroStyles = win.getComputedStyle(heroContent);
+                
+                return {
+                    scrollPosition: win.pageYOffset,
+                    videoOpacity: videoStyles.opacity,
+                    videoFilter: videoStyles.filter,
+                    videoObjectFit: videoStyles.objectFit,
+                    videoWidth: video.offsetWidth,
+                    videoHeight: video.offsetHeight,
+                    contentOpacity: heroStyles.opacity,
+                    contentVisibility: heroStyles.visibility,
+                    hasScrolledClass: heroSection.classList.contains('scrolled')
+                };
+            } catch (e) {
+                return { error: e.message };
+            }
+        }
+        
+        function displayResults(results, expectedState) {
+            const resultsDiv = document.getElementById('results');
+            let html = '';
+            
+            if (results.error) {
+                html = `<div class="test-item fail">Error: ${results.error}</div>`;
+            } else {
+                // Check video brightness
+                const isFullBright = expectedState === 'initial' ? 
+                    (results.videoOpacity === '1' && results.videoFilter === 'brightness(1)') :
+                    (results.videoOpacity === '0.3' && results.videoFilter.includes('blur'));
+                
+                // Check content visibility
+                const isContentCorrect = expectedState === 'initial' ?
+                    (results.contentOpacity === '0' && results.contentVisibility === 'hidden') :
+                    (results.contentOpacity === '1' && results.contentVisibility === 'visible');
+                
+                html = `
+                    <div class="test-item">
+                        <span class="label">Scroll Position:</span>
+                        <span class="value">${results.scrollPosition}px</span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Video Opacity:</span>
+                        <span class="value ${results.videoOpacity === (expectedState === 'initial' ? '1' : '0.3') ? 'pass' : 'fail'}">
+                            ${results.videoOpacity}
+                        </span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Video Filter:</span>
+                        <span class="value ${isFullBright ? 'pass' : 'fail'}">
+                            ${results.videoFilter}
+                        </span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Video Fit:</span>
+                        <span class="value ${results.videoObjectFit === 'cover' ? 'pass' : 'fail'}">
+                            ${results.videoObjectFit}
+                        </span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Video Size:</span>
+                        <span class="value">${results.videoWidth}x${results.videoHeight}</span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Content Opacity:</span>
+                        <span class="value ${results.contentOpacity === (expectedState === 'initial' ? '0' : '1') ? 'pass' : 'fail'}">
+                            ${results.contentOpacity}
+                        </span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Content Visibility:</span>
+                        <span class="value ${isContentCorrect ? 'pass' : 'fail'}">
+                            ${results.contentVisibility}
+                        </span>
+                    </div>
+                    <div class="test-item">
+                        <span class="label">Scrolled Class:</span>
+                        <span class="value ${results.hasScrolledClass === (expectedState !== 'initial') ? 'pass' : 'fail'}">
+                            ${results.hasScrolledClass}
+                        </span>
+                    </div>
+                `;
+            }
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        function testInitialState() {
+            const iframe = document.getElementById('testFrame');
+            const iframeWin = iframe.contentWindow;
+            const iframeDoc = iframe.contentDocument;
+            
+            iframeWin.scrollTo(0, 0);
+            setTimeout(() => {
+                const results = getTestResults(iframeWin, iframeDoc);
+                displayResults(results, 'initial');
+            }, 100);
+        }
+        
+        function testScrollState() {
+            const iframe = document.getElementById('testFrame');
+            const iframeWin = iframe.contentWindow;
+            const iframeDoc = iframe.contentDocument;
+            
+            iframeWin.scrollTo(0, 20);
+            setTimeout(() => {
+                const results = getTestResults(iframeWin, iframeDoc);
+                displayResults(results, 'scrolled');
+            }, 1000); // Wait for transitions
+        }
+        
+        function resetScroll() {
+            const iframe = document.getElementById('testFrame');
+            iframe.contentWindow.scrollTo(0, 0);
+            setTimeout(() => {
+                testInitialState();
+            }, 100);
+        }
+        
+        // Auto-test on load
+        window.onload = () => {
+            setTimeout(testInitialState, 2000);
+        };
+    </script>
+</body>
+</html>
