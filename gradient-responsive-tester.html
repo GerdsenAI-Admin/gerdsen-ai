@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gradient Animation Responsive Test - Gerdsen AI</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #0f0;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            z-index: 100000;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .test-title {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .test-value {
+            color: #0f0;
+            font-weight: bold;
+        }
+        .test-label {
+            color: #888;
+            display: inline-block;
+            width: 150px;
+        }
+        .status-good {
+            color: #0f0;
+        }
+        .status-bad {
+            color: #f00;
+        }
+        .status-warning {
+            color: #ff0;
+        }
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            z-index: 1;
+        }
+        .viewport-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #0a0;
+        }
+        .iframe-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+            transition: all 0.3s ease;
+            transform-origin: top left;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+        .url-selector {
+            margin-bottom: 10px;
+        }
+        select {
+            background: #111;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="iframe-wrapper" id="iframe-wrapper">
+        <iframe id="test-frame" src="gradient-test-fixed.html"></iframe>
+    </div>
+    
+    <div class="test-container">
+        <h2 style="color: #fff; margin-top: 0;">Gradient Animation Tester</h2>
+        
+        <div class="url-selector">
+            <select id="url-select" onchange="changeURL()">
+                <option value="gradient-test-fixed.html">Fixed Gradient Test</option>
+                <option value="index-with-gradient.html">Index with Gradient</option>
+                <option value="gradient-comparison.html">Comparison View</option>
+                <option value="index.html">Original Index</option>
+            </select>
+        </div>
+        
+        <div class="viewport-controls">
+            <button onclick="setViewport(375, 667)">Mobile</button>
+            <button onclick="setViewport(768, 1024)">Tablet</button>
+            <button onclick="setViewport(1366, 768)">Laptop</button>
+            <button onclick="setViewport(1920, 1080)">Desktop</button>
+            <button onclick="setViewport(2560, 1440)">Wide</button>
+            <button onclick="setViewport(3440, 1440)">Ultra-wide</button>
+            <button onclick="resetViewport()">Reset</button>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">📐 Viewport Info</div>
+            <div><span class="test-label">Size:</span> <span class="test-value" id="viewport-size">-</span></div>
+            <div><span class="test-label">Aspect Ratio:</span> <span class="test-value" id="aspect-ratio">-</span></div>
+            <div><span class="test-label">vmin Value:</span> <span class="test-value" id="vmin-value">-</span></div>
+            <div><span class="test-label">Type:</span> <span class="test-value" id="aspect-type">-</span></div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">🌈 Gradient Animation</div>
+            <div><span class="test-label">Container Size:</span> <span class="test-value" id="container-size">-</span></div>
+            <div><span class="test-label">Gradient Size:</span> <span class="test-value" id="gradient-size">-</span></div>
+            <div><span class="test-label">Expected (80vmin):</span> <span class="test-value" id="expected-size">-</span></div>
+            <div><span class="test-label">Size Match:</span> <span class="test-value" id="size-match">-</span></div>
+            <div><span class="test-label">Overflow:</span> <span class="test-value" id="overflow-status">-</span></div>
+            <div><span class="test-label">Centered:</span> <span class="test-value" id="centered-status">-</span></div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">🎥 Video/Background</div>
+            <div><span class="test-label">Video Size:</span> <span class="test-value" id="video-size">-</span></div>
+            <div><span class="test-label">Full Coverage:</span> <span class="test-value" id="full-coverage">-</span></div>
+            <div><span class="test-label">Gradient Visible:</span> <span class="test-value" id="gradient-visible">-</span></div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">📊 Performance</div>
+            <div><span class="test-label">Animation FPS:</span> <span class="test-value" id="animation-fps">-</span></div>
+            <div><span class="test-label">CSS Complexity:</span> <span class="test-value" id="css-complexity">-</span></div>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('iframe-wrapper');
+        const iframe = document.getElementById('test-frame');
+        let currentScale = 1;
+        let frameCount = 0;
+        let lastTime = performance.now();
+        
+        function changeURL() {
+            const select = document.getElementById('url-select');
+            iframe.src = select.value;
+        }
+        
+        function setViewport(width, height) {
+            const maxWidth = window.innerWidth - 450;
+            const maxHeight = window.innerHeight - 40;
+            
+            const scaleX = maxWidth / width;
+            const scaleY = maxHeight / height;
+            currentScale = Math.min(scaleX, scaleY, 1);
+            
+            wrapper.style.width = width + 'px';
+            wrapper.style.height = height + 'px';
+            wrapper.style.transform = `scale(${currentScale})`;
+            
+            iframe.style.width = width + 'px';
+            iframe.style.height = height + 'px';
+            
+            setTimeout(updateTests, 500);
+        }
+        
+        function resetViewport() {
+            wrapper.style.width = '100vw';
+            wrapper.style.height = '100vh';
+            wrapper.style.transform = 'scale(1)';
+            iframe.style.width = '100vw';
+            iframe.style.height = '100vh';
+            currentScale = 1;
+            
+            setTimeout(updateTests, 500);
+        }
+        
+        function updateTests() {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const iframeWin = iframe.contentWindow;
+                
+                // Get actual iframe viewport size
+                const viewportWidth = parseInt(iframe.style.width) || iframeWin.innerWidth;
+                const viewportHeight = parseInt(iframe.style.height) || iframeWin.innerHeight;
+                const aspectRatio = viewportWidth / viewportHeight;
+                const vmin = Math.min(viewportWidth, viewportHeight);
+                
+                // Update viewport info
+                document.getElementById('viewport-size').textContent = `${viewportWidth}x${viewportHeight}`;
+                document.getElementById('aspect-ratio').textContent = aspectRatio.toFixed(2);
+                document.getElementById('vmin-value').textContent = `${vmin}px`;
+                document.getElementById('aspect-type').textContent = 
+                    aspectRatio > 2.33 ? 'Ultra-wide (21:9)' : 
+                    aspectRatio > 1.77 ? 'Wide (16:9)' : 
+                    aspectRatio > 1.5 ? 'Standard' : 'Portrait';
+                
+                // Test gradient animation
+                const animationContainer = iframeDoc.querySelector('.animation-container');
+                const gradientShape = iframeDoc.querySelector('.gradient-shape');
+                
+                if (animationContainer) {
+                    const containerRect = animationContainer.getBoundingClientRect();
+                    const containerSize = Math.round(containerRect.width);
+                    const expectedSize = Math.min(vmin * 0.8, 600); // 80vmin capped at 600px
+                    
+                    document.getElementById('container-size').textContent = `${containerSize}x${Math.round(containerRect.height)}`;
+                    document.getElementById('expected-size').textContent = `${Math.round(expectedSize)}px`;
+                    
+                    // Check if size matches expected
+                    const sizeDiff = Math.abs(containerSize - expectedSize);
+                    const sizeMatch = sizeDiff < 5; // Allow 5px tolerance
+                    document.getElementById('size-match').textContent = sizeMatch ? '✅ Yes' : `❌ No (${sizeDiff}px off)`;
+                    document.getElementById('size-match').className = sizeMatch ? 'test-value status-good' : 'test-value status-bad';
+                    
+                    // Check for overflow
+                    const overflowX = containerRect.left < 0 || containerRect.right > viewportWidth;
+                    const overflowY = containerRect.top < 0 || containerRect.bottom > viewportHeight;
+                    const hasOverflow = overflowX || overflowY;
+                    
+                    document.getElementById('overflow-status').textContent = hasOverflow ? '❌ Yes' : '✅ None';
+                    document.getElementById('overflow-status').className = hasOverflow ? 'test-value status-bad' : 'test-value status-good';
+                    
+                    // Check if centered
+                    const centerX = containerRect.left + containerRect.width / 2;
+                    const centerY = containerRect.top + containerRect.height / 2;
+                    const expectedCenterX = viewportWidth / 2;
+                    const expectedCenterY = viewportHeight / 2;
+                    const isCentered = Math.abs(centerX - expectedCenterX) < 10 && Math.abs(centerY - expectedCenterY) < 10;
+                    
+                    document.getElementById('centered-status').textContent = isCentered ? '✅ Yes' : '❌ No';
+                    document.getElementById('centered-status').className = isCentered ? 'test-value status-good' : 'test-value status-bad';
+                }
+                
+                if (gradientShape) {
+                    const gradientRect = gradientShape.getBoundingClientRect();
+                    document.getElementById('gradient-size').textContent = `${Math.round(gradientRect.width)}x${Math.round(gradientRect.height)}`;
+                    
+                    // Check if gradient is visible
+                    const isVisible = gradientRect.width > 0 && gradientRect.height > 0 && 
+                                     gradientRect.right > 0 && gradientRect.left < viewportWidth &&
+                                     gradientRect.bottom > 0 && gradientRect.top < viewportHeight;
+                    
+                    document.getElementById('gradient-visible').textContent = isVisible ? '✅ Yes' : '❌ No';
+                    document.getElementById('gradient-visible').className = isVisible ? 'test-value status-good' : 'test-value status-bad';
+                }
+                
+                // Test video coverage
+                const video = iframeDoc.querySelector('.background-video');
+                if (video) {
+                    const videoRect = video.getBoundingClientRect();
+                    document.getElementById('video-size').textContent = 
+                        `${Math.round(videoRect.width)}x${Math.round(videoRect.height)}`;
+                    
+                    const fullCoverage = videoRect.width >= viewportWidth && videoRect.height >= viewportHeight;
+                    document.getElementById('full-coverage').textContent = fullCoverage ? '✅ Yes' : '❌ No';
+                    document.getElementById('full-coverage').className = fullCoverage ? 'test-value status-good' : 'test-value status-bad';
+                }
+                
+                // Calculate FPS
+                frameCount++;
+                const currentTime = performance.now();
+                const deltaTime = currentTime - lastTime;
+                if (deltaTime >= 1000) {
+                    const fps = Math.round((frameCount / deltaTime) * 1000);
+                    document.getElementById('animation-fps').textContent = fps < 30 ? `${fps} ⚠️` : `${fps} ✅`;
+                    document.getElementById('animation-fps').className = fps < 30 ? 'test-value status-warning' : 'test-value status-good';
+                    frameCount = 0;
+                    lastTime = currentTime;
+                }
+                
+                // Check CSS complexity
+                const hasMinFunction = iframeWin.getComputedStyle(animationContainer || iframeDoc.body).getPropertyValue('--gradient-size').includes('min(');
+                document.getElementById('css-complexity').textContent = hasMinFunction ? '❌ Complex' : '✅ Simple';
+                document.getElementById('css-complexity').className = hasMinFunction ? 'test-value status-bad' : 'test-value status-good';
+                
+            } catch (e) {
+                console.error('Test error:', e);
+            }
+        }
+        
+        // Initial test
+        setTimeout(updateTests, 2000);
+        
+        // Update on iframe load
+        iframe.onload = () => {
+            setTimeout(updateTests, 1000);
+        };
+        
+        // Periodic updates
+        setInterval(updateTests, 100); // More frequent for FPS calculation
+    </script>
+</body>
+</html>

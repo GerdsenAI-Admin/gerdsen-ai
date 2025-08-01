@@ -1,0 +1,129 @@
+/* ========================================
+   GRADIENT ANIMATION - RESPONSIVE FIX
+   Simple, performant solution using vmin units
+   ======================================== */
+
+/* Gradient Animation Overlay */
+.gradient-animation-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 12; /* Above video, below content */
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    opacity: 0.7; /* Adjust as needed */
+}
+
+/* Animation Container - Using vmin for natural scaling */
+.animation-container {
+    position: relative;
+    width: 80vmin;
+    height: 80vmin;
+    max-width: 600px;
+    max-height: 600px;
+    display: grid;
+    place-items: center;
+}
+
+/* Gradient Shape - Simplified with better performance */
+.gradient-shape {
+    width: 60%;
+    height: 60%;
+    background: conic-gradient(
+        from 0deg,
+        #00ff88,
+        #ffff00,
+        #ff8800,
+        #ff0088,
+        #8800ff,
+        #00ff88
+    );
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 20s linear infinite;
+    will-change: transform; /* Optimize for animation */
+}
+
+/* Inner circle using pseudo-element */
+.gradient-shape::before {
+    content: '';
+    position: absolute;
+    inset: 20%;
+    background: var(--bg-primary, #0a0a1a);
+    border-radius: 50%;
+}
+
+/* Optional: Add a subtle glow effect */
+.gradient-shape::after {
+    content: '';
+    position: absolute;
+    inset: -10%;
+    background: inherit;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+/* Neural Network Canvas placeholder */
+.neural-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* Animation */
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments - Only 2 needed! */
+@media (max-width: 480px) {
+    /* Slightly larger on very small screens */
+    .animation-container {
+        width: 90vmin;
+        height: 90vmin;
+    }
+}
+
+/* Handle landscape phones */
+@media (max-height: 500px) {
+    /* Smaller on landscape to prevent overflow */
+    .animation-container {
+        width: 60vmin;
+        height: 60vmin;
+    }
+}
+
+/* Performance optimization for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .gradient-shape {
+        animation: none;
+    }
+    
+    .gradient-shape::after {
+        display: none;
+    }
+}
+
+/* Integration with existing hero section */
+.hero-section .gradient-animation-overlay {
+    /* Ensure it works with your existing hero */
+    mix-blend-mode: screen; /* Optional: creates interesting blend with video */
+}
+
+/* Fade in on scroll (optional) */
+.hero-section:not(.scrolled) .gradient-animation-overlay {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.hero-section.scrolled .gradient-animation-overlay {
+    opacity: 0.7;
+}

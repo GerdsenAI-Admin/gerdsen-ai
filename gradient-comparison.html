@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GerdsenAI - Gradient Animation Fix Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .comparison-section {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #1a1a2e;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .problematic { border-color: #ff4444; }
+        .fixed { border-color: #44ff44; }
+
+        .hero-demo {
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #0a0a1a 0%, #000 100%);
+        }
+
+        /* PROBLEMATIC VERSION - Complex approach */
+        .problematic-animation {
+            --gradient-size: min(90vw, 90vh, 600px);
+            position: absolute;
+            width: var(--gradient-size);
+            height: var(--gradient-size);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problematic-gradient {
+            position: absolute;
+            width: 50%;
+            aspect-ratio: 1;
+            background: conic-gradient(
+                from 0deg,
+                #00ff88,
+                #ffff00,
+                #ff8800,
+                #ff0088,
+                #8800ff,
+                #00ff88
+            );
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: rotate 20s linear infinite;
+        }
+
+        .problematic-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 15%;
+            background: #0a0a1a;
+            border-radius: 50%;
+        }
+
+        /* FIXED VERSION - Simple vmin approach */
+        .fixed-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+        }
+
+        .fixed-container {
+            width: 70vmin;
+            height: 70vmin;
+            max-width: 350px;
+            max-height: 350px;
+            display: grid;
+            place-items: center;
+        }
+
+        .fixed-gradient {
+            width: 60%;
+            height: 60%;
+            background: conic-gradient(
+                from 0deg,
+                #00ff88,
+                #ffff00,
+                #ff8800,
+                #ff0088,
+                #8800ff,
+                #00ff88
+            );
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 20s linear infinite;
+            will-change: transform;
+        }
+
+        .fixed-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 20%;
+            background: #0a0a1a;
+            border-radius: 50%;
+        }
+
+        .fixed-gradient::after {
+            content: '';
+            position: absolute;
+            inset: -10%;
+            background: inherit;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .code-section {
+            padding: 20px;
+            background: #111;
+            font-family: 'SF Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        .code-section pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .stats {
+            padding: 20px;
+            background: #0a0a1a;
+            border-top: 1px solid #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-item {
+            padding: 10px;
+            background: #111;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .test-controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .test-button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .test-button:hover {
+            background: #0051D5;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>GerdsenAI Gradient Animation: Problem vs Solution</h1>
+
+    <div class="test-controls">
+        <button class="test-button" onclick="testViewport(375, 667)">Mobile</button>
+        <button class="test-button" onclick="testViewport(768, 1024)">Tablet</button>
+        <button class="test-button" onclick="testViewport(1920, 1080)">Desktop</button>
+        <button class="test-button" onclick="testViewport(3440, 1440)">Ultrawide</button>
+        <button class="test-button" onclick="resetViewport()">Reset</button>
+    </div>
+
+    <div class="comparison-container">
+        <!-- Problematic Version -->
+        <div class="comparison-section problematic">
+            <div class="section-header">❌ Complex CSS with min() function</div>
+            <div class="hero-demo">
+                <div class="problematic-animation">
+                    <div class="problematic-gradient"></div>
+                </div>
+            </div>
+            <div class="code-section">
+                <pre>:root {
+  --gradient-size: min(90vw, 90vh, 600px);
+}
+
+.animation-container {
+  position: absolute;
+  width: var(--gradient-size);
+  height: var(--gradient-size);
+  /* Complex calculations... */
+}
+
+/* Plus 10+ media queries! */</pre>
+            </div>
+            <div class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">CSS Lines</div>
+                        <div class="stat-value">~150</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Media Queries</div>
+                        <div class="stat-value">10+</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Complexity</div>
+                        <div class="stat-value">High</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Performance</div>
+                        <div class="stat-value">Poor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fixed Version -->
+        <div class="comparison-section fixed">
+            <div class="section-header">✅ Simple vmin-based solution</div>
+            <div class="hero-demo">
+                <div class="fixed-animation">
+                    <div class="fixed-container">
+                        <div class="fixed-gradient"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="code-section">
+                <pre>.animation-container {
+  width: 80vmin;
+  height: 80vmin;
+  max-width: 600px;
+  max-height: 600px;
+  display: grid;
+  place-items: center;
+}
+
+/* That's it! No complex media queries */</pre>
+            </div>
+            <div class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">CSS Lines</div>
+                        <div class="stat-value">~50</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Media Queries</div>
+                        <div class="stat-value">2</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Complexity</div>
+                        <div class="stat-value">Low</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Performance</div>
+                        <div class="stat-value">Excellent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testViewport(width, height) {
+            const containers = document.querySelectorAll('.hero-demo');
+            containers.forEach(container => {
+                container.style.width = width + 'px';
+                container.style.height = height + 'px';
+            });
+        }
+
+        function resetViewport() {
+            const containers = document.querySelectorAll('.hero-demo');
+            containers.forEach(container => {
+                container.style.width = '';
+                container.style.height = '';
+            });
+        }
+
+        // Log viewport dimensions for debugging
+        console.log('Current viewport:', window.innerWidth, 'x', window.innerHeight);
+        console.log('vmin value:', Math.min(window.innerWidth, window.innerHeight));
+    </script>
+</body>
+</html>

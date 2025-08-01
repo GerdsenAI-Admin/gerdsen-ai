@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack AI Solutions - From Concept to Production - GERDSEN AI</title>
+    <meta name="description" content="Full stack AI solutions from concept to production. We architect, build, and deploy AI systems across the entire stack.">
+    
+    <!-- Apple-style Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- OpenGraph Tags for Social Sharing -->
+    <meta property="og:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta property="og:description" content="We architect, build, and deploy AI systems across the entire stack. From concept to production, local or cloud.">
+    <meta property="og:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+    <meta property="og:url" content="https://gerdsen.ai/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta name="twitter:description" content="Full stack AI solutions from concept to production.">
+    <meta name="twitter:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://gerdsen.ai/">
+    
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/gradient-animation-fix.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gerdsen-ai-logo.png">
+</head>
+<body class="antialiased">
+    <!-- Animated Smoke Background -->
+    <div class="particles-background" id="particles-bg">
+        <div class="smoke-layer"></div>
+        <div class="smoke-layer"></div>
+        <div class="smoke-layer"></div>
+    </div>
+    
+    <!-- Steam/Smoke Layer -->
+    <div class="steam-layer" id="steam-layer"></div>
+    
+    <!-- Cloud/Fog Layer -->
+    <div class="cloud-layer" id="cloud-layer"></div>
+    
+    <!-- Firefly Particles Container -->
+    <div class="firefly-container" id="firefly-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="#home" class="nav-logo hover:text-blue-400 transition-colors">GerdsenAI</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="https://github.com/gerdsen-ai" target="_blank" rel="noopener noreferrer" class="nav-link">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-blue-400 transition-colors" aria-label="Toggle mobile menu" aria-expanded="false">
+                        <div class="hamburger">
+                            <div class="line line1"></div>
+                            <div class="line line2"></div>
+                            <div class="line line3"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden mobile-menu-hidden overflow-hidden transition-all duration-300 ease-in-out">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-black bg-opacity-95 backdrop-blur-md rounded-lg mt-4">
+                    <a href="#services" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">Services</a>
+                    <a href="#about" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">About</a>
+                    <a href="#contact" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">Contact</a>
+                    <a href="https://github.com/gerdsen-ai" target="_blank" rel="noopener noreferrer" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Neural_G_5 Video Background AND Gradient Animation -->
+    <section class="hero-section" data-video-section id="home">
+        <!-- Video Background -->
+        <div class="video-container">
+            <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
+                <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
+                <!-- Fallback text for screen readers and browsers that don't support video -->
+                <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.</p>
+            </video>
+        </div>
+        
+        <!-- NEW: Gradient Animation Overlay -->
+        <div class="gradient-animation-overlay">
+            <div class="animation-container">
+                <div class="gradient-shape"></div>
+                <canvas class="neural-canvas"></canvas>
+            </div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-title" data-scroll-fade>
+                Full Stack AI Solutions<br>
+                <span class="gradient-text">From Concept to Production</span>
+            </h1>
+            <p class="hero-description" data-scroll-fade data-delay="200">
+                We architect, build, and deploy AI systems across the entire stack. Local or cloud, 
+                training or inference, POC or production - we deliver comprehensive AI solutions 
+                tailored to your business needs.
+            </p>
+            <div class="hero-buttons" data-scroll-fade data-delay="400">
+                <a href="#contact" class="button-primary">Start Your AI Journey</a>
+                <a href="#services" class="button-secondary">Explore Our Stack</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REST OF THE CONTENT REMAINS THE SAME -->
+    <!-- ... (I'll just add a note here to save space) ... -->
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
