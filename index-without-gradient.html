@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack AI Solutions - From Concept to Production - GERDSEN AI</title>
+    <meta name="description" content="Full stack AI solutions from concept to production. We architect, build, and deploy AI systems across the entire stack.">
+    
+    <!-- Apple-style Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- OpenGraph Tags for Social Sharing -->
+    <meta property="og:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta property="og:description" content="We architect, build, and deploy AI systems across the entire stack. From concept to production, local or cloud.">
+    <meta property="og:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+    <meta property="og:url" content="https://gerdsen.ai/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gerdsen AI - Full Stack AI Solutions">
+    <meta name="twitter:description" content="Full stack AI solutions from concept to production.">
+    <meta name="twitter:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://gerdsen.ai/">
+    
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gerdsen-ai-logo.png">
+</head>
+<body class="antialiased">
+    <!-- Animated Smoke Background -->
+    <div class="particles-background" id="particles-bg">
+        <div class="smoke-layer"></div>
+        <div class="smoke-layer"></div>
+        <div class="smoke-layer"></div>
+    </div>
+    
+    <!-- Steam/Smoke Layer -->
+    <div class="steam-layer" id="steam-layer"></div>
+    
+    <!-- Cloud/Fog Layer -->
+    <div class="cloud-layer" id="cloud-layer"></div>
+    
+    <!-- Firefly Particles Container -->
+    <div class="firefly-container" id="firefly-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="#home" class="nav-logo hover:text-blue-400 transition-colors">GerdsenAI</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="https://github.com/gerdsen-ai" target="_blank" rel="noopener noreferrer" class="nav-link">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-blue-400 transition-colors" aria-label="Toggle mobile menu" aria-expanded="false">
+                        <div class="hamburger">
+                            <div class="line line1"></div>
+                            <div class="line line2"></div>
+                            <div class="line line3"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden mobile-menu-hidden overflow-hidden transition-all duration-300 ease-in-out">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-black bg-opacity-95 backdrop-blur-md rounded-lg mt-4">
+                    <a href="#services" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">Services</a>
+                    <a href="#about" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">About</a>
+                    <a href="#contact" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">Contact</a>
+                    <a href="https://github.com/gerdsen-ai" target="_blank" rel="noopener noreferrer" class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Neural_G_5 Video Background - THE MAIN ATTRACTION -->
+    <section class="hero-section" data-video-section id="home">
+        <!-- Video Background -->
+        <div class="video-container">
+            <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax aria-label="Abstract neural network animation background">
+                <source src="assets/images/Neural_G_5.mp4" type="video/mp4">
+                <!-- Fallback text for screen readers and browsers that don't support video -->
+                <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.</p>
+            </video>
+        </div>
+        
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-title" data-scroll-fade>
+                Full Stack AI Solutions<br>
+                <span class="gradient-text">From Concept to Production</span>
+            </h1>
+            <p class="hero-description" data-scroll-fade data-delay="200">
+                We architect, build, and deploy AI systems across the entire stack. Local or cloud, 
+                training or inference, POC or production - we deliver comprehensive AI solutions 
+                tailored to your business needs.
+            </p>
+            <div class="hero-buttons" data-scroll-fade data-delay="400">
+                <a href="#contact" class="button-primary">Start Your AI Journey</a>
+                <a href="#services" class="button-secondary">Explore Our Stack</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="expertise-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-infinity text-blue-500 mr-3"></i>End-to-End Expertise</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">From initial consultation to production deployment, we handle every aspect of your AI journey with deep technical expertise.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-blue-400">Our Complete Process:</h3>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Discovery & Strategy:</strong> We assess your needs, identify opportunities, and create a comprehensive AI roadmap.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Architecture & Design:</strong> Custom AI solutions designed for your specific use cases and technical requirements.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Development & Training:</strong> Model development, fine-tuning, and integration with your existing systems.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check text-green-500 mt-1"></i>
+                        <span><strong>Deployment & Optimization:</strong> Production deployment with monitoring, scaling, and continuous optimization.</span>
+                    </li>
+                </ul>
+                
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="text-sm text-gray-300"><strong>Result:</strong> A complete AI solution that delivers measurable business value from day one.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="deployment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-balance-scale text-purple-500 mr-3"></i>Flexible Deployment</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">Cloud, on-premise, or hybrid - we architect solutions that balance performance, cost, and compliance requirements.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-purple-400">Deployment Options:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-cloud mr-2"></i>Cloud-Native</h4>
+                        <p class="text-sm text-gray-300">AWS, Azure, GCP with auto-scaling, managed services, and global deployment.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-server mr-2"></i>On-Premise</h4>
+                        <p class="text-sm text-gray-300">Complete data privacy with local deployment on your infrastructure.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-network-wired mr-2"></i>Hybrid</h4>
+                        <p class="text-sm text-gray-300">Best of both worlds - sensitive data stays local, scale in the cloud.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-purple-400">Why Flexibility Matters:</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-shield-alt text-green-500 mt-1"></i>
+                        <span><strong>Compliance:</strong> Meet strict regulatory requirements (HIPAA, SOC2, GDPR)</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-dollar-sign text-green-500 mt-1"></i>
+                        <span><strong>Cost Optimization:</strong> Right-size your infrastructure for optimal performance/cost ratio</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-lock text-green-500 mt-1"></i>
+                        <span><strong>Data Security:</strong> Keep sensitive data exactly where you need it</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="production-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-line text-green-500 mr-3"></i>Production-Ready Solutions</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">We don't just build POCs. Our solutions are engineered for scale, reliability, and real-world performance.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-green-400">Enterprise-Grade Features:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-tachometer-alt text-blue-500 mt-1"></i>
+                            <span><strong>High Performance:</strong> Optimized for low latency and high throughput</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-expand-arrows-alt text-blue-500 mt-1"></i>
+                            <span><strong>Auto-Scaling:</strong> Handles traffic spikes automatically</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-heartbeat text-blue-500 mt-1"></i>
+                            <span><strong>Health Monitoring:</strong> 24/7 system monitoring and alerting</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-undo text-purple-500 mt-1"></i>
+                            <span><strong>Disaster Recovery:</strong> Automated backups and failover</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-code-branch text-purple-500 mt-1"></i>
+                            <span><strong>CI/CD Pipeline:</strong> Continuous integration and deployment</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-chart-bar text-purple-500 mt-1"></i>
+                            <span><strong>Performance Analytics:</strong> Detailed metrics and optimization insights</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-900 bg-opacity-30 p-4 rounded-lg border border-green-500">
+                    <p class="text-sm"><strong>Production Promise:</strong> Every solution we deliver is tested, documented, and ready for enterprise-scale deployment with SLA guarantees.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="partnership-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-users text-pink-500 mr-3"></i>Ongoing Partnership</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-lg mb-4">Your AI journey doesn't end at deployment. We provide continuous optimization, monitoring, and evolution of your systems.</p>
+                
+                <h3 class="text-xl font-semibold mb-3 text-pink-400">Continuous Partnership Services:</h3>
+                <div class="space-y-4 mb-6">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-chart-line mr-2"></i>Performance Optimization</h4>
+                        <p class="text-sm text-gray-300">Regular model retraining, performance tuning, and system optimization to maintain peak efficiency.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-tools mr-2"></i>System Maintenance</h4>
+                        <p class="text-sm text-gray-300">Proactive monitoring, security updates, and infrastructure maintenance to ensure 99.9% uptime.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-rocket mr-2"></i>Feature Evolution</h4>
+                        <p class="text-sm text-gray-300">Continuous enhancement with new features, model improvements, and technology upgrades.</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-pink-400 mb-2"><i class="fas fa-graduation-cap mr-2"></i>Team Training</h4>
+                        <p class="text-sm text-gray-300">Ongoing training for your team to maximize the value of your AI investment.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 text-pink-400">Partnership Models:</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-handshake text-green-500 mt-1"></i>
+                        <span><strong>Managed Services:</strong> We handle everything while you focus on your business</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-users-cog text-green-500 mt-1"></i>
+                        <span><strong>Collaborative Support:</strong> Work alongside your team with expert guidance</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-phone text-green-500 mt-1"></i>
+                        <span><strong>On-Demand Consulting:</strong> Expert support whenever you need it</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section - Clean design, no competing video -->
+    <section id="services" class="content-section">
+        <div class="section-content">
+            <h2 class="section-title" data-scroll-fade>Our Full Stack AI Services</h2>
+            <div class="services-grid" data-scroll-fade data-delay="200">
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-blue-500">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">AI Strategy & Consulting</h3>
+                    <p class="text-gray-400">Define your AI roadmap. We assess your needs, identify opportunities, and architect solutions that deliver real business value.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-purple-500">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Custom AI Development</h3>
+                    <p class="text-gray-400">Build bespoke AI solutions. From LLMs to computer vision, we develop and integrate AI models tailored to your specific use cases.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-pink-500">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Production Deployment</h3>
+                    <p class="text-gray-400">Scale with confidence. We handle MLOps, infrastructure, monitoring, and optimization for both cloud and on-premise deployments.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-green-500">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Model Training & Fine-tuning</h3>
+                    <p class="text-gray-400">Optimize AI for your domain. We train custom models, fine-tune existing ones, and implement RAG systems with your data.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-yellow-500">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Cloud & Hybrid Workflows</h3>
+                    <p class="text-gray-400">Flexible infrastructure solutions. We design cost-effective architectures spanning AWS, Azure, GCP, and private clouds.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-4xl mb-6 text-red-500">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 mono">Secure Local Deployment</h3>
+                    <p class="text-gray-400">Privacy-first AI solutions. Deploy powerful models on-premise with zero data leakage and complete compliance.</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="button-primary magnetic">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section no-video">
+        <div class="section-content">
+            <h2 class="section-title" data-scroll-fade>
+            Why Choose <span class="gradient-text">GERDSEN AI?</span>
+            </h2>
+            <div class="features-grid" data-scroll-fade data-delay="200">
+            <div class="feature-item modal-trigger" data-modal="expertise-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-blue-500 mt-1">
+            <i class="fas fa-infinity"></i>
+            </div>
+            <div>
+            <h3 class="text-2xl font-semibold mb-2">End-to-End Expertise</h3>
+            <p class="text-gray-400">From initial consultation to production deployment...</p>
+                <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                </div>
+                </div>
+                </div>
+            </div>
+            
+            <div class="feature-item modal-trigger" data-modal="deployment-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-purple-500 mt-1">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            <div>
+            <h3 class="text-2xl font-semibold mb-2">Flexible Deployment</h3>
+                <p class="text-gray-400">Cloud, on-premise, or hybrid solutions...</p>
+                    <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-item modal-trigger" data-modal="production-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-green-500 mt-1">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2">Production-Ready Solutions</h3>
+                    <p class="text-gray-400">We don't just build POCs...</p>
+                        <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-item modal-trigger" data-modal="partnership-modal">
+            <div class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+            <div class="flex items-start space-x-4">
+            <div class="text-2xl text-pink-500 mt-1">
+            <i class="fas fa-users"></i>
+            </div>
+            <div>
+                    <h3 class="text-2xl font-semibold mb-2">Ongoing Partnership</h3>
+                        <p class="text-gray-400">Your AI journey doesn't end at deployment...</p>
+                            <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+<section id="contact" class="content-section contact-section no-video">
+    <div class="section-content">
+    <h2 class="section-title" data-scroll-fade>Let's Build Something Amazing</h2>
+    
+    <!-- Contact Form -->
+    <div class="contact-form" data-scroll-fade data-delay="200">
+    <form id="contact-form" method="POST">
+    <div class="form-group">
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+    <label for="company">Company</label>
+        <input type="text" id="company" name="company">
+    </div>
+    
+    <div class="form-group">
+            <label for="project">Project Type</label>
+            <select id="project" name="project" class="form-group input">
+            <option value="">Select a project type</option>
+            <option value="ai-consulting">AI Strategy & Consulting</option>
+        <option value="custom-ai">Custom AI Development</option>
+    <option value="deployment">Production Deployment</option>
+    <option value="training">Model Training & Fine-tuning</option>
+        <option value="infrastructure">Cloud & Infrastructure</option>
+        <option value="other">Other</option>
+    </select>
+    </div>
+    
+    <div class="form-group">
+    <label for="message">Message *</label>
+    <textarea id="message" name="message" placeholder="Tell us about your AI project or needs..." required></textarea>
+    </div>
+    
+    <button type="submit" class="form-submit" id="submit-btn">
+    Send Message
+    </button>
+    
+    <div id="form-status" class="form-status" style="display: none;"></div>
+    </form>
+    </div>
+    
+    <!-- Contact Information -->
+    <div class="contact-info-footer" data-scroll-fade data-delay="400">
+    <div class="contact-info-item">
+    <h3 class="text-xl font-semibold mb-4 mono">Contact Information</h3>
+    <div class="space-y-3 text-gray-400">
+    <p class="flex items-center justify-center space-x-3">
+    <i class="fas fa-envelope w-5"></i>
+    <span>contact@gerdsen.ai</span>
+    </p>
+    <p class="flex items-center justify-center space-x-3">
+    <i class="fas fa-map-pin w-5"></i>
+    <span>Lafayette, Louisiana</span>
+    </p>
+    <p class="flex items-center justify-center space-x-3">
+    <i class="fas fa-calendar w-5"></i>
+    <span>Founded 2025</span>
+    </p>
+    </div>
+    <div class="mt-6">
+    <p class="text-sm text-gray-500 mono">Louisiana LLC (EIN: 39-3468580)</p>
+    </div>
+    </div>
+    </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-gray-800">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-500">&copy; 2025 GERDSEN AI LLC. All rights reserved.</p>
+            <p class="text-sm text-gray-600 mt-2">
+                Proudly serving Louisiana businesses with secure, local AI solutions.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
