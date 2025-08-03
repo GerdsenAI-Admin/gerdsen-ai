@@ -111,6 +111,9 @@ function initParallaxParticlesBackground() {
         }, 150);
     }
     
+    // Initialize proper state
+    initializeHeroState();
+
     // Use non-throttled handler for immediate response
     window.addEventListener('scroll', handleImmediateScroll, { passive: true });
     
