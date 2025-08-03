@@ -45,12 +45,43 @@ function initParallaxParticlesBackground() {
     let scrollTimeout;
     let isScrolling = false;
     
+    // Initialize proper state on page load
+    function initializeHeroState() {
+        // Ensure hero starts without scrolled class
+        heroSection.classList.remove('scrolled');
+        // Make hero content visible immediately
+        const heroContent = document.querySelector('.hero-content');
+        const heroTitle = document.querySelector('.hero-title');
+        const heroDescription = document.querySelector('.hero-description');
+        const heroButtons = document.querySelector('.hero-buttons');
+
+        if (heroContent) {
+            heroContent.style.opacity = '1';
+            heroContent.style.visibility = 'visible';
+        }
+        if (heroTitle) {
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }
+        if (heroDescription) {
+            heroDescription.style.opacity = '1';
+            heroDescription.style.transform = 'translateY(0)';
+        }
+        if (heroButtons) {
+            heroButtons.style.opacity = '1';
+            heroButtons.style.transform = 'translateY(0)';
+        }
+
+        // Scroll to top to ensure consistent starting position
+        window.scrollTo(0, 0);
+    }
+
     // Enhanced scroll handler for immediate blur
     function handleImmediateScroll() {
         const scrollY = window.pageYOffset;
-        
-        // IMMEDIATE blur and dim on ANY scroll
-        if (scrollY > 5 && !heroSection.classList.contains('scrolled')) {
+
+        // IMMEDIATE blur and dim on ANY scroll (but start from top of hero)
+        if (scrollY > 100 && !heroSection.classList.contains('scrolled')) {
             heroSection.classList.add('scrolled');
             neuralGBlurred = true;
             
@@ -68,7 +99,7 @@ function initParallaxParticlesBackground() {
                     }
                 }, 300);
             }
-        } else if (scrollY <= 5 && heroSection.classList.contains('scrolled')) {
+        } else if (scrollY <= 100 && heroSection.classList.contains('scrolled')) {
             heroSection.classList.remove('scrolled');
         }
         
@@ -80,6 +111,9 @@ function initParallaxParticlesBackground() {
         }, 150);
     }
     
+    // Initialize proper state
+    initializeHeroState();
+
     // Use non-throttled handler for immediate response
     window.addEventListener('scroll', handleImmediateScroll, { passive: true });
     
@@ -199,7 +233,7 @@ function initScrollAnimations() {
         const scrollY = window.scrollY;
         
         // Show hero content immediately when scrolled
-        if (scrollY > 5 && !contentShown) {
+        if (scrollY > 100 && !contentShown) {
             contentShown = true;
             
             // Content appears as video dims
