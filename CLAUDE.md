@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the GERDSEN AI company website - a Jekyll-based static site with advanced Apple-inspired animations and video backgrounds. The site serves as the primary web presence for GERDSEN AI LLC (Louisiana-based AI consulting company, EIN: 39-3468580, founded 2025).
+This is the GERDSEN AI company website - a Jekyll-based static site with advanced Apple-inspired animations and video backgrounds. The site serves as the primary web presence for GERDSEN AI LLC (AI consulting company, founded 2025).
 
 ## Development Commands
 
@@ -112,4 +112,4 @@ The site runs on a simple Python HTTP server - no Jekyll build required for basi
 
 ## Business Context
 
-GERDSEN AI focuses on full-stack AI solutions, emphasizing local/on-premise deployments for privacy-conscious businesses. The website reflects this with sophisticated technical demonstrations and Louisiana business credentials.
+GERDSEN AI focuses on full-stack AI solutions, emphasizing local/on-premise deployments for privacy-conscious businesses. The website reflects this with sophisticated technical demonstrations.
