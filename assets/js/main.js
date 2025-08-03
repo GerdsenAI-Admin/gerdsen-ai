@@ -68,7 +68,7 @@ function initParallaxParticlesBackground() {
                     }
                 }, 300);
             }
-        } else if (scrollY <= 5 && heroSection.classList.contains('scrolled')) {
+        } else if (scrollY <= 100 && heroSection.classList.contains('scrolled')) {
             heroSection.classList.remove('scrolled');
         }
         
