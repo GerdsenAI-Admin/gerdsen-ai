@@ -45,6 +45,14 @@ function initParallaxParticlesBackground() {
     let scrollTimeout;
     let isScrolling = false;
     
+    // Initialize proper state on page load
+    function initializeHeroState() {
+        // Ensure hero starts without scrolled class
+        heroSection.classList.remove('scrolled');
+        // Scroll to top to ensure consistent starting position
+        window.scrollTo(0, 0);
+    }
+
     // Enhanced scroll handler for immediate blur
     function handleImmediateScroll() {
         const scrollY = window.pageYOffset;
