@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Full Stack AI Solutions - From Concept to Production - GERDSEN AI</title>
     <meta name="description" content="Full stack AI solutions from concept to production. We architect, build, and deploy AI systems across the entire stack.">
-    
+
     <!-- Apple-style Meta Tags -->
     <meta name="theme-color" content="#000000">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <!-- OpenGraph Tags for Social Sharing -->
     <meta property="og:title" content="Gerdsen AI - Full Stack AI Solutions">
@@ -520,5 +519,16 @@
 
     <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
+
+    <!-- Development: Scaling Verification Script (remove in production) -->
+    <script>
+        // Quick scaling test - runs only if ?test=scaling is in URL
+        if (window.location.search.includes('test=scaling')) {
+            fetch('test-scaling-verification.js')
+                .then(response => response.text())
+                .then(script => eval(script))
+                .catch(() => console.log('Scaling test script not found - run manually if needed'));
+        }
+    </script>
 </body>
 </html>

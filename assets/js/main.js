@@ -49,6 +49,10 @@ function initParallaxParticlesBackground() {
     function initializeHeroState() {
         // Ensure hero starts without scrolled class
         heroSection.classList.remove('scrolled');
+
+        // Check if we're on mobile
+        const isMobile = window.innerWidth <= 768;
+
         // Make hero content visible immediately
         const heroContent = document.querySelector('.hero-content');
         const heroTitle = document.querySelector('.hero-title');
@@ -58,6 +62,7 @@ function initParallaxParticlesBackground() {
         if (heroContent) {
             heroContent.style.opacity = '1';
             heroContent.style.visibility = 'visible';
+            heroContent.style.transform = 'translateY(0)';
         }
         if (heroTitle) {
             heroTitle.style.opacity = '1';
@@ -72,6 +77,15 @@ function initParallaxParticlesBackground() {
             heroButtons.style.transform = 'translateY(0)';
         }
 
+        // On mobile, make content always visible
+        if (isMobile) {
+            if (heroContent) {
+                heroContent.style.opacity = '1';
+                heroContent.style.visibility = 'visible';
+                heroContent.style.transform = 'translateY(0)';
+            }
+        }
+
         // Scroll to top to ensure consistent starting position
         window.scrollTo(0, 0);
     }
@@ -79,18 +93,23 @@ function initParallaxParticlesBackground() {
     // Enhanced scroll handler for immediate blur
     function handleImmediateScroll() {
         const scrollY = window.pageYOffset;
+        const isMobile = window.innerWidth <= 768;
+        const isUltrawide = window.innerWidth >= 2560;
+
+        // Different scroll thresholds for different devices
+        const scrollThreshold = isMobile ? 50 : isUltrawide ? 150 : 100;
 
         // IMMEDIATE blur and dim on ANY scroll (but start from top of hero)
-        if (scrollY > 100 && !heroSection.classList.contains('scrolled')) {
+        if (scrollY > scrollThreshold && !heroSection.classList.contains('scrolled')) {
             heroSection.classList.add('scrolled');
             neuralGBlurred = true;
-            
+
             // Show smoke effect after a short delay
             if (!particlesShown) {
                 setTimeout(() => {
                     particlesBg.classList.add('show');
                     particlesShown = true;
-                    
+
                     // Show fireflies
                     if (fireflyContainer && !firefliesShown) {
                         fireflyContainer.classList.add('show');
@@ -99,7 +118,7 @@ function initParallaxParticlesBackground() {
                     }
                 }, 300);
             }
-        } else if (scrollY <= 100 && heroSection.classList.contains('scrolled')) {
+        } else if (scrollY <= scrollThreshold && heroSection.classList.contains('scrolled')) {
             heroSection.classList.remove('scrolled');
         }
         
@@ -231,24 +250,46 @@ function initScrollAnimations() {
     
     function handleScroll() {
         const scrollY = window.scrollY;
-        
-        // Show hero content immediately when scrolled
-        if (scrollY > 100 && !contentShown) {
+        const isMobile = window.innerWidth <= 768;
+        const isUltrawide = window.innerWidth >= 2560;
+
+        // Different scroll thresholds for different devices
+        const scrollThreshold = isMobile ? 50 : isUltrawide ? 150 : 100;
+
+        // On mobile, keep content always visible
+        if (isMobile) {
+            if (heroTitle) {
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translateY(0)';
+            }
+            if (heroDescription) {
+                heroDescription.style.opacity = '1';
+                heroDescription.style.transform = 'translateY(0)';
+            }
+            if (heroButtons) {
+                heroButtons.style.opacity = '1';
+                heroButtons.style.transform = 'translateY(0)';
+            }
+            return;
+        }
+
+        // Show hero content immediately when scrolled (desktop/ultrawide)
+        if (scrollY > scrollThreshold && !contentShown) {
             contentShown = true;
-            
+
             // Content appears as video dims
             if (heroTitle) {
                 heroTitle.style.opacity = '1';
                 heroTitle.style.transform = 'translateY(0)';
             }
-            
+
             setTimeout(() => {
                 if (heroDescription) {
                     heroDescription.style.opacity = '1';
                     heroDescription.style.transform = 'translateY(0)';
                 }
             }, 200);
-            
+
             setTimeout(() => {
                 if (heroButtons) {
                     heroButtons.style.opacity = '1';
@@ -257,19 +298,21 @@ function initScrollAnimations() {
             }, 400);
         } else if (scrollY <= 5 && contentShown) {
             contentShown = false;
-            
-            // Hide hero content
-            if (heroTitle) {
-                heroTitle.style.opacity = '0';
-                heroTitle.style.transform = 'translateY(20px)';
-            }
-            if (heroDescription) {
-                heroDescription.style.opacity = '0';
-                heroDescription.style.transform = 'translateY(20px)';
-            }
-            if (heroButtons) {
-                heroButtons.style.opacity = '0';
-                heroButtons.style.transform = 'translateY(20px)';
+
+            // Hide hero content only on desktop
+            if (!isMobile) {
+                if (heroTitle) {
+                    heroTitle.style.opacity = '0';
+                    heroTitle.style.transform = 'translateY(20px)';
+                }
+                if (heroDescription) {
+                    heroDescription.style.opacity = '0';
+                    heroDescription.style.transform = 'translateY(20px)';
+                }
+                if (heroButtons) {
+                    heroButtons.style.opacity = '0';
+                    heroButtons.style.transform = 'translateY(20px)';
+                }
             }
         }
         
@@ -512,25 +555,126 @@ function throttle(func, wait = 16) {
     };
 }
 
+// Mobile Detection and Responsive Scaling
+function initResponsiveScaling() {
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+    const isUltrawide = window.innerWidth >= 2560;
+
+    // Apply mobile-specific styles
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+
+        // Ensure all hero content is visible on mobile
+        const heroContent = document.querySelector('.hero-content');
+        const heroTitle = document.querySelector('.hero-title');
+        const heroDescription = document.querySelector('.hero-description');
+        const heroButtons = document.querySelector('.hero-buttons');
+
+        if (heroContent) {
+            heroContent.style.opacity = '1';
+            heroContent.style.visibility = 'visible';
+            heroContent.style.transform = 'translateY(0)';
+        }
+        if (heroTitle) {
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }
+        if (heroDescription) {
+            heroDescription.style.opacity = '1';
+            heroDescription.style.transform = 'translateY(0)';
+        }
+        if (heroButtons) {
+            heroButtons.style.opacity = '1';
+            heroButtons.style.transform = 'translateY(0)';
+        }
+    }
+
+    if (isUltrawide) {
+        document.body.classList.add('ultrawide-device');
+    }
+
+    // Handle orientation changes on mobile
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            // Force a reflow to handle viewport changes
+            window.scrollTo(0, 0);
+
+            // Reinitialize scaling if needed
+            if (window.innerWidth <= 768) {
+                const heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.style.opacity = '1';
+                    heroContent.style.visibility = 'visible';
+                    heroContent.style.transform = 'translateY(0)';
+                }
+            }
+        }, 100);
+    });
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const newIsMobile = window.innerWidth <= 768;
+            const newIsUltrawide = window.innerWidth >= 2560;
+
+            // Update body classes
+            document.body.classList.toggle('mobile-device', newIsMobile);
+            document.body.classList.toggle('ultrawide-device', newIsUltrawide);
+
+            // Ensure mobile content remains visible
+            if (newIsMobile) {
+                const heroContent = document.querySelector('.hero-content');
+                const heroTitle = document.querySelector('.hero-title');
+                const heroDescription = document.querySelector('.hero-description');
+                const heroButtons = document.querySelector('.hero-buttons');
+
+                if (heroContent) {
+                    heroContent.style.opacity = '1';
+                    heroContent.style.visibility = 'visible';
+                    heroContent.style.transform = 'translateY(0)';
+                }
+                if (heroTitle) {
+                    heroTitle.style.opacity = '1';
+                    heroTitle.style.transform = 'translateY(0)';
+                }
+                if (heroDescription) {
+                    heroDescription.style.opacity = '1';
+                    heroDescription.style.transform = 'translateY(0)';
+                }
+                if (heroButtons) {
+                    heroButtons.style.opacity = '1';
+                    heroButtons.style.transform = 'translateY(0)';
+                }
+            }
+        }, 250);
+    });
+}
+
 // Main Initialization - DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Initializing Gerdsen AI website...');
-    
-    // Initialize parallax particles background FIRST
+
+    // Initialize responsive scaling FIRST
+    initResponsiveScaling();
+
+    // Initialize parallax particles background
     initParallaxParticlesBackground();
-    
+
     // Initialize scroll animations
     initScrollAnimations();
-    
+
     // Initialize modals
     initModals();
-    
+
     // Initialize mobile navigation
     initMobileNavigation();
-    
+
     // Initialize contact form
     initContactForm();
-    
+
     console.log('Website initialization complete!');
 });
 
