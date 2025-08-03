@@ -621,8 +621,8 @@ nav * {
     padding: 0 40px;
     width: 100%;
     margin: 0 auto;
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
