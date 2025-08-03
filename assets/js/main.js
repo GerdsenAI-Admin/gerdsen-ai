@@ -498,20 +498,31 @@ function initContactForm() {
         submitBtn.textContent = 'Sending...';
         
         try {
-            // Simulate form submission (replace with actual endpoint)
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // Success
-            statusDiv.className = 'form-status success';
-            statusDiv.textContent = 'Message sent successfully! We\'ll get back to you within 24 hours.';
-            statusDiv.style.display = 'block';
-            
-            // Reset form
-            form.reset();
-            
+            // Submit to Formspree (works with GitHub Pages)
+            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                // Success
+                statusDiv.className = 'form-status success';
+                statusDiv.textContent = 'Message sent successfully! We\'ll get back to you within 24 hours.';
+                statusDiv.style.display = 'block';
+
+                // Reset form
+                form.reset();
+            } else {
+                throw new Error('Form submission failed');
+            }
+
         } catch (error) {
             console.error('Form submission error:', error);
-            
+
             // Error handling
             statusDiv.className = 'form-status error';
             statusDiv.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at contact@gerdsen.ai';
