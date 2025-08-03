@@ -555,7 +555,7 @@ nav * {
 .hero-section.scrolled .background-video {
     opacity: 0.3;
     filter: brightness(0.3) blur(10px);
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 @media (aspect-ratio > 16/9) {
