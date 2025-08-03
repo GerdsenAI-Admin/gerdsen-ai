@@ -459,17 +459,15 @@ nav * {
 /* Hero Section */
 .hero-section {
     position: relative;
-    min-height: 100vh;
-    height: 100vh;
+    min-height: calc(100vh - 80px);
+    height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-top: 0;
+    margin-top: 80px;
     z-index: 15;
     background: #000;
-    padding-top: 80px;
-    padding-bottom: 40px;
     box-sizing: border-box;
 }
 
