@@ -199,7 +199,7 @@ function initScrollAnimations() {
         const scrollY = window.scrollY;
         
         // Show hero content immediately when scrolled
-        if (scrollY > 5 && !contentShown) {
+        if (scrollY > 100 && !contentShown) {
             contentShown = true;
             
             // Content appears as video dims
