@@ -1632,7 +1632,7 @@ footer {
         width: 150vw; /* Even more coverage */
     }
 
-    /* Scale down hero content to 90% for ultrawide */
+    /* Only override necessary properties for ultrawide */
     .hero-content {
         transform: scale(0.9);
         max-width: 1080px; /* Reduce max width */
