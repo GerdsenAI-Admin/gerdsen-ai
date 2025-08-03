@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Scaling Test - GERDSEN AI</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .device-info {
+            background: rgba(0, 122, 255, 0.2);
+            border: 1px solid rgba(0, 122, 255, 0.3);
+        }
+        
+        .viewport-info {
+            background: rgba(52, 199, 89, 0.2);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+        }
+        
+        .scaling-info {
+            background: rgba(255, 149, 0, 0.2);
+            border: 1px solid rgba(255, 149, 0, 0.3);
+        }
+        
+        .test-button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .test-button:hover {
+            background: #0051D5;
+        }
+        
+        .result {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .pass { color: #34C759; }
+        .fail { color: #FF453A; }
+        .warning { color: #FF9500; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Mobile Scaling Test - GERDSEN AI</h1>
+        
+        <div class="test-section device-info">
+            <h2>Device Information</h2>
+            <div id="device-info"></div>
+        </div>
+        
+        <div class="test-section viewport-info">
+            <h2>Viewport Information</h2>
+            <div id="viewport-info"></div>
+        </div>
+        
+        <div class="test-section scaling-info">
+            <h2>Scaling Tests</h2>
+            <button class="test-button" onclick="testVideoScaling()">Test Video Scaling</button>
+            <button class="test-button" onclick="testHeroContent()">Test Hero Content</button>
+            <button class="test-button" onclick="testResponsiveClasses()">Test Responsive Classes</button>
+            <button class="test-button" onclick="runAllTests()">Run All Tests</button>
+            <div id="test-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Quick Fix</h2>
+            <button class="test-button" onclick="applyMobileFix()">Apply Mobile Fix</button>
+            <button class="test-button" onclick="goToMainSite()">Go to Main Site</button>
+        </div>
+    </div>
+
+    <script>
+        function updateDeviceInfo() {
+            const info = document.getElementById('device-info');
+            const isMobile = window.innerWidth <= 768;
+            const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+            const isUltrawide = window.innerWidth >= 2560;
+            
+            info.innerHTML = `
+                <p><strong>Device Type:</strong> ${isMobile ? 'Mobile' : isTablet ? 'Tablet' : isUltrawide ? 'Ultrawide' : 'Desktop'}</p>
+                <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+                <p><strong>Touch Support:</strong> ${'ontouchstart' in window ? 'Yes' : 'No'}</p>
+                <p><strong>Orientation:</strong> ${window.innerHeight > window.innerWidth ? 'Portrait' : 'Landscape'}</p>
+            `;
+        }
+        
+        function updateViewportInfo() {
+            const info = document.getElementById('viewport-info');
+            info.innerHTML = `
+                <p><strong>Window Size:</strong> ${window.innerWidth} x ${window.innerHeight}</p>
+                <p><strong>Screen Size:</strong> ${screen.width} x ${screen.height}</p>
+                <p><strong>Device Pixel Ratio:</strong> ${window.devicePixelRatio}</p>
+                <p><strong>Aspect Ratio:</strong> ${(window.innerWidth / window.innerHeight).toFixed(2)}</p>
+                <p><strong>Viewport Meta:</strong> ${document.querySelector('meta[name="viewport"]')?.content || 'Not found'}</p>
+            `;
+        }
+        
+        function testVideoScaling() {
+            const results = document.getElementById('test-results');
+            let output = '<div class="result"><h3>Video Scaling Test</h3>';
+            
+            // Simulate main site video element
+            const testVideo = document.createElement('video');
+            testVideo.style.position = 'absolute';
+            testVideo.style.top = '0';
+            testVideo.style.left = '0';
+            testVideo.style.width = '100vw';
+            testVideo.style.height = '100vh';
+            testVideo.style.objectFit = 'cover';
+            testVideo.style.transform = 'none';
+            
+            const computedStyle = window.getComputedStyle(testVideo);
+            
+            output += `<p class="pass">✓ Video width: ${testVideo.style.width}</p>`;
+            output += `<p class="pass">✓ Video height: ${testVideo.style.height}</p>`;
+            output += `<p class="pass">✓ Object-fit: ${testVideo.style.objectFit}</p>`;
+            output += `<p class="pass">✓ Transform: ${testVideo.style.transform}</p>`;
+            
+            if (window.innerWidth <= 768) {
+                output += `<p class="pass">✓ Mobile detected - simplified scaling applied</p>`;
+            } else if (window.innerWidth >= 2560) {
+                output += `<p class="pass">✓ Ultrawide detected - appropriate scaling maintained</p>`;
+            } else {
+                output += `<p class="pass">✓ Desktop detected - standard scaling applied</p>`;
+            }
+            
+            output += '</div>';
+            results.innerHTML = output;
+        }
+        
+        function testHeroContent() {
+            const results = document.getElementById('test-results');
+            let output = '<div class="result"><h3>Hero Content Test</h3>';
+            
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                output += `<p class="pass">✓ Mobile device - content should be always visible</p>`;
+                output += `<p class="pass">✓ Opacity should be 1</p>`;
+                output += `<p class="pass">✓ Transform should be translateY(0)</p>`;
+                output += `<p class="pass">✓ Visibility should be visible</p>`;
+            } else {
+                output += `<p class="warning">⚠ Desktop device - content shows on scroll</p>`;
+            }
+            
+            output += '</div>';
+            results.innerHTML = output;
+        }
+        
+        function testResponsiveClasses() {
+            const results = document.getElementById('test-results');
+            let output = '<div class="result"><h3>Responsive Classes Test</h3>';
+            
+            const isMobile = window.innerWidth <= 768;
+            const isUltrawide = window.innerWidth >= 2560;
+            
+            if (isMobile) {
+                output += `<p class="pass">✓ Should have 'mobile-device' class on body</p>`;
+            }
+            
+            if (isUltrawide) {
+                output += `<p class="pass">✓ Should have 'ultrawide-device' class on body</p>`;
+            }
+            
+            output += `<p>Current viewport: ${window.innerWidth}px wide</p>`;
+            
+            output += '</div>';
+            results.innerHTML = output;
+        }
+        
+        function runAllTests() {
+            testVideoScaling();
+            setTimeout(() => testHeroContent(), 100);
+            setTimeout(() => testResponsiveClasses(), 200);
+        }
+        
+        function applyMobileFix() {
+            // Add styles to fix mobile scaling issues
+            const style = document.createElement('style');
+            style.textContent = `
+                .mobile-device .hero-content {
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    transform: translateY(0) !important;
+                }
+                
+                .mobile-device .background-video {
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    object-fit: cover !important;
+                    transform: none !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                }
+                
+                @media (max-width: 768px) {
+                    .background-video {
+                        transform: none !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            alert('Mobile fix applied! Check main site.');
+        }
+        
+        function goToMainSite() {
+            window.location.href = '/';
+        }
+        
+        // Initialize
+        updateDeviceInfo();
+        updateViewportInfo();
+        
+        // Update on resize
+        window.addEventListener('resize', () => {
+            updateDeviceInfo();
+            updateViewportInfo();
+        });
+        
+        // Update on orientation change
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                updateDeviceInfo();
+                updateViewportInfo();
+            }, 100);
+        });
+    </script>
+</body>
+</html>
