@@ -50,7 +50,12 @@
             // Try to trigger scroll in iframe (may be limited by CORS)
             try {
                 const iframe = document.getElementById('site-frame');
-                iframe.contentWindow.scrollTo(0, scrollY);
+                // Validate iframe origin before accessing contentWindow
+                const trustedOrigin = 'https://c64291eda2b34e3584b3385edf4ea39b-bcb911b153554ef5871366769.fly.dev/';
+                const iframeSrc = iframe.getAttribute('src');
+                if (iframeSrc && iframeSrc.startsWith(trustedOrigin)) {
+                    iframe.contentWindow.scrollTo(0, scrollY);
+                }
             } catch(e) {
                 console.log('Cannot control iframe scroll due to CORS');
             }
