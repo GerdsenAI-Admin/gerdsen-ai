@@ -1616,9 +1616,19 @@ footer {
     .hero-section {
         padding-bottom: 60px; /* Extra padding for super wide screens */
     }
-    
+
     .background-video {
         width: 150vw; /* Even more coverage */
+    }
+
+    /* Scale down hero content to 90% for ultrawide */
+    .hero-content {
+        transform: scale(0.9);
+        max-width: 1080px; /* Reduce max width */
+    }
+
+    .hero-title {
+        font-size: clamp(2.25rem, 5.4vw + 0.9rem, 6.3rem); /* 90% of original */
     }
 }
 
