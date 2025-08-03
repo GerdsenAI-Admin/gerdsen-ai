@@ -48,9 +48,9 @@ function initParallaxParticlesBackground() {
     // Enhanced scroll handler for immediate blur
     function handleImmediateScroll() {
         const scrollY = window.pageYOffset;
-        
-        // IMMEDIATE blur and dim on ANY scroll
-        if (scrollY > 5 && !heroSection.classList.contains('scrolled')) {
+
+        // IMMEDIATE blur and dim on ANY scroll (but start from top of hero)
+        if (scrollY > 100 && !heroSection.classList.contains('scrolled')) {
             heroSection.classList.add('scrolled');
             neuralGBlurred = true;
             
