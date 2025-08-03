@@ -545,7 +545,7 @@ nav * {
     min-height: 100vh;
     max-width: none;
     object-fit: cover;
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1);
     opacity: 1;
     filter: brightness(1);
     transition: filter 0.6s ease, opacity 0.6s ease;
