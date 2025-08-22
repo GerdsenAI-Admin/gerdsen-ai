@@ -499,7 +499,7 @@ function initContactForm() {
         
         try {
             // Submit to Formspree (works with GitHub Pages)
-            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+            const response = await fetch('https://formspree.io/f/xeozyrwa', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
