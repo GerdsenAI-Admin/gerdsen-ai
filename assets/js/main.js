@@ -525,7 +525,7 @@ function initContactForm() {
 
             // Error handling
             statusDiv.className = 'form-status error';
-            statusDiv.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at contact@gerdsen.ai';
+            statusDiv.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at info@gerdsen.ai';
             statusDiv.style.display = 'block';
         } finally {
             // Re-enable submit button
