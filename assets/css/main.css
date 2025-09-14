@@ -1999,3 +1999,224 @@ p, span, div, a, button, input, textarea, select, li {
         padding-bottom: 50px;
     }
 }
+
+/* ===== RESPONSIVE DESIGN ENHANCEMENTS ===== */
+/* Enhanced responsive design improvements for better cross-device compatibility */
+
+/* Improved Touch Targets for Mobile */
+@media (max-width: 480px) {
+    /* Ensure all interactive elements meet accessibility standards */
+    button, 
+    a, 
+    input, 
+    select, 
+    textarea,
+    .service-card {
+        min-height: 44px; /* Apple HIG minimum touch target */
+    }
+    
+    /* Better spacing on very small screens */
+    .hero-buttons {
+        gap: 0.75rem;
+    }
+    
+    .hero-buttons a {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Improve service card spacing */
+    .services-grid {
+        gap: 1rem;
+    }
+    
+    .service-card {
+        padding: 1.25rem;
+    }
+}
+
+/* Enhanced Tablet Layout */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Better use of tablet screen real estate */
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .hero-content {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    /* Improve form layout on tablets */
+    .contact-form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+    }
+    
+    .contact-form .form-group:nth-child(5),
+    .contact-form .form-group:nth-child(6) {
+        grid-column: 1 / -1; /* Full width for message and button */
+    }
+}
+
+/* Large Screen Optimizations */
+@media (min-width: 1440px) {
+    /* Prevent content from becoming too spread out on large screens */
+    .services-section,
+    .features-section,
+    .contact-section {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    /* Better grid layout for large screens */
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Enhanced Ultrawide Support */
+@media (min-width: 2560px) {
+    /* Prevent excessive stretching on ultrawide monitors */
+    .hero-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        transform: scale(0.95); /* Slightly smaller on ultrawide */
+    }
+    
+    /* Center main content areas */
+    main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    /* Better typography scaling for ultrawide */
+    .hero-title {
+        font-size: clamp(2.5rem, 4vw + 1rem, 4.5rem);
+    }
+}
+
+/* Landscape Mobile Improvements */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Better handling of landscape mobile devices */
+    .hero-section {
+        min-height: 100vh;
+        padding: 1rem 0;
+    }
+    
+    .hero-content {
+        transform: scale(0.85);
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 3vh + 0.5rem, 2.5rem);
+    }
+    
+    .hero-description {
+        font-size: clamp(0.875rem, 2vh + 0.25rem, 1.125rem);
+    }
+}
+
+/* Enhanced Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    /* Respect user preferences for reduced motion */
+    .background-video,
+    .firefly,
+    .particles-background * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+    
+    .hero-content {
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    
+    /* Reduce complex transforms */
+    .service-card:hover {
+        transform: translateY(-2px) !important;
+    }
+}
+
+/* Improved Focus States */
+@media (min-width: 768px) {
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 2px solid #007AFF;
+        outline-offset: 2px;
+        border-radius: 4px;
+        box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+    }
+}
+
+/* High DPI Display Enhancements */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Ensure crisp text on high DPI displays */
+    .hero-title,
+    .service-card h3,
+    nav a {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .background-video,
+    .particles-background,
+    .firefly-container,
+    nav,
+    .hero-buttons {
+        display: none !important;
+    }
+    
+    .hero-content {
+        background: white;
+        color: black;
+        position: static;
+        transform: none;
+        text-align: left;
+    }
+    
+    .hero-title {
+        color: black;
+    }
+    
+    .service-card,
+    .feature-card {
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+    
+    a::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666;
+    }
+}

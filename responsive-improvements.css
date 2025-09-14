@@ -1,0 +1,250 @@
+/* GERDSEN AI - Responsive Design Improvements */
+/* These improvements enhance the existing responsive design without breaking current functionality */
+
+/* 1. CONSISTENT BREAKPOINT SYSTEM */
+:root {
+    /* Standard breakpoints for better consistency */
+    --breakpoint-xs: 320px;   /* Very small phones */
+    --breakpoint-sm: 480px;   /* Small phones */
+    --breakpoint-md: 768px;   /* Tablets */
+    --breakpoint-lg: 1024px;  /* Small laptops */
+    --breakpoint-xl: 1440px;  /* Large screens */
+    --breakpoint-2xl: 1920px; /* Very large screens */
+    --breakpoint-ultrawide: 2560px; /* Ultrawide monitors */
+}
+
+/* 2. IMPROVED TYPOGRAPHY SCALING */
+/* Better fluid typography that scales more smoothly across all screen sizes */
+.hero-title {
+    font-size: clamp(1.75rem, 4vw + 1rem, 4rem);
+    line-height: 1.1;
+}
+
+.hero-description {
+    font-size: clamp(0.875rem, 2vw + 0.5rem, 1.25rem);
+    line-height: 1.5;
+    max-width: 65ch; /* Optimal reading length */
+}
+
+/* Service card titles */
+.services-grid h3 {
+    font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
+}
+
+.services-grid p {
+    font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1rem);
+}
+
+/* 3. ENHANCED MOBILE IMPROVEMENTS */
+@media (max-width: 480px) {
+    /* Very small phones (iPhone SE, etc) */
+    .hero-content {
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .hero-buttons {
+        gap: 0.75rem;
+    }
+    
+    .hero-buttons a {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Improve touch targets */
+    button, a, input, select, textarea {
+        min-height: 44px; /* Apple HIG minimum touch target */
+    }
+    
+    /* Better spacing for cramped screens */
+    .services-grid {
+        gap: 1rem;
+    }
+    
+    .service-card {
+        padding: 1.25rem;
+    }
+}
+
+/* 4. TABLET OPTIMIZATIONS */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* iPad and similar tablets */
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .hero-content {
+        max-width: 600px;
+    }
+    
+    /* Improve form layout on tablets */
+    .contact-form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* 5. LARGE SCREEN IMPROVEMENTS */
+@media (min-width: 1440px) {
+    /* Prevent content from becoming too spread out */
+    .container,
+    .hero-content,
+    .services-section,
+    .contact-section {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Better use of space on large screens */
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* 6. ULTRAWIDE MONITOR OPTIMIZATIONS */
+@media (min-width: 2560px) {
+    /* Prevent excessive stretching on ultrawide monitors */
+    .hero-section {
+        justify-content: center;
+    }
+    
+    .hero-content {
+        max-width: 1000px;
+        transform: scale(0.95); /* Slightly smaller on ultrawide */
+    }
+    
+    /* Center main content areas */
+    main {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* 7. IMPROVED FORM RESPONSIVENESS */
+.contact-form {
+    display: grid;
+    gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .contact-form {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+    
+    .contact-form .form-group:nth-child(5),
+    .contact-form .form-group:nth-child(6) {
+        grid-column: 1 / -1; /* Full width for message and button */
+    }
+}
+
+/* 8. ENHANCED ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+    /* Respect user preferences for reduced motion */
+    .background-video,
+    .firefly,
+    .particles-background {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        transform: none !important;
+        opacity: 1 !important;
+    }
+}
+
+/* 9. PRINT STYLES */
+@media print {
+    .background-video,
+    .particles-background,
+    .firefly-container,
+    nav {
+        display: none !important;
+    }
+    
+    .hero-content {
+        background: white;
+        color: black;
+        position: static;
+        transform: none;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+}
+
+/* 10. HIGH DPI / RETINA IMPROVEMENTS */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Ensure crisp text and images on high DPI displays */
+    .hero-title,
+    .service-card h3 {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* 11. LANDSCAPE MOBILE IMPROVEMENTS */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Better handling of landscape mobile (iPhone in landscape, etc) */
+    .hero-section {
+        min-height: 100vh;
+        padding: 1rem 0;
+    }
+    
+    .hero-content {
+        transform: scale(0.85);
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 3vh + 0.5rem, 2.5rem);
+    }
+}
+
+/* 12. CONTAINER QUERY SUPPORT (Future-proofing) */
+@supports (container-type: inline-size) {
+    .service-card {
+        container-type: inline-size;
+    }
+    
+    @container (min-width: 300px) {
+        .service-card h3 {
+            font-size: 1.25rem;
+        }
+    }
+}
+
+/* 13. IMPROVED FOCUS STATES FOR KEYBOARD NAVIGATION */
+@media (min-width: 768px) {
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 2px solid #007AFF;
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+}
+
+/* 14. BETTER GRID LAYOUTS FOR INTERMEDIATE SIZES */
+@media (min-width: 600px) and (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
