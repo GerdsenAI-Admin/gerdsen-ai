@@ -7,6 +7,7 @@
   height: 100vh;
   width: 400vw; /* 4 sections * 100vw each */
   position: relative;
+  overflow: hidden; /* Prevent horizontal scrollbars */
 }
 
 .project-section {
@@ -19,6 +20,12 @@
   position: relative;
   padding: 5rem;
   flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure the container is visible and properly positioned */
+.projects-container {
+  will-change: transform;
 }
 
 .project-content {

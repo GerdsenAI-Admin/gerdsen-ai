@@ -75,134 +75,85 @@
         filter: "blur(4px)" 
       });
 
-      // Hero overlay effect - show overlay text on first scroll hint
-      ScrollTrigger.create({
-        trigger: heroSection,
-        start: "top top",
-        end: "bottom top",
-        pin: true,
-        pinSpacing: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          
-          // On first hint of scroll (even 5% progress), show the overlay
-          if (progress > 0.05) {
-            heroSection.classList.add("scrolled");
-            gsap.to(heroContent, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
-            gsap.to(".hero-title, .hero-description, .hero-buttons, .trust-signals", { 
-              opacity: 1, 
-              y: 0, 
-              filter: "none",
-              duration: 1.2,
-              ease: "power2.out",
-              stagger: 0.1
-            });
-          } else {
-            heroSection.classList.remove("scrolled");
-          }
+      // Simple scroll listener for hero overlay (not using pin)
+      let heroScrollHandler = () => {
+        const scrollY = window.pageYOffset;
+        const progress = Math.min(scrollY / 100, 1); // Normalize to 0-1 over 100px
+        
+        if (progress > 0.05) {
+          heroSection.classList.add("scrolled");
+          gsap.to(heroContent, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+          gsap.to(".hero-title, .hero-description, .hero-buttons, .trust-signals", { 
+            opacity: 1, 
+            y: 0, 
+            filter: "none",
+            duration: 1.2,
+            ease: "power2.out",
+            stagger: 0.1
+          });
+          // Remove the listener once triggered
+          window.removeEventListener('scroll', heroScrollHandler);
         }
-      });
+      };
+      
+      window.addEventListener('scroll', heroScrollHandler, { passive: true });
     }
 
     // --- HORIZONTAL SCROLLING SECTION ---
     const projectSections = gsap.utils.toArray(".projects-container .project-section");
     if (projectSections.length > 0 && projectsContainer) {
       
-      // Create horizontal scrolling animation
-      const horizontalTween = gsap.to(projectSections, {
-        xPercent: -100 * (projectSections.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".projects-container",
-          pin: true,
-          scrub: 1,
-          snap: prefersReducedMotion ? false : {
-            snapTo: 1 / (projectSections.length - 1),
-            duration: 0.3,
-            delay: 0.1,
-          },
-          end: () => "+=" + (projectsContainer.offsetWidth * (projectSections.length - 1)),
-          onUpdate: (self) => {
-            const activeIndex = Math.round(self.progress * (projectSections.length - 1));
-            updateProjectNavigation(activeIndex);
-          },
-        },
-      });
-
-      // Per-section parallax and modal effects
-      projectSections.forEach((section, i) => {
+      // First, let's just test without pinning to see if the transform works
+      setTimeout(() => {
+        // Test horizontal transform
+        gsap.set(projectsContainer, { x: 0 });
         
-        // Parallax for elements with [data-parallax]
-        if (!prefersReducedMotion) {
-          const parallaxEls = section.querySelectorAll("[data-parallax]");
-          parallaxEls.forEach((el) => {
-            const speed = parseFloat(el.getAttribute("data-parallax")) || 0;
-            gsap.fromTo(el,
-              { x: () => -200 * speed },
-              {
-                x: () => 200 * speed,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: section,
-                  containerAnimation: horizontalTween,
-                  start: "left right",
-                  end: "right left",
-                  scrub: true,
-                },
-              }
-            );
-          });
-        }
-
-        // Auto-opening modals for specific sections
-        const modalId = section.getAttribute("data-modal-id");
-        if (modalId && section.getAttribute("data-auto-open-modal") === "true") {
-          ScrollTrigger.create({
-            trigger: section,
-            containerAnimation: horizontalTween,
-            start: "center center",
-            onEnter: () => {
-              if (isDesktop() && typeof window.openModalById === "function") {
-                window.openModalById(modalId);
-              }
+        // Create horizontal scrolling animation
+        const horizontalTween = gsap.to(projectSections, {
+          xPercent: -100 * (projectSections.length - 1),
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".projects-container",
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => "+=" + (window.innerWidth * (projectSections.length - 1)),
+            onUpdate: (self) => {
+              const activeIndex = Math.round(self.progress * (projectSections.length - 1));
+              updateProjectNavigation(activeIndex);
             },
-            onLeave: () => {
-              if (isDesktop() && typeof window.closeModalById === "function") {
-                window.closeModalById(modalId);
-              }
-            },
-            onEnterBack: () => {
-              if (isDesktop() && typeof window.openModalById === "function") {
-                window.openModalById(modalId);
-              }
-            },
-            onLeaveBack: () => {
-              if (isDesktop() && typeof window.closeModalById === "function") {
-                window.closeModalById(modalId);
-              }
-            },
-          });
-        }
-
-        // Modal triggers on scroll for clickable service cards
-        const modalTriggers = section.querySelectorAll('.modal-trigger');
-        modalTriggers.forEach(trigger => {
-          ScrollTrigger.create({
-            trigger: trigger,
-            containerAnimation: horizontalTween,
-            start: "center center",
-            end: "center center",
             onToggle: (self) => {
-              if (self.isActive && isDesktop()) {
-                // Add a visual hint that the modal can be opened
-                gsap.to(trigger, { scale: 1.05, boxShadow: "0 10px 30px rgba(0, 122, 255, 0.3)", duration: 0.3 });
-              } else {
-                gsap.to(trigger, { scale: 1, boxShadow: "none", duration: 0.3 });
+              if (self.isActive) {
+                console.log("Horizontal scroll is active");
               }
             }
-          });
+          },
         });
-      });
+
+        // Per-section parallax effects
+        if (!prefersReducedMotion) {
+          projectSections.forEach((section, i) => {
+            const parallaxEls = section.querySelectorAll("[data-parallax]");
+            parallaxEls.forEach((el) => {
+              const speed = parseFloat(el.getAttribute("data-parallax")) || 0;
+              gsap.fromTo(el,
+                { x: () => -200 * speed },
+                {
+                  x: () => 200 * speed,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: section,
+                    containerAnimation: horizontalTween,
+                    start: "left right",
+                    end: "right left",
+                    scrub: true,
+                  },
+                }
+              );
+            });
+          });
+        }
+      }, 1000); // Delay to ensure hero is settled
     }
 
     console.log("✅ GSAP scroll animations initialized.");
