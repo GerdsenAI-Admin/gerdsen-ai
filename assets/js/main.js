@@ -102,226 +102,13 @@ function initParticleSystem() {
 }
 
 // =============================================================================
-// GSAP SCROLLTRIGGER INITIALIZATION
+// HORIZONTAL SIDE SCROLLING SYSTEM (DECOMMISSIONED)
+// All scroll logic is now handled by assets/js/scroll-animations.js
+// using GSAP and Lenis for a smoother, more reliable experience.
 // =============================================================================
-
-function initScrollTrigger() {
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Hero content reveal animation
-        gsap.fromTo(".hero-title", 
-            { 
-                opacity: 0, 
-                y: 50,
-                scale: 0.9
-            },
-            {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: ".hero-title",
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-            }
-        );
-
-        // Service cards staggered animation
-        gsap.fromTo(".service-card", 
-            {
-                opacity: 0,
-                y: 60,
-                rotationX: 15
-            },
-            {
-                opacity: 1,
-                y: 0,
-                rotationX: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                stagger: 0.15,
-                scrollTrigger: {
-                    trigger: ".services-grid",
-                    start: "top 85%",
-                    end: "bottom 15%",
-                    toggleActions: "play none none reverse"
-                }
-            }
-        );
-
-        // Feature items reveal
-        gsap.fromTo(".feature-item", 
-            {
-                opacity: 0,
-                x: -40,
-                rotationY: 15
-            },
-            {
-                opacity: 1,
-                x: 0,
-                rotationY: 0,
-                duration: 0.9,
-                ease: "power3.out",
-                stagger: 0.2,
-                scrollTrigger: {
-                    trigger: ".features-grid",
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-            }
-        );
-
-        // Section titles with advanced effects
-        gsap.fromTo(".section-title", 
-            {
-                opacity: 0,
-                y: 30,
-                scale: 0.95
-            },
-            {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 1,
-                ease: "power2.out",
-                stagger: 0.3,
-                scrollTrigger: {
-                    trigger: ".section-title",
-                    start: "top 85%",
-                    end: "bottom 15%",
-                    toggleActions: "play none none reverse"
-                }
-            }
-        );
-
-        console.log('✅ GSAP ScrollTrigger initialized successfully');
-    }
-}
-
-// =============================================================================
-// HORIZONTAL SIDE SCROLLING SYSTEM
-// =============================================================================
-
-let currentSection = 0;
-const sections = ['home', 'services', 'about', 'contact'];
-let isScrolling = false;
-
-function initHorizontalScrolling() {
-    // Only enable on desktop/tablet, not mobile
-    if (window.innerWidth <= 768) return;
-
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    // Mouse wheel horizontal scrolling
-    document.addEventListener('wheel', (e) => {
-        if (isScrolling) return;
-        
-        // Detect horizontal scroll intent
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
-            e.preventDefault();
-            
-            if (e.deltaX > 30 || (e.deltaY > 30 && e.shiftKey)) {
-                navigateToSection(currentSection + 1);
-            } else if (e.deltaX < -30 || (e.deltaY < -30 && e.shiftKey)) {
-                navigateToSection(currentSection - 1);
-            }
-        }
-    }, { passive: false });
-
-    // Touch gestures for tablets
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-    });
-
-    document.addEventListener('touchend', (e) => {
-        if (isScrolling) return;
-        
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
-
-        // Horizontal swipe detection
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-            e.preventDefault();
-            
-            if (deltaX > 0) {
-                navigateToSection(currentSection - 1);
-            } else {
-                navigateToSection(currentSection + 1);
-            }
-        }
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (isScrolling) return;
-        
-        switch(e.key) {
-            case 'ArrowLeft':
-            case 'ArrowUp':
-                e.preventDefault();
-                navigateToSection(currentSection - 1);
-                break;
-            case 'ArrowRight':
-            case 'ArrowDown':
-                e.preventDefault();
-                navigateToSection(currentSection + 1);
-                break;
-        }
-    });
-
-    console.log('✅ Horizontal scrolling initialized');
-}
-
-function navigateToSection(sectionIndex) {
-    if (isScrolling) return;
-    
-    // Clamp section index
-    sectionIndex = Math.max(0, Math.min(sections.length - 1, sectionIndex));
-    
-    if (sectionIndex === currentSection) return;
-    
-    isScrolling = true;
-    currentSection = sectionIndex;
-    
-    const targetSection = document.getElementById(sections[sectionIndex]);
-    if (targetSection) {
-        // Smooth scroll to section
-        targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-        
-        // Update navigation state
-        updateNavigationState();
-        
-        // Reset scrolling flag
-        setTimeout(() => {
-            isScrolling = false;
-        }, 1000);
-    }
-}
-
-function updateNavigationState() {
-    // Update active navigation links
-    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === `#${sections[currentSection]}`) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
-}
+// Keeping this empty space to preserve line numbers for other functions.
+// The old initHorizontalScrolling, navigateToSection, and updateNavigationState
+// functions have been removed.
 
 // =============================================================================
 // INTERSECTION OBSERVER FOR LAZY LOADING
@@ -553,10 +340,7 @@ function initResponsiveOptimization() {
                 ScrollTrigger.refresh();
             }
             
-            // Reinitialize horizontal scrolling for desktop
-            if (width > 768) {
-                initHorizontalScrolling();
-            }
+            // Horizontal scenes handled via GSAP + Lenis (see scroll-animations.js)
             
             // Mobile-specific optimizations
             if (width <= 768) {
@@ -708,6 +492,16 @@ function initEnhancedModals() {
         }
     }
     
+    // Expose modal controls globally for scroll-driven opening
+    window.openModalById = function(id) {
+        const m = document.getElementById(id);
+        if (m) openModal(m);
+    };
+    window.closeModalById = function(id) {
+        const m = document.getElementById(id);
+        if (m) closeModal(m);
+    };
+
     console.log('✅ Enhanced modals initialized');
 }
 
@@ -774,33 +568,15 @@ function initEnhancedMobileNavigation() {
 // =============================================================================
 
 function initSmoothScroll() {
+    // Lenis handles smooth scrolling, so this is now for hash updates.
+    // The actual scroll-to-section logic is in scroll-animations.js
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            
-            if (targetId === '#home') {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                currentSection = 0;
-                return;
-            }
-            
-            const target = document.querySelector(targetId);
-            if (target) {
-                const offsetTop = target.getBoundingClientRect().top + window.pageYOffset;
-                window.scrollTo({
-                    top: offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Update current section for horizontal scrolling
-                const sectionIndex = sections.indexOf(targetId.substring(1));
-                if (sectionIndex !== -1) {
-                    currentSection = sectionIndex;
-                }
+            const targetElement = document.querySelector(targetId);
+            if (targetElement && window.lenis) {
+                e.preventDefault();
+                window.lenis.scrollTo(targetElement);
             }
         });
     });
@@ -815,17 +591,13 @@ function initSmoothScroll() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Initializing GERDSEN AI Enhanced Website...');
     
-    // Initialize all systems in order
-    setTimeout(() => initParticleSystem(), 100);
-    setTimeout(() => initScrollTrigger(), 200);
-    setTimeout(() => initLazyLoading(), 300);
+    // Initialize core systems. Scroll animations are handled in their own file.
     setTimeout(() => initEnhancedContactForm(), 400);
     setTimeout(() => initResponsiveOptimization(), 500);
     setTimeout(() => initEnhancedVideoEffects(), 600);
     setTimeout(() => initEnhancedModals(), 700);
     setTimeout(() => initEnhancedMobileNavigation(), 800);
     setTimeout(() => initSmoothScroll(), 900);
-    setTimeout(() => initHorizontalScrolling(), 1000);
     
     console.log('✅ All systems initialized successfully!');
 });
