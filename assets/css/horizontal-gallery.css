@@ -5,16 +5,20 @@
 .projects-container {
   display: flex;
   height: 100vh;
+  width: 400vw; /* 4 sections * 100vw each */
+  position: relative;
 }
 
 .project-section {
   min-width: 100vw;
+  width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   padding: 5rem;
+  flex-shrink: 0;
 }
 
 .project-content {

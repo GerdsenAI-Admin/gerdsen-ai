@@ -194,7 +194,18 @@ body {
 [data-scroll-fade],
 .section-title,
 .service-card,
-.feature-item,
+.feature-item {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(4px);
+  transition: 
+    opacity var(--duration-slow) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo),
+    filter var(--duration-slow) var(--ease-out-expo);
+  will-change: opacity, transform, filter;
+}
+
+/* Hero elements should be hidden initially, then animate on scroll */
 .hero-title,
 .hero-description,
 .hero-buttons,
@@ -207,6 +218,16 @@ body {
     transform var(--duration-slow) var(--ease-out-expo),
     filter var(--duration-slow) var(--ease-out-expo);
   will-change: opacity, transform, filter;
+}
+
+/* When scrolled, reveal the hero content */
+.hero-section.scrolled .hero-title,
+.hero-section.scrolled .hero-description,
+.hero-section.scrolled .hero-buttons,
+.hero-section.scrolled .trust-signals {
+  opacity: 1;
+  transform: translateY(0);
+  filter: none;
 }
 
 /* Revealed state - triggered by JS */
@@ -503,14 +524,17 @@ nav.scrolled {
   padding: 0 40px;
   width: 100%;
   margin: 0 auto;
+  /* Initially hidden, will be shown on scroll */
+  opacity: 0;
+  transform: translateY(50px);
   transition: 
     opacity 800ms var(--ease-out-expo),
     transform 800ms var(--ease-out-expo);
 }
 
 .hero-section.scrolled .hero-content {
-  opacity: 0.8;
-  transform: translateY(-20px);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-title {
