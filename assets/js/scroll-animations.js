@@ -103,57 +103,52 @@
     const projectSections = gsap.utils.toArray(".projects-container .project-section");
     if (projectSections.length > 0 && projectsContainer) {
       
-      // First, let's just test without pinning to see if the transform works
-      setTimeout(() => {
-        // Test horizontal transform
-        gsap.set(projectsContainer, { x: 0 });
-        
-        // Create horizontal scrolling animation
-        const horizontalTween = gsap.to(projectSections, {
-          xPercent: -100 * (projectSections.length - 1),
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".projects-container",
-            pin: true,
-            scrub: 1,
-            start: "top top",
-            end: () => "+=" + (window.innerWidth * (projectSections.length - 1)),
-            onUpdate: (self) => {
-              const activeIndex = Math.round(self.progress * (projectSections.length - 1));
-              updateProjectNavigation(activeIndex);
-            },
-            onToggle: (self) => {
-              if (self.isActive) {
-                console.log("Horizontal scroll is active");
-              }
-            }
+      console.log(`Found ${projectSections.length} project sections`);
+      
+      // Create horizontal scrolling animation without delay
+      const horizontalTween = gsap.to(projectSections, {
+        xPercent: -100 * (projectSections.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".projects-container",
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => "+=" + (window.innerWidth * (projectSections.length - 1)),
+          onUpdate: (self) => {
+            const activeIndex = Math.round(self.progress * (projectSections.length - 1));
+            updateProjectNavigation(activeIndex);
+            console.log(`Horizontal scroll progress: ${self.progress}, active section: ${activeIndex}`);
           },
-        });
+          onToggle: (self) => {
+            console.log("Horizontal scroll toggle:", self.isActive);
+          }
+        },
+      });
 
-        // Per-section parallax effects
-        if (!prefersReducedMotion) {
-          projectSections.forEach((section, i) => {
-            const parallaxEls = section.querySelectorAll("[data-parallax]");
-            parallaxEls.forEach((el) => {
-              const speed = parseFloat(el.getAttribute("data-parallax")) || 0;
-              gsap.fromTo(el,
-                { x: () => -200 * speed },
-                {
-                  x: () => 200 * speed,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: section,
-                    containerAnimation: horizontalTween,
-                    start: "left right",
-                    end: "right left",
-                    scrub: true,
-                  },
-                }
-              );
-            });
+      // Per-section parallax effects
+      if (!prefersReducedMotion) {
+        projectSections.forEach((section, i) => {
+          const parallaxEls = section.querySelectorAll("[data-parallax]");
+          parallaxEls.forEach((el) => {
+            const speed = parseFloat(el.getAttribute("data-parallax")) || 0;
+            gsap.fromTo(el,
+              { x: () => -200 * speed },
+              {
+                x: () => 200 * speed,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: section,
+                  containerAnimation: horizontalTween,
+                  start: "left right",
+                  end: "right left",
+                  scrub: true,
+                },
+              }
+            );
           });
-        }
-      }, 1000); // Delay to ensure hero is settled
+        });
+      }
     }
 
     console.log("✅ GSAP scroll animations initialized.");
