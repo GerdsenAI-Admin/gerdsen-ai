@@ -1,5 +1,5 @@
 // assets/js/scroll-animations.js
-// Consolidated, corrected, and enhanced scroll logic for the entire site.
+// Enhanced scroll logic with proper hero overlay and horizontal scrolling
 
 (function() {
   "use strict";
@@ -8,11 +8,10 @@
 
   /**
    * Initializes Lenis for smooth scrolling.
-   * Lenis normalizes scroll events, providing a consistent base for animations.
    */
   function initLenis() {
     if (typeof Lenis === "undefined") {
-      console.warn("Lenis not found. Smooth scroll disabled.");
+      console.warn("Lenis not found. Using fallback smooth scroll.");
       return;
     }
 
@@ -28,81 +27,85 @@
       infinite: false,
     });
 
-    // Expose lenis globally for other scripts (e.g., nav clicks)
+    // Expose lenis globally for other scripts
     window.lenis = lenis;
 
-    // Integrate GSAP ScrollTrigger with Lenis
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+    // Integrate GSAP ScrollTrigger with Lenis if available
+    if (typeof ScrollTrigger !== "undefined") {
+      lenis.on("scroll", ScrollTrigger.update);
+      
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    }
 
     console.log("✅ Lenis smooth scroll initialized.");
   }
 
   /**
-   * Main function to set up all GSAP-based scroll animations.
+   * Main function to set up all scroll animations.
    */
   function initScrollAnimations() {
-    if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
-      console.warn("GSAP or ScrollTrigger not found. Animations disabled.");
+    if (typeof gsap === "undefined") {
+      console.warn("GSAP not found. Using fallback scroll behavior.");
+      initFallbackScrollBehavior();
       return;
+    }
+
+    // Register ScrollTrigger plugin
+    if (typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
     }
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isDesktop = () => window.innerWidth > 768;
 
-    // --- MASTER TIMELINE ---
-    // This timeline orchestrates the entire page scroll sequence:
-    // 1. Hero content fades in.
-    // 2. Horizontal section pins and scrolls.
-    const masterTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-      },
-    });
-
-    // --- 1. HERO SECTION ANIMATION ---
+    // --- HERO SECTION ANIMATIONS ---
     const heroSection = document.querySelector(".hero-section");
     const heroContent = document.querySelector(".hero-content");
     const projectsContainer = document.querySelector(".projects-container");
 
-    if (heroSection && heroContent && projectsContainer) {
-      // Initially, hide the hero content.
+    if (heroSection && heroContent) {
+      // Initially ensure hero content is hidden
       gsap.set(heroContent, { opacity: 0, y: 50 });
-
-      // Create a dedicated timeline for the hero reveal.
-      const heroTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "bottom top", // Pin the hero for its full height
-          pin: true,
-          scrub: true,
-          pinSpacing: true, // Ensures space is maintained after pin
-          onLeave: () => {
-            // Ensure the horizontal section starts exactly where the hero ends
-            ScrollTrigger.refresh();
-          },
-        },
+      gsap.set(".hero-title, .hero-description, .hero-buttons, .trust-signals", { 
+        opacity: 0, 
+        y: 32, 
+        filter: "blur(4px)" 
       });
 
-      // Animate the hero content to fade in as the user starts to scroll.
-      heroTimeline.to(heroContent, {
-        opacity: 1,
-        y: 0,
-        ease: "power2.out",
-      }, 0); // The '0' places this animation at the start of the timeline.
+      // Simple scroll listener for hero overlay (not using pin)
+      let heroScrollHandler = () => {
+        const scrollY = window.pageYOffset;
+        const progress = Math.min(scrollY / 100, 1); // Normalize to 0-1 over 100px
+        
+        if (progress > 0.05) {
+          heroSection.classList.add("scrolled");
+          gsap.to(heroContent, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+          gsap.to(".hero-title, .hero-description, .hero-buttons, .trust-signals", { 
+            opacity: 1, 
+            y: 0, 
+            filter: "none",
+            duration: 1.2,
+            ease: "power2.out",
+            stagger: 0.1
+          });
+          // Remove the listener once triggered
+          window.removeEventListener('scroll', heroScrollHandler);
+        }
+      };
+      
+      window.addEventListener('scroll', heroScrollHandler, { passive: true });
     }
 
-    // --- 2. HORIZONTAL SCROLLING SECTION ---
+    // --- HORIZONTAL SCROLLING SECTION ---
     const projectSections = gsap.utils.toArray(".projects-container .project-section");
-    if (projectSections.length > 0) {
+    if (projectSections.length > 0 && projectsContainer) {
+      
+      console.log(`Found ${projectSections.length} project sections`);
+      
+      // Create horizontal scrolling animation without delay
       const horizontalTween = gsap.to(projectSections, {
         xPercent: -100 * (projectSections.length - 1),
         ease: "none",
@@ -110,23 +113,22 @@
           trigger: ".projects-container",
           pin: true,
           scrub: 1,
-          snap: prefersReducedMotion ? false : {
-            snapTo: 1 / (projectSections.length - 1),
-            duration: 0.3,
-            delay: 0.1,
-          },
-          end: () => "+=" + (projectsContainer.offsetWidth - window.innerWidth),
+          start: "top top",
+          end: () => "+=" + (window.innerWidth * (projectSections.length - 1)),
           onUpdate: (self) => {
             const activeIndex = Math.round(self.progress * (projectSections.length - 1));
             updateProjectNavigation(activeIndex);
+            console.log(`Horizontal scroll progress: ${self.progress}, active section: ${activeIndex}`);
           },
+          onToggle: (self) => {
+            console.log("Horizontal scroll toggle:", self.isActive);
+          }
         },
       });
 
-      // Per-section parallax and reveal effects
-      projectSections.forEach((section, i) => {
-        // Parallax for elements with [data-parallax]
-        if (!prefersReducedMotion) {
+      // Per-section parallax effects
+      if (!prefersReducedMotion) {
+        projectSections.forEach((section, i) => {
           const parallaxEls = section.querySelectorAll("[data-parallax]");
           parallaxEls.forEach((el) => {
             const speed = parseFloat(el.getAttribute("data-parallax")) || 0;
@@ -145,29 +147,66 @@
               }
             );
           });
-        }
-
-        // Auto-opening modals (if configured)
-        const modalId = section.getAttribute("data-modal-id");
-        if (modalId && section.getAttribute("data-auto-open-modal") === "true") {
-          ScrollTrigger.create({
-            trigger: section,
-            containerAnimation: horizontalTween,
-            start: "center center",
-            onEnter: () => isDesktop() && typeof window.openModalById === "function" && window.openModalById(modalId),
-            onLeave: () => isDesktop() && typeof window.closeModalById === "function" && window.closeModalById(modalId),
-            onEnterBack: () => isDesktop() && typeof window.openModalById === "function" && window.openModalById(modalId),
-            onLeaveBack: () => isDesktop() && typeof window.closeModalById === "function" && window.closeModalById(modalId),
-          });
-        }
-      });
+        });
+      }
     }
-    console.log("✅ All scroll animations initialized.");
+
+    console.log("✅ GSAP scroll animations initialized.");
+  }
+
+  /**
+   * Fallback scroll behavior when GSAP is not available
+   */
+  function initFallbackScrollBehavior() {
+    const heroSection = document.querySelector(".hero-section");
+    const heroContent = document.querySelector(".hero-content");
+    
+    // Initially hide hero content
+    if (heroContent) {
+      heroContent.style.opacity = "0";
+      heroContent.style.transform = "translateY(50px)";
+    }
+    
+    let scrollTimeout;
+    
+    function handleScroll() {
+      const scrollY = window.pageYOffset;
+      const scrollThreshold = 50; // Very low threshold for "first hint of scroll"
+      
+      if (heroSection && heroContent) {
+        if (scrollY > scrollThreshold) {
+          heroContent.style.opacity = "1";
+          heroContent.style.transform = "translateY(0)";
+          heroSection.classList.add("scrolled");
+        } else {
+          heroContent.style.opacity = "0";
+          heroContent.style.transform = "translateY(50px)";
+          heroSection.classList.remove("scrolled");
+        }
+      }
+      
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        // Update navigation dots based on scroll position
+        const projectSections = document.querySelectorAll('.project-section');
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        projectSections.forEach((section, index) => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+            updateProjectNavigation(index);
+          }
+        });
+      }, 100);
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    console.log("✅ Fallback scroll behavior initialized.");
   }
 
   /**
    * Updates the active state of the horizontal navigation dots.
-   * @param {number} activeIndex - The index of the currently active section.
    */
   function updateProjectNavigation(activeIndex) {
     const navDots = document.querySelectorAll(".project-nav-dot");
@@ -181,19 +220,18 @@
    */
   function initProjectNavigation() {
     const navDots = document.querySelectorAll(".project-nav-dot");
-    const container = document.querySelector(".projects-container");
+    const projectSections = document.querySelectorAll(".project-section");
 
-    if (!navDots.length || !container) return;
+    if (!navDots.length || !projectSections.length) return;
 
     navDots.forEach((dot, index) => {
       dot.addEventListener("click", () => {
-        if (lenis) {
-          // Calculate the scroll position that corresponds to the start of the clicked section
-          const scrollTriggerInstance = ScrollTrigger.getById("horizontal-scroll"); // We need to add an ID
-          if (scrollTriggerInstance) {
-            const sectionWidth = container.offsetWidth / navDots.length;
-            const targetScroll = scrollTriggerInstance.start + (index * sectionWidth);
-            lenis.scrollTo(targetScroll, { duration: 1.5 });
+        const targetSection = projectSections[index];
+        if (targetSection) {
+          if (lenis) {
+            lenis.scrollTo(targetSection, { duration: 1.5 });
+          } else {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
       });
@@ -201,25 +239,30 @@
   }
 
   /**
-   * Main initialization function, called after the DOM is loaded.
+   * Main initialization function
    */
   function initialize() {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
+    // Ensure hero content is hidden on load (video should be visible first)
+    const heroContent = document.querySelector(".hero-content");
+    if (heroContent) {
+      heroContent.style.opacity = "0";
+      heroContent.style.transform = "translateY(50px)";
     }
+    
     initLenis();
-    // Use a small timeout to ensure all elements are rendered before calculating positions
+    
+    // Small delay to ensure DOM is fully rendered
     setTimeout(() => {
       initScrollAnimations();
       initProjectNavigation();
     }, 100);
   }
 
-  // --- Event Listeners ---
+  // Initialize on DOM load
   document.addEventListener("DOMContentLoaded", initialize);
 
+  // Refresh on resize
   window.addEventListener("resize", () => {
-    // Refresh ScrollTrigger on resize to recalculate positions
     if (typeof ScrollTrigger !== "undefined") {
       ScrollTrigger.refresh();
     }
