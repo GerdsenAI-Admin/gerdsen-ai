@@ -37,6 +37,13 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
     
+    <!-- Particles.js for interactive particle effects -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <!-- GSAP ScrollTrigger for enhanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/gerdsen-ai-logo.png">
 
@@ -153,7 +160,10 @@
     </script>
 </head>
 <body class="antialiased">
-    <!-- Animated Smoke Background -->
+    <!-- Interactive Particles.js Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Enhanced Smoke Background (kept for layering) -->
     <div class="particles-background" id="particles-bg">
         <div class="smoke-layer"></div>
         <div class="smoke-layer"></div>
