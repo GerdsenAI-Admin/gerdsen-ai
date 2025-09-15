@@ -1,12 +1,15 @@
 {
   "name": "gerdsen-ai-website",
   "version": "1.0.0",
-  "description": "GERDSEN AI Company Website - Jekyll static site",
+  "description": "GERDSEN AI Company Website - Advanced particle effects and horizontal scrolling",
   "scripts": {
     "dev": "npx http-server -p 4000 -c-1",
     "start": "npx http-server -p 4000 -c-1"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
   }
 }
