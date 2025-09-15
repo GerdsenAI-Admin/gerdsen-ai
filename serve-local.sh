@@ -2,7 +2,7 @@
 
 # ========================================
 # GERDSEN AI Enhanced Local Development Server
-# Auto-installs packages and serves with fallbacks
+# Optional npm install (set FORCE_NPM_INSTALL=1) and serves with fallbacks
 # ========================================
 
 echo "🚀 Starting GERDSEN AI Enhanced Website..."
@@ -39,7 +39,7 @@ open_browser() {
 # Function to serve with Python (fallback)
 serve_with_python() {
     echo -e "${YELLOW}📦 Using Python HTTP Server (fallback mode)${NC}"
-    echo -e "${BLUE}ℹ️  Enhanced features: particles.js, GSAP ScrollTrigger, lazy loading${NC}"
+    echo -e "${BLUE}ℹ️  Enhanced features: tsParticles, GSAP + ScrollTrigger, Lenis smooth scroll, lazy loading${NC}"
     echo ""
     
     if ! command -v python3 &> /dev/null; then
@@ -65,7 +65,7 @@ serve_with_python() {
 # Function to serve with Node.js/npm (enhanced mode)
 serve_with_node() {
     echo -e "${GREEN}📦 Using Node.js Enhanced Mode${NC}"
-    echo -e "${BLUE}ℹ️  Features: particles.js, GSAP ScrollTrigger, horizontal scroll, lazy loading${NC}"
+    echo -e "${BLUE}ℹ️  Features: tsParticles, GSAP + ScrollTrigger, Lenis-based horizontal scroll, lazy loading${NC}"
     echo ""
     
     # Check if package.json exists
@@ -75,15 +75,16 @@ serve_with_node() {
         return
     fi
     
-    # Install dependencies if node_modules doesn't exist
-    if [[ ! -d "node_modules" ]]; then
-        echo -e "${YELLOW}📥 Installing dependencies...${NC}"
+    # Skip auto-install by default; use CDN runtime. Force install with: FORCE_NPM_INSTALL=1 ./serve-local.sh
+    if [[ -z "${FORCE_NPM_INSTALL}" ]]; then
+        echo -e "${YELLOW}⏭️  Skipping npm install (CDN runtime). Set FORCE_NPM_INSTALL=1 to force install.${NC}"
+    else
+        echo -e "${YELLOW}📥 FORCE_NPM_INSTALL=1 detected, installing dependencies...${NC}"
         if [[ -f "package-lock.json" ]]; then
             npm ci
         else
             npm install
         fi
-        
         if [[ $? -eq 0 ]]; then
             echo -e "${GREEN}✅ Dependencies installed successfully${NC}"
         else
@@ -91,8 +92,6 @@ serve_with_node() {
             serve_with_python
             return
         fi
-    else
-        echo -e "${GREEN}✅ Dependencies already installed${NC}"
     fi
     
     # Check if http-server is available
