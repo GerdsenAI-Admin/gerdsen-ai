@@ -2,25 +2,25 @@
 function createFireflies() {
     const fireflyContainer = document.getElementById('firefly-container');
     if (!fireflyContainer) return;
-    
+
     // Create 60 fireflies for better coverage without overwhelming
     for (let i = 0; i < 60; i++) {
         const firefly = document.createElement('div');
         firefly.className = 'firefly';
-        
+
         // Random starting positions across the entire viewport
         firefly.style.left = Math.random() * 100 + '%';
         firefly.style.top = (Math.random() * 200 - 50) + '%'; // Start some off-screen
-        
+
         // Random animation delay and duration (slower)
         firefly.style.animationDelay = Math.random() * 40 + 's';
         firefly.style.animationDuration = (40 + Math.random() * 20) + 's';
-        
+
         // Random size variation
         const size = 2 + Math.random() * 4;
         firefly.style.width = size + 'px';
         firefly.style.height = size + 'px';
-        
+
         fireflyContainer.appendChild(firefly);
     }
 }
@@ -33,18 +33,18 @@ function initParallaxParticlesBackground() {
     const steamLayer = document.getElementById('steam-layer');
     const cloudLayer = document.getElementById('cloud-layer');
     const smokeLayers = document.querySelectorAll('.smoke-layer');
-    
+
     if (!particlesBg || !heroSection) return;
-    
+
     // Track neural G video blur state
     let neuralGBlurred = false;
     let particlesShown = false;
     let firefliesShown = false;
-    
+
     // IMMEDIATE blur on scroll start
     let scrollTimeout;
     let isScrolling = false;
-    
+
     // Initialize proper state on page load
     function initializeHeroState() {
         // Ensure hero starts without scrolled class
@@ -77,13 +77,20 @@ function initParallaxParticlesBackground() {
             heroButtons.style.transform = 'translateY(0)';
         }
 
-        // On mobile, make content always visible
+        // On mobile, ensure consistent starting state (hidden logic handled by CSS/init)
         if (isMobile) {
-            if (heroContent) {
-                heroContent.style.opacity = '1';
-                heroContent.style.visibility = 'visible';
-                heroContent.style.transform = 'translateY(0)';
-            }
+            // No longer forcing visible immediately - allowing scroll effect
+        }
+
+        // SHOW PARTICLES AND FIREFLIES IMMEDIATELY ON PAGE LOAD
+        if (particlesBg && !particlesShown) {
+            particlesBg.classList.add('show');
+            particlesShown = true;
+        }
+        if (fireflyContainer && !firefliesShown) {
+            fireflyContainer.classList.add('show');
+            firefliesShown = true;
+            createFireflies();
         }
 
         // Scroll to top to ensure consistent starting position
@@ -121,7 +128,7 @@ function initParallaxParticlesBackground() {
         } else if (scrollY <= scrollThreshold && heroSection.classList.contains('scrolled')) {
             heroSection.classList.remove('scrolled');
         }
-        
+
         // Track scrolling state
         isScrolling = true;
         clearTimeout(scrollTimeout);
@@ -129,50 +136,50 @@ function initParallaxParticlesBackground() {
             isScrolling = false;
         }, 150);
     }
-    
+
     // Initialize proper state
     initializeHeroState();
 
     // Use non-throttled handler for immediate response
     window.addEventListener('scroll', handleImmediateScroll, { passive: true });
-    
+
     // Mouse move parallax with enhanced depth
     let mouseX = 0.5;
     let mouseY = 0.5;
     let currentX = 0.5;
     let currentY = 0.5;
-    
+
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX / window.innerWidth;
         mouseY = e.clientY / window.innerHeight;
     });
-    
+
     // Smooth animation loop for all parallax effects
     let scrollY = 0;
     let targetScrollY = 0;
     let frame = 0;
-    
+
     function animateAll() {
         frame++;
         targetScrollY = window.pageYOffset;
-        
+
         // Smooth scroll interpolation
         scrollY += (targetScrollY - scrollY) * 0.1;
-        
+
         // Smooth mouse interpolation
         currentX += (mouseX - currentX) * 0.05;
         currentY += (mouseY - currentY) * 0.05;
-        
+
         // Calculate multi-layer parallax
         const mouseOffsetX = (currentX - 0.5) * 2;
         const mouseOffsetY = (currentY - 0.5) * 2;
-        
+
         // Animate smoke layers with parallax
         if (particlesBg && particlesShown) {
             // Overall smoke container parallax
             const smokeParallaxY = -(scrollY * 0.3);
             particlesBg.style.transform = `translateY(${smokeParallaxY}px)`;
-            
+
             // Individual smoke layers parallax
             smokeLayers.forEach((layer, index) => {
                 const speed = 0.1 + (index * 0.05);
@@ -180,7 +187,7 @@ function initParallaxParticlesBackground() {
                 const offsetY = mouseOffsetY * (10 + index * 5) + (scrollY * speed);
                 layer.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
             });
-            
+
             // Apply blur when scrolled
             if (scrollY > 600 && !particlesBg.classList.contains('blurred')) {
                 particlesBg.classList.add('blurred');
@@ -188,7 +195,7 @@ function initParallaxParticlesBackground() {
                 particlesBg.classList.remove('blurred');
             }
         }
-        
+
         // Steam layer parallax
         if (steamLayer) {
             const steamParallaxY = -(scrollY * 0.3);
@@ -199,7 +206,7 @@ function initParallaxParticlesBackground() {
                 rotate(${steamRotation}deg)
             `;
         }
-        
+
         // Cloud layer parallax
         if (cloudLayer) {
             const cloudParallaxY = -(scrollY * 0.4);
@@ -209,7 +216,7 @@ function initParallaxParticlesBackground() {
                 translateX(${cloudDrift + mouseOffsetX * 8}px)
             `;
         }
-        
+
         // Firefly container parallax
         if (fireflyContainer && firefliesShown) {
             const fireflyParallaxY = -(scrollY * 0.2);
@@ -218,17 +225,17 @@ function initParallaxParticlesBackground() {
                 translateX(${mouseOffsetX * 3}px)
             `;
         }
-        
+
         requestAnimationFrame(animateAll);
     }
     animateAll();
-    
+
     // Reset on mouse leave
     document.addEventListener('mouseleave', () => {
         mouseX = 0.5;
         mouseY = 0.5;
     });
-    
+
     console.log('Enhanced smoke effect initialized');
 }
 
@@ -240,14 +247,14 @@ function initScrollAnimations() {
     const heroDescription = document.querySelector('.hero-description');
     const heroButtons = document.querySelector('.hero-buttons');
     const scrollElements = document.querySelectorAll('[data-scroll-fade]');
-    
+
     // Set initial states
     if (heroTitle) heroTitle.style.opacity = '0';
     if (heroDescription) heroDescription.style.opacity = '0';
     if (heroButtons) heroButtons.style.opacity = '0';
-    
+
     let contentShown = false;
-    
+
     function handleScroll() {
         const scrollY = window.scrollY;
         const isMobile = window.innerWidth <= 768;
@@ -256,21 +263,9 @@ function initScrollAnimations() {
         // Different scroll thresholds for different devices
         const scrollThreshold = isMobile ? 50 : isUltrawide ? 150 : 100;
 
-        // On mobile, keep content always visible
+        // Consistent behavior for mobile and desktop (fade in on scroll)
         if (isMobile) {
-            if (heroTitle) {
-                heroTitle.style.opacity = '1';
-                heroTitle.style.transform = 'translateY(0)';
-            }
-            if (heroDescription) {
-                heroDescription.style.opacity = '1';
-                heroDescription.style.transform = 'translateY(0)';
-            }
-            if (heroButtons) {
-                heroButtons.style.opacity = '1';
-                heroButtons.style.transform = 'translateY(0)';
-            }
-            return;
+            // Allow fallthrough to standard scroll logic
         }
 
         // Show hero content immediately when scrolled (desktop/ultrawide)
@@ -299,8 +294,8 @@ function initScrollAnimations() {
         } else if (scrollY <= 5 && contentShown) {
             contentShown = false;
 
-            // Hide hero content only on desktop
-            if (!isMobile) {
+            // Hide hero content when back at top (for both desktop and mobile now)
+            if (true) {
                 if (heroTitle) {
                     heroTitle.style.opacity = '0';
                     heroTitle.style.transform = 'translateY(20px)';
@@ -315,37 +310,37 @@ function initScrollAnimations() {
                 }
             }
         }
-        
+
         // Animate other scroll elements
         scrollElements.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
             const elementBottom = element.getBoundingClientRect().bottom;
             const windowHeight = window.innerHeight;
-            
+
             if (elementTop < windowHeight * 0.8 && elementBottom > 0) {
                 element.classList.add('in-view');
             }
         });
-        
+
         // Animate service cards
         const serviceCards = document.querySelectorAll('.service-card');
         serviceCards.forEach((card, index) => {
             const cardTop = card.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
-            
+
             if (cardTop < windowHeight * 0.8) {
                 setTimeout(() => {
                     card.classList.add('in-view');
                 }, index * 100);
             }
         });
-        
+
         // Animate feature items
         const featureItems = document.querySelectorAll('.feature-item');
         featureItems.forEach((item, index) => {
             const itemTop = item.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
-            
+
             if (itemTop < windowHeight * 0.8) {
                 setTimeout(() => {
                     item.classList.add('in-view');
@@ -353,10 +348,10 @@ function initScrollAnimations() {
             }
         });
     }
-    
+
     // Use non-throttled for immediate response on scroll start
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     // Initial check
     handleScroll();
 }
@@ -366,7 +361,7 @@ function initModals() {
     const modalTriggers = document.querySelectorAll('.modal-trigger');
     const modals = document.querySelectorAll('.modal');
     const modalCloses = document.querySelectorAll('.modal-close');
-    
+
     modalTriggers.forEach(trigger => {
         trigger.addEventListener('click', () => {
             const modalId = trigger.getAttribute('data-modal');
@@ -377,7 +372,7 @@ function initModals() {
             }
         });
     });
-    
+
     modalCloses.forEach(close => {
         close.addEventListener('click', () => {
             const modal = close.closest('.modal');
@@ -387,7 +382,7 @@ function initModals() {
             }
         });
     });
-    
+
     // Close on outside click
     modals.forEach(modal => {
         modal.addEventListener('click', (e) => {
@@ -397,7 +392,7 @@ function initModals() {
             }
         });
     });
-    
+
     // Close on escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -415,16 +410,16 @@ function initMobileNavigation() {
     const mobileMenu = document.getElementById('mobile-menu');
     const hamburger = document.querySelector('.hamburger');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    
+
     if (!mobileMenuBtn || !mobileMenu) return;
-    
+
     let isMenuOpen = false;
-    
+
     // Toggle mobile menu
     mobileMenuBtn.addEventListener('click', (e) => {
         e.preventDefault();
         isMenuOpen = !isMenuOpen;
-        
+
         if (isMenuOpen) {
             mobileMenu.classList.remove('mobile-menu-hidden');
             mobileMenu.classList.add('mobile-menu-visible');
@@ -437,7 +432,7 @@ function initMobileNavigation() {
             mobileMenuBtn.setAttribute('aria-expanded', 'false');
         }
     });
-    
+
     // Close menu when clicking on mobile nav links
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -448,7 +443,7 @@ function initMobileNavigation() {
             mobileMenuBtn.setAttribute('aria-expanded', 'false');
         });
     });
-    
+
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (isMenuOpen && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
@@ -459,7 +454,7 @@ function initMobileNavigation() {
             mobileMenuBtn.setAttribute('aria-expanded', 'false');
         }
     });
-    
+
     // Handle escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isMenuOpen) {
@@ -477,12 +472,12 @@ function initContactForm() {
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
     const statusDiv = document.getElementById('form-status');
-    
+
     if (!form) return;
-    
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(form);
         const data = {
@@ -492,11 +487,11 @@ function initContactForm() {
             project: formData.get('project') || 'Not specified',
             message: formData.get('message')
         };
-        
+
         // Disable submit button
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
-        
+
         try {
             // Submit to Formspree (works with GitHub Pages)
             const response = await fetch('https://formspree.io/f/xeozyrwa', {
@@ -531,7 +526,7 @@ function initContactForm() {
             // Re-enable submit button
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
-            
+
             // Hide status after 10 seconds
             setTimeout(() => {
                 statusDiv.style.display = 'none';
@@ -544,11 +539,11 @@ function initContactForm() {
 function throttle(func, wait = 16) {
     let timeout = null;
     let previous = 0;
-    
-    return function(...args) {
+
+    return function (...args) {
         const now = Date.now();
         const remaining = wait - (now - previous);
-        
+
         if (remaining <= 0 || remaining > wait) {
             if (timeout) {
                 clearTimeout(timeout);
@@ -575,30 +570,7 @@ function initResponsiveScaling() {
     // Apply mobile-specific styles
     if (isMobile) {
         document.body.classList.add('mobile-device');
-
-        // Ensure all hero content is visible on mobile
-        const heroContent = document.querySelector('.hero-content');
-        const heroTitle = document.querySelector('.hero-title');
-        const heroDescription = document.querySelector('.hero-description');
-        const heroButtons = document.querySelector('.hero-buttons');
-
-        if (heroContent) {
-            heroContent.style.opacity = '1';
-            heroContent.style.visibility = 'visible';
-            heroContent.style.transform = 'translateY(0)';
-        }
-        if (heroTitle) {
-            heroTitle.style.opacity = '1';
-            heroTitle.style.transform = 'translateY(0)';
-        }
-        if (heroDescription) {
-            heroDescription.style.opacity = '1';
-            heroDescription.style.transform = 'translateY(0)';
-        }
-        if (heroButtons) {
-            heroButtons.style.opacity = '1';
-            heroButtons.style.transform = 'translateY(0)';
-        }
+        // Removed forced visibility to allow scroll animation
     }
 
     if (isUltrawide) {
@@ -635,30 +607,21 @@ function initResponsiveScaling() {
             document.body.classList.toggle('mobile-device', newIsMobile);
             document.body.classList.toggle('ultrawide-device', newIsUltrawide);
 
+            // Force video element to recalculate dimensions on resize
+            const video = document.querySelector('.background-video');
+            if (video) {
+                const currentTime = video.currentTime;
+                const wasPlaying = !video.paused;
+                video.load();
+                video.currentTime = currentTime;
+                if (wasPlaying) {
+                    video.play().catch(() => { }); // Ignore autoplay errors
+                }
+            }
+
             // Ensure mobile content remains visible
             if (newIsMobile) {
-                const heroContent = document.querySelector('.hero-content');
-                const heroTitle = document.querySelector('.hero-title');
-                const heroDescription = document.querySelector('.hero-description');
-                const heroButtons = document.querySelector('.hero-buttons');
-
-                if (heroContent) {
-                    heroContent.style.opacity = '1';
-                    heroContent.style.visibility = 'visible';
-                    heroContent.style.transform = 'translateY(0)';
-                }
-                if (heroTitle) {
-                    heroTitle.style.opacity = '1';
-                    heroTitle.style.transform = 'translateY(0)';
-                }
-                if (heroDescription) {
-                    heroDescription.style.opacity = '1';
-                    heroDescription.style.transform = 'translateY(0)';
-                }
-                if (heroButtons) {
-                    heroButtons.style.opacity = '1';
-                    heroButtons.style.transform = 'translateY(0)';
-                }
+                // Removed forced visibility to allow scroll animation
             }
         }, 250);
     });
@@ -694,7 +657,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        
+
         // Special handling for home link
         if (targetId === '#home') {
             window.scrollTo({
@@ -703,7 +666,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
             return;
         }
-        
+
         const target = document.querySelector(targetId);
         if (target) {
             const offsetTop = target.getBoundingClientRect().top + window.pageYOffset;

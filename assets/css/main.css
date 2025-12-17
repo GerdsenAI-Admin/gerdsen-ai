@@ -1,36 +1,27 @@
----
----
+/* ============================================
+   CSS CUSTOM PROPERTIES - TYPOGRAPHY
+   ============================================ */
+:root {
+    /* Font Stacks - Using system fonts as SF Pro not available in web environment */
+    --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'Liberation Mono', monospace;
 
-/* Font Face Declarations - SF Mono */
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
+    /* Font Sizes - Fluid Typography */
+    --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+    --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+    --text-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+    --text-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3rem);
+    --text-5xl: clamp(3rem, 2rem + 5vw, 5rem);
+    --text-hero: clamp(2.5rem, 2rem + 5vw, 5.5rem);
 }
 
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Medium.otf') format('opentype');
-    font-weight: 500;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Semibold.otf') format('opentype');
-    font-weight: 600;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-/* Reset and Base Styles */
+/* ============================================
+   RESET AND BASE STYLES
+   ============================================ */
 * {
     margin: 0;
     padding: 0;
@@ -43,7 +34,7 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: var(--font-display);
     background: #000;
     color: #fff;
     overflow-x: hidden;
@@ -51,7 +42,40 @@ body {
     position: relative;
     min-height: 100vh;
     z-index: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
+
+/* ============================================
+   TYPOGRAPHY ASSIGNMENTS
+   ============================================ */
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+/* Monospace elements */
+code,
+pre,
+kbd,
+samp,
+.mono {
+    font-family: var(--font-mono);
+}
+
+/* ============================================
+   PARTICLE BACKGROUND LAYERS
+   ============================================ */
 
 /* Additional smoke layers for depth */
 .particles-background .smoke-layer {
@@ -63,93 +87,44 @@ body {
 }
 
 .particles-background .smoke-layer:nth-child(1) {
-    background: 
-        radial-gradient(ellipse at 25% 50%, 
-            rgba(190, 180, 230, 0.12) 0%, 
+    background:
+        radial-gradient(ellipse at 25% 50%,
+            rgba(190, 180, 230, 0.12) 0%,
             transparent 50%);
     animation: smokeDrift 20s ease-in-out infinite;
 }
 
 .particles-background .smoke-layer:nth-child(2) {
-    background: 
-        radial-gradient(ellipse at 75% 40%, 
-            rgba(200, 190, 240, 0.1) 0%, 
+    background:
+        radial-gradient(ellipse at 75% 40%,
+            rgba(200, 190, 240, 0.1) 0%,
             transparent 45%);
     animation: smokeDrift 25s ease-in-out infinite reverse;
 }
 
 .particles-background .smoke-layer:nth-child(3) {
-    background: 
-        radial-gradient(ellipse at 50% 80%, 
-            rgba(180, 180, 220, 0.11) 0%, 
+    background:
+        radial-gradient(ellipse at 50% 80%,
+            rgba(180, 180, 220, 0.11) 0%,
             transparent 55%);
     animation: smokeDrift 30s ease-in-out infinite;
     animation-delay: -10s;
 }
 
 @keyframes smokeDrift {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0) translateY(0);
         opacity: 0.6;
     }
+
     50% {
         transform: translateX(50px) translateY(-30px);
         opacity: 1;
     }
-}---
----
-
-/* Font Face Declarations - SF Mono */
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
 }
 
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Medium.otf') format('opentype');
-    font-weight: 500;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Semibold.otf') format('opentype');
-    font-weight: 600;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SF Mono';
-    src: url('../../../__GerdsenAI_Branding/SF Fonts/SF Mono/SFMono-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    background: #000;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background: #000;
-    color: #fff;
-    overflow-x: hidden;
-    line-height: 1.6;
-    position: relative;
-    min-height: 100vh;
-    z-index: 0;
-}
 
 /* Full Page Animated Smoke Background - Enhanced */
 .particles-background {
@@ -158,7 +133,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 16;
+    /* Above hero-section (15) so particles appear over video */
     opacity: 0;
     will-change: transform;
     transition: opacity 3s ease-in-out;
@@ -178,17 +154,17 @@ body {
 }
 
 .particles-background::before {
-    background: 
-        radial-gradient(ellipse 600px 400px at 20% 40%, 
-            rgba(150, 150, 200, 0.2) 0%, 
+    background:
+        radial-gradient(ellipse 600px 400px at 20% 40%,
+            rgba(150, 150, 200, 0.2) 0%,
             rgba(100, 100, 150, 0.1) 30%,
             transparent 60%),
-        radial-gradient(ellipse 800px 600px at 80% 30%, 
-            rgba(170, 150, 200, 0.15) 0%, 
+        radial-gradient(ellipse 800px 600px at 80% 30%,
+            rgba(170, 150, 200, 0.15) 0%,
             rgba(120, 100, 150, 0.08) 25%,
             transparent 55%),
-        radial-gradient(ellipse 700px 500px at 50% 70%, 
-            rgba(160, 160, 210, 0.12) 0%, 
+        radial-gradient(ellipse 700px 500px at 50% 70%,
+            rgba(160, 160, 210, 0.12) 0%,
             rgba(110, 110, 160, 0.06) 35%,
             transparent 65%);
     filter: blur(40px);
@@ -196,13 +172,13 @@ body {
 }
 
 .particles-background::after {
-    background: 
-        radial-gradient(ellipse 900px 500px at 70% 20%, 
-            rgba(180, 170, 220, 0.18) 0%, 
+    background:
+        radial-gradient(ellipse 900px 500px at 70% 20%,
+            rgba(180, 170, 220, 0.18) 0%,
             rgba(130, 120, 170, 0.09) 30%,
             transparent 60%),
-        radial-gradient(ellipse 700px 700px at 30% 60%, 
-            rgba(160, 150, 200, 0.14) 0%, 
+        radial-gradient(ellipse 700px 700px at 30% 60%,
+            rgba(160, 150, 200, 0.14) 0%,
             rgba(115, 110, 155, 0.07) 35%,
             transparent 65%);
     filter: blur(50px);
@@ -211,15 +187,20 @@ body {
 }
 
 @keyframes smokeFlow {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) rotate(0deg) scale(1);
     }
+
     25% {
         transform: translate(5%, -10%) rotate(2deg) scale(1.1);
     }
+
     50% {
         transform: translate(-5%, 5%) rotate(-1deg) scale(0.95);
     }
+
     75% {
         transform: translate(3%, -5%) rotate(1deg) scale(1.05);
     }
@@ -235,6 +216,7 @@ body {
         opacity: 0;
         transform: scale(1.2);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -264,17 +246,17 @@ body {
     position: absolute;
     width: 200%;
     height: 150%;
-    background: 
-        radial-gradient(ellipse 1200px 600px at 25% 80%, 
-            rgba(255, 255, 255, 0.08) 0%, 
+    background:
+        radial-gradient(ellipse 1200px 600px at 25% 80%,
+            rgba(255, 255, 255, 0.08) 0%,
             rgba(230, 230, 255, 0.04) 20%,
             transparent 40%),
-        radial-gradient(ellipse 1000px 500px at 75% 70%, 
-            rgba(255, 255, 255, 0.06) 0%, 
+        radial-gradient(ellipse 1000px 500px at 75% 70%,
+            rgba(255, 255, 255, 0.06) 0%,
             rgba(220, 220, 255, 0.03) 25%,
             transparent 45%),
-        radial-gradient(ellipse 900px 700px at 50% 90%, 
-            rgba(255, 255, 255, 0.05) 0%, 
+        radial-gradient(ellipse 900px 700px at 50% 90%,
+            rgba(255, 255, 255, 0.05) 0%,
             transparent 35%);
     filter: blur(40px) contrast(1.1);
     animation: steamRise 25s ease-in-out infinite;
@@ -288,10 +270,13 @@ body {
 }
 
 @keyframes steamRise {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(20%) translateX(-5%) scale(0.9);
         opacity: 0.6;
     }
+
     50% {
         transform: translateY(-30%) translateX(5%) scale(1.1);
         opacity: 1;
@@ -321,18 +306,18 @@ body {
 .cloud-layer::before {
     top: -50%;
     left: -100%;
-    background: 
-        radial-gradient(ellipse 1400px 900px at 50% 100%, 
-            rgba(255, 255, 255, 0.15) 0%, 
+    background:
+        radial-gradient(ellipse 1400px 900px at 50% 100%,
+            rgba(255, 255, 255, 0.15) 0%,
             rgba(200, 200, 255, 0.1) 15%,
             rgba(150, 150, 200, 0.05) 30%,
             transparent 50%),
-        radial-gradient(ellipse 1600px 700px at 20% 80%, 
-            rgba(220, 220, 255, 0.12) 0%, 
+        radial-gradient(ellipse 1600px 700px at 20% 80%,
+            rgba(220, 220, 255, 0.12) 0%,
             rgba(180, 180, 220, 0.08) 20%,
             transparent 45%),
-        radial-gradient(ellipse 1500px 800px at 80% 90%, 
-            rgba(210, 210, 255, 0.13) 0%, 
+        radial-gradient(ellipse 1500px 800px at 80% 90%,
+            rgba(210, 210, 255, 0.13) 0%,
             rgba(170, 170, 210, 0.06) 25%,
             transparent 40%);
     filter: blur(60px) contrast(1.2);
@@ -344,14 +329,14 @@ body {
 .cloud-layer::after {
     bottom: -40%;
     left: -50%;
-    background: 
-        radial-gradient(ellipse 1800px 1000px at 30% 120%, 
-            rgba(255, 255, 255, 0.18) 0%, 
+    background:
+        radial-gradient(ellipse 1800px 1000px at 30% 120%,
+            rgba(255, 255, 255, 0.18) 0%,
             rgba(200, 200, 255, 0.12) 15%,
             rgba(160, 160, 220, 0.06) 30%,
             transparent 55%),
-        radial-gradient(ellipse 1600px 900px at 70% 110%, 
-            rgba(230, 230, 255, 0.16) 0%, 
+        radial-gradient(ellipse 1600px 900px at 70% 110%,
+            rgba(230, 230, 255, 0.16) 0%,
             rgba(190, 190, 230, 0.09) 20%,
             transparent 50%);
     filter: blur(70px) contrast(1.3);
@@ -361,42 +346,56 @@ body {
 }
 
 @keyframes cloudRise {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0) translateY(10%) scale(1);
     }
+
     25% {
         transform: translateX(5%) translateY(-5%) scale(1.1);
     }
+
     50% {
         transform: translateX(-3%) translateY(-15%) scale(1.05);
     }
+
     75% {
         transform: translateX(2%) translateY(-8%) scale(1.08);
     }
 }
 
 @keyframes cloudWaft {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0) translateY(5%) scale(1.1) rotate(0deg);
     }
+
     33% {
         transform: translateX(-8%) translateY(-10%) scale(1.15) rotate(2deg);
     }
+
     66% {
         transform: translateX(6%) translateY(-5%) scale(1.05) rotate(-1deg);
     }
 }
 
 @keyframes cloudDrift {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0) translateY(0) scale(1);
     }
+
     25% {
         transform: translateX(5%) translateY(-2%) scale(1.05);
     }
+
     50% {
         transform: translateX(-3%) translateY(3%) scale(0.98);
     }
+
     75% {
         transform: translateX(2%) translateY(-1%) scale(1.02);
     }
@@ -427,7 +426,7 @@ nav {
 }
 
 .nav-logo {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-family: var(--font-display);
     font-size: clamp(1rem, 1.5vw + 0.75rem, 1.75rem);
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -468,7 +467,9 @@ nav * {
     margin-top: 80px;
     padding: 40px 0;
     z-index: 15;
-    background: #000;
+    /* RESTORED: Required for proper stacking with nav and other sections */
+    background: transparent;
+    /* Allow particles/fireflies to show through */
     box-sizing: border-box;
 }
 
@@ -488,25 +489,34 @@ nav * {
 
 /* Add gradient overlay on scroll */
 .hero-section.scrolled::after {
-    background: 
-        radial-gradient(ellipse 80% 60% at center, 
+    background:
+        radial-gradient(ellipse 80% 60% at center,
             transparent 0%,
-            transparent 20%,
-            rgba(0,0,0,0.3) 40%,
-            rgba(0,0,0,0.6) 60%,
-            rgba(0,0,0,0.8) 80%,
-            rgba(0,0,0,0.95) 100%);
+            transparent 30%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(0, 0, 0, 0.7) 100%);
 }
 
-/* Video Background Container with Edge Feathering */
+/* Video Background Container - Sized to 90% of visible area below navbar */
 .video-container {
     position: absolute;
-    top: -80px;
-    left: 0;
-    width: 100%;
-    height: calc(100% + 80px);
+    /* Center the container */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 90% of viewport height minus navbar (~80px) */
+    width: 90%;
+    height: calc(90vh - 72px);
+    /* 90% of (100vh - 80px navbar) */
+    max-width: 1600px;
+    /* Cap width on very wide screens */
     z-index: 10;
-    overflow: hidden;
+    overflow: visible;
+    /* Allow video to be visible */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Removed mix-blend-mode: screen - it broke layout */
 }
 
 /* Edge feathering overlay - start transparent */
@@ -523,64 +533,62 @@ nav * {
     transition: all 0.6s ease;
 }
 
-/* Add feathering on scroll */
+/* Add feathering on scroll - disabled for transparency */
 .hero-section.scrolled .video-container::before {
-    background: 
-        radial-gradient(ellipse 75% 55% at center, 
-            transparent 0%,
-            transparent 30%,
-            rgba(0,0,0,0.3) 50%,
-            rgba(0,0,0,0.6) 70%,
-            rgba(0,0,0,0.9) 90%);
+    background: transparent;
 }
 
 .background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center center;
-    opacity: 1;
-    filter: brightness(1);
-    transition: filter 0.6s ease, opacity 0.6s ease;
+    /* Object-fit: contain = scale video down to fit without cropping */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: -1;
+    /* mix-blend-mode: screen makes black transparent and glows brighter */
+    mix-blend-mode: screen;
+    /* Radial vignette mask */
+    -webkit-mask-image: radial-gradient(ellipse 85% 85% at center,
+            black 0%,
+            black 60%,
+            transparent 100%);
+    mask-image: radial-gradient(ellipse 85% 85% at center,
+            black 0%,
+            black 60%,
+            transparent 100%);
 }
 
-/* Neural G Video Blur and Dim Effect on Scroll */
+/* Neural G Video Blur and Dim Effect on Scroll - Toned down */
 .hero-section.scrolled .background-video {
-    opacity: 0.3;
-    filter: brightness(0.3) blur(10px);
+    opacity: 0.7;
+    filter: brightness(0.7) blur(2px);
 }
 
 /* Dynamic scaling for all screen sizes */
+/* Standard Aspect Ratio Video Sizing */
 @media (min-aspect-ratio: 16/9) {
-    /* Wide screens - scale to fill height */
+
+    /* Wide screens - just ensure cover */
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        transform: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
 @media (max-aspect-ratio: 16/9) {
-    /* Tall screens - scale to fill width */
+
+    /* Tall screens - just ensure cover */
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        transform: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
 /* Ultra-wide screens optimization */
+/* Ultra-wide screens optimization */
 @media (min-aspect-ratio: 21/9) {
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        object-position: center center;
+        width: 100%;
+        height: 100%;
     }
 
     /* Scale down content for ultrawide aspect ratios */
@@ -590,21 +598,16 @@ nav * {
     }
 
     .hero-title {
-        font-size: clamp(2.25rem, 5.4vw + 0.9rem, 6.3rem); /* 90% scaling */
+        font-size: clamp(2.25rem, 5.4vw + 0.9rem, 6.3rem);
+        /* 90% scaling */
     }
 }
 
 /* Mobile optimization */
 @media (max-width: 768px) {
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        object-position: center center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: none !important;
+        width: 100%;
+        height: 100%;
     }
 
     /* Ensure mobile content is visible immediately */
@@ -635,11 +638,10 @@ nav * {
 /* Portrait mobile optimization */
 @media (max-width: 768px) and (orientation: portrait) {
     .background-video {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center center;
-        transform: none !important;
     }
 
     .hero-section {
@@ -655,6 +657,7 @@ nav * {
 .hero-content {
     position: relative;
     z-index: 20;
+    /* Ensure text is above particles (12) and video (10) */
     text-align: center;
     max-width: 1200px;
     padding: 0 40px;
@@ -672,14 +675,14 @@ nav * {
 }
 
 .hero-title {
-    font-size: clamp(2rem, 5vw + 0.5rem, 5.5rem);
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin-bottom: 30px;
     color: #fff;
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0, 0, 0, 0.8);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
     transform: translateY(20px);
     transition: transform 0.8s ease, opacity 0.8s ease;
 }
@@ -733,12 +736,12 @@ nav * {
 }
 
 .section-title {
-    font-size: clamp(2rem, 5vw + 1rem, 5rem);
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
     font-weight: 700;
     text-align: center;
     margin-bottom: 60px;
     letter-spacing: -0.02em;
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 section {
@@ -842,6 +845,66 @@ footer {
     transform: translate3d(0, -8px, 20px) rotateX(2deg);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
     border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Industries Grid */
+#industries {
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.6) 5%,
+            rgba(0, 0, 0, 0.8) 15%,
+            rgba(0, 0, 0, 0.9) 100%);
+}
+
+.industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.industry-card {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 35px;
+    transition: all 0.4s ease;
+    text-align: left;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.industry-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.industry-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: -webkit-linear-gradient(45deg, #007AFF, #5856D6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.industry-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-family: var(--font-display);
+}
+
+.industry-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    flex-grow: 1;
 }
 
 /* Features Grid */
@@ -983,12 +1046,24 @@ footer {
 .form-group select {
     width: 100%;
     padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(26, 26, 26, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    color: white;
-    font-size: 16px;
+    color: #fff;
+    font-size: 1rem;
     transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.form-group select option {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 12px;
 }
 
 .form-group input:focus,
@@ -1036,10 +1111,10 @@ footer {
 
 .modal-content {
     background: linear-gradient(135deg,
-        rgba(0, 0, 0, 0.9) 0%,
-        rgba(0, 0, 0, 0.85) 30%,
-        rgba(0, 0, 0, 0.88) 60%,
-        rgba(0, 0, 0, 0.92) 100%);
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.85) 30%,
+            rgba(0, 0, 0, 0.88) 60%,
+            rgba(0, 0, 0, 0.92) 100%);
     margin: auto;
     padding: 0;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1052,7 +1127,7 @@ footer {
     overflow-x: hidden;
     backdrop-filter: blur(40px) saturate(200%) brightness(1.2);
     -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.2);
-    box-shadow: 
+    box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.2) inset,
         0 0 120px rgba(100, 150, 255, 0.3),
         0 0 80px rgba(255, 255, 255, 0.15),
@@ -1076,12 +1151,12 @@ footer {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, 
-        #00ffff40,
-        #007bff40, 
-        #5856d640, 
-        #af52de40,
-        #00ffff40);
+    background: linear-gradient(45deg,
+            #00ffff40,
+            #007bff40,
+            #5856d640,
+            #af52de40,
+            #00ffff40);
     border-radius: 24px;
     opacity: 0;
     z-index: -1;
@@ -1091,11 +1166,14 @@ footer {
 }
 
 @keyframes glowPulse {
-    0%, 100% { 
+
+    0%,
+    100% {
         opacity: 0.3;
         transform: scale(1);
     }
-    50% { 
+
+    50% {
         opacity: 0.5;
         transform: scale(1.02);
     }
@@ -1111,9 +1189,9 @@ footer {
     align-items: center;
     padding: 30px 30px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    background: linear-gradient(to bottom, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.02) 100%);
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.02) 100%);
 }
 
 .modal-close {
@@ -1148,10 +1226,10 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at center, 
-        transparent 0%,
-        rgba(100, 150, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0.02) 100%);
+    background: radial-gradient(circle at center,
+            transparent 0%,
+            rgba(100, 150, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0.02) 100%);
     pointer-events: none;
     z-index: -1;
 }
@@ -1185,12 +1263,12 @@ footer {
 
 /* Result box styling in modals */
 .modal-body .bg-gray-800 {
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.12) 0%, 
-        rgba(255, 255, 255, 0.08) 100%);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.08) 100%);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
+    box-shadow:
         inset 0 1px 3px rgba(255, 255, 255, 0.2),
         0 0 30px rgba(100, 150, 255, 0.1);
     border-radius: 12px;
@@ -1211,8 +1289,13 @@ footer {
 }
 
 @keyframes modalFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes modalSlideIn {
@@ -1220,6 +1303,7 @@ footer {
         transform: translateY(-50px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -1227,16 +1311,24 @@ footer {
 }
 
 /* Icons in modals - add glow */
-.modal .text-blue-400, .modal .text-blue-500,
-.modal .text-purple-400, .modal .text-purple-500,
-.modal .text-green-400, .modal .text-green-500 {
+.modal .text-blue-400,
+.modal .text-blue-500,
+.modal .text-purple-400,
+.modal .text-purple-500,
+.modal .text-green-400,
+.modal .text-green-500 {
     filter: drop-shadow(0 0 12px currentColor);
     animation: iconGlow 2s ease-in-out infinite alternate;
 }
 
 @keyframes iconGlow {
-    0% { filter: drop-shadow(0 0 8px currentColor); }
-    100% { filter: drop-shadow(0 0 16px currentColor); }
+    0% {
+        filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    100% {
+        filter: drop-shadow(0 0 16px currentColor);
+    }
 }
 
 /* Responsive Design */
@@ -1244,23 +1336,23 @@ footer {
     .hero-title {
         font-size: clamp(2rem, 8vw, 3rem);
     }
-    
+
     .hero-description {
         font-size: clamp(0.9rem, 3vw, 1.2rem);
     }
-    
+
     .services-grid,
     .features-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
     }
-    
+
     .button-primary,
     .button-secondary {
         width: 100%;
@@ -1268,24 +1360,24 @@ footer {
         padding: 18px 32px;
         margin-bottom: 12px;
     }
-    
+
     nav {
         padding: 15px 20px !important;
     }
-    
+
     .modal-content {
         width: 95%;
         margin: 10% auto;
         max-height: 80vh;
     }
-    
+
     .background-video {
         transform: none !important;
         position: absolute;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -1354,11 +1446,9 @@ footer {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(
-        circle at center,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0) 80%
-    );
+    background: radial-gradient(circle at center,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0) 80%);
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -1375,7 +1465,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 70%);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 70%);
     transform: translateX(-100%);
     transition: transform 0.8s ease;
     pointer-events: none;
@@ -1392,7 +1482,8 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 5;
+    z-index: 17;
+    /* Above hero-section (15) and particles (16) */
     opacity: 0;
     transition: opacity 2s ease;
     pointer-events: none;
@@ -1407,12 +1498,12 @@ footer {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: rgba(255, 255, 200, 1);
+    background: rgba(255, 255, 255, 1);
     border-radius: 50%;
     opacity: 0;
-    box-shadow: 0 0 10px 2px rgba(255, 255, 200, 0.9),
-                0 0 20px 4px rgba(255, 220, 100, 0.5),
-                0 0 30px 6px rgba(255, 200, 50, 0.3);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.9),
+        0 0 20px 4px rgba(255, 255, 255, 0.5),
+        0 0 30px 6px rgba(255, 255, 255, 0.3);
     animation: firefly-float 40s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     pointer-events: none;
     filter: blur(0.5px);
@@ -1423,7 +1514,7 @@ footer {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 150, 0.8);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     animation: firefly-glow 2s ease-in-out infinite;
     filter: blur(1px);
@@ -1434,31 +1525,39 @@ footer {
         transform: translateY(110vh) translateX(0) scale(0);
         opacity: 0;
     }
+
     5% {
         opacity: 0.8;
         transform: translateY(95vh) translateX(5vw) scale(1);
     }
+
     20% {
         transform: translateY(75vh) translateX(-8vw) scale(1.1);
     }
+
     35% {
         opacity: 1;
         transform: translateY(55vh) translateX(10vw) scale(0.9);
     }
+
     50% {
         transform: translateY(35vh) translateX(-12vw) scale(1);
     }
+
     65% {
         opacity: 0.9;
         transform: translateY(15vh) translateX(15vw) scale(1.05);
     }
+
     80% {
         transform: translateY(-5vh) translateX(-10vw) scale(0.95);
     }
+
     95% {
         opacity: 0.5;
         transform: translateY(-20vh) translateX(8vw) scale(0.8);
     }
+
     100% {
         transform: translateY(-30vh) translateX(0) scale(0);
         opacity: 0;
@@ -1466,22 +1565,17 @@ footer {
 }
 
 @keyframes firefly-glow {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.6;
     }
+
     50% {
         transform: scale(1.5);
         opacity: 1;
     }
-}
-
-select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 12px;
 }
 
 .no-video {
@@ -1493,17 +1587,23 @@ select {
     min-height: auto;
 }
 
-.service-card, .bento-item, .feature-item, .section-title {
+.service-card,
+.bento-item,
+.feature-item,
+.section-title {
     opacity: 1;
     transform: translateY(0);
 }
 
-.service-card.in-view, .bento-item.in-view, .feature-item.in-view, .section-title.in-view {
+.service-card.in-view,
+.bento-item.in-view,
+.feature-item.in-view,
+.section-title.in-view {
     opacity: 1;
     transform: translateY(0);
 }
 
-.content-section + .content-section {
+.content-section+.content-section {
     margin-top: -20px;
 }
 
@@ -1528,14 +1628,14 @@ footer {
 }
 
 .mobile-device .background-video {
-    width: 100vw !important;
-    height: 100vh !important;
+    /* Maintain robust centering on mobile */
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover !important;
-    object-position: center !important;
-    transform: none !important;
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
+    transform: none !important;
 }
 
 .ultrawide-device .hero-content {
@@ -1545,15 +1645,15 @@ footer {
 }
 
 .ultrawide-device .background-video {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center center;
-    transform: none !important;
 }
 
 /* Force immediate visibility on mobile */
 @media (max-width: 768px) {
+
     .hero-content,
     .hero-title,
     .hero-description,
@@ -1564,12 +1664,11 @@ footer {
     }
 
     /* Ensure video never uses complex transforms on mobile */
+    /* Ensure video stays centered on mobile */
     .background-video {
         transform: none !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        object-fit: cover !important;
-        position: absolute !important;
+        width: 100% !important;
+        height: 100% !important;
         top: 0 !important;
         left: 0 !important;
     }
@@ -1585,12 +1684,7 @@ footer {
 
 /* Ensure ultrawide compatibility */
 @media (min-width: 2560px) {
-    .background-video {
-        width: 100vw !important;
-        height: 100vh !important;
-        object-fit: cover !important;
-        transform: none !important;
-    }
+
 
     .hero-content {
         opacity: 1 !important;
@@ -1599,11 +1693,15 @@ footer {
     }
 }
 
+/* Video Vignette Overlay - Enhanced */
+/* Video Vignette Overlay - REMOVED for clarity/contrast */
+/* .video-container::after { ... } rule deleted */
+
 /* Trust Signals */
 .trust-signals {
     display: none;
-    margin-top: 40px;
-    opacity: 0;
+    margin-bottom: 30px;
+    opacity: 0.9;
     transform: translateY(20px);
     transition: all 0.8s ease 0.6s;
 }
@@ -1715,8 +1813,8 @@ footer {
 /* Louisiana-specific styling */
 .louisiana-pride {
     background: linear-gradient(135deg,
-        rgba(0, 122, 255, 0.1) 0%,
-        rgba(138, 43, 226, 0.1) 100%);
+            rgba(0, 122, 255, 0.1) 0%,
+            rgba(138, 43, 226, 0.1) 100%);
     border: 1px solid rgba(138, 43, 226, 0.2);
 }
 
@@ -1737,71 +1835,76 @@ footer {
 }
 
 /* Global SF Pro Font Override - Clean Apple Style */
-*, *::before, *::after {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+/* Removed aggressive * selector that was breaking Font Awesome icons */
+* {
+    /* Only apply font smoothing globally, not font-family */
     font-feature-settings: 'kern' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 /* Ensure all text elements use clean SF Pro */
-h1, h2, h3, h4, h5, h6 {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.02em;
 }
 
-p, span, div, a, button, input, textarea, select, li {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+p,
+span,
+div,
+a,
+button,
+input,
+textarea,
+select,
+li {
+    /* Use variable and NO !important so icons can override */
+    font-family: var(--font-display);
 }
 
 /* Modal specific font ensuring */
-.modal-content,
-.modal-header,
-.modal-body,
-.modal-content h1,
-.modal-content h2,
-.modal-content h3,
-.modal-content h4,
-.modal-content h5,
-.modal-content h6,
-.modal-content p,
-.modal-content span,
-.modal-content div,
-.modal-content li {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+.modal-content {
+    font-family: var(--font-display);
 }
 
 /* END OF CSS */
 
 /* Navigation responsive sizing */
 @media (min-width: 768px) and (max-width: 1024px) {
+
     /* Tablet adjustments */
     nav {
         padding: 16px 30px !important;
         height: 70px;
     }
-    
+
     .nav-logo {
         font-size: clamp(1.1rem, 2vw, 1.5rem);
     }
-    
+
     .nav-link {
         font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     }
 }
 
 @media (min-width: 1920px) {
+
     /* Large screens */
     nav {
         padding: 24px 60px !important;
         height: 90px;
     }
-    
+
     .nav-logo {
         font-size: clamp(1.3rem, 1.8vw, 2rem);
     }
-    
+
     .nav-link {
         font-size: clamp(1rem, 1.2vw, 1.25rem);
     }
@@ -1817,17 +1920,21 @@ p, span, div, a, button, input, textarea, select, li {
 .hero-section {
     /* Override fixed height with min-height */
     min-height: 100vh;
-    min-height: 100dvh; /* dvh = dynamic viewport height (accounts for mobile browser UI) */
-    height: auto; /* Allow content to determine height if needed */
+    min-height: 100dvh;
+    /* dvh = dynamic viewport height (accounts for mobile browser UI) */
+    height: auto;
+    /* Allow content to determine height if needed */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 40px; /* Global bottom padding to prevent cutoff */
+    padding-bottom: 40px;
+    /* Global bottom padding to prevent cutoff */
 }
 
 /* Ensure hero content is always fully visible */
 .hero-content {
-    margin-bottom: 40px; /* Add bottom margin as safety */
+    margin-bottom: 40px;
+    /* Add bottom margin as safety */
 }
 
 /* Fix for initial load visibility */
@@ -1842,17 +1949,20 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* 2. MOBILE FIXES (< 768px) */
 @media (max-width: 768px) {
+
     /* Adjust hero section for mobile */
     .hero-section {
-        padding-top: 70px;    /* Space for fixed navigation */
-        padding-bottom: 30px; /* Ensure bottom content is visible */
+        padding-top: 70px;
+        /* Space for fixed navigation */
+        padding-bottom: 30px;
+        /* Ensure bottom content is visible */
     }
-    
+
     /* Optimize video for mobile */
     .background-video {
         /* Simplified scaling for mobile performance */
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center;
         /* Remove complex transforms for mobile */
@@ -1861,23 +1971,27 @@ p, span, div, a, button, input, textarea, select, li {
         top: 0;
         left: 0;
     }
-    
+
     /* Adjust content spacing */
     .hero-content {
-        padding: 0 20px; /* Reduce horizontal padding */
+        padding: 0 20px;
+        /* Reduce horizontal padding */
     }
-    
+
     /* Slightly smaller hero text on mobile */
     .hero-title {
-        font-size: clamp(2rem, 7vw, 3.5rem); /* Smaller minimum size */
-        margin-bottom: 20px; /* Less margin */
+        font-size: clamp(2rem, 7vw, 3.5rem);
+        /* Smaller minimum size */
+        margin-bottom: 20px;
+        /* Less margin */
     }
-    
+
     .hero-description {
         font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-        margin-bottom: 30px; /* Less margin */
+        margin-bottom: 30px;
+        /* Less margin */
     }
-    
+
     /* Stack buttons vertically on very small screens */
     @media (max-width: 400px) {
         .hero-buttons {
@@ -1886,7 +2000,7 @@ p, span, div, a, button, input, textarea, select, li {
             max-width: 280px;
             margin: 0 auto;
         }
-        
+
         .button-primary,
         .button-secondary {
             width: 100%;
@@ -1897,61 +2011,63 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* 3. ULTRA-WIDE FIXES (> 2560px) */
 @media (min-width: 2560px) {
+
     /* Fix hero section height for ultra-wide */
     .hero-section {
         min-height: 100vh;
         min-height: 100dvh;
         height: auto;
-        padding-bottom: 40px; /* Ensure bottom content visible */
+        padding-bottom: 40px;
+        /* Ensure bottom content visible */
     }
-    
+
     /* Increase content max-width for ultra-wide */
     .hero-content {
         max-width: 1600px;
         padding: 0 60px;
     }
-    
+
     /* Scale up text for large screens */
     .hero-title {
         font-size: clamp(3rem, 4vw, 8rem);
     }
-    
+
     .hero-description {
         font-size: clamp(1.25rem, 1.5vw, 2rem);
         max-width: 1000px;
     }
-    
+
+    /* Ensure video covers ultra-wide screens */
     /* Ensure video covers ultra-wide screens */
     .background-video {
-        width: 100vw;
-        min-width: 100%;
-        height: 100vh;
-        object-fit: cover;
-        transform: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
 /* Extra ultra-wide (> 3440px) - for 21:9 and wider */
 @media (min-width: 3440px) {
     .hero-section {
-        padding-bottom: 60px; /* Extra padding for super wide screens */
+        padding-bottom: 60px;
+        /* Extra padding for super wide screens */
     }
 
     .background-video {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        transform: none;
     }
 
     /* Only override necessary properties for ultrawide */
     .hero-content {
         transform: scale(0.9);
-        max-width: 1080px; /* Reduce max width */
+        max-width: 1080px;
+        /* Reduce max width */
     }
 
     .hero-title {
-        font-size: clamp(2.25rem, 5.4vw + 0.9rem, 6.3rem); /* 90% of original */
+        font-size: clamp(2.25rem, 5.4vw + 0.9rem, 6.3rem);
+        /* 90% of original */
     }
 }
 
@@ -1971,12 +2087,12 @@ p, span, div, a, button, input, textarea, select, li {
         padding-top: 60px;
         padding-bottom: 20px;
     }
-    
+
     .hero-title {
         font-size: clamp(1.75rem, 5vw, 3rem);
         margin-bottom: 15px;
     }
-    
+
     .hero-description {
         font-size: clamp(0.875rem, 2vw, 1.1rem);
         margin-bottom: 20px;
@@ -1986,12 +2102,14 @@ p, span, div, a, button, input, textarea, select, li {
 /* Very tall screens (ensure content stays centered) */
 @media (min-height: 1000px) {
     .hero-content {
-        margin-top: -5vh; /* Slight upward adjustment */
+        margin-top: -5vh;
+        /* Slight upward adjustment */
     }
 }
 
 /* 5. FALLBACK FOR OLDER BROWSERS */
 @supports not (height: 100dvh) {
+
     /* Fallback for browsers that don't support dvh */
     .hero-section {
         min-height: 100vh;
@@ -2005,21 +2123,23 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Improved Touch Targets for Mobile */
 @media (max-width: 480px) {
+
     /* Ensure all interactive elements meet accessibility standards */
-    button, 
-    a, 
-    input, 
-    select, 
+    button,
+    a,
+    input,
+    select,
     textarea,
     .service-card {
-        min-height: 44px; /* Apple HIG minimum touch target */
+        min-height: 44px;
+        /* Apple HIG minimum touch target */
     }
-    
+
     /* Better spacing on very small screens */
     .hero-buttons {
         gap: 0.75rem;
     }
-    
+
     .hero-buttons a {
         padding: 0.875rem 1.5rem;
         font-size: 0.875rem;
@@ -2028,12 +2148,12 @@ p, span, div, a, button, input, textarea, select, li {
         align-items: center;
         justify-content: center;
     }
-    
+
     /* Improve service card spacing */
     .services-grid {
         gap: 1rem;
     }
-    
+
     .service-card {
         padding: 1.25rem;
     }
@@ -2041,17 +2161,18 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Enhanced Tablet Layout */
 @media (min-width: 768px) and (max-width: 1024px) {
+
     /* Better use of tablet screen real estate */
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
-    
+
     .hero-content {
         max-width: 600px;
         margin: 0 auto;
     }
-    
+
     /* Improve form layout on tablets */
     .contact-form {
         max-width: 500px;
@@ -2060,15 +2181,17 @@ p, span, div, a, button, input, textarea, select, li {
         grid-template-columns: 1fr 1fr;
         gap: 1.25rem;
     }
-    
+
     .contact-form .form-group:nth-child(5),
     .contact-form .form-group:nth-child(6) {
-        grid-column: 1 / -1; /* Full width for message and button */
+        grid-column: 1 / -1;
+        /* Full width for message and button */
     }
 }
 
 /* Large Screen Optimizations */
 @media (min-width: 1440px) {
+
     /* Prevent content from becoming too spread out on large screens */
     .services-section,
     .features-section,
@@ -2079,13 +2202,13 @@ p, span, div, a, button, input, textarea, select, li {
         padding-left: 2rem;
         padding-right: 2rem;
     }
-    
+
     /* Better grid layout for large screens */
     .services-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
-    
+
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
@@ -2094,20 +2217,22 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Enhanced Ultrawide Support */
 @media (min-width: 2560px) {
+
     /* Prevent excessive stretching on ultrawide monitors */
     .hero-content {
         max-width: 1000px;
         margin: 0 auto;
-        transform: scale(0.95); /* Slightly smaller on ultrawide */
+        transform: scale(0.95);
+        /* Slightly smaller on ultrawide */
     }
-    
+
     /* Center main content areas */
     main {
         max-width: 1400px;
         margin: 0 auto;
         padding: 0 2rem;
     }
-    
+
     /* Better typography scaling for ultrawide */
     .hero-title {
         font-size: clamp(2.5rem, 4vw + 1rem, 4.5rem);
@@ -2116,20 +2241,21 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Landscape Mobile Improvements */
 @media (max-height: 500px) and (orientation: landscape) {
+
     /* Better handling of landscape mobile devices */
     .hero-section {
         min-height: 100vh;
         padding: 1rem 0;
     }
-    
+
     .hero-content {
         transform: scale(0.85);
     }
-    
+
     .hero-title {
         font-size: clamp(1.5rem, 3vh + 0.5rem, 2.5rem);
     }
-    
+
     .hero-description {
         font-size: clamp(0.875rem, 2vh + 0.25rem, 1.125rem);
     }
@@ -2137,6 +2263,7 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Enhanced Accessibility */
 @media (prefers-reduced-motion: reduce) {
+
     /* Respect user preferences for reduced motion */
     .background-video,
     .firefly,
@@ -2144,12 +2271,12 @@ p, span, div, a, button, input, textarea, select, li {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
     }
-    
+
     .hero-content {
         transform: none !important;
         opacity: 1 !important;
     }
-    
+
     /* Reduce complex transforms */
     .service-card:hover {
         transform: translateY(-2px) !important;
@@ -2158,6 +2285,7 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Improved Focus States */
 @media (min-width: 768px) {
+
     a:focus,
     button:focus,
     input:focus,
@@ -2171,7 +2299,9 @@ p, span, div, a, button, input, textarea, select, li {
 }
 
 /* High DPI Display Enhancements */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
     /* Ensure crisp text on high DPI displays */
     .hero-title,
     .service-card h3,
@@ -2183,6 +2313,7 @@ p, span, div, a, button, input, textarea, select, li {
 
 /* Print Styles */
 @media print {
+
     .background-video,
     .particles-background,
     .firefly-container,
@@ -2190,7 +2321,7 @@ p, span, div, a, button, input, textarea, select, li {
     .hero-buttons {
         display: none !important;
     }
-    
+
     .hero-content {
         background: white;
         color: black;
@@ -2198,25 +2329,229 @@ p, span, div, a, button, input, textarea, select, li {
         transform: none;
         text-align: left;
     }
-    
+
     .hero-title {
         color: black;
     }
-    
+
     .service-card,
     .feature-card {
         border: 1px solid #ccc;
         page-break-inside: avoid;
     }
-    
+
     a {
         color: black;
         text-decoration: underline;
     }
-    
+
     a::after {
         content: " (" attr(href) ")";
         font-size: 0.8em;
         color: #666;
     }
+}
+
+/* ============================================
+   ENHANCED RESPONSIVE BREAKPOINT SYSTEM
+   ============================================ */
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .background-video {
+        display: none;
+    }
+
+    .hero-section {
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    }
+
+    .firefly-container,
+    .particles-background,
+    .steam-layer,
+    .cloud-layer {
+        display: none;
+    }
+}
+
+/* Safe Area Insets for Notched Devices */
+@supports (padding: max(0px)) {
+    .hero-section {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    }
+
+    nav {
+        padding-left: max(20px, env(safe-area-inset-left)) !important;
+        padding-right: max(20px, env(safe-area-inset-right)) !important;
+        padding-top: max(20px, env(safe-area-inset-top)) !important;
+    }
+
+    footer {
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        padding-left: max(24px, env(safe-area-inset-left));
+        padding-right: max(24px, env(safe-area-inset-right));
+    }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE IMPROVEMENTS
+   ============================================ */
+@media (max-width: 767px) {
+    .hero-section {
+        min-height: 100dvh;
+        padding: 80px 1.5rem 2rem;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 1rem;
+        line-height: 1.1;
+    }
+
+    .hero-description {
+        font-size: var(--text-base);
+        margin-bottom: 1.5rem;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .button-primary,
+    .button-secondary {
+        width: 100%;
+        padding: 16px 24px;
+        font-size: var(--text-base);
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    nav {
+        padding: 16px !important;
+        height: auto;
+        min-height: 64px;
+    }
+
+    .nav-logo {
+        font-size: 1.125rem;
+    }
+
+    .background-video {
+        opacity: 0.3;
+    }
+}
+
+/* ============================================
+   ULTRAWIDE DISPLAY IMPROVEMENTS
+   ============================================ */
+@media (min-width: 2560px) {
+    body {
+        font-size: 18px;
+    }
+
+    .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .hero-title {
+        font-size: clamp(3rem, 4vw, 5rem);
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-description {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .services-grid {
+        max-width: 1600px;
+        margin-left: auto;
+        margin-right: auto;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+
+    .background-video {
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    .video-container {
+        /* max-height: 1080px; - REMOVED to prevent clipping on large screens */
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 3440px) {
+    .hero-content {
+        max-width: 1400px;
+    }
+
+    .services-grid {
+        max-width: 1800px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ============================================
+   FONT AWESOME FORCE FIXES
+   ============================================ */
+/* Ensure Font Awesome classes always win specificity wars */
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.fas {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+}
+
+.fab {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+}
+
+.far {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 400 !important;
 }

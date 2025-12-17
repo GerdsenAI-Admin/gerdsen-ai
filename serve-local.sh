@@ -29,4 +29,4 @@ echo "Press Ctrl+C to stop the server"
 echo ""
 
 # Start the server
-python3 -m http.server 4000
+source .venv/bin/activate && python3 -m http.server 4000
