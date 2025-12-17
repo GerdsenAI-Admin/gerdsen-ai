@@ -809,29 +809,43 @@ footer {
     transform: scale(1.05);
 }
 
-/* Services Grid */
+/* Services Grid - Flexbox for centered last row */
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
     margin-top: 60px;
-    justify-content: center;
-    justify-items: center;
 }
 
-/* Tablet: force 2 columns, centered */
-@media (min-width: 768px) and (max-width: 1199px) {
-    .services-grid {
-        grid-template-columns: repeat(2, minmax(280px, 400px));
-        justify-content: center;
+/* Service cards with responsive widths */
+.services-grid .service-card {
+    flex: 0 1 350px;
+    max-width: 400px;
+    min-width: 280px;
+}
+
+/* Mobile: full width cards */
+@media (max-width: 767px) {
+    .services-grid .service-card {
+        flex: 1 1 100%;
+        max-width: 100%;
     }
 }
 
-/* Desktop: 3 columns max for better readability */
+/* Tablet: 2 cards per row */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .services-grid .service-card {
+        flex: 0 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+/* Desktop: 3 cards per row, centered */
 @media (min-width: 1200px) {
-    .services-grid {
-        grid-template-columns: repeat(3, minmax(300px, 420px));
-        justify-content: center;
+    .services-grid .service-card {
+        flex: 0 1 350px;
+        max-width: 380px;
     }
 }
 
@@ -1007,6 +1021,33 @@ footer {
     .nav-link i {
         font-size: 1.25rem;
         /* Show icon at normal size */
+    }
+}
+
+/* Override Tailwind md: breakpoint - show hamburger at 1100px instead of 768px */
+@media (max-width: 1100px) {
+
+    /* Hide desktop nav */
+    .hidden.md\:flex {
+        display: none !important;
+    }
+
+    /* Show mobile hamburger */
+    .md\:hidden {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1101px) {
+
+    /* Show desktop nav */
+    .hidden.md\:flex {
+        display: flex !important;
+    }
+
+    /* Hide mobile hamburger */
+    .md\:hidden {
+        display: none !important;
     }
 }
 
