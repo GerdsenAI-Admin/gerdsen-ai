@@ -133,8 +133,8 @@ samp,
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 12;
-    /* Between Video (10) and Content (20) */
+    z-index: 16;
+    /* Above hero-section (15) so particles appear over video */
     opacity: 0;
     will-change: transform;
     transition: opacity 3s ease-in-out;
@@ -466,7 +466,8 @@ nav * {
     overflow: hidden;
     margin-top: 80px;
     padding: 40px 0;
-    /* Removed z-index: 15 to allow interleaving of fixed particles between video and content */
+    z-index: 15;
+    /* RESTORED: Required for proper stacking with nav and other sections */
     background: transparent;
     /* Allow particles/fireflies to show through */
     box-sizing: border-box;
@@ -491,11 +492,9 @@ nav * {
     background:
         radial-gradient(ellipse 80% 60% at center,
             transparent 0%,
-            transparent 20%,
-            rgba(0, 0, 0, 0.3) 40%,
-            rgba(0, 0, 0, 0.6) 60%,
-            rgba(0, 0, 0, 0.8) 80%,
-            rgba(0, 0, 0, 0.95) 100%);
+            transparent 30%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(0, 0, 0, 0.7) 100%);
 }
 
 /* Video Background Container - Sized to 90% of visible area below navbar */
@@ -517,6 +516,7 @@ nav * {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Removed mix-blend-mode: screen - it broke layout */
 }
 
 /* Edge feathering overlay - start transparent */
@@ -533,15 +533,9 @@ nav * {
     transition: all 0.6s ease;
 }
 
-/* Add feathering on scroll */
+/* Add feathering on scroll - disabled for transparency */
 .hero-section.scrolled .video-container::before {
-    background:
-        radial-gradient(ellipse 75% 55% at center,
-            transparent 0%,
-            transparent 30%,
-            rgba(0, 0, 0, 0.3) 50%,
-            rgba(0, 0, 0, 0.6) 70%,
-            rgba(0, 0, 0, 0.9) 90%);
+    background: transparent;
 }
 
 .background-video {
@@ -550,9 +544,9 @@ nav * {
     height: 100%;
     object-fit: contain;
     z-index: -1;
-    /* mix-blend-mode: lighten makes dark pixels transparent against black background */
-    mix-blend-mode: lighten;
-    /* Radial vignette mask to fade edges into black background */
+    /* mix-blend-mode: screen makes black transparent and glows brighter */
+    mix-blend-mode: screen;
+    /* Radial vignette mask */
     -webkit-mask-image: radial-gradient(ellipse 85% 85% at center,
             black 0%,
             black 60%,
@@ -563,10 +557,10 @@ nav * {
             transparent 100%);
 }
 
-/* Neural G Video Blur and Dim Effect on Scroll */
+/* Neural G Video Blur and Dim Effect on Scroll - Toned down */
 .hero-section.scrolled .background-video {
-    opacity: 0.3;
-    filter: brightness(0.3) blur(10px);
+    opacity: 0.7;
+    filter: brightness(0.7) blur(2px);
 }
 
 /* Dynamic scaling for all screen sizes */
@@ -1488,7 +1482,8 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 5;
+    z-index: 17;
+    /* Above hero-section (15) and particles (16) */
     opacity: 0;
     transition: opacity 2s ease;
     pointer-events: none;
