@@ -546,15 +546,21 @@ nav * {
     z-index: -1;
     /* mix-blend-mode: screen makes black transparent and glows brighter */
     mix-blend-mode: screen;
-    /* Radial vignette mask */
-    -webkit-mask-image: radial-gradient(ellipse 85% 85% at center,
+    /* Heavy radial vignette mask to fade/fuzz edges into black background */
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at center,
             black 0%,
-            black 60%,
-            transparent 100%);
-    mask-image: radial-gradient(ellipse 85% 85% at center,
+            black 30%,
+            rgba(0, 0, 0, 0.7) 50%,
+            rgba(0, 0, 0, 0.3) 70%,
+            transparent 85%);
+    mask-image: radial-gradient(ellipse 70% 70% at center,
             black 0%,
-            black 60%,
-            transparent 100%);
+            black 30%,
+            rgba(0, 0, 0, 0.7) 50%,
+            rgba(0, 0, 0, 0.3) 70%,
+            transparent 85%);
+    /* Extra blur filter on edges */
+    filter: blur(0.5px);
 }
 
 /* Neural G Video Blur and Dim Effect on Scroll - Toned down */
