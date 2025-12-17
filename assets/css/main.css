@@ -504,22 +504,30 @@ nav * {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* 90% of viewport height minus navbar (~80px) */
+    /* 90% of viewport */
     width: 90%;
     height: calc(90vh - 72px);
-    /* 90% of (100vh - 80px navbar) */
     max-width: 1600px;
-    /* Cap width on very wide screens */
     z-index: 10;
-    overflow: visible;
-    /* Allow video to be visible */
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Removed mix-blend-mode: screen - it broke layout */
+    /* Mask the container so edges fade out */
+    -webkit-mask-image: radial-gradient(ellipse closest-side at center,
+            black 0%,
+            black 20%,
+            rgba(0, 0, 0, 0.5) 50%,
+            rgba(0, 0, 0, 0.2) 75%,
+            transparent 100%);
+    mask-image: radial-gradient(ellipse closest-side at center,
+            black 0%,
+            black 20%,
+            rgba(0, 0, 0, 0.5) 50%,
+            rgba(0, 0, 0, 0.2) 75%,
+            transparent 100%);
 }
 
-/* Edge feathering overlay - start transparent */
 .video-container::before {
     content: '';
     position: absolute;
@@ -533,28 +541,20 @@ nav * {
     transition: all 0.6s ease;
 }
 
-/* Add feathering on scroll - disabled for transparency */
 .hero-section.scrolled .video-container::before {
     background: transparent;
 }
 
 .background-video {
-    /* Object-fit: contain = scale video down to fit without cropping */
+    /* Object-fit: contain = show full video without cropping */
     width: 100%;
     height: 100%;
     object-fit: contain;
     z-index: -1;
     /* mix-blend-mode: screen makes black transparent and glows brighter */
     mix-blend-mode: screen;
-    /* Radial vignette mask */
-    -webkit-mask-image: radial-gradient(ellipse 85% 85% at center,
-            black 0%,
-            black 60%,
-            transparent 100%);
-    mask-image: radial-gradient(ellipse 85% 85% at center,
-            black 0%,
-            black 60%,
-            transparent 100%);
+    /* Scale video UP slightly to push its hard edges outside the container's mask */
+    transform: scale(1.15);
 }
 
 /* Neural G Video Blur and Dim Effect on Scroll - Toned down */
