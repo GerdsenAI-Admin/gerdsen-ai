@@ -534,15 +534,18 @@ nav * {
 
 .background-video {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
     object-fit: cover;
-    object-position: center center;
-    opacity: 1;
-    filter: brightness(1);
-    transition: filter 0.6s ease, opacity 0.6s ease;
+    z-index: -1;
+    /* Soften edges to blend with black background */
+    -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+    mask-image: radial-gradient(circle, black 80%, transparent 100%);
 }
 
 /* Neural G Video Blur and Dim Effect on Scroll */
@@ -845,6 +848,58 @@ footer {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Industries Grid */
+.industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.industry-card {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 35px;
+    transition: all 0.4s ease;
+    text-align: left;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.industry-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.industry-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: -webkit-linear-gradient(45deg, #007AFF, #5856D6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.industry-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-family: var(--font-display);
+}
+
+.industry-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    flex-grow: 1;
+}
+
 /* Features Grid */
 .features-grid {
     display: grid;
@@ -984,12 +1039,24 @@ footer {
 .form-group select {
     width: 100%;
     padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(26, 26, 26, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    color: white;
-    font-size: 16px;
+    color: #fff;
+    font-size: 1rem;
     transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.form-group select option {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 12px;
 }
 
 .form-group input:focus,
@@ -1503,14 +1570,6 @@ footer {
     }
 }
 
-select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 12px;
-}
-
 .no-video {
     background: transparent;
 }
@@ -1633,11 +1692,24 @@ footer {
     }
 }
 
+/* Video Vignette Overlay - Enhanced */
+.video-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.9) 100%);
+    z-index: 2;
+}
+
 /* Trust Signals */
 .trust-signals {
     display: none;
-    margin-top: 40px;
-    opacity: 0;
+    margin-bottom: 30px;
+    opacity: 0.9;
     transform: translateY(20px);
     transition: all 0.8s ease 0.6s;
 }
@@ -2461,11 +2533,16 @@ li {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
 /* ============================================
    FONT AWESOME FORCE FIXES
    ============================================ */
 /* Ensure Font Awesome classes always win specificity wars */
-.fa, .fas, .far, .fal, .fab {
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     display: inline-block;
