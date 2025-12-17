@@ -530,25 +530,25 @@ nav * {
 }
 
 .background-video {
-    /* Object-fit: contain = scale video down to fit without cropping */
+    /* Object-fit: cover = fill container, crop if needed (prevents visible internal edges) */
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     z-index: -1;
     /* mix-blend-mode: screen makes black transparent and glows brighter */
     mix-blend-mode: screen;
-    /* Mask video content edges */
+    /* HEAVY BLUR VIGNETTE - Start fade extremely early (30%) for massive softness */
     -webkit-mask-image: radial-gradient(ellipse closest-side at center,
             black 0%,
-            black 60%,
-            rgba(0, 0, 0, 0.5) 80%,
-            rgba(0, 0, 0, 0.1) 95%,
+            black 30%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(0, 0, 0, 0.1) 85%,
             transparent 100%);
     mask-image: radial-gradient(ellipse closest-side at center,
             black 0%,
-            black 60%,
-            rgba(0, 0, 0, 0.5) 80%,
-            rgba(0, 0, 0, 0.1) 95%,
+            black 30%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(0, 0, 0, 0.1) 85%,
             transparent 100%);
 }
 
