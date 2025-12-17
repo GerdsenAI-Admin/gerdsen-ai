@@ -812,9 +812,27 @@ footer {
 /* Services Grid */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 60px;
+    justify-content: center;
+    justify-items: center;
+}
+
+/* Tablet: force 2 columns, centered */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(280px, 400px));
+        justify-content: center;
+    }
+}
+
+/* Desktop: 3 columns max for better readability */
+@media (min-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(3, minmax(300px, 420px));
+        justify-content: center;
+    }
 }
 
 .service-card h3 {
@@ -888,6 +906,7 @@ footer {
     margin-bottom: 1.5rem;
     background: -webkit-linear-gradient(45deg, #007AFF, #5856D6);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
 }
@@ -965,6 +984,30 @@ footer {
 .nav-link:hover::after {
     transform: scaleX(1);
     transform-origin: left;
+}
+
+/* Tablet: icons only in nav (no text) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .nav-link {
+        padding: 8px 12px;
+        font-size: 1.25rem;
+    }
+
+    /* Hide text, show only icon */
+    .nav-link i {
+        margin-right: 0;
+    }
+
+    /* Use :not selector to hide text but keep icon */
+    .nav-link {
+        font-size: 0;
+        /* Hide text */
+    }
+
+    .nav-link i {
+        font-size: 1.25rem;
+        /* Show icon at normal size */
+    }
 }
 
 /* Mobile Menu */

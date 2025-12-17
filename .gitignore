@@ -66,3 +66,27 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .venv/
+
+# Internal documentation (not public-facing)
+.docs/
+.agent/
+CLAUDE.md
+WEBSITE_ANALYSIS.md
+WEBSITE_FEEDBACK.md
+RESPONSIVE_ANALYSIS.md
+FINAL_RECOMMENDATIONS.md
+DEPLOYMENT_GUIDE.md
+CONTACT_FORM_SETUP.md
+JEKYLL_SETUP.md
+video-upscale-solution.md
+
+# Test files and development artifacts
+fixes/
+*-test.html
+*-test.js
+test-*.js
+test-*.html
+*-diagnostic.js
+*-solution.md
+responsive-improvements.css
+builder.config.json
