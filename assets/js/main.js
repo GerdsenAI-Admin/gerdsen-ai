@@ -596,6 +596,18 @@ function initResponsiveScaling() {
             document.body.classList.toggle('mobile-device', newIsMobile);
             document.body.classList.toggle('ultrawide-device', newIsUltrawide);
 
+            // Force video element to recalculate dimensions on resize
+            const video = document.querySelector('.background-video');
+            if (video) {
+                const currentTime = video.currentTime;
+                const wasPlaying = !video.paused;
+                video.load();
+                video.currentTime = currentTime;
+                if (wasPlaying) {
+                    video.play().catch(() => { }); // Ignore autoplay errors
+                }
+            }
+
             // Ensure mobile content remains visible
             if (newIsMobile) {
                 // Removed forced visibility to allow scroll animation

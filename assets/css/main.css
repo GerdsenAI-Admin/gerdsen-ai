@@ -496,15 +496,25 @@ nav * {
             rgba(0, 0, 0, 0.95) 100%);
 }
 
-/* Video Background Container with Edge Feathering */
+/* Video Background Container - Sized to 90% of visible area below navbar */
 .video-container {
     position: absolute;
-    top: -80px;
-    left: 0;
-    width: 100%;
-    height: calc(100% + 80px);
+    /* Center the container */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 90% of viewport height minus navbar (~80px) */
+    width: 90%;
+    height: calc(90vh - 72px);
+    /* 90% of (100vh - 80px navbar) */
+    max-width: 1600px;
+    /* Cap width on very wide screens */
     z-index: 10;
-    overflow: hidden;
+    overflow: visible;
+    /* Allow video to be visible */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Edge feathering overlay - start transparent */
@@ -533,18 +543,11 @@ nav * {
 }
 
 .background-video {
-    position: absolute;
-    inset: 0;
-    /* Fills the container completely - no transform needed */
+    /* Object-fit: contain = scale video down to fit without cropping */
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    /* Centers the video content */
+    object-fit: contain;
     z-index: -1;
-    /* Soften edges to blend with black background */
-    -webkit-mask-image: radial-gradient(ellipse 75% 80% at center, black 70%, transparent 100%);
-    mask-image: radial-gradient(ellipse 75% 80% at center, black 70%, transparent 100%);
 }
 
 /* Neural G Video Blur and Dim Effect on Scroll */
@@ -554,35 +557,31 @@ nav * {
 }
 
 /* Dynamic scaling for all screen sizes */
+/* Standard Aspect Ratio Video Sizing */
 @media (min-aspect-ratio: 16/9) {
 
-    /* Wide screens - scale to fill height */
+    /* Wide screens - just ensure cover */
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        transform: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
 @media (max-aspect-ratio: 16/9) {
 
-    /* Tall screens - scale to fill width */
+    /* Tall screens - just ensure cover */
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        transform: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
 /* Ultra-wide screens optimization */
+/* Ultra-wide screens optimization */
 @media (min-aspect-ratio: 21/9) {
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        object-position: center center;
+        width: 100%;
+        height: 100%;
     }
 
     /* Scale down content for ultrawide aspect ratios */
@@ -600,14 +599,8 @@ nav * {
 /* Mobile optimization */
 @media (max-width: 768px) {
     .background-video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        object-position: center center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: none !important;
+        width: 100%;
+        height: 100%;
     }
 
     /* Ensure mobile content is visible immediately */
@@ -638,11 +631,10 @@ nav * {
 /* Portrait mobile optimization */
 @media (max-width: 768px) and (orientation: portrait) {
     .background-video {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center center;
-        transform: none !important;
     }
 
     .hero-section {
@@ -848,6 +840,14 @@ footer {
 }
 
 /* Industries Grid */
+#industries {
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.6) 5%,
+            rgba(0, 0, 0, 0.8) 15%,
+            rgba(0, 0, 0, 0.9) 100%);
+}
+
 .industries-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1368,8 +1368,8 @@ footer {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -1619,14 +1619,14 @@ footer {
 }
 
 .mobile-device .background-video {
-    width: 100vw !important;
-    height: 100vh !important;
+    /* Maintain robust centering on mobile */
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover !important;
-    object-position: center !important;
-    transform: none !important;
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
+    transform: none !important;
 }
 
 .ultrawide-device .hero-content {
@@ -1636,11 +1636,10 @@ footer {
 }
 
 .ultrawide-device .background-video {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center center;
-    transform: none !important;
 }
 
 /* Force immediate visibility on mobile */
@@ -1656,12 +1655,11 @@ footer {
     }
 
     /* Ensure video never uses complex transforms on mobile */
+    /* Ensure video stays centered on mobile */
     .background-video {
         transform: none !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        object-fit: cover !important;
-        position: absolute !important;
+        width: 100% !important;
+        height: 100% !important;
         top: 0 !important;
         left: 0 !important;
     }
@@ -1687,17 +1685,8 @@ footer {
 }
 
 /* Video Vignette Overlay - Enhanced */
-.video-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.9) 100%);
-    z-index: 2;
-}
+/* Video Vignette Overlay - REMOVED for clarity/contrast */
+/* .video-container::after { ... } rule deleted */
 
 /* Trust Signals */
 .trust-signals {
@@ -1963,8 +1952,8 @@ li {
     /* Optimize video for mobile */
     .background-video {
         /* Simplified scaling for mobile performance */
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center;
         /* Remove complex transforms for mobile */
@@ -2040,12 +2029,10 @@ li {
     }
 
     /* Ensure video covers ultra-wide screens */
+    /* Ensure video covers ultra-wide screens */
     .background-video {
-        width: 100vw;
-        min-width: 100%;
-        height: 100vh;
-        object-fit: cover;
-        transform: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -2057,10 +2044,9 @@ li {
     }
 
     .background-video {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        transform: none;
     }
 
     /* Only override necessary properties for ultrawide */
@@ -2512,7 +2498,7 @@ li {
     }
 
     .video-container {
-        max-height: 1080px;
+        /* max-height: 1080px; - REMOVED to prevent clipping on large screens */
         overflow: hidden;
     }
 }
