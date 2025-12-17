@@ -534,18 +534,17 @@ nav * {
 
 .background-video {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    /* Fills the container completely - no transform needed */
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center center;
+    /* Centers the video content */
     z-index: -1;
     /* Soften edges to blend with black background */
-    -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
-    mask-image: radial-gradient(circle, black 80%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 80% at center, black 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 75% 80% at center, black 70%, transparent 100%);
 }
 
 /* Neural G Video Blur and Dim Effect on Scroll */
@@ -1678,12 +1677,7 @@ footer {
 
 /* Ensure ultrawide compatibility */
 @media (min-width: 2560px) {
-    .background-video {
-        width: 100vw !important;
-        height: 100vh !important;
-        object-fit: cover !important;
-        transform: none !important;
-    }
+
 
     .hero-content {
         opacity: 1 !important;
