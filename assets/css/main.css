@@ -498,28 +498,20 @@ nav * {
 }
 
 /* Video Background Container - Sized to 90% of visible area below navbar */
+/* Video Background Container - FULL SIZE to prevent visible box edges */
 .video-container {
     position: absolute;
-    /* Center the container */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* 90% of viewport height minus navbar (~80px) */
-    width: 90%;
-    height: calc(90vh - 72px);
-    /* 90% of (100vh - 80px navbar) */
-    max-width: 1600px;
-    /* Cap width on very wide screens */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 10;
-    overflow: visible;
-    /* Allow video to be visible */
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Removed mix-blend-mode: screen - it broke layout */
 }
 
-/* Edge feathering overlay - start transparent */
 .video-container::before {
     content: '';
     position: absolute;
@@ -533,7 +525,6 @@ nav * {
     transition: all 0.6s ease;
 }
 
-/* Add feathering on scroll - disabled for transparency */
 .hero-section.scrolled .video-container::before {
     background: transparent;
 }
@@ -546,17 +537,17 @@ nav * {
     z-index: -1;
     /* mix-blend-mode: screen makes black transparent and glows brighter */
     mix-blend-mode: screen;
-    /* 80% ellipse cuts off corners, fade only outer 30% of ellipse */
-    -webkit-mask-image: radial-gradient(ellipse 80% 80% at center,
+    /* Mask video content edges */
+    -webkit-mask-image: radial-gradient(ellipse closest-side at center,
             black 0%,
-            black 70%,
-            rgba(0, 0, 0, 0.4) 85%,
+            black 60%,
+            rgba(0, 0, 0, 0.5) 80%,
             rgba(0, 0, 0, 0.1) 95%,
             transparent 100%);
-    mask-image: radial-gradient(ellipse 80% 80% at center,
+    mask-image: radial-gradient(ellipse closest-side at center,
             black 0%,
-            black 70%,
-            rgba(0, 0, 0, 0.4) 85%,
+            black 60%,
+            rgba(0, 0, 0, 0.5) 80%,
             rgba(0, 0, 0, 0.1) 95%,
             transparent 100%);
 }
