@@ -82,6 +82,17 @@ function initParallaxParticlesBackground() {
             // No longer forcing visible immediately - allowing scroll effect
         }
 
+        // SHOW PARTICLES AND FIREFLIES IMMEDIATELY ON PAGE LOAD
+        if (particlesBg && !particlesShown) {
+            particlesBg.classList.add('show');
+            particlesShown = true;
+        }
+        if (fireflyContainer && !firefliesShown) {
+            fireflyContainer.classList.add('show');
+            firefliesShown = true;
+            createFireflies();
+        }
+
         // Scroll to top to ensure consistent starting position
         window.scrollTo(0, 0);
     }
