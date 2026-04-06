@@ -1,86 +1,54 @@
-# GERDSEN AI Website Deployment Guide
+# GerdsenAI Website
 
-## Quick Setup for GitHub Pages
+Corporate website for Gerdsen AI, built with Vite, React, and Tailwind CSS.
 
-### 1. Create GitHub Repository
-1. Go to https://github.com/new
-2. Name it: `gerdsen-ai` or `gerdsen-ai-website`
-3. Make it PUBLIC (required for free GitHub Pages)
-4. Don't initialize with README
+## Tech Stack
 
-### 2. Push Website to GitHub
+- **Frontend:** React 19, TypeScript, Tailwind CSS 4, Framer Motion, shadcn/ui
+- **Server:** Express (production static file server)
+- **Build:** Vite 7, esbuild
+- **Routing:** Wouter (client-side SPA)
+- **Package Manager:** pnpm
+
+## Development
+
 ```bash
-cd "/Users/gerdsenai/Documents/__Gerdsen AI LLC/gerdsen-ai-website"
-git init
-git add .
-git commit -m "Initial website for GERDSEN AI"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/gerdsen-ai.git
-git push -u origin main
+pnpm install
+pnpm dev
 ```
 
-### 3. Enable GitHub Pages
-1. Go to your repo → Settings → Pages
-2. Source: Deploy from a branch
-3. Branch: main
-4. Folder: / (root)
-5. Click Save
+The dev server starts at `http://localhost:3000`.
 
-### 4. Configure Custom Domain (gerdsen.ai)
-1. In GitHub Pages settings, add custom domain: `gerdsen.ai`
-2. Check "Enforce HTTPS"
+## Build & Preview
 
-### 5. Configure DNS (at your domain registrar)
-Add these DNS records:
-
-**Option A - Using APEX domain (gerdsen.ai):**
-```
-Type: A
-Name: @
-Value: 185.199.108.153
----
-Type: A
-Name: @
-Value: 185.199.109.153
----
-Type: A
-Name: @
-Value: 185.199.110.153
----
-Type: A
-Name: @
-Value: 185.199.111.153
+```bash
+pnpm build
+pnpm preview
 ```
 
-**Option B - Using www subdomain:**
-```
-Type: CNAME
-Name: www
-Value: YOUR_USERNAME.github.io
-```
+## Production
 
-### 6. Add CNAME file to repo
-Create a file named `CNAME` (no extension) with:
-```
-gerdsen.ai
+```bash
+pnpm build
+pnpm start
 ```
 
-### 7. Wait for DNS Propagation
-- DNS changes can take 24-48 hours
-- GitHub will show a green checkmark when ready
-- Your site will be live at https://gerdsen.ai
+Runs the Express server serving the built static files.
 
-## Website Features
-- ✅ Professional design with Tailwind CSS
-- ✅ Mobile responsive
-- ✅ Clear value proposition
-- ✅ Services showcase
-- ✅ Contact information
-- ✅ Professional business presence
-- ✅ Privacy-focused messaging
+## Deployment
 
-## For GitHub for Startups Application
-Once live, you can use `https://gerdsen.ai` as your company website!
+Deployed to GitHub Pages via the workflow in `.github/workflows/deploy-vite.yml`. Pushes to `main` trigger automatic deployment to [gerdsen.ai](https://gerdsen.ai).
 
-## Need Changes?
-Edit `index.html` and push to GitHub - changes deploy automatically.
+## Project Structure
+
+```
+client/           # Frontend application
+  src/
+    components/   # React components (sections, UI)
+    contexts/     # Theme context provider
+    hooks/        # Custom React hooks
+    lib/          # Utility functions
+    pages/        # Page components (Home, NotFound)
+server/           # Express production server
+shared/           # Shared constants
+```
