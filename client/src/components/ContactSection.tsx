@@ -42,7 +42,8 @@ export default function ContactSection() {
       } else {
         setFormState("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Contact form submission failed:", err);
       setFormState("error");
     }
   };
@@ -144,6 +145,7 @@ export default function ContactSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     type="text"

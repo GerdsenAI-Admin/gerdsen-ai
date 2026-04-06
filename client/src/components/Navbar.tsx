@@ -28,8 +28,12 @@ export default function Navbar() {
 
   const handleClick = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    try {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } catch {
+      // Invalid selector — skip scroll
+    }
   };
 
   return (
@@ -83,7 +87,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setMobileOpen(prev => !prev)}
           className="lg:hidden text-zinc-400 hover:text-zinc-100 p-2"
           aria-label="Toggle menu"
         >
