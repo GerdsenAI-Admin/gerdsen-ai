@@ -90,3 +90,6 @@ test-*.html
 *-solution.md
 responsive-improvements.css
 builder.config.json
+.DS_Store
+assets/.DS_Store
+assets/images/.DS_Store
