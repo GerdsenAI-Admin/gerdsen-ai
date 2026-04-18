@@ -1,1466 +1,562 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Full-Stack AI Systems | Metal to Model, Edge, Robotics | GERDSEN AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#04070e">
+    <meta name="color-scheme" content="dark">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <title>Full-Stack AI Systems | From Metal to Model | GERDSEN AI</title>
     <meta name="description"
-        content="GERDSEN AI engineers full-stack AI systems from metal to model: desktop apps, RAG/vector databases, model training, computer vision, robotics, and edge deployment. Headquartered in Lafayette, LA, serving clients nationwide.">
+        content="From spreadsheet to agentic flow, from edge to cloud, GERDSEN AI builds full-stack AI systems across apps, agents, MCP servers, RAG/vector databases, computer vision, robotics, and local deployment.">
     <meta name="keywords"
-        content="Anduril Lattice integration, Anduril Lattice developer, Anduril defense, Ghost Robotics, Vision 60, Vision 40, Robotician Rooster, LiDAR AI, Zed X camera, ZED stereoscopic camera, stereoscopic depth, Depth Anything, depth estimation AI, Edge AI solutions, Edge AI deployment, Edge AI consulting, robotics AI, ROS2 development, ROS 2 integration, computer vision AI, SCADA automation, oilfield SCADA, teleoperation systems, drone AI, UAV artificial intelligence, Foxglove visualization, defense AI contractor, CMMC compliant AI, law enforcement AI, home security AI, GIS AI solutions, ArcGIS integration, Choraquest GIS, Mike Sandoz, Cajun AI developer, Lafayette AI consulting, Louisiana AI, text to speech AI, speech to text AI, TTS STT, translation AI, image recognition, object detection, Excel automation, Excel to AI conversion, spreadsheet to AI, workflow automation, AI workflow automation, AI provider migration, rapid AI deployment, on-demand AI consulting, TensorRT optimization, behavior trees, Docker ROS2, non-profit AI tools, AI consultant">
+        content="full-stack AI systems, MCP servers, desktop app development, agent development, spreadsheet to pipeline, agentic flow, RAG, vector database, model training, computer vision, robotics, ROS2, edge AI, local deployment, private AI systems, NVIDIA Jetson, Anduril Lattice">
 
-    <!-- Performance Optimization -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="canonical" href="https://gerdsen.ai/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="assets/css/main.css" as="style">
-    <link rel="preload" href="assets/images/Neural_G_1b.mp4" as="video" type="video/mp4" media="(min-width: 768px)">
-    <link rel="preload" href="assets/images/Neural_G_1c.mp4" as="video" type="video/mp4" media="(max-width: 767px)">
+    <link rel="preload" href="assets/images/hero/hero-poster.jpg" as="image" fetchpriority="high">
 
-    <!-- Apple-style Meta Tags -->
-    <meta name="theme-color" content="#000000">
-
-    <!-- OpenGraph Tags for Social Sharing -->
-    <meta property="og:title" content="Full-Stack AI Systems | Metal to Model, Edge, Robotics | GERDSEN AI">
+    <meta property="og:title" content="Full-Stack AI Systems | From Metal to Model | GERDSEN AI">
     <meta property="og:description"
-        content="From desktop apps and RAG/vector DB systems to model training, computer vision, robotics, and edge deployment, GERDSEN AI builds full-stack AI systems that work in the real world.">
+        content="From spreadsheet to agentic flow, from edge to cloud, GERDSEN AI builds full-stack AI systems that connect models, operators, apps, MCP servers, and deployment.">
     <meta property="og:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://gerdsen.ai/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="GERDSEN AI">
-    <meta property="og:see_also" content="https://github.com/GerdsenAI">
-    <meta property="og:see_also" content="https://www.linkedin.com/company/gerdsenai/">
 
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Full-Stack AI Systems | GERDSEN AI">
     <meta name="twitter:description"
-        content="From metal to model: desktop apps, RAG/vector DB, model training, computer vision, robotics, and edge AI systems built for real operations.">
+        content="From spreadsheet to agentic flow, from edge to cloud: full-stack AI systems with apps, agents, MCP, computer vision, robotics, and local deployment.">
     <meta name="twitter:image" content="https://gerdsen.ai/assets/images/og-share-image.jpg">
-    <meta name="twitter:site" content="@gerdsenai">
-    <meta name="twitter:creator" content="@gerdsenai">
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://gerdsen.ai/">
-
-    <!-- External CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Custom CSS -->
+    <link rel="icon" type="image/png" href="assets/images/brand/neural-g-mark.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/gerdsen-ai-logo.png">
+    <script>document.documentElement.classList.add('js');</script>
 
-    <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "ProfessionalService", "TechnologyCompany"],
+        "@type": ["Organization", "ProfessionalService", "TechnologyCompany"],
         "name": "GERDSEN AI LLC",
         "alternateName": ["GERDSEN AI", "Gerdsen AI", "GerdsenAI"],
-        "description": "Full-stack AI systems engineering from metal to model, including desktop apps, RAG and vector databases, model training, computer vision, robotics, ROS2, and edge deployment. Headquartered in Lafayette, LA, serving clients nationwide.",
         "url": "https://gerdsen.ai",
-        "logo": "https://gerdsen.ai/assets/images/gerdsen-ai-logo.png",
+        "logo": "https://gerdsen.ai/assets/images/brand/neural-g-mark.png",
         "image": "https://gerdsen.ai/assets/images/og-share-image.jpg",
-        "telephone": "",
+        "description": "GERDSEN AI engineers full-stack AI systems from metal to model, from spreadsheet to agentic flow, including desktop apps, agents, MCP servers, RAG and vector databases, model training, computer vision, robotics, ROS2, local deployment, and edge-to-cloud integration.",
         "email": "info@gerdsen.ai",
         "foundingDate": "2025",
-        "legalName": "GERDSEN AI LLC",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Lafayette",
             "addressRegion": "Louisiana",
-            "addressCountry": "US",
-            "postalCode": "70508"
+            "addressCountry": "US"
         },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "30.2241",
-            "longitude": "-92.0198"
+        "areaServed": {
+            "@type": "Country",
+            "name": "United States"
         },
-        "areaServed": [
-            {
-                "@type": "Country",
-                "name": "United States"
-            },
-            {
-                "@type": "State",
-                "name": "Louisiana"
-            },
-            {
-                "@type": "City",
-                "name": "Lafayette"
-            }
-        ],
         "serviceType": [
-            "Anduril Lattice Integration",
-            "Anduril Lattice Development",
-            "Edge AI Development",
-            "Edge AI Deployment",
-            "Robotics AI Solutions",
-            "ROS2 Development",
-            "ROS 2 Integration",
-            "Computer Vision AI",
-            "Object Detection Systems",
-            "Image Recognition",
-            "SCADA Automation",
-            "Oilfield SCADA AI",
-            "Teleoperation Systems",
-            "Drone AI Development",
-            "UAV Artificial Intelligence",
-            "Foxglove Visualization",
-            "Defense AI Contractor",
-            "CMMC Compliant AI",
-            "Law Enforcement AI",
-            "Home Security AI",
-            "GIS AI Solutions",
-            "ArcGIS Integration",
-            "Text to Speech AI",
-            "Speech to Text AI",
-            "Translation AI",
-            "Excel Automation",
-            "Spreadsheet to AI Conversion",
-            "AI Workflow Automation",
-            "AI Provider Migration",
-            "Rapid AI Deployment",
-            "On-Demand AI Consulting",
-            "TensorRT Optimization",
-            "Non-Profit AI Tools",
-            "AI Consulting"
+            "App Development",
+            "Agent Development",
+            "MCP Server Development",
+            "Desktop Apps and Operator Tools",
+            "Spreadsheet to Pipeline Automation",
+            "RAG and Vector Database Systems",
+            "Model Training",
+            "Computer Vision",
+            "Robotics and Edge Deployment",
+            "Systems Architecture and Integration"
         ],
         "knowsAbout": [
-            "Anduril Lattice",
-            "Edge AI",
+            "Desktop Applications",
+            "AI Agents",
+            "MCP",
+            "MCP Servers",
+            "RAG",
+            "Vector Databases",
+            "Model Training",
+            "Computer Vision",
             "Robotics",
             "ROS2",
-            "ROS 2",
-            "Computer Vision",
-            "SCADA",
-            "Oilfield Automation",
-            "Teleoperation",
-            "Drones",
-            "UAV",
-            "Foxglove",
-            "Defense AI",
-            "CMMC Compliance",
-            "Law Enforcement Technology",
-            "Home Security",
-            "GIS",
-            "ArcGIS",
-            "Choraquest GIS",
-            "Text to Speech",
-            "Speech to Text",
-            "TTS",
-            "STT",
-            "Translation",
-            "Image Recognition",
-            "Object Detection",
-            "Excel Automation",
-            "Machine Learning",
-            "Deep Learning",
-            "Neural Networks",
-            "PyTorch",
-            "TensorFlow",
             "NVIDIA Jetson",
-            "Edge Computing",
-            "Anduril",
-            "Ghost Robotics",
-            "Vision 60",
-            "Vision 40",
-            "Robotician Rooster",
-            "LiDAR",
-            "Zed X",
-            "ZED Camera",
-            "Stereoscopic Camera",
-            "Depth Anything",
-            "Depth Estimation",
-            "TensorRT",
-            "Behavior Trees",
-            "Docker",
-            "Kubernetes",
-            "gRPC",
-            "Spreadsheet Automation",
-            "AI Workflow Automation",
-            "Provider Migration"
+            "Anduril Lattice",
+            "Edge Deployment",
+            "Local AI Deployment",
+            "Private AI Systems",
+            "Workflow Automation"
         ],
-        "priceRange": "$$",
-        "paymentAccepted": ["Cash", "Check", "Invoice", "Credit Card"],
-        "currenciesAccepted": "USD",
-        "openingHours": "Mo-Fr 08:00-17:00",
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "AI Services",
-            "itemListElement": [
-                {
-                    "@type": "Offer",
-                    "name": "Anduril Lattice Integration",
-                    "description": "Custom integrations with Anduril Lattice platform for defense and security applications"
-                },
-                {
-                    "@type": "Offer",
-                    "name": "Edge AI & Robotics",
-                    "description": "ROS2-based robotics, computer vision, and Edge AI deployment on NVIDIA Jetson platforms"
-                },
-                {
-                    "@type": "Offer",
-                    "name": "SCADA & Industrial AI",
-                    "description": "AI-powered SCADA systems for oilfield, energy, and industrial automation"
-                },
-                {
-                    "@type": "Offer",
-                    "name": "Custom AI Development",
-                    "description": "Bespoke AI solutions including computer vision, NLP, speech recognition, and automation"
-                }
-            ]
-        },
         "sameAs": [
             "https://github.com/GerdsenAI",
             "https://www.linkedin.com/company/gerdsenai/"
         ],
-        "partner": [
-            {
-                "@type": "Organization",
-                "name": "Choraquest",
-                "url": "https://choraquest.com",
-                "description": "GIS and mapping solutions partner"
-            }
-        ],
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "customer service",
-            "email": "info@gerdsen.ai",
-            "availableLanguage": "English",
-            "areaServed": "United States"
-        },
-        "slogan": "Expert AI Solutions: Edge AI, Robotics, Computer Vision, Defense Integrations",
-        "keywords": "Anduril Lattice, Edge AI, ROS2, robotics, computer vision, SCADA, teleoperation, drones, Foxglove, defense AI, CMMC, law enforcement AI, home security, GIS, ArcGIS, Choraquest, Mike Sandoz, Cajun AI, text to speech, speech to text, image recognition, Lafayette LA, Louisiana AI consultant, GitHub GerdsenAI, LinkedIn GERDSEN AI"
+        "slogan": "From spreadsheet to agentic flow, from edge to cloud."
     }
     </script>
 </head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-<body class="antialiased">
-    <!-- Animated Smoke Background -->
-    <div class="particles-background" id="particles-bg">
-        <div class="smoke-layer"></div>
-        <div class="smoke-layer"></div>
-        <div class="smoke-layer"></div>
-    </div>
+    <header class="site-header" id="top">
+        <div class="nav-shell">
+            <a class="brand" href="#home">
+                <img src="assets/images/brand/neural-g-mark.png" width="42" height="37" alt="" aria-hidden="true">
+                <span>GERDSEN AI</span>
+            </a>
 
-    <!-- Steam/Smoke Layer -->
-    <div class="steam-layer" id="steam-layer"></div>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Toggle navigation">
+                <span class="hamburger-bar" aria-hidden="true"></span>
+                <span class="hamburger-bar" aria-hidden="true"></span>
+                <span class="hamburger-bar" aria-hidden="true"></span>
+            </button>
 
-    <!-- Cloud/Fog Layer -->
-    <div class="cloud-layer" id="cloud-layer"></div>
-
-    <!-- Firefly Particles Container -->
-    <div class="firefly-container" id="firefly-container"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <a href="#home" class="nav-logo hover:text-blue-400 transition-colors">GerdsenAI</a>
+            <nav class="site-nav" aria-label="Primary">
+                <div class="nav-links" id="site-menu">
+                    <a href="#applications">Applications</a>
+                    <a href="#architecture">Architecture</a>
+                    <a href="#field-systems">Field Systems</a>
+                    <a href="#recognition">Recognition</a>
+                    <a href="#services">Services</a>
+                    <a href="#how-we-work">How We Work</a>
+                    <a href="#contact">Contact</a>
+                    <a class="nav-cta" href="#contact">Contact Us</a>
+                    <a class="nav-external" href="https://github.com/GerdsenAI" target="_blank"
+                        rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
+                    <a class="nav-external" href="https://www.linkedin.com/company/gerdsenai/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
                 </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#services" class="nav-link">
-                        <i class="fas fa-code mr-2"></i>Services
-                    </a>
-                    <a href="#industries" class="nav-link">
-                        <i class="fas fa-city mr-2"></i>Industries
-                    </a>
-                    <a href="#how-we-work" class="nav-link">
-                        <i class="fas fa-handshake mr-2"></i>How We Work
-                    </a>
-                    <a href="#about" class="nav-link">
-                        <i class="fas fa-users mr-2"></i>About
-                    </a>
-                    <a href="#contact" class="nav-link">
-                        <i class="fas fa-envelope mr-2"></i>Contact
-                    </a>
-                    <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer" class="nav-link">
-                        <i class="fab fa-github mr-2"></i>GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/company/gerdsenai/" target="_blank" rel="noopener noreferrer"
-                        class="nav-link">
-                        <i class="fab fa-linkedin mr-2"></i>LinkedIn
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-white hover:text-blue-400 transition-colors"
-                        aria-label="Toggle mobile menu" aria-expanded="false">
-                        <div class="hamburger">
-                            <div class="line line1"></div>
-                            <div class="line line2"></div>
-                            <div class="line line3"></div>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-menu"
-                class="md:hidden mobile-menu-hidden overflow-hidden transition-all duration-300 ease-in-out">
-                <div class="px-2 pt-2 pb-3 space-y-1 bg-black bg-opacity-95 backdrop-blur-md rounded-lg mt-4">
-                    <a href="#services"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fas fa-code mr-2"></i>Services
-                    </a>
-                    <a href="#industries"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fas fa-city mr-2"></i>Industries
-                    </a>
-                    <a href="#how-we-work"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fas fa-handshake mr-2"></i>How We Work
-                    </a>
-                    <a href="#about"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fas fa-users mr-2"></i>About
-                    </a>
-                    <a href="#contact"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fas fa-envelope mr-2"></i>Contact
-                    </a>
-                    <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fab fa-github mr-2"></i>GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/company/gerdsenai/" target="_blank" rel="noopener noreferrer"
-                        class="mobile-nav-link block px-3 py-2 text-base font-medium text-white hover:text-blue-400 transition-colors">
-                        <i class="fab fa-linkedin mr-2"></i>LinkedIn
-                    </a>
-                </div>
-            </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section with Neural_G_5 Video Background - THE MAIN ATTRACTION -->
-    <section class="hero-section" data-video-section id="home">
-        <!-- Video Background -->
-        <div class="video-container">
-            <video autoplay muted loop playsinline preload="auto" class="background-video" data-video-parallax
-                aria-label="Abstract neural network animation background">
-                <!-- Ultrawide (2560px+) -->
-                <source src="assets/images/Neural_G_1a.mp4" type="video/mp4" media="(min-width: 2500px)">
+    <main id="main-content">
+        <section class="hero" id="home">
+            <div class="hero-shell">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">From metal to model</p>
+                    <h1>Full-Stack AI Systems.</h1>
+                    <p class="hero-summary">
+                        We turn disconnected workflows into deployable AI systems your team can actually use.
+                    </p>
+                    <p class="hero-detail">
+                        From spreadsheet to agentic flow, from edge to cloud, Gerdsen AI connects apps, operators, MCP
+                        servers, and deployment into one working system.
+                    </p>
 
-                <!-- Desktop (Landscape) -->
-                <source src="assets/images/Neural_G_1b.mp4" type="video/mp4" media="(min-width: 768px)">
-
-                <!-- Mobile (Portrait/Default) -->
-                <source src="assets/images/Neural_G_1c.mp4" type="video/mp4">
-
-                <!-- Fallback text -->
-                <p>Your browser does not support HTML5 video. The background shows an abstract neural network animation.
-                </p>
-            </video>
-        </div>
-
-
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <h1 class="hero-title" data-scroll-fade>
-                Full-Stack AI Systems
-            </h1>
-            <p class="hero-description" data-scroll-fade data-delay="200">
-                From <strong>metal to model</strong>, we engineer the connection layer between sensors, models,
-                operators, desktop software, robots, and edge infrastructure. GERDSEN AI builds <strong>desktop
-                    apps</strong>, <strong>RAG/vector DB systems</strong>, <strong>model training pipelines</strong>,
-                <strong>computer vision</strong>, and <strong>robotics deployments</strong> that work together in the
-                real world.
-            </p>
-            <div class="hero-buttons" data-scroll-fade data-delay="400">
-                <a href="#contact" class="button-primary">Discuss Your System</a>
-                <a href="#services" class="button-secondary">See Core Capabilities</a>
-            </div>
-            <!-- Trust Signals - Interactive -->
-            <div class="trust-signals" data-scroll-fade data-delay="600">
-                <div class="trust-items">
-                    <span class="trust-item modal-trigger" data-modal="startup-modal">Metal to Model</span>
-                    <span class="trust-item modal-trigger" data-modal="development-modal">Systems of Systems</span>
-                    <span class="trust-item modal-trigger" data-modal="louisiana-modal">Nationwide from Louisiana</span>
-                    <span class="trust-item modal-trigger" data-modal="entrepreneur-modal">Automate Anything</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modals -->
-    <div id="expertise-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-brain text-blue-500 mr-3"></i>Technical Expertise</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Full-stack expertise across the connection layer, model layer, and deployment
-                    layer. See our work on <a href="https://github.com/GerdsenAI" target="_blank"
-                        class="text-blue-400 hover:underline">GitHub</a>.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-robot mr-2"></i>Robotics & Edge
-                        </h4>
-                        <p class="text-sm text-gray-300">ROS2 packages, Jetson deployments, behavior trees,
-                            multi-sensor fusion, and real-time operator workflows for machines in the field.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#contact">Contact Us</a>
+                        <a class="button button-secondary" href="#recognition">See Proof</a>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-eye mr-2"></i>Computer Vision</h4>
-                        <p class="text-sm text-gray-300">Detection, tracking, OCR, depth, thermal and multispectral
-                            imaging, SLAM, and vision models optimized for deployment constraints.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-400 mb-2"><i class="fas fa-database mr-2"></i>RAG &
-                            Vector DB</h4>
-                        <p class="text-sm text-gray-300">Retrieval systems, embeddings, document indexing, knowledge
-                            orchestration, and data pipelines that keep AI grounded in your operational context.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-desktop mr-2"></i>Desktop Apps
-                            & Automation</h4>
-                        <p class="text-sm text-gray-300">Operator-facing desktop tools, workflow automation,
-                            behind-the-scenes integrations, and human-in-the-loop systems that make AI useful.</p>
+
+                    <div class="proof-strip" aria-label="Selected proof points">
+                        <article class="proof-item">
+                            <p class="proof-label">Open Robotics</p>
+                            <p>Open Robotics publicly highlighted our ROS2 and Depth Anything 3 integration work.</p>
+                        </article>
+                        <article class="proof-item">
+                            <p class="proof-label">Pipelines + MCP</p>
+                            <p>Spreadsheet-to-agent flow, tool use, and MCP servers that make systems talk.</p>
+                        </article>
+                        <article class="proof-item">
+                            <p class="proof-label">Private / Local AI</p>
+                            <p>On-device, on-prem, and hybrid deployment when privacy, latency, or uptime matter.</p>
+                        </article>
+                        <article class="proof-item">
+                            <p class="proof-label">Field + Edge</p>
+                            <p>Jetson, rover, and perception systems built for field operators and edge constraints.</p>
+                        </article>
                     </div>
                 </div>
 
-                <div class="bg-blue-900 bg-opacity-30 p-4 rounded-lg border border-blue-500">
-                    <p class="text-sm"><strong>Stack:</strong> NVIDIA Jetson, ROS2, Python/C++, OpenCV, PyTorch,
-                        vector databases, desktop app tooling, cloud services, and secure local runtimes.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="hero-media reveal" style="--reveal-delay: 140ms;">
+                    <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+                        poster="assets/images/hero/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+                        <source src="assets/images/hero/hero-loop-transparent.webm" type="video/webm">
+                        <source src="assets/images/hero/hero-loop-dark.mp4" type="video/mp4">
+                    </video>
 
-    <div id="deployment-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-server text-purple-500 mr-3"></i>Desktop, Edge & Cloud</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Deploy AI where it fits your operators and hardware: on the desktop, at the
-                    edge, in the cloud, or across all three.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-desktop mr-2"></i>Desktop</h4>
-                        <p class="text-sm text-gray-300">Operator tools, analyst interfaces, local utilities, and
-                            secure apps that bring AI into day-to-day workflows.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-microchip mr-2"></i>Edge</h4>
-                        <p class="text-sm text-gray-300">Jetson hardware, local inference, sensor integration,
-                            air-gapped systems, and robotics-ready runtimes.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-network-wired mr-2"></i>Hybrid
-                        </h4>
-                        <p class="text-sm text-gray-300">Shared context across desktop apps, APIs, vector stores,
-                            training infrastructure, and deployed machines.</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold mb-3 text-purple-400">Real-World Constraints:</h3>
-                <ul class="space-y-2">
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-wifi text-yellow-500 mt-1"></i>
-                        <span><strong>Connectivity:</strong> Works offline or with intermittent connections</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-user-cog text-yellow-500 mt-1"></i>
-                        <span><strong>Operators:</strong> Built for real users, not just backend demos</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-lock text-yellow-500 mt-1"></i>
-                        <span><strong>Security:</strong> Local and air-gapped options when data cannot leave the
-                            site</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Industries Section -->
-    <div id="industries" class="py-24 relative z-20">
-        <div class="container mx-auto px-6">
-            <h2 class="section-title text-center mb-16" data-aos="fade-up">Powering America's Key Industries</h2>
-            <div class="industries-grid">
-                <!-- Oil & Gas -->
-                <div class="industry-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-oil-well industry-icon"></i>
-                    <h3>Energy & Oil/Gas</h3>
-                    <p>Edge AI for remote inspection, predictive maintenance on offshore assets, and real-time anomaly
-                        detection. Local and cloud AI pipelines for secure, on-premise deployment.</p>
-                </div>
-
-                <!-- Construction -->
-                <div class="industry-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-hard-hat industry-icon"></i>
-                    <h3>Construction</h3>
-                    <p>Computer vision for safety compliance, automated site monitoring, and AI-powered resource
-                        optimization. Partnered with Chase Group Construction for Gulf Coast harsh-environment
-                        deployments.</p>
-                </div>
-
-                <!-- Defense & Security -->
-                <div class="industry-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-shield-alt industry-icon"></i>
-                    <h3>Defense & Robotics</h3>
-                    <p>Anduril Lattice SDK integrations, heterogeneous fleet coordination (UGV, UAV, rovers),
-                        ROS2-to-Lattice bridge, and air-gapped AI deployments for government contractors.</p>
-                </div>
-
-                <!-- Automation & Enterprise -->
-                <div class="industry-card" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fas fa-cogs industry-icon"></i>
-                    <h3>Automation & Enterprise</h3>
-                    <p>Desktop apps, RAG/vector DB systems, automated workflows, and real-time AI pipelines that
-                        connect legacy operations to modern intelligent software.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- How We Work Section -->
-    <section id="how-we-work" class="content-section">
-        <div class="section-content">
-            <h2 class="section-title" data-scroll-fade>How We Work</h2>
-            <p class="text-center text-gray-400 max-w-2xl mx-auto mb-12" data-scroll-fade data-delay="100">
-                Flexible engagement models based on your project scope and timeline.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" data-scroll-fade data-delay="200">
-                <!-- Project -->
-                <div class="service-card text-center">
-                    <div class="text-4xl mb-6 text-blue-500">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Project</h3>
-                    <p class="text-gray-400 text-sm">Fixed-scope deliverable with clear milestones. Best for specific
-                        integrations or custom builds.</p>
-                </div>
-
-                <!-- Consulting -->
-                <div class="service-card text-center">
-                    <div class="text-4xl mb-6 text-green-500">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Consulting</h3>
-                    <p class="text-gray-400 text-sm">On-demand expertise for a fixed period. Quick assessments,
-                        architecture reviews, or technical guidance.</p>
-                </div>
-
-                <!-- Integration Partner -->
-                <div class="service-card text-center">
-                    <div class="text-4xl mb-6 text-purple-500">
-                        <i class="fas fa-plug"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Integration Partner</h3>
-                    <p class="text-gray-400 text-sm">Connect desktop software, data systems, AI models, and robotics
-                        into one operating system.</p>
-                </div>
-            </div>
-
-            <!-- Rapid Capabilities -->
-            <div class="glass-effect rounded-2xl p-8 max-w-4xl mx-auto" data-scroll-fade data-delay="300">
-                <h3 class="text-xl font-semibold mb-6 text-center text-pink-400">We Can Mobilize On Moment's Notice</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="flex items-start space-x-3">
-                        <i class="fas fa-exchange-alt text-blue-500 mt-1 text-lg"></i>
-                        <span class="text-gray-300 text-sm">Replace brittle manual workflows with durable
-                            automations</span>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <i class="fas fa-desktop text-blue-500 mt-1 text-lg"></i>
-                        <span class="text-gray-300 text-sm">Build desktop apps for operators, analysts, and internal
-                            teams</span>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <i class="fas fa-database text-blue-500 mt-1 text-lg"></i>
-                        <span class="text-gray-300 text-sm">Stand up RAG and vector DB systems on your
-                            infrastructure</span>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <i class="fas fa-brain text-blue-500 mt-1 text-lg"></i>
-                        <span class="text-gray-300 text-sm">Train and deploy vision or multimodal models for real
-                            environments</span>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <i class="fas fa-robot text-blue-500 mt-1 text-lg"></i>
-                        <span class="text-gray-300 text-sm">Integrate robotics with ROS2, Jetson, and mission
-                            software</span>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <i class="fas fa-network-wired text-blue-500 mt-1 text-lg"></i>
-                        <span class="text-gray-300 text-sm">Connect APIs, sensors, databases, and human review
-                            loops</span>
+                    <div class="hero-media-caption">
+                        <p class="hero-media-label">Full-stack signal path</p>
+                        <p class="hero-media-note">Desktop, retrieval, agents, ROS2, and edge systems designed as one
+                            stack.</p>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="text-center mt-12">
-                <a href="#contact" class="button-primary magnetic">Start a Conversation</a>
-            </div>
-        </div>
-    </section>
-
-    <div id="production-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-rocket text-green-500 mr-3"></i>Robotics & Edge Deployment</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">We deploy AI where sensors, operators, and machines meet the real world.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-green-400">How We Deploy:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-microchip text-green-500 mt-1"></i>
-                            <span><strong>Edge Hardware:</strong> NVIDIA Jetson Xavier/Orin/Thor with custom Docker
-                                images and ROS2 packages</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-robot text-green-500 mt-1"></i>
-                            <span><strong>Robotics:</strong> ROS2 nodes, Foxglove dashboards, behavior trees for
-                                autonomous operation</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-eye text-green-500 mt-1"></i>
-                            <span><strong>Computer Vision:</strong> Vision and multimodal models tuned for constrained
-                                hardware and field conditions</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-desktop text-blue-500 mt-1"></i>
-                            <span><strong>Operator Interfaces:</strong> Desktop tools and dashboards that keep humans
-                                in the loop when needed</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-network-wired text-blue-500 mt-1"></i>
-                            <span><strong>Interoperability:</strong> Lattice, gRPC, APIs, and systems integration for
-                                multi-platform operations</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-database text-blue-500 mt-1"></i>
-                            <span><strong>Feedback Loops:</strong> Data ingestion, monitoring, retraining, and
-                                operational telemetry tied back into the stack</span>
-                        </div>
-                    </div>
+        <section class="section" id="applications">
+            <div class="section-shell">
+                <div class="section-intro reveal">
+                    <p class="eyebrow">Applications</p>
+                    <h2 class="section-title">Frontier-ready systems, approachable delivery.</h2>
+                    <p class="section-lead">
+                        The company story stays broad without sounding vague: operator software, AI pipelines, MCP,
+                        grounded knowledge systems, and edge deployment patterns that adapt to the real stack around
+                        them.
+                    </p>
                 </div>
 
-                <div class="bg-green-900 bg-opacity-30 p-4 rounded-lg border border-green-500">
-                    <p class="text-sm"><strong>Metal to Model:</strong> We handle the path from physical hardware and
-                        deployment constraints to the model and the software that surrounds it.</p>
+                <div class="applications-grid">
+                    <article class="application-card reveal">
+                        <p class="application-kicker">Operator software</p>
+                        <h3>Desktop Apps &amp; Operator Tools</h3>
+                        <p>
+                            Purpose-built analyst, mission, and internal workflow software that exposes AI to real
+                            users instead of trapping value in the backend.
+                        </p>
+                    </article>
+
+                    <article class="application-card reveal" style="--reveal-delay: 80ms;">
+                        <p class="application-kicker">Connection layer</p>
+                        <h3>AI Pipelines &amp; MCP</h3>
+                        <p>
+                            Spreadsheet to pipeline conversions, MCP servers, tool routing, approval loops, and
+                            agent-assisted operations that remove repetitive work without losing control.
+                        </p>
+                    </article>
+
+                    <article class="application-card reveal" style="--reveal-delay: 120ms;">
+                        <p class="application-kicker">Grounded systems</p>
+                        <h3>RAG / Knowledge &amp; Local AI</h3>
+                        <p>
+                            Vector DB pipelines, document indexing, retrieval orchestration, and private/local runtime
+                            options that keep users, apps, and agents aligned on the same operational truth.
+                        </p>
+                    </article>
+
+                    <article class="application-card reveal" style="--reveal-delay: 160ms;">
+                        <p class="application-kicker">Field deployment</p>
+                        <h3>Robotics, Vision &amp; Edge Integration</h3>
+                        <p>
+                            ROS2, NVIDIA Jetson, computer vision, Anduril Lattice bridges, and field-ready runtime
+                            patterns that connect machines, operators, and software.
+                        </p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="partnership-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-handshake text-pink-500 mr-3"></i>How We Work</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Flexible engagement models based on your project scope and timeline.</p>
+        <section class="section" id="architecture">
+            <div class="section-shell architecture-grid">
+                <figure class="media-panel reveal">
+                    <img src="assets/images/proof/vector-db-diagram.webp" width="1600" height="643" loading="lazy"
+                        decoding="async"
+                        alt="Diagram showing document ingestion, embeddings, vector database, similarity search, retrieved context, and LLM response.">
+                </figure>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-project-diagram mr-2"></i>Project
-                        </h4>
-                        <p class="text-sm text-gray-300">Fixed-scope deliverable with clear milestones. Best for
-                            specific integrations or custom builds.</p>
+                <div class="section-copy reveal" style="--reveal-delay: 100ms;">
+                    <p class="eyebrow">Architecture</p>
+                    <h2 class="section-title section-title-left">From spreadsheet to agentic flow.</h2>
+                    <p class="section-lead section-lead-left">
+                        Pipelines are not just ETL. They connect source data, MCP servers, retrieval, agent execution,
+                        human review, and deployment targets across desktop, cloud, local, and edge environments.
+                    </p>
+
+                    <div class="detail-stack">
+                        <article class="detail-row">
+                            <h3>Ingest the messy inputs</h3>
+                            <p>Documents, APIs, spreadsheets, sensors, and operator inputs become structured context
+                                instead of disconnected data exhaust.</p>
+                        </article>
+                        <article class="detail-row">
+                            <h3>Route tools, MCP, and agent logic</h3>
+                            <p>RAG/vector DB, MCP interfaces, task logic, and agent flows decide what should happen
+                                automatically and what should stay human-reviewed.</p>
+                        </article>
+                        <article class="detail-row">
+                            <h3>Deploy with privacy and control</h3>
+                            <p>Desktop apps, APIs, Jetson hardware, robotics nodes, and local or hybrid runtimes all
+                                feed back into the same system.</p>
+                        </article>
                     </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-calendar-alt mr-2"></i>Retainer
-                        </h4>
-                        <p class="text-sm text-gray-300">Ongoing development hours for continuous iteration. Ideal for
-                            evolving AI systems.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-plug mr-2"></i>Integration
-                            Partner</h4>
-                        <p class="text-sm text-gray-300">We connect your existing software, operators, data, models,
-                            and machines into one working system.</p>
-                    </div>
-                </div>
 
-                <h3 class="text-xl font-semibold mb-3 text-pink-400">What You Get:</h3>
-                <ul class="space-y-2">
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-code-branch text-green-500 mt-1"></i>
-                        <span><strong>Code:</strong> Full source code ownership, documented and tested</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-book text-green-500 mt-1"></i>
-                        <span><strong>Documentation:</strong> Architecture docs, API references, deployment
-                            guides</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-headset text-green-500 mt-1"></i>
-                        <span><strong>Support:</strong> Direct access via Slack/Discord, screen sharing for
-                            debugging</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-
-    <!-- Trust Signal Modals -->
-    <div id="startup-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-rocket text-orange-500 mr-3"></i>Metal to Model</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">From sensors and edge hardware to training, orchestration, and operator
-                    software, we build the whole system.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-orange-400">What That Means:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-robot text-orange-500 mt-1"></i>
-                            <span><strong>Hardware & Sensors:</strong> Cameras, LiDAR, edge devices, and robotics
-                                platforms integrated into working workflows</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-microchip text-orange-500 mt-1"></i>
-                            <span><strong>Model Training:</strong> Fine-tuning, computer vision, embeddings, and
-                                evaluation designed around your actual operating constraints</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-desktop text-orange-500 mt-1"></i>
-                            <span><strong>Runtime Apps:</strong> Desktop interfaces, dashboards, and tools that let
-                                people actually use the system</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-sitemap text-green-500 mt-1"></i>
-                            <span><strong>System Integration:</strong> APIs, enterprise software, retrieval systems,
-                                and robotics connected into one architecture</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-cloud text-green-500 mt-1"></i>
-                            <span><strong>Deployment Modes:</strong> Desktop, cloud, edge, hybrid, and secure local
-                                runtimes depending on what the mission requires</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-hard-hat text-green-500 mt-1"></i>
-                            <span><strong>Real Operations:</strong> Systems built to survive field conditions, human
-                                workflows, and the ugly details behind the scenes</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-orange-900 bg-opacity-30 p-4 rounded-lg border border-orange-500">
-                    <p class="text-sm"><strong>See Our Work:</strong> <a href="https://github.com/GerdsenAI"
-                            target="_blank" class="text-blue-400 hover:underline">GitHub</a> | <a
-                            href="https://www.linkedin.com/company/gerdsenai/" target="_blank"
-                            class="text-blue-400 hover:underline">LinkedIn</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="development-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-microchip text-purple-500 mr-3"></i>Systems of Systems</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Pipelines are not just ETL here. They are the connection layer between data,
-                    models, operators, robots, and business software. Check our <a href="https://github.com/GerdsenAI" target="_blank"
-                        class="text-blue-400 hover:underline">GitHub</a> and <a
-                        href="https://www.linkedin.com/company/gerdsenai/" target="_blank"
-                        class="text-blue-400 hover:underline">LinkedIn</a> for project examples.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-purple-400">What We Build:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-desktop mr-2"></i>Desktop Apps
-                            & Operator Tools</h4>
-                        <p class="text-sm text-gray-300">Mission consoles, analyst tools, workflow apps, and internal
-                            software that expose AI to the people doing the work.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-database mr-2"></i>RAG, Vector
-                            DB & Pipelines</h4>
-                        <p class="text-sm text-gray-300">Retrieval systems, embeddings, orchestration, APIs, and
-                            automations that keep the whole stack synchronized.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-400 mb-2"><i class="fas fa-robot mr-2"></i>Robotics &
-                            Mission Systems</h4>
-                        <p class="text-sm text-gray-300">ROS2 integration, edge inference, autonomy support, and
-                            interoperability with existing robotics and mission software.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-pink-400 mb-2"><i class="fas fa-cogs mr-2"></i>Automation &
-                            Integrations</h4>
-                        <p class="text-sm text-gray-300">Behind-the-scenes workflows, data movement, approval loops,
-                            and connectors into existing operational systems.</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold mb-3 text-purple-400">Technologies:</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-green-900 bg-opacity-30 text-green-300 px-3 py-1 rounded-full text-sm">ROS2</span>
-                    <span class="bg-blue-900 bg-opacity-30 text-blue-300 px-3 py-1 rounded-full text-sm">Python</span>
-                    <span class="bg-purple-900 bg-opacity-30 text-purple-300 px-3 py-1 rounded-full text-sm">pgvector</span>
-                    <span class="bg-yellow-900 bg-opacity-30 text-yellow-300 px-3 py-1 rounded-full text-sm">OpenCV</span>
-                    <span class="bg-red-900 bg-opacity-30 text-red-300 px-3 py-1 rounded-full text-sm">Electron</span>
-                    <span class="bg-indigo-900 bg-opacity-30 text-indigo-300 px-3 py-1 rounded-full text-sm">PyTorch</span>
-                    <span class="bg-teal-900 bg-opacity-30 text-teal-300 px-3 py-1 rounded-full text-sm">Docker</span>
-                    <span class="bg-orange-900 bg-opacity-30 text-orange-300 px-3 py-1 rounded-full text-sm">Jetson</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="louisiana-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-globe-americas text-blue-500 mr-3"></i>Nationwide from Louisiana</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Headquartered in Lafayette, Louisiana, we serve clients across the United States
-                    with AI solutions built for real-world deployment.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-blue-400">Nationwide Capabilities:</h3>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-truck text-green-500 mt-1"></i>
-                        <span><strong>Remote & On-Site Deployment:</strong> Edge AI hardware shipped and configured
-                            nationwide. On-site installation available for critical systems.</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-cloud text-green-500 mt-1"></i>
-                        <span><strong>Cloud, Desktop & Edge:</strong> Full-stack delivery accessible from anywhere,
-                            with local AI options for data-sensitive environments.</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-video text-green-500 mt-1"></i>
-                        <span><strong>Virtual Collaboration:</strong> Real-time development, testing, and support via
-                            video calls and shared environments.</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-hard-hat text-green-500 mt-1"></i>
-                        <span><strong>Gulf Coast Validation:</strong> Partnered with Chase Group Construction for
-                            real-world testing in harsh environments.</span>
-                    </li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mb-3 text-blue-400">Why Lafayette, LA:</h3>
-                <div class="bg-blue-900 bg-opacity-30 p-4 rounded-lg border border-blue-500">
-                    <ul class="space-y-2 text-sm">
-                        <li>• Deep roots in energy, construction, and industrial sectors</li>
-                        <li>• Central time zone for easy East/West Coast collaboration</li>
-                        <li>• University research partnerships and local talent pipeline</li>
-                        <li>• Cost-effective development without sacrificing quality</li>
+                    <ul class="tag-list" aria-label="Architecture focus areas">
+                        <li>Spreadsheet to pipeline</li>
+                        <li>MCP servers</li>
+                        <li>RAG / vector DB orchestration</li>
+                        <li>Private / local deployment</li>
+                        <li>Desktop operator surfaces</li>
+                        <li>Edge to cloud sync</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="entrepreneur-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-heart text-pink-500 mr-3"></i>Automate Anything Behind the Scenes</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">We build the glue systems that remove repetitive manual work without forcing
-                    your team into a rip-and-replace migration.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-pink-400">What This Looks Like:</h3>
-                <div class="space-y-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i
-                                class="fas fa-clipboard-list mr-2"></i>Back-Office Automation</h4>
-                        <p class="text-sm text-gray-300">Move documents, approvals, alerts, and data between systems
-                            without babysitting brittle manual steps.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-desktop mr-2"></i>Desktop
-                            Utilities
-                        </h4>
-                        <p class="text-sm text-gray-300">Give internal teams purpose-built software instead of asking
-                            them to live in spreadsheets and browser tabs forever.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-user-check mr-2"></i>Human in
-                            the Loop</h4>
-                        <p class="text-sm text-gray-300">Use AI where it helps, keep operator review where it matters,
-                            and make the handoffs explicit.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-400 mb-2"><i class="fas fa-layer-group mr-2"></i>Scalable
-                            Foundations</h4>
-                        <p class="text-sm text-gray-300">Automations built on durable APIs, retrieval systems, and data
-                            flows that can evolve into larger AI products.</p>
-                    </div>
+        <section class="section" id="field-systems">
+            <div class="section-shell">
+                <div class="section-intro reveal">
+                    <p class="eyebrow">Field systems</p>
+                    <h2 class="section-title">Hardware-backed proof.</h2>
+                    <p class="section-lead">
+                        Real deployment work changes the software decisions. These are the kinds of hardware and field
+                        conditions the stack is designed around.
+                    </p>
                 </div>
 
-                <div class="bg-pink-900 bg-opacity-30 p-4 rounded-lg border border-pink-500">
-                    <p class="text-sm"><strong>Our Promise:</strong> Automation that fits existing operations, not
-                        automation theater that dies after the demo.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="field-grid">
+                    <article class="field-card reveal">
+                        <img src="assets/images/proof/orin-lineup.webp" width="1247" height="935" loading="lazy"
+                            decoding="async" alt="NVIDIA Jetson and industrial edge AI hardware lineup.">
+                        <div class="field-card-body">
+                            <p class="field-card-kicker">Edge hardware</p>
+                            <h3>Jetson to rugged edge compute</h3>
+                            <p>From compact Jetson deployments to sealed industrial hardware, we build for machines that
+                                need reliable inference outside the lab.</p>
+                        </div>
+                    </article>
 
-    <!-- Services Section - Clean design, no competing video -->
-    <section id="services" class="content-section">
-        <div class="section-content">
-            <h2 class="section-title" data-scroll-fade>From Metal to Model</h2>
-            <div class="services-grid" data-scroll-fade data-delay="200">
-                <div class="service-card modal-trigger" data-modal="strategy-modal">
-                    <div class="text-4xl mb-6 text-blue-500">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">AI Systems Architecture</h3>
-                    <p class="text-gray-400">Design the connective tissue between models, operators, data, APIs,
-                        desktop software, and machines.</p>
-                    <span class="text-blue-400 text-sm mt-4 block">Click to learn more →</span>
-                </div>
+                    <article class="field-card reveal" style="--reveal-delay: 80ms;">
+                        <img src="assets/images/proof/recomputer-devboard.jpeg" width="1600" height="1200"
+                            loading="lazy" decoding="async"
+                            alt="Embedded edge AI development setup with NVIDIA Jetson, sensors, and interface boards.">
+                        <div class="field-card-body">
+                            <p class="field-card-kicker">Embedded systems</p>
+                            <h3>Sensor-rich embedded builds</h3>
+                            <p>Computer vision and edge AI need the right cameras, buses, boards, and operator hooks
+                                around the model to stay useful over time.</p>
+                        </div>
+                    </article>
 
-                <div class="service-card modal-trigger" data-modal="custom-dev-modal">
-                    <div class="text-4xl mb-6 text-purple-500">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">Full-Stack AI Development</h3>
-                    <p class="text-gray-400">Build the software around the model, including desktop apps, APIs, user
-                        workflows, and operational tooling.</p>
-                    <span class="text-blue-400 text-sm mt-4 block">Click to learn more →</span>
-                </div>
-
-                <div class="service-card modal-trigger" data-modal="production-modal">
-                    <div class="text-4xl mb-6 text-pink-500">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">Robotics & Edge Deployment</h3>
-                    <p class="text-gray-400">Ship AI to Jetson devices, robots, and other constrained environments
-                        without losing observability or control.</p>
-                    <span class="text-blue-400 text-sm mt-4 block">Click to learn more →</span>
-                </div>
-
-                <div class="service-card modal-trigger" data-modal="training-modal">
-                    <div class="text-4xl mb-6 text-green-500">
-                        <i class="fas fa-memory"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">Model Training & Computer Vision</h3>
-                    <p class="text-gray-400">Train, tune, and operationalize models for vision, multimodal, retrieval,
-                        and task-specific workloads.</p>
-                    <span class="text-blue-400 text-sm mt-4 block">Click to learn more →</span>
-                </div>
-
-                <div class="service-card modal-trigger" data-modal="cloud-modal">
-                    <div class="text-4xl mb-6 text-yellow-500">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">RAG, Vector DB & Pipelines</h3>
-                    <p class="text-gray-400">Build the retrieval, orchestration, and integration layer that turns many
-                        systems into one useful AI system.</p>
-                    <span class="text-blue-400 text-sm mt-4 block">Click to learn more →</span>
-                </div>
-
-                <div class="service-card modal-trigger" data-modal="secure-modal">
-                    <div class="text-4xl mb-6 text-red-500">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 mono">Desktop Apps & Secure Local AI</h3>
-                    <p class="text-gray-400">Deliver operator-facing software and local AI runtimes for teams that need
-                        speed, privacy, or offline execution.</p>
-                    <span class="text-blue-400 text-sm mt-4 block">Click to learn more →</span>
+                    <article class="field-card field-card-tall reveal" style="--reveal-delay: 120ms;">
+                        <img src="assets/images/proof/rover-rain.webp" width="1143" height="2048" loading="lazy"
+                            decoding="async" alt="Rover platform in wet field conditions.">
+                        <div class="field-card-body">
+                            <p class="field-card-kicker">Robotics</p>
+                            <h3>Robotics that leave the desk</h3>
+                            <p>ROS2, perception, autonomy support, and operator systems built for dirt, weather,
+                                latency, and imperfect environments.</p>
+                        </div>
+                    </article>
                 </div>
             </div>
-            <div class="text-center mt-12">
-                <a href="#contact" class="button-primary magnetic">Schedule a Consultation</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Service Detail Modals -->
-    <div id="strategy-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-brain text-blue-500 mr-3"></i>AI Systems Architecture</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">We design the connective tissue between models, machines, operators, and
-                    software systems.</p>
+        <section class="section" id="recognition">
+            <div class="section-shell recognition-grid">
+                <div class="section-copy reveal">
+                    <p class="eyebrow">Recognition</p>
+                    <h2 class="section-title section-title-left">Public proof beats generic claims.</h2>
+                    <p class="section-lead section-lead-left">
+                        A concrete proof point: Gerdsen AI built and open-sourced a ROS2 Humble wrapper for
+                        ByteDance&apos;s Depth Anything 3, and Open Robotics highlighted it publicly as a useful
+                        integration for existing ROS systems.
+                    </p>
 
-                <h3 class="text-xl font-semibold mb-3 text-blue-400">What We Assess:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-microchip text-blue-500 mt-1"></i>
-                            <span><strong>Hardware Fit:</strong> Edge vs cloud, NVIDIA Jetson options, sensor
-                                requirements, power constraints</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-project-diagram text-blue-500 mt-1"></i>
-                            <span><strong>System Interfaces:</strong> ROS2 integration, APIs, vector stores, enterprise
-                                software, and mission-system touchpoints</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-desktop text-blue-500 mt-1"></i>
-                            <span><strong>Operator Experience:</strong> Desktop apps, dashboards, workflow surfaces,
-                                and human-in-the-loop requirements</span>
-                        </div>
+                    <div class="recognition-points">
+                        <article>
+                            <h3>Open source work</h3>
+                            <p>Real ROS2 package work, published publicly.</p>
+                        </article>
+                        <article>
+                            <h3>Depth Anything 3</h3>
+                            <p>Practical vision integration, not just a slide-deck mention.</p>
+                        </article>
+                        <article>
+                            <h3>Community signal</h3>
+                            <p>Recognized publicly by Open Robotics.</p>
+                        </article>
                     </div>
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-database text-green-500 mt-1"></i>
-                            <span><strong>Data & Retrieval:</strong> Collection, labeling, vector DB design,
-                                knowledge flows, and feedback loops</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-network-wired text-green-500 mt-1"></i>
-                            <span><strong>Connectivity:</strong> Online/offline operation, bandwidth constraints, sync
-                                strategies</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-shield-alt text-green-500 mt-1"></i>
-                            <span><strong>Security:</strong> Air-gapped needs, CMMC compliance, data sovereignty</span>
-                        </div>
+
+                    <div class="hero-actions">
+                        <a class="button button-primary"
+                            href="https://www.linkedin.com/posts/open-source-robotics-foundation_want-to-take-bytedances-new-depthanything-activity-7396656737702825984-Sl2Y"
+                            target="_blank" rel="noopener noreferrer" aria-label="View Recognition (opens in new tab)">View Recognition</a>
+                        <a class="button button-secondary" href="https://github.com/GerdsenAI" target="_blank"
+                            rel="noopener noreferrer" aria-label="See GitHub (opens in new tab)">See GitHub</a>
                     </div>
                 </div>
 
-                <div class="bg-blue-900 bg-opacity-30 p-4 rounded-lg border border-blue-500">
-                    <p class="text-sm"><strong>Deliverable:</strong> A technical roadmap covering data flow, runtime
-                        placement, operator surfaces, integration points, and phased delivery.</p>
+                <figure class="media-panel recognition-media reveal" style="--reveal-delay: 120ms;">
+                    <img src="assets/images/proof/open-robotics-post.jpg" width="699" height="290" loading="lazy"
+                        decoding="async"
+                        alt="Open Robotics post mentioning Gerdsen AI's ROS2 Depth Anything 3 wrapper.">
+                </figure>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <div class="section-shell services-layout">
+                <div class="services-aside reveal">
+                    <p class="eyebrow">Services</p>
+                    <h2 class="section-title section-title-left">Where we fit best.</h2>
+                    <p class="section-lead section-lead-left">
+                        The strongest fit is a buyer who wants one hands-on partner to connect the stack, remove manual
+                        friction, and keep the deployment grounded in real constraints.
+                    </p>
+
+                    <figure class="media-panel services-media">
+                        <img src="assets/images/proof/engineering-expo.webp" width="1600" height="1200" loading="lazy"
+                            decoding="async"
+                            alt="Gerdsen AI demo system shown on a display at an engineering expo.">
+                    </figure>
+                </div>
+
+                <div class="services-grid">
+                    <article class="service-row reveal" style="--reveal-delay: 40ms;">
+                        <h3>Build the first working system</h3>
+                        <p>Move from concept or demo into a real app, pipeline, agentic flow, or operator-facing
+                            system that can actually ship.</p>
+                    </article>
+                    <article class="service-row reveal" style="--reveal-delay: 80ms;">
+                        <h3>Connect the existing stack</h3>
+                        <p>Wire APIs, desktop tools, data sources, MCP servers, retrieval, and field systems into one
+                            usable operating flow.</p>
+                    </article>
+                    <article class="service-row reveal" style="--reveal-delay: 120ms;">
+                        <h3>Keep it private or local</h3>
+                        <p>Deploy on-device, on-prem, or hybrid when privacy, latency, reliability, or control make a
+                            cloud-only answer a bad fit.</p>
+                    </article>
+                    <article class="service-row reveal" style="--reveal-delay: 160ms;">
+                        <h3>Act as a direct-access engineering partner</h3>
+                        <p>Stay close to the work, iterate quickly, and solve the hard integration and deployment
+                            problems without management theater.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="custom-dev-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-code text-purple-500 mr-3"></i>Full-Stack AI Development</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">We build the software around the model, not just the model itself.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-purple-400">Development Capabilities:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-desktop mr-2"></i>Desktop &
-                            Operator Apps</h4>
-                        <p class="text-sm text-gray-300">Mission consoles, analyst dashboards, workflow UIs, and
-                            internal software tailored to the people using the system.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-eye mr-2"></i>Computer Vision &
-                            Multimodal</h4>
-                        <p class="text-sm text-gray-300">Object detection, tracking, OCR, depth, thermal, and sensor
-                            fusion workloads that connect into real operations.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-cogs mr-2"></i>Workflow
-                            Automation</h4>
-                        <p class="text-sm text-gray-300">Task automation, approvals, alerting, orchestration, and
-                            human review loops behind the scenes.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-400 mb-2"><i class="fas fa-plug mr-2"></i>APIs &
-                            Integrations</h4>
-                        <p class="text-sm text-gray-300">Backend services, connectors, telemetry, and data-layer work
-                            that makes the whole system operate as one stack.</p>
-                    </div>
+        <section class="section" id="how-we-work">
+            <div class="section-shell">
+                <div class="section-intro reveal">
+                    <p class="eyebrow">How we work</p>
+                    <h2 class="section-title">Fast build cycles, operational outcomes.</h2>
+                    <p class="section-lead">
+                        Partnerships are preferred, but the operating model stays the same: map the system, build the
+                        connection layer, and deploy where the stack actually needs to live.
+                    </p>
                 </div>
 
-                <h3 class="text-xl font-semibold mb-3 text-purple-400">Technology Stack:</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-blue-900 bg-opacity-30 text-blue-300 px-3 py-1 rounded-full text-sm">Python</span>
-                    <span class="bg-green-900 bg-opacity-30 text-green-300 px-3 py-1 rounded-full text-sm">C++</span>
-                    <span class="bg-purple-900 bg-opacity-30 text-purple-300 px-3 py-1 rounded-full text-sm">PyTorch</span>
-                    <span class="bg-yellow-900 bg-opacity-30 text-yellow-300 px-3 py-1 rounded-full text-sm">ROS2</span>
-                    <span class="bg-red-900 bg-opacity-30 text-red-300 px-3 py-1 rounded-full text-sm">OpenCV</span>
-                    <span class="bg-indigo-900 bg-opacity-30 text-indigo-300 px-3 py-1 rounded-full text-sm">Electron</span>
+                <div class="workflow-grid">
+                    <article class="workflow-step reveal">
+                        <span class="workflow-number" aria-hidden="true">01</span>
+                        <h3>Scope the system</h3>
+                        <p>Map inputs, operator needs, existing software, review checkpoints, and runtime targets before
+                            code starts moving.</p>
+                    </article>
+
+                    <article class="workflow-step reveal" style="--reveal-delay: 80ms;">
+                        <span class="workflow-number" aria-hidden="true">02</span>
+                        <h3>Build the connective layer</h3>
+                        <p>Ship the apps, agents, retrieval, integrations, and orchestration that make the stack behave
+                            like one system.</p>
+                    </article>
+
+                    <article class="workflow-step reveal" style="--reveal-delay: 120ms;">
+                        <span class="workflow-number" aria-hidden="true">03</span>
+                        <h3>Deploy with the real constraints</h3>
+                        <p>Desktop, cloud, Jetson, or hybrid delivery with observability, handoff clarity, and operator
+                            trust built in.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="training-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-memory text-green-500 mr-3"></i>Model Training & Computer Vision</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Train, adapt, and operationalize models that must perform under real-world
-                    constraints.</p>
+        <section class="section section-contact" id="contact">
+            <div class="section-shell contact-grid">
+                <div class="contact-copy reveal">
+                    <p class="eyebrow">Contact</p>
+                    <h2 class="section-title section-title-left">Let&apos;s build the system.</h2>
+                    <p class="section-lead section-lead-left">
+                        When AI has to connect, deploy, and hold up in the real world, call Gerdsen AI. Tell us what
+                        needs to connect, who needs to use it, and where the AI needs to run.
+                    </p>
+                    <p class="section-lead section-lead-left">
+                        You&apos;ll get a direct response with next steps, not a generic intake loop.
+                    </p>
 
-                <h3 class="text-xl font-semibold mb-3 text-green-400">Training Capabilities:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-database text-green-500 mt-1"></i>
-                            <span><strong>Dataset Prep:</strong> Data collection, labeling pipelines, augmentation,
-                                quality validation</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-microchip text-green-500 mt-1"></i>
-                            <span><strong>Edge Optimization:</strong> TensorRT, quantization, pruning for NVIDIA Jetson
-                                deployment</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-eye text-green-500 mt-1"></i>
-                            <span><strong>Vision Models:</strong> Object detection, classification, segmentation,
-                                thermal/multispectral</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-brain text-blue-500 mt-1"></i>
-                            <span><strong>LLM/RAG:</strong> Fine-tuned LLMs, embedding models, and retrieval systems
-                                grounded in your documents and data</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-robot text-blue-500 mt-1"></i>
-                            <span><strong>Robotics Perception:</strong> Perception stacks, behavior support, and
-                                model-driven autonomy components</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-sync-alt text-blue-500 mt-1"></i>
-                            <span><strong>Feedback Loops:</strong> Continuous learning pipelines, model versioning, A/B
-                                testing</span>
-                        </div>
+                    <div class="contact-notes">
+                        <article>
+                            <h3>Direct access</h3>
+                            <p>Call, text, or email away when the work is moving fast.</p>
+                        </article>
+                        <article>
+                            <h3>Location</h3>
+                            <p>Lafayette, Louisiana. Serving clients nationwide.</p>
+                        </article>
+                        <article>
+                            <h3>Delivery modes</h3>
+                            <p>Desktop, local, cloud, edge, or hybrid systems depending on privacy and deployment
+                                needs.</p>
+                        </article>
                     </div>
                 </div>
 
-                <div class="bg-green-900 bg-opacity-30 p-4 rounded-lg border border-green-500">
-                    <p class="text-sm"><strong>Infrastructure:</strong> GPU clusters for training, local or cloud.
-                        Models validated against your benchmarks and deployment targets before delivery.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="cloud-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-cloud text-yellow-500 mr-3"></i>RAG, Vector DB & AI Pipelines</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">We build the connection layer that turns documents, APIs, sensors, and operator
-                    input into usable AI systems.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-yellow-400">Pipeline Layers:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-400 mb-2"><i class="fas fa-database mr-2"></i>Knowledge
-                            Layer</h4>
-                        <p class="text-sm text-gray-300">Embeddings, chunking, indexing, vector search, and retrieval
-                            designed for the documents and data you actually own.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-sitemap mr-2"></i>Orchestration
-                            Layer</h4>
-                        <p class="text-sm text-gray-300">Pipelines, queues, tool calling, human review, and event
-                            flows that coordinate work across many systems.</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-400 mb-2"><i class="fas fa-network-wired mr-2"></i>Runtime
-                            Layer</h4>
-                        <p class="text-sm text-gray-300">Desktop apps, local inference, cloud services, and edge nodes
-                            kept in sync as one system of systems.</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold mb-3 text-yellow-400">Key Benefits:</h3>
-                <ul class="space-y-2">
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-brain text-green-500 mt-1"></i>
-                        <span><strong>Shared Context:</strong> Give models and operators access to the same ground
-                            truth</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-bolt text-green-500 mt-1"></i>
-                        <span><strong>Automation:</strong> Move work across systems without forcing humans to copy and
-                            paste between them</span>
-                    </li>
-                    <li class="flex items-start space-x-3">
-                        <i class="fas fa-chart-line text-green-500 mt-1"></i>
-                        <span><strong>Observability:</strong> Track what happened, where it happened, and what needs a
-                            person in the loop</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="secure-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-lock text-red-500 mr-3"></i>Desktop Apps & Secure Local AI</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p class="text-lg mb-4">Operator-facing desktop software and local AI runtimes for teams that need
-                    speed, privacy, or offline execution.</p>
-
-                <h3 class="text-xl font-semibold mb-3 text-red-400">Delivery Architecture:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-desktop text-red-500 mt-1"></i>
-                            <span><strong>Desktop Apps:</strong> Purpose-built local software for operators, analysts,
-                                and internal teams</span>
+                <div class="contact-panel reveal" style="--reveal-delay: 120ms;">
+                    <form id="contact-form" action="https://formspree.io/f/xeozyrwa" method="POST">
+                        <div class="form-field">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" autocomplete="name" required>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-brain text-red-500 mt-1"></i>
-                            <span><strong>Local Models:</strong> On-device inference, embedded retrieval, and local
-                                runtime options when cloud dependency is not acceptable</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-microchip text-red-500 mt-1"></i>
-                            <span><strong>Edge Hardware:</strong> NVIDIA Jetson with encrypted storage, secure boot, TPM
-                                support</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-shield-alt text-yellow-500 mt-1"></i>
-                            <span><strong>Security:</strong> Air-gapped and tightly controlled deployments where policy
-                                and risk require it</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-key text-yellow-500 mt-1"></i>
-                            <span><strong>Data Ownership:</strong> Models and data remain under your control with
-                                customer-owned infrastructure and keys</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fas fa-robot text-yellow-500 mt-1"></i>
-                            <span><strong>Field Ops:</strong> Desktop, local, and robotics systems designed to keep
-                                running even when conditions are not clean</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="bg-red-900 bg-opacity-30 p-4 rounded-lg border border-red-500">
-                    <p class="text-sm"><strong>Use Cases:</strong> Defense, industrial operations, energy, field
-                        teams, and any environment where desktop tools and local AI must work together securely.</p>
+                        <div class="form-field">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
+                                required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" autocomplete="organization">
+                        </div>
+
+                        <div class="form-field">
+                            <label for="project">Project Type</label>
+                            <select id="project" name="project">
+                                <option value="">Select a project type</option>
+                                <option value="app-development">App Development</option>
+                                <option value="agent-development">Agent Development</option>
+                                <option value="desktop-apps">Desktop Apps / Operator Tools</option>
+                                <option value="spreadsheet-pipeline">Spreadsheet to Pipeline</option>
+                                <option value="rag-vector-db">RAG / Vector DB / Knowledge Systems</option>
+                                <option value="training-vision">Model Training / Computer Vision</option>
+                                <option value="robotics-edge">Robotics / Edge Deployment</option>
+                                <option value="systems-architecture">Systems Architecture / Integration</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field form-field-full">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message"
+                                placeholder="Example: We need an MCP-enabled pipeline that turns spreadsheet-driven work into an agentic flow, keeps a human approval step, and can run locally."
+                                rows="6" required></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="button button-primary" id="submit-btn">Send Message</button>
+                            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    </div>
+        </section>
+    </main>
 
-    <!-- About Section -->
-    <section id="about" class="content-section no-video">
-        <div class="section-content">
-            <h2 class="section-title" data-scroll-fade>
-                Why Choose <span class="gradient-text">GERDSEN AI?</span>
-            </h2>
-            <div class="features-grid" data-scroll-fade data-delay="200">
-                <div class="feature-item modal-trigger" data-modal="expertise-modal">
-                    <div
-                        class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-blue-500 mt-1">
-                                <i class="fas fa-infinity"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Full-Stack AI Engineering</h3>
-                                <p class="text-gray-400">Desktop apps, vector DBs, training, vision, robotics, and the
-                                    connective layer between them...</p>
-                                <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item modal-trigger" data-modal="deployment-modal">
-                    <div
-                        class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-purple-500 mt-1">
-                                <i class="fas fa-balance-scale"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Desktop to Edge</h3>
-                                <p class="text-gray-400">Deploy where your operators and machines actually live...</p>
-                                <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item modal-trigger" data-modal="production-modal">
-                    <div
-                        class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-green-500 mt-1">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Systems That Reach Reality</h3>
-                                <p class="text-gray-400">Models, sensors, robotics, and operator tools tied together
-                                    for real operations...</p>
-                                <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item modal-trigger" data-modal="partnership-modal">
-                    <div
-                        class="glass-effect rounded-xl p-8 cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all duration-300">
-                        <div class="flex items-start space-x-4">
-                            <div class="text-2xl text-pink-500 mt-1">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2">Integration Partner</h3>
-                                <p class="text-gray-400">We connect what you already have instead of pretending the
-                                    rest of your stack does not exist...</p>
-                                <span class="text-blue-400 text-sm mt-2 block">Click to learn more →</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="content-section contact-section no-video">
-        <div class="section-content">
-            <h2 class="section-title" data-scroll-fade>Let's Build the System</h2>
-
-            <!-- Contact Form -->
-            <div class="contact-form" data-scroll-fade data-delay="200">
-                <form id="contact-form" method="POST">
-                    <div class="form-group">
-                        <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="project">Project Type</label>
-                        <select id="project" name="project" class="form-group input">
-                            <option value="">Select a project type</option>
-                            <option value="systems-architecture">Systems Architecture / Integration</option>
-                            <option value="desktop-apps">Desktop Apps / Operator Tools</option>
-                            <option value="rag-vector-db">RAG / Vector DB / Pipelines</option>
-                            <option value="training-vision">Model Training / Computer Vision</option>
-                            <option value="robotics-edge">Robotics / Edge Deployment</option>
-                            <option value="secure-local">Secure Local AI / Air-Gapped</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" placeholder="Tell us what systems need to connect, what the operators need, and where the AI needs to run..."
-                            required></textarea>
-                    </div>
-
-                    <button type="submit" class="form-submit" id="submit-btn">
-                        Send Message
-                    </button>
-
-                    <div id="form-status" class="form-status" style="display: none;"></div>
-                </form>
-            </div>
-
-            <!-- Contact Information -->
-            <div class="contact-info-footer" data-scroll-fade data-delay="400">
-                <div class="contact-info-item">
-                    <h3 class="text-xl font-semibold mb-4 mono">From Metal to Model, Headquartered in Lafayette, LA</h3>
-                    <div class="space-y-3 text-gray-400">
-                        <p class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-envelope w-5"></i>
-                            <span>info@gerdsen.ai</span>
-                        </p>
-                        <p class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-map-pin w-5"></i>
-                            <span>Lafayette, Louisiana — Serving clients nationwide</span>
-                        </p>
-                        <p class="flex items-center justify-center space-x-3">
-                            <i class="fas fa-clock w-5"></i>
-                            <span>Response within 24 hours</span>
-                        </p>
-                    </div>
-                    <div class="mt-6 flex justify-center space-x-4">
-                        <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer"
-                            class="text-gray-400 hover:text-white transition-colors text-2xl" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/gerdsenai/" target="_blank" rel="noopener noreferrer"
-                            class="text-gray-400 hover:text-blue-400 transition-colors text-2xl" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 px-6 border-t border-gray-800">
-        <div class="container mx-auto text-center">
-            <p class="text-gray-500">&copy; 2026 GERDSEN AI LLC. All rights reserved.</p>
-            <p class="text-sm text-gray-600 mt-2">
-                Full-stack AI systems from Lafayette, LA — Desktop apps, RAG/vector DB, model training, vision,
-                robotics, and edge deployment.
+    <footer class="site-footer">
+        <div class="section-shell footer-shell">
+            <p class="footer-copy">
+                GERDSEN AI builds full-stack AI systems from desktop to edge.
             </p>
-            <p class="text-xs text-gray-700 mt-2">
-                Partners: <a href="https://choraquest.com" target="_blank" rel="noopener noreferrer"
-                    class="hover:text-gray-400">Choraquest GIS</a> | Chase Group Construction
-            </p>
+            <div class="footer-links">
+                <a href="mailto:info@gerdsen.ai">info@gerdsen.ai</a>
+                <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
+                <a href="https://www.linkedin.com/company/gerdsenai/" target="_blank"
+                    rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+            </div>
+            <p class="footer-meta">© <span data-year></span> GERDSEN AI LLC</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
-
-    <!-- Development: Scaling Verification Script (remove in production) -->
-    <script>
-        // Quick scaling test - runs only if ?test=scaling is in URL
-        if (window.location.search.includes('test=scaling')) {
-            fetch('test-scaling-verification.js')
-                .then(response => response.text())
-                .then(script => eval(script))
-                .catch(() => console.log('Scaling test script not found - run manually if needed'));
-        }
-    </script>
 </body>
-
 </html>
