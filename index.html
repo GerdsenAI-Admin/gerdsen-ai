@@ -147,8 +147,10 @@
     <header class="site-header" id="top">
         <div class="nav-shell">
             <a class="brand" href="#home" aria-label="Gerdsen AI home">
-                <img src="assets/images/brand/neural-g-mark.png" width="42" height="37" alt="Gerdsen AI mark">
-                <span>GERDSEN AI</span>
+                <video class="brand-loop" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                    <source src="assets/images/Neural_G_1a.mp4" type="video/mp4">
+                </video>
+                <span class="sr-only">GERDSEN AI</span>
             </a>
 
             <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu"
@@ -162,7 +164,7 @@
                 <div class="nav-links" id="site-menu">
                     <a href="#services">Services</a>
                     <a href="#ai-stack">AI Stack</a>
-                    <a href="#how-we-work">How We Work</a>
+                    <a href="#how-we-work">Our Process</a>
                     <a href="#open-source">Open Source</a>
                     <a href="#contact">Contact</a>
                     <a class="nav-cta" href="#contact">Get Started</a>
@@ -209,11 +211,11 @@
             <div class="section-shell stack-shell">
                 <div class="section-heading reveal">
                     <p class="eyebrow">AI Stack</p>
-                    <h2 id="ai-stack-title">Lafayette, Louisiana AI systems for pipelines, agents, GIS, and robotics.</h2>
+                    <h2 id="ai-stack-title">Lafayette, Louisiana AI systems for pipelines, geospatial workflows, and robotics.</h2>
                     <p>
-                        Gerdsen AI builds AI pipelines and MCP server integrations for ChatGPT and Chat GPT workflows,
-                        local Ollama and Qwen deployments, GIS and ArcGIS data paths, ROS2 robotics, RAG/vector
-                        databases, computer vision, and edge AI.
+                        Gerdsen AI builds end-to-end AI pipelines, integration layers, cloud and local runtime paths,
+                        geospatial analysis workflows, robotics deployment systems, computer vision, and edge AI
+                        operations.
                     </p>
                 </div>
 
@@ -221,17 +223,17 @@
                     <article class="stack-card reveal">
                         <p class="stack-kicker">Pipelines</p>
                         <h3>AI Pipelines &amp; MCP</h3>
-                        <p>Data ingestion, tool routing, human approval loops, ShepherdMCP.ai-style MCP servers, and agent workflows that connect apps, files, APIs, and models.</p>
+                        <p>Data ingestion, tool routing, human approval loops, MCP server integrations, and agent workflows that connect apps, files, APIs, and models.</p>
                     </article>
                     <article class="stack-card reveal">
                         <p class="stack-kicker">Model runtimes</p>
-                        <h3>ChatGPT, Ollama &amp; Qwen</h3>
-                        <p>ChatGPT tool surfaces, OpenAI-compatible app flows, Ollama local inference, Qwen and QWEN model workflows, and private runtime deployment choices.</p>
+                        <h3>Cloud + Local Model Runtimes</h3>
+                        <p>Tool-connected application flows across hosted and local environments, with private runtime deployment options for controlled operations.</p>
                     </article>
                     <article class="stack-card reveal">
                         <p class="stack-kicker">Spatial systems</p>
-                        <h3>GIS / ArcGIS / ARC GIS</h3>
-                        <p>GIS and ArcGIS data workflows, map-adjacent automation, document-to-location pipelines, and AI-assisted analysis for spatially grounded operations.</p>
+                        <h3>Geospatial Data Systems</h3>
+                        <p>Map-adjacent automation, document-to-location pipelines, and AI-assisted analysis for spatially grounded operations.</p>
                     </article>
                     <article class="stack-card reveal">
                         <p class="stack-kicker">Robotics &amp; vision</p>
@@ -240,13 +242,13 @@
                     </article>
                     <article class="stack-card stack-card-seo reveal">
                         <p class="stack-kicker">Product systems</p>
-                        <h3>Socratic.one &amp; SocraticCode.dev</h3>
+                        <h3>AI Product Systems</h3>
                         <p>Product messaging, workflow architecture, and reusable AI engineering assets for technical delivery teams.</p>
                     </article>
                     <article class="stack-card stack-card-seo reveal">
                         <p class="stack-kicker">Domain alignment</p>
-                        <h3>ShepherdMCP.ai &amp; chroraquest.com</h3>
-                        <p>Consistent language across related AI, MCP, workflow, and deployment properties while keeping each site and product surface distinct.</p>
+                        <h3>Cross-System Alignment</h3>
+                        <p>Consistent language across related AI, MCP, workflow, and deployment properties while keeping each product surface distinct.</p>
                     </article>
                 </div>
             </div>
@@ -339,11 +341,11 @@
                 </div>
                 <div class="media-grid" aria-label="Representative media from delivered systems">
                     <article class="media-card reveal">
-                        <img src="assets/images/proof/claimwatch-desktop1.webp" width="2048" height="1084" loading="lazy" decoding="async" alt="ClaimWatch desktop application showing analytics charts and map tools.">
+                        <img src="assets/images/proof/claimwatch-desktop1.webp" width="2048" height="1084" loading="lazy" decoding="async" alt="AI-enabled desktop application showing analytics dashboards, map tools, and GPU-assisted workflows.">
                         <div class="media-card-body">
                             <p class="media-kicker">Desktop apps</p>
-                            <h3>ClaimWatch Desktop</h3>
-                            <p>Operator-focused desktop software with dashboard analytics, map-based workflows, and production data tools.</p>
+                            <h3>AI-Enabled Desktop Application Development</h3>
+                            <p>Operator-focused desktop software with GPU-accelerated workflows, dashboard analytics, and production data tooling.</p>
                         </div>
                     </article>
                     <article class="media-card reveal">
@@ -361,43 +363,6 @@
                             <h3>Board Identifier Tooling</h3>
                             <p>Computer-vision assisted board identification for hardware inventory, validation, and bring-up workflows.</p>
                         </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-process" id="how-we-work" aria-labelledby="process-title">
-            <div class="section-shell process-shell">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">How We Work</p>
-                    <h2 id="process-title">Fast build cycles, operational outcomes.</h2>
-                    <p>Partnerships are preferred, but the delivery model stays consistent: map the system, build the connective layer, and deploy against real constraints.</p>
-                </div>
-                <div class="process-rail" aria-label="Delivery phases">
-                    <article class="process-step reveal">
-                        <span>01</span>
-                        <h3>Discovery</h3>
-                        <p>Map the workflow, data, users, constraints, and value of automation.</p>
-                    </article>
-                    <article class="process-step reveal">
-                        <span>02</span>
-                        <h3>Architecture</h3>
-                        <p>Choose models, tools, APIs, storage, deployment targets, and review loops.</p>
-                    </article>
-                    <article class="process-step reveal">
-                        <span>03</span>
-                        <h3>Build</h3>
-                        <p>Ship usable software with tests, instrumentation, and real data paths.</p>
-                    </article>
-                    <article class="process-step reveal">
-                        <span>04</span>
-                        <h3>Deploy</h3>
-                        <p>Move the system into cloud, local, on-prem, or edge environments.</p>
-                    </article>
-                    <article class="process-step reveal">
-                        <span>05</span>
-                        <h3>Monitor</h3>
-                        <p>Track quality, latency, failure modes, feedback, and model drift.</p>
                     </article>
                 </div>
             </div>
@@ -428,6 +393,43 @@
                     <li>Edge-ready runtime patterns for robotics workloads that must stay reliable in the field.</li>
                     <li>Public DA3 repository that shortens pilot timelines and supports production handoff.</li>
                 </ul>
+            </div>
+        </section>
+
+        <section class="section section-process" id="how-we-work" aria-labelledby="process-title">
+            <div class="section-shell process-shell">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Our Process</p>
+                    <h2 id="process-title">Operational delivery from discovery to monitoring.</h2>
+                    <p>The delivery model stays consistent: map the system, design the architecture, build against real constraints, and deploy with measurable reliability.</p>
+                </div>
+                <div class="process-rail" aria-label="Delivery phases">
+                    <article class="process-step reveal">
+                        <span>01</span>
+                        <h3>Discovery</h3>
+                        <p>Map the workflow, data, users, constraints, and value of automation.</p>
+                    </article>
+                    <article class="process-step reveal">
+                        <span>02</span>
+                        <h3>Architecture</h3>
+                        <p>Choose models, tools, APIs, storage, deployment targets, and review loops.</p>
+                    </article>
+                    <article class="process-step reveal">
+                        <span>03</span>
+                        <h3>Build</h3>
+                        <p>Ship usable software with tests, instrumentation, and real data paths.</p>
+                    </article>
+                    <article class="process-step reveal">
+                        <span>04</span>
+                        <h3>Deploy</h3>
+                        <p>Move the system into cloud, local, on-prem, or edge environments.</p>
+                    </article>
+                    <article class="process-step reveal">
+                        <span>05</span>
+                        <h3>Monitor</h3>
+                        <p>Track quality, latency, failure modes, feedback, and model drift.</p>
+                    </article>
+                </div>
             </div>
         </section>
 

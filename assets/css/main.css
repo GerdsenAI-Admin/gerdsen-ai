@@ -5,7 +5,7 @@
     --panel: rgba(9, 14, 25, 0.76);
     --panel-strong: rgba(7, 11, 19, 0.92);
     --text: #f5f7fb;
-    --muted: #a9b3c5;
+    --muted: rgba(245, 247, 251, 0.92);
     --muted-soft: #7c8797;
     --accent: #d58a07;
     --accent-strong: #ff9d00;
@@ -107,6 +107,18 @@ section[id] {
     top: 1rem;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
 .site-header {
     position: fixed;
     inset: 0 0 auto;
@@ -139,18 +151,17 @@ body.nav-open .site-header {
 .brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.85rem;
     min-width: max-content;
     color: var(--text);
     font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
 }
 
-.brand img {
-    width: 42px;
-    height: auto;
+.brand-loop {
+    width: clamp(114px, 11vw, 148px);
+    border: 1px solid rgba(245, 247, 251, 0.16);
+    border-radius: 8px;
+    background: rgba(5, 9, 18, 0.58);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .site-nav {
@@ -167,7 +178,7 @@ body.nav-open .site-header {
 .nav-links a {
     position: relative;
     padding: 0.25rem 0;
-    color: rgba(243, 240, 233, 0.58);
+    color: rgba(245, 247, 251, 0.84);
     font-size: 0.72rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -250,7 +261,7 @@ body.nav-open .site-header {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.26;
+    opacity: 0.36;
     pointer-events: none;
 }
 
@@ -270,7 +281,7 @@ body.nav-open .site-header {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(2, 5, 12, 0.24);
+    background: rgba(2, 5, 12, 0.18);
     backdrop-filter: blur(1.5px);
 }
 
@@ -379,7 +390,7 @@ body.nav-open .site-header {
 .hero-summary {
     max-width: 600px;
     margin: clamp(2rem, 5vh, 3rem) 0 0;
-    color: rgba(245, 247, 251, 0.68);
+    color: rgba(245, 247, 251, 0.94);
     font-size: 1rem;
 }
 
@@ -458,16 +469,28 @@ body.nav-open .site-header {
 
 .section {
     position: relative;
-    padding: clamp(5rem, 10vw, 8.5rem) 0;
+    --section-padding-block: clamp(5.5rem, 11vw, 9rem);
+    --section-overlay-h-start: 0.8;
+    --section-overlay-h-mid: 0.58;
+    --section-overlay-h-end: 0.8;
+    --section-overlay-v-start: 0.56;
+    --section-overlay-v-end: 0.74;
+    padding-block: var(--section-padding-block);
     isolation: isolate;
+    min-height: var(--section-min-height, auto);
     background:
-        var(--surface-overlay-horizontal),
-        var(--surface-overlay-vertical),
+        linear-gradient(90deg,
+            rgba(4, 7, 14, var(--section-overlay-h-start)) 0%,
+            rgba(4, 7, 14, var(--section-overlay-h-mid)) 52%,
+            rgba(4, 7, 14, var(--section-overlay-h-end)) 100%),
+        linear-gradient(180deg,
+            rgba(4, 7, 14, var(--section-overlay-v-start)) 0%,
+            rgba(4, 7, 14, var(--section-overlay-v-end)) 100%),
         var(--section-bg, linear-gradient(#04070e, #04070e));
     background-attachment: scroll;
-    background-position: var(--section-position, center);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center, center, var(--section-position, center);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: auto, auto, var(--section-size, cover);
 }
 
 .section::before {
@@ -526,22 +549,47 @@ body.nav-open .site-header {
 
 .section-statement {
     --section-bg: url("../images/proof/engineering-expo.webp");
-    --section-position: center 46%;
+    --section-position: center 44%;
+    --section-min-height: clamp(700px, 82svh, 920px);
+    --section-overlay-h-start: 0.86;
+    --section-overlay-h-mid: 0.66;
+    --section-overlay-h-end: 0.84;
+    --section-overlay-v-start: 0.62;
+    --section-overlay-v-end: 0.78;
 }
 
 #services {
     --section-bg: url("../images/proof/orin-lineup.webp");
-    --section-position: center 46%;
+    --section-position: center 33%;
+    --section-size: 130% auto;
+    --section-min-height: clamp(760px, 88svh, 1040px);
+    --section-overlay-h-start: 0.84;
+    --section-overlay-h-mid: 0.62;
+    --section-overlay-h-end: 0.82;
+    --section-overlay-v-start: 0.6;
+    --section-overlay-v-end: 0.76;
 }
 
 .section-ai-stack {
     --section-bg: url("../images/proof/vector-db-diagram.webp");
     --section-position: center 44%;
+    --section-min-height: clamp(760px, 88svh, 1020px);
+    --section-overlay-h-start: 0.86;
+    --section-overlay-h-mid: 0.62;
+    --section-overlay-h-end: 0.86;
+    --section-overlay-v-start: 0.62;
+    --section-overlay-v-end: 0.8;
 }
 
 .section-media {
     --section-bg: url("../images/proof/recomputer-zed.jpeg");
-    --section-position: center 44%;
+    --section-position: center 41%;
+    --section-min-height: clamp(780px, 90svh, 1060px);
+    --section-overlay-h-start: 0.85;
+    --section-overlay-h-mid: 0.64;
+    --section-overlay-h-end: 0.85;
+    --section-overlay-v-start: 0.62;
+    --section-overlay-v-end: 0.8;
 }
 
 .statement-shell {
@@ -719,12 +767,24 @@ body.nav-open .site-header {
 
 .section-process {
     --section-bg: url("../images/proof/recomputer-devboard.jpeg");
-    --section-position: center 42%;
+    --section-position: center 38%;
+    --section-min-height: clamp(760px, 88svh, 1020px);
+    --section-overlay-h-start: 0.86;
+    --section-overlay-h-mid: 0.64;
+    --section-overlay-h-end: 0.85;
+    --section-overlay-v-start: 0.62;
+    --section-overlay-v-end: 0.8;
 }
 
 #open-source {
     --section-bg: url("../images/proof/rover-front-wetdirt-rain-v2.webp");
-    --section-position: center 52%;
+    --section-position: center 36%;
+    --section-min-height: clamp(760px, 88svh, 1020px);
+    --section-overlay-h-start: 0.88;
+    --section-overlay-h-mid: 0.66;
+    --section-overlay-h-end: 0.86;
+    --section-overlay-v-start: 0.64;
+    --section-overlay-v-end: 0.82;
 }
 
 .process-shell {
@@ -1098,6 +1158,21 @@ body.nav-open .site-header {
         font-size: 3.1rem;
     }
 
+    .section-statement,
+    .section-ai-stack,
+    #services,
+    .section-media,
+    .section-process,
+    #open-source {
+        --section-padding-block: clamp(4.9rem, 10vw, 7rem);
+        --section-min-height: clamp(640px, 86svh, 880px);
+    }
+
+    #services {
+        --section-size: 156% auto;
+        --section-position: center 30%;
+    }
+
     .statement-shell,
     .process-shell,
     .contact-grid {
@@ -1145,6 +1220,21 @@ body.nav-open .site-header {
         padding-bottom: 6rem;
     }
 
+    .section-statement,
+    .section-ai-stack,
+    #services,
+    .section-media,
+    .section-process,
+    #open-source {
+        --section-padding-block: clamp(4.4rem, 11vw, 6.1rem);
+        --section-min-height: clamp(560px, 84svh, 760px);
+    }
+
+    #services {
+        --section-size: 178% auto;
+        --section-position: center 28%;
+    }
+
     .hero h1 {
         font-size: 4.1rem;
         letter-spacing: 0;
@@ -1190,12 +1280,8 @@ body.nav-open .site-header {
 }
 
 @media (max-width: 430px) {
-    .brand span {
-        font-size: 0.8rem;
-    }
-
-    .brand img {
-        width: 34px;
+    .brand-loop {
+        width: 112px;
     }
 
     .hero-actions {
