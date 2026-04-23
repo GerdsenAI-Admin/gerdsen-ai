@@ -124,13 +124,16 @@ section[id] {
     inset: 0 0 auto;
     z-index: 100;
     min-height: var(--header-height);
+    background: linear-gradient(180deg, rgba(1, 3, 8, 0.82) 0%, rgba(1, 3, 8, 0.66) 100%);
+    border-bottom: 0;
+    backdrop-filter: blur(10px);
     transition: background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
 }
 
 .site-header.is-scrolled,
 body.nav-open .site-header {
-    background: rgba(4, 7, 14, 0.86);
-    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(1, 3, 8, 0.92) 0%, rgba(1, 3, 8, 0.84) 100%);
+    border-bottom: 0;
     backdrop-filter: blur(18px);
 }
 
@@ -152,16 +155,20 @@ body.nav-open .site-header {
     display: inline-flex;
     align-items: center;
     min-width: max-content;
+    overflow: hidden;
     color: var(--text);
     font-family: var(--font-display);
 }
 
 .brand-loop {
     width: clamp(114px, 11vw, 148px);
-    border: 1px solid rgba(245, 247, 251, 0.16);
-    border-radius: 8px;
-    background: rgba(5, 9, 18, 0.58);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    display: block;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    mix-blend-mode: screen;
+    filter: brightness(1.08) contrast(1.16) saturate(1.05);
 }
 
 .site-nav {
@@ -387,6 +394,13 @@ body.nav-open .site-header {
     line-height: 1;
 }
 
+.hero-kicker-sub {
+    display: inline;
+    margin-left: 0;
+    font-size: 0.72em;
+    line-height: 1.08;
+}
+
 .hero-summary {
     max-width: 600px;
     margin: clamp(2rem, 5vh, 3rem) 0 0;
@@ -551,11 +565,11 @@ body.nav-open .site-header {
     --section-bg: url("../images/proof/engineering-expo.webp");
     --section-position: center 44%;
     --section-min-height: clamp(700px, 82svh, 920px);
-    --section-overlay-h-start: 0.86;
-    --section-overlay-h-mid: 0.66;
-    --section-overlay-h-end: 0.84;
-    --section-overlay-v-start: 0.62;
-    --section-overlay-v-end: 0.78;
+    --section-overlay-h-start: 0.69;
+    --section-overlay-h-mid: 0.53;
+    --section-overlay-h-end: 0.67;
+    --section-overlay-v-start: 0.5;
+    --section-overlay-v-end: 0.62;
 }
 
 #services {
@@ -574,11 +588,11 @@ body.nav-open .site-header {
     --section-bg: url("../images/proof/vector-db-diagram.webp");
     --section-position: center 44%;
     --section-min-height: clamp(760px, 88svh, 1020px);
-    --section-overlay-h-start: 0.86;
-    --section-overlay-h-mid: 0.62;
-    --section-overlay-h-end: 0.86;
-    --section-overlay-v-start: 0.62;
-    --section-overlay-v-end: 0.8;
+    --section-overlay-h-start: 0.77;
+    --section-overlay-h-mid: 0.56;
+    --section-overlay-h-end: 0.77;
+    --section-overlay-v-start: 0.56;
+    --section-overlay-v-end: 0.72;
 }
 
 .section-media {
@@ -769,22 +783,28 @@ body.nav-open .site-header {
     --section-bg: url("../images/proof/recomputer-devboard.jpeg");
     --section-position: center 38%;
     --section-min-height: clamp(760px, 88svh, 1020px);
-    --section-overlay-h-start: 0.86;
-    --section-overlay-h-mid: 0.64;
-    --section-overlay-h-end: 0.85;
-    --section-overlay-v-start: 0.62;
-    --section-overlay-v-end: 0.8;
+    --section-overlay-h-start: 0.43;
+    --section-overlay-h-mid: 0.32;
+    --section-overlay-h-end: 0.43;
+    --section-overlay-v-start: 0.31;
+    --section-overlay-v-end: 0.4;
 }
 
 #open-source {
     --section-bg: url("../images/proof/rover-front-wetdirt-rain-v2.webp");
-    --section-position: center 36%;
+    --section-position: center 58%;
     --section-min-height: clamp(760px, 88svh, 1020px);
-    --section-overlay-h-start: 0.88;
-    --section-overlay-h-mid: 0.66;
-    --section-overlay-h-end: 0.86;
-    --section-overlay-v-start: 0.64;
-    --section-overlay-v-end: 0.82;
+    --section-overlay-h-start: 0.44;
+    --section-overlay-h-mid: 0.33;
+    --section-overlay-h-end: 0.43;
+    --section-overlay-v-start: 0.32;
+    --section-overlay-v-end: 0.41;
+    scroll-margin-top: calc(var(--header-height) + 64px);
+}
+
+#open-source .proof-shell {
+    max-width: 1120px;
+    margin-inline: auto;
 }
 
 .process-shell {
@@ -845,7 +865,7 @@ body.nav-open .site-header {
 
 .proof-item-feature {
     display: grid;
-    grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
     align-items: center;
 }
 
@@ -858,7 +878,8 @@ body.nav-open .site-header {
 
 .proof-item-feature img {
     height: auto;
-    min-height: 280px;
+    min-height: 210px;
+    max-height: 270px;
     background: rgba(245, 247, 251, 0.08);
     object-fit: cover;
     filter: saturate(0.95) contrast(1.02);
@@ -869,7 +890,7 @@ body.nav-open .site-header {
     flex: 1;
     flex-direction: column;
     gap: 0.85rem;
-    padding: 1.2rem;
+    padding: 1rem 1.05rem;
 }
 
 .proof-item a {
@@ -887,7 +908,7 @@ body.nav-open .site-header {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.75rem 1.25rem;
     margin: 1rem 0 0;
-    padding: 1.25rem;
+    padding: 1rem;
     border: 1px solid var(--border);
     background: rgba(7, 11, 19, 0.64);
 }
