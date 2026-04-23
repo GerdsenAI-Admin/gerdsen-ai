@@ -1,86 +1,27 @@
-# GERDSEN AI Website Deployment Guide
+# Gerdsen AI Website
 
-## Quick Setup for GitHub Pages
+Static GitHub Pages site for [gerdsen.ai](https://gerdsen.ai).
 
-### 1. Create GitHub Repository
-1. Go to https://github.com/new
-2. Name it: `gerdsen-ai` or `gerdsen-ai-website`
-3. Make it PUBLIC (required for free GitHub Pages)
-4. Don't initialize with README
+## Local Preview
 
-### 2. Push Website to GitHub
 ```bash
-cd "/Users/gerdsenai/Documents/__Gerdsen AI LLC/gerdsen-ai-website"
-git init
-git add .
-git commit -m "Initial website for GERDSEN AI"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/gerdsen-ai.git
-git push -u origin main
+npm install
+npm run dev
 ```
 
-### 3. Enable GitHub Pages
-1. Go to your repo → Settings → Pages
-2. Source: Deploy from a branch
-3. Branch: main
-4. Folder: / (root)
-5. Click Save
+The dev server runs the static site from the repository root at `http://127.0.0.1:4000`.
 
-### 4. Configure Custom Domain (gerdsen.ai)
-1. In GitHub Pages settings, add custom domain: `gerdsen.ai`
-2. Check "Enforce HTTPS"
+## Deployment
 
-### 5. Configure DNS (at your domain registrar)
-Add these DNS records:
+This site is designed to publish directly from GitHub Pages with no build step.
 
-**Option A - Using APEX domain (gerdsen.ai):**
-```
-Type: A
-Name: @
-Value: 185.199.108.153
----
-Type: A
-Name: @
-Value: 185.199.109.153
----
-Type: A
-Name: @
-Value: 185.199.110.153
----
-Type: A
-Name: @
-Value: 185.199.111.153
-```
+- Keep `CNAME` set to `gerdsen.ai`.
+- Keep public assets under `assets/`.
+- Do not require server-side rendering or a runtime framework for production.
+- The contact form posts to the existing Formspree endpoint in `index.html`.
 
-**Option B - Using www subdomain:**
-```
-Type: CNAME
-Name: www
-Value: YOUR_USERNAME.github.io
-```
+## Preview Branches
 
-### 6. Add CNAME file to repo
-Create a file named `CNAME` (no extension) with:
-```
-gerdsen.ai
-```
+The `codex/ui-typewriter-hero-a` branch is the closest match to the provided typewriter/server-room hero reference.
 
-### 7. Wait for DNS Propagation
-- DNS changes can take 24-48 hours
-- GitHub will show a green checkmark when ready
-- Your site will be live at https://gerdsen.ai
-
-## Website Features
-- ✅ Professional design with Tailwind CSS
-- ✅ Mobile responsive
-- ✅ Clear value proposition
-- ✅ Services showcase
-- ✅ Contact information
-- ✅ Professional business presence
-- ✅ Privacy-focused messaging
-
-## For GitHub for Startups Application
-Once live, you can use `https://gerdsen.ai` as your company website!
-
-## Need Changes?
-Edit `index.html` and push to GitHub - changes deploy automatically.
+The `codex/ui-command-center-b` branch is the more polished command-center variant with the same GitHub Pages-compatible static architecture.

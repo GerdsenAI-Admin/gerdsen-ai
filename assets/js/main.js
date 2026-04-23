@@ -1,6 +1,5 @@
 const REDUCED_MOTION_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MOBILE_NAV_QUERY = window.matchMedia("(max-width: 920px)");
-const HERO_MOTION_QUERY = window.matchMedia("(min-width: 921px)");
 
 function bindMediaQueryChange(query, callback) {
     if (typeof query.addEventListener === "function") {
@@ -18,12 +17,6 @@ function setCurrentYear() {
     if (yearNode) {
         yearNode.textContent = String(new Date().getFullYear());
     }
-}
-
-function initPageReady() {
-    window.requestAnimationFrame(() => {
-        document.body.classList.add("is-ready");
-    });
 }
 
 function initHeader() {
@@ -45,7 +38,7 @@ function initHeader() {
     const closeMenu = () => setMenuState(false);
 
     const handleScroll = () => {
-        header.classList.toggle("is-scrolled", window.scrollY > 12);
+        header.classList.toggle("is-scrolled", window.scrollY > 16);
     };
 
     toggle.addEventListener("click", () => {
@@ -109,7 +102,7 @@ function initSmoothScroll() {
 
             event.preventDefault();
 
-            const offset = header.offsetHeight + 12;
+            const offset = header.offsetHeight + 14;
             const top = target.getBoundingClientRect().top + window.scrollY - offset;
 
             window.scrollTo({
@@ -145,113 +138,25 @@ function initRevealAnimations() {
             currentObserver.unobserve(entry.target);
         });
     }, {
-        threshold: 0.16,
+        threshold: 0.14,
         rootMargin: "0px 0px -10% 0px"
     });
 
     revealNodes.forEach((node) => observer.observe(node));
 }
 
-function initHeroVideo() {
-    const heroMedia = document.querySelector(".hero-media");
-    const video = heroMedia?.querySelector(".hero-video");
-
-    if (!heroMedia || !video) {
-        return;
-    }
-
-    let sourcesLoaded = false;
-
-    const loadSources = () => {
-        if (sourcesLoaded) {
+function initServiceDetails() {
+    document.querySelectorAll(".service-card").forEach((card) => {
+        const trigger = card.querySelector(".service-trigger");
+        if (!trigger) {
             return;
         }
 
-        video.querySelectorAll("source[data-src]").forEach((source) => {
-            const { src } = source.dataset;
-            if (src) {
-                source.src = src;
-            }
+        trigger.addEventListener("click", () => {
+            const isOpen = card.classList.toggle("is-open");
+            trigger.setAttribute("aria-expanded", String(isOpen));
         });
-
-        video.load();
-        sourcesLoaded = true;
-    };
-
-    const syncPlayback = () => {
-        if (REDUCED_MOTION_QUERY.matches || !HERO_MOTION_QUERY.matches) {
-            video.pause();
-            heroMedia.classList.remove("is-video-ready");
-            return;
-        }
-
-        loadSources();
-
-        video.play()
-            .then(() => {
-                heroMedia.classList.add("is-video-ready");
-            })
-            .catch(() => {
-                heroMedia.classList.remove("is-video-ready");
-            });
-    };
-
-    video.addEventListener("canplay", () => {
-        if (!REDUCED_MOTION_QUERY.matches && HERO_MOTION_QUERY.matches) {
-            heroMedia.classList.add("is-video-ready");
-        }
     });
-
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            video.pause();
-            return;
-        }
-
-        syncPlayback();
-    });
-
-    bindMediaQueryChange(REDUCED_MOTION_QUERY, syncPlayback);
-    bindMediaQueryChange(HERO_MOTION_QUERY, syncPlayback);
-
-    syncPlayback();
-}
-
-function initHeroParallax() {
-    const hero = document.querySelector(".hero");
-    const heroMedia = document.querySelector(".hero-media");
-
-    if (!hero || !heroMedia || REDUCED_MOTION_QUERY.matches) {
-        return;
-    }
-
-    let rafId = 0;
-
-    const update = () => {
-        rafId = 0;
-
-        if (!HERO_MOTION_QUERY.matches) {
-            heroMedia.style.setProperty("--hero-parallax", "0px");
-            return;
-        }
-
-        const rect = hero.getBoundingClientRect();
-        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-        heroMedia.style.setProperty("--hero-parallax", `${progress * 18}px`);
-    };
-
-    const requestTick = () => {
-        if (rafId) {
-            return;
-        }
-
-        rafId = window.requestAnimationFrame(update);
-    };
-
-    bindMediaQueryChange(HERO_MOTION_QUERY, requestTick);
-    window.addEventListener("resize", requestTick);
-    window.addEventListener("scroll", requestTick, { passive: true });
-    requestTick();
 }
 
 function initContactForm() {
@@ -264,19 +169,10 @@ function initContactForm() {
     }
 
     const defaultButtonText = submitButton.textContent;
-    let hideStatusTimer = null;
 
     const showStatus = (message, state) => {
         statusNode.textContent = message;
-        statusNode.className = `form-status ${state} is-visible`;
-
-        if (hideStatusTimer) {
-            window.clearTimeout(hideStatusTimer);
-        }
-
-        hideStatusTimer = window.setTimeout(() => {
-            statusNode.classList.remove("is-visible");
-        }, 10000);
+        statusNode.className = `form-status ${state}`;
     };
 
     form.addEventListener("submit", async (event) => {
@@ -293,7 +189,7 @@ function initContactForm() {
 
         submitButton.disabled = true;
         submitButton.setAttribute("aria-busy", "true");
-        submitButton.textContent = "Sending Message...";
+        submitButton.textContent = "Sending...";
 
         try {
             const response = await fetch(form.action || "https://formspree.io/f/xeozyrwa", {
@@ -310,12 +206,9 @@ function initContactForm() {
             }
 
             form.reset();
-            showStatus("Message sent successfully. We will get back to you within 24 hours.", "is-success");
+            showStatus("Message sent. We will respond with a concrete next step.", "is-success");
         } catch (error) {
-            showStatus(
-                "Sorry, there was an error sending your message. Please try again or email info@gerdsen.ai.",
-                "is-error"
-            );
+            showStatus("The message could not be sent. Please email info@gerdsen.ai.", "is-error");
         } finally {
             submitButton.disabled = false;
             submitButton.removeAttribute("aria-busy");
@@ -324,13 +217,84 @@ function initContactForm() {
     });
 }
 
+function initParticles() {
+    const canvas = document.getElementById("particle-field");
+    if (!canvas || REDUCED_MOTION_QUERY.matches) {
+        return;
+    }
+
+    const context = canvas.getContext("2d");
+    const particles = [];
+    let animationFrame = 0;
+    let width = 0;
+    let height = 0;
+
+    const resize = () => {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        canvas.width = Math.floor(width * ratio);
+        canvas.height = Math.floor(height * ratio);
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        const targetCount = Math.max(34, Math.min(88, Math.floor(width / 22)));
+        particles.length = 0;
+
+        for (let index = 0; index < targetCount; index += 1) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.8 + 0.6,
+                alpha: Math.random() * 0.55 + 0.2,
+                drift: Math.random() * 0.22 + 0.08,
+                hue: Math.random() > 0.82 ? 198 : 37
+            });
+        }
+    };
+
+    const draw = () => {
+        context.clearRect(0, 0, width, height);
+
+        particles.forEach((particle) => {
+            particle.y -= particle.drift;
+            particle.x += Math.sin((particle.y + particle.radius) * 0.012) * 0.12;
+
+            if (particle.y < -8) {
+                particle.y = height + 8;
+                particle.x = Math.random() * width;
+            }
+
+            context.beginPath();
+            context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+            context.fillStyle = particle.hue === 37
+                ? `rgba(255, 157, 0, ${particle.alpha})`
+                : `rgba(103, 190, 255, ${particle.alpha * 0.5})`;
+            context.fill();
+        });
+
+        animationFrame = window.requestAnimationFrame(draw);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            window.cancelAnimationFrame(animationFrame);
+            return;
+        }
+
+        draw();
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     setCurrentYear();
-    initPageReady();
     initHeader();
     initSmoothScroll();
     initRevealAnimations();
-    initHeroVideo();
-    initHeroParallax();
+    initServiceDetails();
     initContactForm();
+    initParticles();
 });
