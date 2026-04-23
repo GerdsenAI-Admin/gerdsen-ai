@@ -415,8 +415,8 @@ body.nav-open .site-header {
     padding: clamp(5rem, 10vw, 8.5rem) 0;
     isolation: isolate;
     background:
-        linear-gradient(90deg, rgba(4, 7, 14, 0.96) 0%, rgba(4, 7, 14, 0.88) 52%, rgba(4, 7, 14, 0.96) 100%),
-        linear-gradient(180deg, rgba(4, 7, 14, 0.94), rgba(4, 7, 14, 0.9)),
+        linear-gradient(90deg, rgba(4, 7, 14, 0.68) 0%, rgba(4, 7, 14, 0.24) 54%, rgba(4, 7, 14, 0.64) 100%),
+        linear-gradient(180deg, rgba(4, 7, 14, 0.26), rgba(4, 7, 14, 0.38)),
         var(--section-bg, linear-gradient(#04070e, #04070e));
     background-attachment: scroll;
     background-position: var(--section-position, center);
@@ -442,10 +442,11 @@ body.nav-open .site-header {
     z-index: 0;
     pointer-events: none;
     background:
+        linear-gradient(180deg, rgba(4, 7, 14, 0.06), rgba(4, 7, 14, 0.18)),
         linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-    background-size: 72px 72px;
-    opacity: 0.16;
+    background-size: auto, 72px 72px, 72px 72px;
+    opacity: 0.18;
 }
 
 .section-shell {
@@ -460,7 +461,6 @@ body.nav-open .site-header {
 
 .section-heading h2,
 .statement-shell h2,
-.about-copy h2,
 .contact-copy h2 {
     margin: 0.7rem 0 0;
     color: var(--text);
@@ -472,7 +472,6 @@ body.nav-open .site-header {
 
 .section-heading p:last-child,
 .statement-shell p,
-.about-copy p,
 .contact-copy p {
     max-width: 650px;
     margin: 1.25rem 0 0;
@@ -487,6 +486,11 @@ body.nav-open .site-header {
 #services {
     --section-bg: url("../images/proof/orin-lineup.webp");
     --section-position: center 46%;
+}
+
+.section-ai-stack {
+    --section-bg: url("../images/proof/vector-db-diagram.webp");
+    --section-position: center 44%;
 }
 
 .statement-shell {
@@ -513,8 +517,48 @@ body.nav-open .site-header {
 }
 
 .service-card {
-    background: rgba(7, 11, 19, 0.92);
+    background: rgba(7, 11, 19, 0.76);
     backdrop-filter: blur(12px);
+}
+
+.stack-shell {
+    display: grid;
+    gap: clamp(2.25rem, 5vw, 4rem);
+}
+
+.stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+}
+
+.stack-card {
+    min-height: 250px;
+    padding: clamp(1.2rem, 2.5vw, 1.65rem);
+    background: rgba(7, 11, 19, 0.72);
+    backdrop-filter: blur(12px);
+}
+
+.stack-kicker {
+    margin: 0 0 0.8rem;
+    color: var(--muted-soft);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.stack-card h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.16rem;
+    line-height: 1.18;
+}
+
+.stack-card p:last-child {
+    margin: 1rem 0 0;
+    color: var(--muted);
 }
 
 .service-trigger {
@@ -575,8 +619,8 @@ body.nav-open .site-header {
 }
 
 #open-source {
-    --section-bg: url("../images/proof/open-robotics-post.jpg");
-    --section-position: center 45%;
+    --section-bg: url("../images/proof/recomputer-zed.jpeg");
+    --section-position: center 48%;
 }
 
 .process-shell {
@@ -598,7 +642,7 @@ body.nav-open .site-header {
     gap: 1.25rem;
     align-items: baseline;
     padding: 1.2rem 1.25rem;
-    background: rgba(7, 11, 19, 0.9);
+    background: rgba(7, 11, 19, 0.74);
     backdrop-filter: blur(10px);
 }
 
@@ -621,13 +665,24 @@ body.nav-open .site-header {
     gap: 1rem;
 }
 
+.proof-grid-single {
+    max-width: 980px;
+    grid-template-columns: 1fr;
+}
+
 .proof-item {
     display: flex;
     min-height: 100%;
     flex-direction: column;
     border: 1px solid var(--border);
-    background: rgba(7, 11, 19, 0.88);
+    background: rgba(7, 11, 19, 0.7);
     backdrop-filter: blur(10px);
+}
+
+.proof-item-feature {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
 }
 
 .proof-item img {
@@ -635,6 +690,14 @@ body.nav-open .site-header {
     aspect-ratio: 1.72;
     object-fit: cover;
     filter: saturate(0.8) contrast(1.04);
+}
+
+.proof-item-feature img {
+    height: auto;
+    min-height: 0;
+    background: rgba(245, 247, 251, 0.08);
+    object-fit: contain;
+    filter: saturate(0.95) contrast(1.02);
 }
 
 .proof-item div {
@@ -655,42 +718,11 @@ body.nav-open .site-header {
     text-transform: uppercase;
 }
 
-.section-about {
-    --section-bg: url("../images/proof/rover-rain.webp");
-    --section-position: center 48%;
-}
-
-.about-shell,
 .contact-grid {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
     gap: clamp(2rem, 7vw, 5rem);
     align-items: start;
-}
-
-.credential-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px;
-    border: 1px solid var(--border);
-    background: var(--border);
-}
-
-.credential-grid p {
-    min-height: 150px;
-    margin: 0;
-    padding: 1.25rem;
-    background: rgba(7, 11, 19, 0.9);
-    color: var(--muted);
-}
-
-.credential-grid span {
-    display: block;
-    margin-bottom: 0.75rem;
-    color: var(--accent-strong);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.1;
 }
 
 .section-contact {
@@ -732,7 +764,7 @@ body.nav-open .site-header {
     padding: clamp(1.3rem, 2vw, 1.7rem);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
-    background: linear-gradient(180deg, rgba(9, 14, 25, 0.92), rgba(7, 11, 19, 0.86));
+    background: linear-gradient(180deg, rgba(9, 14, 25, 0.78), rgba(7, 11, 19, 0.7));
     box-shadow: 0 36px 110px rgba(0, 0, 0, 0.46);
     backdrop-filter: blur(14px);
 }
@@ -843,9 +875,9 @@ body.nav-open .site-header {
 }
 
 .js .reveal {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(28px);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transition: transform 0.7s var(--ease);
 }
 
 .js .reveal.is-visible {
@@ -923,14 +955,12 @@ body.nav-open .site-header {
 
     .section-heading h2,
     .statement-shell h2,
-    .about-copy h2,
     .contact-copy h2 {
         font-size: 3.1rem;
     }
 
     .statement-shell,
     .process-shell,
-    .about-shell,
     .contact-grid {
         grid-template-columns: 1fr;
     }
@@ -941,6 +971,10 @@ body.nav-open .site-header {
 
     .proof-grid {
         grid-template-columns: 1fr;
+    }
+
+    .stack-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -967,7 +1001,6 @@ body.nav-open .site-header {
 
     .section-heading h2,
     .statement-shell h2,
-    .about-copy h2,
     .contact-copy h2 {
         font-size: 2.55rem;
     }
@@ -977,13 +1010,17 @@ body.nav-open .site-header {
     }
 
     .service-grid,
-    .credential-grid {
+    .stack-grid {
         grid-template-columns: 1fr;
     }
 
     .process-step {
         grid-template-columns: 1fr;
         gap: 0.65rem;
+    }
+
+    .proof-item-feature {
+        grid-template-columns: 1fr;
     }
 
     .field-grid,
@@ -1020,7 +1057,6 @@ body.nav-open .site-header {
 
     .section-heading h2,
     .statement-shell h2,
-    .about-copy h2,
     .contact-copy h2 {
         font-size: 2.05rem;
     }
