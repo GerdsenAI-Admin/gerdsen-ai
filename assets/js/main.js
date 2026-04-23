@@ -169,10 +169,19 @@ function initContactForm() {
     }
 
     const defaultButtonText = submitButton.textContent;
+    let hideStatusTimer = null;
 
     const showStatus = (message, state) => {
         statusNode.textContent = message;
-        statusNode.className = `form-status ${state}`;
+        statusNode.className = `form-status ${state} is-visible`;
+
+        if (hideStatusTimer) {
+            window.clearTimeout(hideStatusTimer);
+        }
+
+        hideStatusTimer = window.setTimeout(() => {
+            statusNode.classList.remove("is-visible");
+        }, 10000);
     };
 
     form.addEventListener("submit", async (event) => {
@@ -189,7 +198,7 @@ function initContactForm() {
 
         submitButton.disabled = true;
         submitButton.setAttribute("aria-busy", "true");
-        submitButton.textContent = "Sending...";
+        submitButton.textContent = "Sending Message...";
 
         try {
             const response = await fetch(form.action || "https://formspree.io/f/xeozyrwa", {
@@ -206,9 +215,12 @@ function initContactForm() {
             }
 
             form.reset();
-            showStatus("Message sent. We will respond with a concrete next step.", "is-success");
+            showStatus("Message sent successfully. We will get back to you within 24 hours.", "is-success");
         } catch (error) {
-            showStatus("The message could not be sent. Please email info@gerdsen.ai.", "is-error");
+            showStatus(
+                "Sorry, there was an error sending your message. Please try again or email info@gerdsen.ai.",
+                "is-error"
+            );
         } finally {
             submitButton.disabled = false;
             submitButton.removeAttribute("aria-busy");
