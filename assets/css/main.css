@@ -17,6 +17,8 @@
     --max-width: 1240px;
     --header-height: 72px;
     --radius: 10px;
+    --surface-overlay-horizontal: linear-gradient(90deg, rgba(4, 7, 14, 0.66) 0%, rgba(4, 7, 14, 0.24) 52%, rgba(4, 7, 14, 0.62) 100%);
+    --surface-overlay-vertical: linear-gradient(180deg, rgba(4, 7, 14, 0.18) 0%, rgba(4, 7, 14, 0.34) 70%, rgba(4, 7, 14, 0.48) 100%);
     --font-display: "Courier Prime", "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
     --font-body: "Courier Prime", "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -236,8 +238,8 @@ body.nav-open .site-header {
     overflow: hidden;
     isolation: isolate;
     background:
-        linear-gradient(90deg, rgba(4, 7, 14, 0.96) 0%, rgba(4, 7, 14, 0.64) 48%, rgba(4, 7, 14, 0.9) 100%),
-        linear-gradient(180deg, rgba(4, 7, 14, 0.2) 0%, rgba(4, 7, 14, 0.5) 68%, #04070e 100%),
+        var(--surface-overlay-horizontal),
+        var(--surface-overlay-vertical),
         url("../images/hero/server-room-hero.webp") center / cover no-repeat;
 }
 
@@ -257,7 +259,7 @@ body.nav-open .site-header {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(2, 5, 12, 0.4);
+    background: rgba(2, 5, 12, 0.24);
     backdrop-filter: blur(1.5px);
 }
 
@@ -266,7 +268,7 @@ body.nav-open .site-header {
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.82;
+    opacity: 0.68;
 }
 
 .hero-line {
@@ -415,8 +417,8 @@ body.nav-open .site-header {
     padding: clamp(5rem, 10vw, 8.5rem) 0;
     isolation: isolate;
     background:
-        linear-gradient(90deg, rgba(4, 7, 14, 0.68) 0%, rgba(4, 7, 14, 0.24) 54%, rgba(4, 7, 14, 0.64) 100%),
-        linear-gradient(180deg, rgba(4, 7, 14, 0.26), rgba(4, 7, 14, 0.38)),
+        var(--surface-overlay-horizontal),
+        var(--surface-overlay-vertical),
         var(--section-bg, linear-gradient(#04070e, #04070e));
     background-attachment: scroll;
     background-position: var(--section-position, center);
