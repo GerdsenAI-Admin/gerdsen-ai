@@ -102,3 +102,4 @@ skills/
 # Source/unused media (excluded from build, not needed in tracking)
 assets/images/originals/
 assets/images/unused/
+.vercel
