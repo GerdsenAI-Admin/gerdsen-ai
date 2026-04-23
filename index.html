@@ -173,6 +173,9 @@
 
     <main id="main-content">
         <section class="hero" id="home" aria-labelledby="hero-title">
+            <video class="hero-pipeline-loop" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                <source src="assets/images/hero/hero-loop-transparent.webm" type="video/webm">
+            </video>
             <canvas class="hero-particles" id="particle-field" aria-hidden="true"></canvas>
             <div class="hero-line" aria-hidden="true"></div>
             <div class="hero-shell">
@@ -214,7 +217,7 @@
                     </p>
                 </div>
 
-                <div class="stack-grid" aria-label="AI systems, platforms, and search focus areas">
+                <div class="stack-grid" aria-label="AI systems, platforms, and deployment focus areas">
                     <article class="stack-card reveal">
                         <p class="stack-kicker">Pipelines</p>
                         <h3>AI Pipelines &amp; MCP</h3>
@@ -235,12 +238,12 @@
                         <h3>ROS2, Vision &amp; Edge AI</h3>
                         <p>ROS2 integration, computer vision, NVIDIA Jetson, TensorRT optimization, sensor workflows, and deployable edge runtimes for real systems.</p>
                     </article>
-                    <article class="stack-card reveal">
-                        <p class="stack-kicker">Product SEO</p>
+                    <article class="stack-card stack-card-seo reveal">
+                        <p class="stack-kicker">Product systems</p>
                         <h3>Socratic.one &amp; SocraticCode.dev</h3>
-                        <p>Search-aligned messaging for technical product surfaces, education-adjacent AI workflows, code systems, and reusable AI engineering assets.</p>
+                        <p>Product messaging, workflow architecture, and reusable AI engineering assets for technical delivery teams.</p>
                     </article>
-                    <article class="stack-card reveal">
+                    <article class="stack-card stack-card-seo reveal">
                         <p class="stack-kicker">Domain alignment</p>
                         <h3>ShepherdMCP.ai &amp; chroraquest.com</h3>
                         <p>Consistent language across related AI, MCP, workflow, and deployment properties while keeping each site and product surface distinct.</p>
@@ -327,6 +330,42 @@
             </div>
         </section>
 
+        <section class="section section-media" id="work-samples" aria-labelledby="work-samples-title">
+            <div class="section-shell">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Applied Systems</p>
+                    <h2 id="work-samples-title">Connected delivery from desktop tools to robotics.</h2>
+                    <p>These snapshots show the working path from operator desktop software to live computer vision and embedded board identification.</p>
+                </div>
+                <div class="media-grid" aria-label="Representative media from delivered systems">
+                    <article class="media-card reveal">
+                        <img src="assets/images/proof/claimwatch-desktop1.webp" width="2048" height="1084" loading="lazy" decoding="async" alt="ClaimWatch desktop application showing analytics charts and map tools.">
+                        <div class="media-card-body">
+                            <p class="media-kicker">Desktop apps</p>
+                            <h3>ClaimWatch Desktop</h3>
+                            <p>Operator-focused desktop software with dashboard analytics, map-based workflows, and production data tools.</p>
+                        </div>
+                    </article>
+                    <article class="media-card reveal">
+                        <img src="assets/images/proof/yolo-vision.webp" width="2048" height="1336" loading="lazy" decoding="async" alt="Computer vision interface showing YOLO detections on machinery and workers.">
+                        <div class="media-card-body">
+                            <p class="media-kicker">Computer vision</p>
+                            <h3>Live Detection Pipeline</h3>
+                            <p>Real-time object detection workflows for safety, operations monitoring, and edge inference on active job sites.</p>
+                        </div>
+                    </article>
+                    <article class="media-card reveal">
+                        <img src="assets/images/proof/board-identifier-vision.png" width="645" height="572" loading="lazy" decoding="async" alt="Embedded board identifier interface detecting a Teensy 4.1 board.">
+                        <div class="media-card-body">
+                            <p class="media-kicker">Embedded vision</p>
+                            <h3>Board Identifier Tooling</h3>
+                            <p>Computer-vision assisted board identification for hardware inventory, validation, and bring-up workflows.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section class="section section-process" id="how-we-work" aria-labelledby="process-title">
             <div class="section-shell process-shell">
                 <div class="section-heading reveal">
@@ -370,19 +409,25 @@
                     <p class="eyebrow">Public Proof</p>
                     <h2 id="opensource-title">One public ROS2 proof point.</h2>
                     <p>Open Robotics highlighted Gerdsen AI&apos;s Depth Anything 3 ROS2 wrapper. The DA3 repo is public and usable.</p>
+                    <p>The same workflow pattern extends to field robotics: camera ingestion, depth inference, ROS2 transport, and deployable edge runtime behavior.</p>
                 </div>
                 <div class="proof-grid proof-grid-single">
                     <article class="proof-item proof-item-feature reveal">
-                        <img src="assets/images/proof/open-robotics-post.jpg" width="699" height="290" loading="lazy"
-                            decoding="async" alt="Open Robotics LinkedIn comment mentioning Gerdsen AI's ROS2 Depth Anything 3 wrapper.">
+                        <img src="assets/images/proof/rover-shell-prototype-side.jpeg" width="2016" height="1512" loading="lazy"
+                            decoding="async" alt="Custom ROS2 rover shell prototype side view.">
                         <div>
-                            <p class="proof-kicker">ROS2 LinkedIn comment</p>
+                            <p class="proof-kicker">Custom ROS2 build + public proof</p>
                             <h3>Depth Anything 3 ROS2 Wrapper</h3>
                             <p>The DA3 wrapper connects ByteDance&apos;s Depth Anything 3 model to ROS2 robotics and perception stacks.</p>
                             <a href="https://github.com/GerdsenAI/GerdsenAI-Depth-Anything-3-ROS2-Wrapper" target="_blank" rel="noopener noreferrer">View Repository</a>
                         </div>
                     </article>
                 </div>
+                <ul class="proof-notes reveal" aria-label="ROS2 delivery details">
+                    <li>ROS2-first integration with practical depth-estimation pipelines for real deployments.</li>
+                    <li>Edge-ready runtime patterns for robotics workloads that must stay reliable in the field.</li>
+                    <li>Public DA3 repository that shortens pilot timelines and supports production handoff.</li>
+                </ul>
             </div>
         </section>
 
@@ -419,6 +464,9 @@
                     <p class="contact-panel-note">
                         You&apos;ll get a direct response with next steps, not a generic intake loop.
                     </p>
+                    <video class="contact-logo-loop" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                        <source src="assets/images/Neural_G_1a.mp4" type="video/mp4">
+                    </video>
 
                     <form class="contact-form" id="contact-form" action="https://formspree.io/f/xeozyrwa" method="POST">
                         <div class="form-field">

@@ -243,6 +243,17 @@ body.nav-open .site-header {
         url("../images/hero/server-room-hero.webp") center / cover no-repeat;
 }
 
+.hero-pipeline-loop {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.26;
+    pointer-events: none;
+}
+
 .hero::before {
     content: "";
     position: absolute;
@@ -481,8 +492,8 @@ body.nav-open .site-header {
 }
 
 .section-statement {
-    --section-bg: url("../images/proof/vector-db-diagram.webp");
-    --section-position: center 38%;
+    --section-bg: url("../images/proof/engineering-expo.webp");
+    --section-position: center 46%;
 }
 
 #services {
@@ -492,6 +503,11 @@ body.nav-open .site-header {
 
 .section-ai-stack {
     --section-bg: url("../images/proof/vector-db-diagram.webp");
+    --section-position: center 44%;
+}
+
+.section-media {
+    --section-bg: url("../images/proof/recomputer-zed.jpeg");
     --section-position: center 44%;
 }
 
@@ -563,6 +579,57 @@ body.nav-open .site-header {
     color: var(--muted);
 }
 
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.media-card {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    background: rgba(7, 11, 19, 0.72);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.media-card img {
+    width: 100%;
+    height: clamp(190px, 23vw, 300px);
+    object-fit: cover;
+    filter: saturate(0.86) contrast(1.04);
+}
+
+.media-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+}
+
+.media-kicker {
+    margin: 0;
+    color: var(--muted-soft);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.media-card h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.08rem;
+    line-height: 1.25;
+}
+
+.media-card p:last-child {
+    margin: 0;
+    color: var(--muted);
+}
+
 .service-trigger {
     width: 100%;
     min-height: 116px;
@@ -621,8 +688,8 @@ body.nav-open .site-header {
 }
 
 #open-source {
-    --section-bg: url("../images/proof/recomputer-zed.jpeg");
-    --section-position: center 48%;
+    --section-bg: url("../images/proof/rover-front-wetdirt-rain-v2.webp");
+    --section-position: center 52%;
 }
 
 .process-shell {
@@ -696,9 +763,9 @@ body.nav-open .site-header {
 
 .proof-item-feature img {
     height: auto;
-    min-height: 0;
+    min-height: 280px;
     background: rgba(245, 247, 251, 0.08);
-    object-fit: contain;
+    object-fit: cover;
     filter: saturate(0.95) contrast(1.02);
 }
 
@@ -718,6 +785,22 @@ body.nav-open .site-header {
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+}
+
+.proof-notes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem 1.25rem;
+    margin: 1rem 0 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    background: rgba(7, 11, 19, 0.64);
+}
+
+.proof-notes li {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.5;
 }
 
 .contact-grid {
@@ -763,6 +846,8 @@ body.nav-open .site-header {
 }
 
 .contact-panel {
+    position: relative;
+    overflow: hidden;
     padding: clamp(1.3rem, 2vw, 1.7rem);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
@@ -778,10 +863,26 @@ body.nav-open .site-header {
     line-height: 1.2;
 }
 
+.contact-logo-loop {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 1;
+    width: clamp(72px, 9vw, 112px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(5, 9, 18, 0.62);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+    opacity: 0.82;
+    pointer-events: none;
+}
+
 .contact-form {
     display: grid;
     gap: 1rem;
     margin-top: 1.3rem;
+    position: relative;
+    z-index: 2;
 }
 
 .form-field {
@@ -977,6 +1078,22 @@ body.nav-open .site-header {
 
     .stack-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stack-card-seo {
+        display: none;
+    }
+
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .media-card img {
+        height: clamp(180px, 42vw, 300px);
+    }
+
+    .proof-notes {
+        grid-template-columns: 1fr;
     }
 }
 
