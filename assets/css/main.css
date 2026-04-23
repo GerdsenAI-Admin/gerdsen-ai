@@ -289,7 +289,15 @@ body.nav-open .site-header {
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 157, 0, 0.28), transparent);
+    background-size: 240% 100%;
+    background-position: 100% 0;
     opacity: 0.8;
+    animation: hero-line-scan 9s linear infinite;
+}
+
+@keyframes hero-line-scan {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
 }
 
 .hero-shell {
@@ -334,6 +342,18 @@ body.nav-open .site-header {
     border-radius: 50%;
     background: var(--green);
     box-shadow: 0 0 18px rgba(9, 189, 104, 0.72);
+    animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(9, 189, 104, 0.55), 0 0 18px rgba(9, 189, 104, 0.72);
+        opacity: 1;
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(9, 189, 104, 0), 0 0 26px rgba(9, 189, 104, 0.9);
+        opacity: 0.85;
+    }
 }
 
 .hero h1 {
@@ -420,7 +440,20 @@ body.nav-open .site-header {
     width: 1px;
     height: 38px;
     margin: 0.9rem auto 0;
-    background: linear-gradient(var(--border-strong), transparent);
+    background: linear-gradient(var(--accent-strong), transparent);
+    transform-origin: top;
+    animation: scroll-cue-trail 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-cue-trail {
+    0%, 100% {
+        transform: scaleY(0.4);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scaleY(1);
+        opacity: 0.85;
+    }
 }
 
 .section {
@@ -654,10 +687,12 @@ body.nav-open .site-header {
     color: var(--accent);
     font-size: 1.5rem;
     line-height: 1;
+    transition: transform 0.28s var(--ease), color 0.2s ease;
 }
 
 .service-card.is-open .service-icon {
     transform: rotate(45deg);
+    color: var(--accent-strong);
 }
 
 .service-detail {
@@ -978,9 +1013,10 @@ body.nav-open .site-header {
 }
 
 .js .reveal {
-    opacity: 1;
+    opacity: 0;
     transform: translateY(28px);
-    transition: transform 0.7s var(--ease);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
 }
 
 .js .reveal.is-visible {
