@@ -41,7 +41,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
 
-    <script>document.documentElement.classList.add('js');</script>
+    <script>document.documentElement.classList.add("js");</script>
 
     <script type="application/ld+json">
     {
@@ -113,7 +113,8 @@
                 <span>GERDSEN AI</span>
             </a>
 
-            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Toggle navigation">
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu"
+                aria-label="Toggle navigation">
                 <span class="hamburger-bar" aria-hidden="true"></span>
                 <span class="hamburger-bar" aria-hidden="true"></span>
                 <span class="hamburger-bar" aria-hidden="true"></span>
@@ -128,11 +129,11 @@
                     <a href="#services">Services</a>
                     <a href="#how-we-work">How We Work</a>
                     <a href="#contact">Contact</a>
-                    <a class="nav-cta" href="#contact">Contact Us</a>
                     <a class="nav-external" href="https://github.com/GerdsenAI" target="_blank"
                         rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
                     <a class="nav-external" href="https://www.linkedin.com/company/gerdsenai/" target="_blank"
                         rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+                    <a class="nav-cta" href="#contact">Contact Us</a>
                 </div>
             </nav>
         </div>
@@ -141,15 +142,12 @@
     <main id="main-content">
         <section class="hero" id="home">
             <div class="hero-shell">
-                <div class="hero-copy reveal">
+                <div class="hero-copy">
                     <p class="eyebrow">From metal to model</p>
-                    <h1>Full-Stack AI Systems.</h1>
+                    <h1>Full-stack AI systems that survive the real world.</h1>
                     <p class="hero-summary">
-                        We turn disconnected workflows into deployable AI systems your team can actually use.
-                    </p>
-                    <p class="hero-detail">
-                        From spreadsheet to agentic flow, from edge to cloud, Gerdsen AI connects apps, operators, MCP
-                        servers, and deployment into one working system.
+                        Gerdsen AI turns disconnected workflows into operator-ready software, retrieval, agents, and
+                        field deployment.
                     </p>
 
                     <div class="hero-actions">
@@ -157,100 +155,128 @@
                         <a class="button button-secondary" href="#recognition">See Proof</a>
                     </div>
 
-                    <div class="proof-strip" aria-label="Selected proof points">
-                        <article class="proof-item">
-                            <p class="proof-label">Open Robotics</p>
-                            <p>Open Robotics publicly highlighted our ROS2 and Depth Anything 3 integration work.</p>
-                        </article>
-                        <article class="proof-item">
-                            <p class="proof-label">Pipelines + MCP</p>
-                            <p>Spreadsheet-to-agent flow, tool use, and MCP servers that make systems talk.</p>
-                        </article>
-                        <article class="proof-item">
-                            <p class="proof-label">Private / Local AI</p>
-                            <p>On-device, on-prem, and hybrid deployment when privacy, latency, or uptime matter.</p>
-                        </article>
-                        <article class="proof-item">
-                            <p class="proof-label">Field + Edge</p>
-                            <p>Jetson, rover, and perception systems built for field operators and edge constraints.</p>
-                        </article>
-                    </div>
+                    <ul class="hero-points" aria-label="Core delivery areas">
+                        <li>Apps, agents, MCP, and approval loops designed as one operating system.</li>
+                        <li>Private, local, cloud, and edge runtimes chosen around the real constraint.</li>
+                        <li>Robotics, vision, and desktop surfaces built for operators instead of demo theater.</li>
+                    </ul>
                 </div>
 
-                <div class="hero-media reveal" style="--reveal-delay: 140ms;">
-                    <video class="hero-video" autoplay muted loop playsinline preload="metadata"
-                        poster="assets/images/hero/hero-poster.jpg" aria-hidden="true" tabindex="-1">
-                        <source src="assets/images/hero/hero-loop-transparent.webm" type="video/webm">
-                        <source src="assets/images/hero/hero-loop-dark.mp4" type="video/mp4">
-                    </video>
+                <div class="hero-stage reveal" style="--reveal-delay: 160ms;">
+                    <div class="hero-media">
+                        <video class="hero-video" muted loop playsinline preload="none"
+                            poster="assets/images/hero/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+                            <source data-src="assets/images/hero/hero-loop-transparent.webm" type="video/webm">
+                            <source data-src="assets/images/hero/hero-loop-dark.mp4" type="video/mp4">
+                        </video>
+                        <div class="hero-grid" aria-hidden="true"></div>
 
-                    <div class="hero-media-caption">
-                        <p class="hero-media-label">Full-stack signal path</p>
-                        <p class="hero-media-note">Desktop, retrieval, agents, ROS2, and edge systems designed as one
-                            stack.</p>
+                        <div class="hero-status">
+                            <p class="hero-media-label">System view</p>
+                            <p class="hero-media-note">
+                                Desktop apps, retrieval, agents, ROS2, and edge targets designed as a single signal
+                                path.
+                            </p>
+                            <ul class="signal-list">
+                                <li>Source systems</li>
+                                <li>Human review</li>
+                                <li>Deployment targets</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="hero-ledger" aria-label="Selected proof points">
+                        <article class="hero-ledger-item">
+                            <p class="hero-ledger-label">Public proof</p>
+                            <p>Open Robotics highlighted our ROS2 and Depth Anything 3 integration work publicly.</p>
+                        </article>
+                        <article class="hero-ledger-item">
+                            <p class="hero-ledger-label">Connection layer</p>
+                            <p>Spreadsheet-to-agent flow, tool routing, MCP servers, and retrieval wired together.</p>
+                        </article>
+                        <article class="hero-ledger-item">
+                            <p class="hero-ledger-label">Deployment range</p>
+                            <p>Desktop, on-prem, local runtime, Jetson, robotics, and hybrid delivery paths.</p>
+                        </article>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="applications">
-            <div class="section-shell">
-                <div class="section-intro reveal">
+        <section class="section section-applications" id="applications">
+            <div class="section-shell dual-shell">
+                <div class="section-intro section-intro-sticky reveal">
                     <p class="eyebrow">Applications</p>
-                    <h2 class="section-title">Frontier-ready systems, approachable delivery.</h2>
-                    <p class="section-lead">
-                        The company story stays broad without sounding vague: operator software, AI pipelines, MCP,
-                        grounded knowledge systems, and edge deployment patterns that adapt to the real stack around
-                        them.
+                    <h2 class="section-title section-title-left">One partner across the connection layer.</h2>
+                    <p class="section-lead section-lead-left">
+                        The company story stays broad because the systems are broad, but the delivery stays concrete:
+                        operator software, AI pipelines, grounded knowledge systems, and edge deployment patterns that
+                        adapt to the real stack around them.
                     </p>
                 </div>
 
-                <div class="applications-grid">
-                    <article class="application-card reveal">
-                        <p class="application-kicker">Operator software</p>
-                        <h3>Desktop Apps &amp; Operator Tools</h3>
-                        <p>
-                            Purpose-built analyst, mission, and internal workflow software that exposes AI to real
-                            users instead of trapping value in the backend.
-                        </p>
+                <div class="capability-list">
+                    <article class="capability-row reveal">
+                        <span class="capability-number" aria-hidden="true">01</span>
+                        <div class="capability-copy">
+                            <p class="application-kicker">Operator software</p>
+                            <h3>Desktop Apps &amp; Operator Tools</h3>
+                            <p>
+                                Purpose-built analyst, mission, and internal workflow software that exposes AI to real
+                                users instead of trapping value in the backend.
+                            </p>
+                        </div>
                     </article>
 
-                    <article class="application-card reveal" style="--reveal-delay: 80ms;">
-                        <p class="application-kicker">Connection layer</p>
-                        <h3>AI Pipelines &amp; MCP</h3>
-                        <p>
-                            Spreadsheet to pipeline conversions, MCP servers, tool routing, approval loops, and
-                            agent-assisted operations that remove repetitive work without losing control.
-                        </p>
+                    <article class="capability-row reveal" style="--reveal-delay: 60ms;">
+                        <span class="capability-number" aria-hidden="true">02</span>
+                        <div class="capability-copy">
+                            <p class="application-kicker">Connection layer</p>
+                            <h3>AI Pipelines &amp; MCP</h3>
+                            <p>
+                                Spreadsheet-to-pipeline conversions, MCP servers, tool routing, approval loops, and
+                                agent-assisted operations that remove repetitive work without losing control.
+                            </p>
+                        </div>
                     </article>
 
-                    <article class="application-card reveal" style="--reveal-delay: 120ms;">
-                        <p class="application-kicker">Grounded systems</p>
-                        <h3>RAG / Knowledge &amp; Local AI</h3>
-                        <p>
-                            Vector DB pipelines, document indexing, retrieval orchestration, and private/local runtime
-                            options that keep users, apps, and agents aligned on the same operational truth.
-                        </p>
+                    <article class="capability-row reveal" style="--reveal-delay: 120ms;">
+                        <span class="capability-number" aria-hidden="true">03</span>
+                        <div class="capability-copy">
+                            <p class="application-kicker">Grounded systems</p>
+                            <h3>RAG / Knowledge &amp; Local AI</h3>
+                            <p>
+                                Vector DB pipelines, document indexing, retrieval orchestration, and private runtime
+                                options that keep apps, agents, and operators aligned on the same truth.
+                            </p>
+                        </div>
                     </article>
 
-                    <article class="application-card reveal" style="--reveal-delay: 160ms;">
-                        <p class="application-kicker">Field deployment</p>
-                        <h3>Robotics, Vision &amp; Edge Integration</h3>
-                        <p>
-                            ROS2, NVIDIA Jetson, computer vision, Anduril Lattice bridges, and field-ready runtime
-                            patterns that connect machines, operators, and software.
-                        </p>
+                    <article class="capability-row reveal" style="--reveal-delay: 180ms;">
+                        <span class="capability-number" aria-hidden="true">04</span>
+                        <div class="capability-copy">
+                            <p class="application-kicker">Field deployment</p>
+                            <h3>Robotics, Vision &amp; Edge Integration</h3>
+                            <p>
+                                ROS2, NVIDIA Jetson, computer vision, Anduril Lattice bridges, and field-ready runtime
+                                patterns that connect machines, operators, and software.
+                            </p>
+                        </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="architecture">
+        <section class="section section-architecture" id="architecture">
             <div class="section-shell architecture-grid">
-                <figure class="media-panel reveal">
+                <figure class="media-panel architecture-panel reveal">
                     <img src="assets/images/proof/vector-db-diagram.webp" width="1600" height="643" loading="lazy"
                         decoding="async"
                         alt="Diagram showing document ingestion, embeddings, vector database, similarity search, retrieved context, and LLM response.">
+                    <figcaption class="panel-caption">
+                        Documents, embeddings, similarity search, retrieved context, and model response linked into one
+                        operational loop.
+                    </figcaption>
                 </figure>
 
                 <div class="section-copy reveal" style="--reveal-delay: 100ms;">
@@ -264,18 +290,24 @@
                     <div class="detail-stack">
                         <article class="detail-row">
                             <h3>Ingest the messy inputs</h3>
-                            <p>Documents, APIs, spreadsheets, sensors, and operator inputs become structured context
-                                instead of disconnected data exhaust.</p>
+                            <p>
+                                Documents, APIs, spreadsheets, sensors, and operator inputs become structured context
+                                instead of disconnected data exhaust.
+                            </p>
                         </article>
                         <article class="detail-row">
                             <h3>Route tools, MCP, and agent logic</h3>
-                            <p>RAG/vector DB, MCP interfaces, task logic, and agent flows decide what should happen
-                                automatically and what should stay human-reviewed.</p>
+                            <p>
+                                RAG/vector DB, MCP interfaces, task logic, and agent flows decide what should happen
+                                automatically and what should stay human-reviewed.
+                            </p>
                         </article>
                         <article class="detail-row">
                             <h3>Deploy with privacy and control</h3>
-                            <p>Desktop apps, APIs, Jetson hardware, robotics nodes, and local or hybrid runtimes all
-                                feed back into the same system.</p>
+                            <p>
+                                Desktop apps, APIs, Jetson hardware, robotics nodes, and local or hybrid runtimes all
+                                feed back into the same system.
+                            </p>
                         </article>
                     </div>
 
@@ -291,7 +323,7 @@
             </div>
         </section>
 
-        <section class="section" id="field-systems">
+        <section class="section section-field" id="field-systems">
             <div class="section-shell">
                 <div class="section-intro reveal">
                     <p class="eyebrow">Field systems</p>
@@ -302,46 +334,52 @@
                     </p>
                 </div>
 
-                <div class="field-grid">
-                    <article class="field-card reveal">
-                        <img src="assets/images/proof/orin-lineup.webp" width="1247" height="935" loading="lazy"
-                            decoding="async" alt="NVIDIA Jetson and industrial edge AI hardware lineup.">
-                        <div class="field-card-body">
-                            <p class="field-card-kicker">Edge hardware</p>
-                            <h3>Jetson to rugged edge compute</h3>
-                            <p>From compact Jetson deployments to sealed industrial hardware, we build for machines that
-                                need reliable inference outside the lab.</p>
+                <div class="field-layout">
+                    <article class="field-feature field-feature-primary reveal">
+                        <img src="assets/images/proof/rover-rain.webp" width="1143" height="2048" loading="lazy"
+                            decoding="async" alt="Rover platform in wet field conditions.">
+                        <div class="field-feature-body">
+                            <p class="field-card-kicker">Robotics</p>
+                            <h3>Robotics that leave the desk</h3>
+                            <p>
+                                ROS2, perception, autonomy support, and operator systems built for dirt, weather,
+                                latency, and imperfect environments.
+                            </p>
                         </div>
                     </article>
 
-                    <article class="field-card reveal" style="--reveal-delay: 80ms;">
+                    <article class="field-feature reveal" style="--reveal-delay: 80ms;">
+                        <img src="assets/images/proof/orin-lineup.webp" width="1247" height="935" loading="lazy"
+                            decoding="async" alt="NVIDIA Jetson and industrial edge AI hardware lineup.">
+                        <div class="field-feature-body">
+                            <p class="field-card-kicker">Edge hardware</p>
+                            <h3>Jetson to rugged edge compute</h3>
+                            <p>
+                                From compact Jetson deployments to sealed industrial hardware, we build for machines
+                                that need reliable inference outside the lab.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="field-feature reveal" style="--reveal-delay: 140ms;">
                         <img src="assets/images/proof/recomputer-devboard.jpeg" width="1600" height="1200"
                             loading="lazy" decoding="async"
                             alt="Embedded edge AI development setup with NVIDIA Jetson, sensors, and interface boards.">
-                        <div class="field-card-body">
+                        <div class="field-feature-body">
                             <p class="field-card-kicker">Embedded systems</p>
                             <h3>Sensor-rich embedded builds</h3>
-                            <p>Computer vision and edge AI need the right cameras, buses, boards, and operator hooks
-                                around the model to stay useful over time.</p>
-                        </div>
-                    </article>
-
-                    <article class="field-card field-card-tall reveal" style="--reveal-delay: 120ms;">
-                        <img src="assets/images/proof/rover-rain.webp" width="1143" height="2048" loading="lazy"
-                            decoding="async" alt="Rover platform in wet field conditions.">
-                        <div class="field-card-body">
-                            <p class="field-card-kicker">Robotics</p>
-                            <h3>Robotics that leave the desk</h3>
-                            <p>ROS2, perception, autonomy support, and operator systems built for dirt, weather,
-                                latency, and imperfect environments.</p>
+                            <p>
+                                Computer vision and edge AI need the right cameras, buses, boards, and operator hooks
+                                around the model to stay useful over time.
+                            </p>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="recognition">
-            <div class="section-shell recognition-grid">
+        <section class="section section-recognition" id="recognition">
+            <div class="section-shell recognition-shell">
                 <div class="section-copy reveal">
                     <p class="eyebrow">Recognition</p>
                     <h2 class="section-title section-title-left">Public proof beats generic claims.</h2>
@@ -351,7 +389,11 @@
                         integration for existing ROS systems.
                     </p>
 
-                    <div class="recognition-points">
+                    <blockquote class="recognition-quote">
+                        Open source work that earns public signal says more than generic AI copy ever will.
+                    </blockquote>
+
+                    <div class="recognition-list">
                         <article>
                             <h3>Open source work</h3>
                             <p>Real ROS2 package work, published publicly.</p>
@@ -369,7 +411,8 @@
                     <div class="hero-actions">
                         <a class="button button-primary"
                             href="https://www.linkedin.com/posts/open-source-robotics-foundation_want-to-take-bytedances-new-depthanything-activity-7396656737702825984-Sl2Y"
-                            target="_blank" rel="noopener noreferrer" aria-label="View Recognition (opens in new tab)">View Recognition</a>
+                            target="_blank" rel="noopener noreferrer"
+                            aria-label="View recognition on LinkedIn (opens in new tab)">View Recognition</a>
                         <a class="button button-secondary" href="https://github.com/GerdsenAI" target="_blank"
                             rel="noopener noreferrer" aria-label="See GitHub (opens in new tab)">See GitHub</a>
                     </div>
@@ -379,13 +422,16 @@
                     <img src="assets/images/proof/open-robotics-post.jpg" width="699" height="290" loading="lazy"
                         decoding="async"
                         alt="Open Robotics post mentioning Gerdsen AI's ROS2 Depth Anything 3 wrapper.">
+                    <figcaption class="panel-caption">
+                        Open Robotics shared the wrapper as a practical path for existing ROS systems.
+                    </figcaption>
                 </figure>
             </div>
         </section>
 
-        <section class="section" id="services">
-            <div class="section-shell services-layout">
-                <div class="services-aside reveal">
+        <section class="section section-services" id="services">
+            <div class="section-shell services-shell">
+                <div class="services-copy reveal">
                     <p class="eyebrow">Services</p>
                     <h2 class="section-title section-title-left">Where we fit best.</h2>
                     <p class="section-lead section-lead-left">
@@ -397,35 +443,58 @@
                         <img src="assets/images/proof/engineering-expo.webp" width="1600" height="1200" loading="lazy"
                             decoding="async"
                             alt="Gerdsen AI demo system shown on a display at an engineering expo.">
+                        <figcaption class="panel-caption">
+                            Working systems demoed in public, not just positioned in pitch language.
+                        </figcaption>
                     </figure>
                 </div>
 
-                <div class="services-grid">
-                    <article class="service-row reveal" style="--reveal-delay: 40ms;">
-                        <h3>Build the first working system</h3>
-                        <p>Move from concept or demo into a real app, pipeline, agentic flow, or operator-facing
-                            system that can actually ship.</p>
+                <div class="service-list">
+                    <article class="service-item reveal" style="--reveal-delay: 40ms;">
+                        <p class="service-number" aria-hidden="true">01</p>
+                        <div>
+                            <h3>Build the first working system</h3>
+                            <p>
+                                Move from concept or demo into a real app, pipeline, agentic flow, or operator-facing
+                                system that can actually ship.
+                            </p>
+                        </div>
                     </article>
-                    <article class="service-row reveal" style="--reveal-delay: 80ms;">
-                        <h3>Connect the existing stack</h3>
-                        <p>Wire APIs, desktop tools, data sources, MCP servers, retrieval, and field systems into one
-                            usable operating flow.</p>
+                    <article class="service-item reveal" style="--reveal-delay: 80ms;">
+                        <p class="service-number" aria-hidden="true">02</p>
+                        <div>
+                            <h3>Connect the existing stack</h3>
+                            <p>
+                                Wire APIs, desktop tools, data sources, MCP servers, retrieval, and field systems into
+                                one usable operating flow.
+                            </p>
+                        </div>
                     </article>
-                    <article class="service-row reveal" style="--reveal-delay: 120ms;">
-                        <h3>Keep it private or local</h3>
-                        <p>Deploy on-device, on-prem, or hybrid when privacy, latency, reliability, or control make a
-                            cloud-only answer a bad fit.</p>
+                    <article class="service-item reveal" style="--reveal-delay: 120ms;">
+                        <p class="service-number" aria-hidden="true">03</p>
+                        <div>
+                            <h3>Keep it private or local</h3>
+                            <p>
+                                Deploy on-device, on-prem, or hybrid when privacy, latency, reliability, or control
+                                make a cloud-only answer a bad fit.
+                            </p>
+                        </div>
                     </article>
-                    <article class="service-row reveal" style="--reveal-delay: 160ms;">
-                        <h3>Act as a direct-access engineering partner</h3>
-                        <p>Stay close to the work, iterate quickly, and solve the hard integration and deployment
-                            problems without management theater.</p>
+                    <article class="service-item reveal" style="--reveal-delay: 160ms;">
+                        <p class="service-number" aria-hidden="true">04</p>
+                        <div>
+                            <h3>Act as a direct-access engineering partner</h3>
+                            <p>
+                                Stay close to the work, iterate quickly, and solve the hard integration and deployment
+                                problems without management theater.
+                            </p>
+                        </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="how-we-work">
+        <section class="section section-workflow" id="how-we-work">
             <div class="section-shell">
                 <div class="section-intro reveal">
                     <p class="eyebrow">How we work</p>
@@ -436,28 +505,34 @@
                     </p>
                 </div>
 
-                <div class="workflow-grid">
-                    <article class="workflow-step reveal">
+                <ol class="workflow-rail">
+                    <li class="workflow-step reveal">
                         <span class="workflow-number" aria-hidden="true">01</span>
                         <h3>Scope the system</h3>
-                        <p>Map inputs, operator needs, existing software, review checkpoints, and runtime targets before
-                            code starts moving.</p>
-                    </article>
+                        <p>
+                            Map inputs, operator needs, existing software, review checkpoints, and runtime targets
+                            before code starts moving.
+                        </p>
+                    </li>
 
-                    <article class="workflow-step reveal" style="--reveal-delay: 80ms;">
+                    <li class="workflow-step reveal" style="--reveal-delay: 80ms;">
                         <span class="workflow-number" aria-hidden="true">02</span>
                         <h3>Build the connective layer</h3>
-                        <p>Ship the apps, agents, retrieval, integrations, and orchestration that make the stack behave
-                            like one system.</p>
-                    </article>
+                        <p>
+                            Ship the apps, agents, retrieval, integrations, and orchestration that make the stack
+                            behave like one system.
+                        </p>
+                    </li>
 
-                    <article class="workflow-step reveal" style="--reveal-delay: 120ms;">
+                    <li class="workflow-step reveal" style="--reveal-delay: 120ms;">
                         <span class="workflow-number" aria-hidden="true">03</span>
                         <h3>Deploy with the real constraints</h3>
-                        <p>Desktop, cloud, Jetson, or hybrid delivery with observability, handoff clarity, and operator
-                            trust built in.</p>
-                    </article>
-                </div>
+                        <p>
+                            Desktop, cloud, Jetson, or hybrid delivery with observability, handoff clarity, and
+                            operator trust built in.
+                        </p>
+                    </li>
+                </ol>
             </div>
         </section>
 
@@ -470,11 +545,8 @@
                         When AI has to connect, deploy, and hold up in the real world, call Gerdsen AI. Tell us what
                         needs to connect, who needs to use it, and where the AI needs to run.
                     </p>
-                    <p class="section-lead section-lead-left">
-                        You&apos;ll get a direct response with next steps, not a generic intake loop.
-                    </p>
 
-                    <div class="contact-notes">
+                    <div class="contact-list">
                         <article>
                             <h3>Direct access</h3>
                             <p>Call, text, or email away when the work is moving fast.</p>
@@ -485,13 +557,23 @@
                         </article>
                         <article>
                             <h3>Delivery modes</h3>
-                            <p>Desktop, local, cloud, edge, or hybrid systems depending on privacy and deployment
-                                needs.</p>
+                            <p>Desktop, local, cloud, edge, or hybrid systems depending on privacy and deployment needs.</p>
                         </article>
                     </div>
+
+                    <p class="contact-note">
+                        Projects are usually scoped around operator workflow, deployment constraints, and what has to
+                        stay private or local.
+                    </p>
                 </div>
 
                 <div class="contact-panel reveal" style="--reveal-delay: 120ms;">
+                    <p class="panel-eyebrow">Start the conversation</p>
+                    <h3 class="contact-panel-title">Tell us what needs to connect.</h3>
+                    <p class="contact-panel-note">
+                        You&apos;ll get a direct response with next steps, not a generic intake loop.
+                    </p>
+
                     <form id="contact-form" action="https://formspree.io/f/xeozyrwa" method="POST">
                         <div class="form-field">
                             <label for="name">Name *</label>
@@ -544,14 +626,13 @@
 
     <footer class="site-footer">
         <div class="section-shell footer-shell">
-            <p class="footer-copy">
-                GERDSEN AI builds full-stack AI systems from desktop to edge.
-            </p>
+            <p class="footer-copy">GERDSEN AI builds full-stack AI systems from desktop to edge.</p>
             <div class="footer-links">
                 <a href="mailto:info@gerdsen.ai">info@gerdsen.ai</a>
-                <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">GitHub</a>
-                <a href="https://www.linkedin.com/company/gerdsenai/" target="_blank"
-                    rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+                <a href="https://github.com/GerdsenAI" target="_blank" rel="noopener noreferrer"
+                    aria-label="GitHub (opens in new tab)">GitHub</a>
+                <a href="https://www.linkedin.com/company/gerdsenai/" target="_blank" rel="noopener noreferrer"
+                    aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
             </div>
             <p class="footer-meta">© <span data-year></span> GERDSEN AI LLC</p>
         </div>

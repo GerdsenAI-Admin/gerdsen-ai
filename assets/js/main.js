@@ -1,4 +1,17 @@
 const REDUCED_MOTION_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
+const MOBILE_NAV_QUERY = window.matchMedia("(max-width: 920px)");
+const HERO_MOTION_QUERY = window.matchMedia("(min-width: 921px)");
+
+function bindMediaQueryChange(query, callback) {
+    if (typeof query.addEventListener === "function") {
+        query.addEventListener("change", callback);
+        return;
+    }
+
+    if (typeof query.addListener === "function") {
+        query.addListener(callback);
+    }
+}
 
 function setCurrentYear() {
     const yearNode = document.querySelector("[data-year]");
@@ -7,33 +20,56 @@ function setCurrentYear() {
     }
 }
 
+function initPageReady() {
+    window.requestAnimationFrame(() => {
+        document.body.classList.add("is-ready");
+    });
+}
+
 function initHeader() {
     const header = document.querySelector(".site-header");
+    const navShell = header?.querySelector(".nav-shell");
     const toggle = document.getElementById("nav-toggle");
     const menu = document.getElementById("site-menu");
 
-    if (!header || !toggle || !menu) {
+    if (!header || !navShell || !toggle || !menu) {
         return;
     }
 
-    const closeMenu = () => {
-        menu.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("nav-open");
+    const setMenuState = (isOpen) => {
+        menu.classList.toggle("is-open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        document.body.classList.toggle("nav-open", isOpen && MOBILE_NAV_QUERY.matches);
     };
 
+    const closeMenu = () => setMenuState(false);
+
     const handleScroll = () => {
-        header.classList.toggle("is-scrolled", window.scrollY > 10);
+        header.classList.toggle("is-scrolled", window.scrollY > 12);
     };
 
     toggle.addEventListener("click", () => {
-        const isOpen = menu.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        document.body.classList.toggle("nav-open", isOpen);
+        setMenuState(!menu.classList.contains("is-open"));
     });
 
     menu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", closeMenu);
+        link.addEventListener("click", () => {
+            if (MOBILE_NAV_QUERY.matches) {
+                closeMenu();
+            }
+        });
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!MOBILE_NAV_QUERY.matches || !menu.classList.contains("is-open")) {
+            return;
+        }
+
+        if (navShell.contains(event.target)) {
+            return;
+        }
+
+        closeMenu();
     });
 
     document.addEventListener("keydown", (event) => {
@@ -42,14 +78,15 @@ function initHeader() {
         }
     });
 
-    window.addEventListener("resize", () => {
-        if (window.innerWidth > 820) {
+    bindMediaQueryChange(MOBILE_NAV_QUERY, () => {
+        if (!MOBILE_NAV_QUERY.matches) {
             closeMenu();
         }
     });
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
+    closeMenu();
 }
 
 function initSmoothScroll() {
@@ -71,8 +108,10 @@ function initSmoothScroll() {
             }
 
             event.preventDefault();
+
             const offset = header.offsetHeight + 12;
             const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
             window.scrollTo({
                 top,
                 behavior: REDUCED_MOTION_QUERY.matches ? "auto" : "smooth"
@@ -106,7 +145,7 @@ function initRevealAnimations() {
             currentObserver.unobserve(entry.target);
         });
     }, {
-        threshold: 0.15,
+        threshold: 0.16,
         rootMargin: "0px 0px -10% 0px"
     });
 
@@ -114,29 +153,105 @@ function initRevealAnimations() {
 }
 
 function initHeroVideo() {
-    const video = document.querySelector(".hero-video");
-    if (!video) {
+    const heroMedia = document.querySelector(".hero-media");
+    const video = heroMedia?.querySelector(".hero-video");
+
+    if (!heroMedia || !video) {
         return;
     }
 
-    const syncMotionPreference = () => {
-        if (REDUCED_MOTION_QUERY.matches) {
+    let sourcesLoaded = false;
+
+    const loadSources = () => {
+        if (sourcesLoaded) {
+            return;
+        }
+
+        video.querySelectorAll("source[data-src]").forEach((source) => {
+            const { src } = source.dataset;
+            if (src) {
+                source.src = src;
+            }
+        });
+
+        video.load();
+        sourcesLoaded = true;
+    };
+
+    const syncPlayback = () => {
+        if (REDUCED_MOTION_QUERY.matches || !HERO_MOTION_QUERY.matches) {
+            video.pause();
+            heroMedia.classList.remove("is-video-ready");
+            return;
+        }
+
+        loadSources();
+
+        video.play()
+            .then(() => {
+                heroMedia.classList.add("is-video-ready");
+            })
+            .catch(() => {
+                heroMedia.classList.remove("is-video-ready");
+            });
+    };
+
+    video.addEventListener("canplay", () => {
+        if (!REDUCED_MOTION_QUERY.matches && HERO_MOTION_QUERY.matches) {
+            heroMedia.classList.add("is-video-ready");
+        }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
             video.pause();
             return;
         }
 
-        video.play().catch(() => {
-            /* Autoplay can fail silently depending on browser policy. */
-        });
+        syncPlayback();
+    });
+
+    bindMediaQueryChange(REDUCED_MOTION_QUERY, syncPlayback);
+    bindMediaQueryChange(HERO_MOTION_QUERY, syncPlayback);
+
+    syncPlayback();
+}
+
+function initHeroParallax() {
+    const hero = document.querySelector(".hero");
+    const heroMedia = document.querySelector(".hero-media");
+
+    if (!hero || !heroMedia || REDUCED_MOTION_QUERY.matches) {
+        return;
+    }
+
+    let rafId = 0;
+
+    const update = () => {
+        rafId = 0;
+
+        if (!HERO_MOTION_QUERY.matches) {
+            heroMedia.style.setProperty("--hero-parallax", "0px");
+            return;
+        }
+
+        const rect = hero.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+        heroMedia.style.setProperty("--hero-parallax", `${progress * 18}px`);
     };
 
-    syncMotionPreference();
+    const requestTick = () => {
+        if (rafId) {
+            return;
+        }
 
-    if (typeof REDUCED_MOTION_QUERY.addEventListener === "function") {
-        REDUCED_MOTION_QUERY.addEventListener("change", syncMotionPreference);
-    } else if (typeof REDUCED_MOTION_QUERY.addListener === "function") {
-        REDUCED_MOTION_QUERY.addListener(syncMotionPreference);
-    }
+        rafId = window.requestAnimationFrame(update);
+    };
+
+    bindMediaQueryChange(HERO_MOTION_QUERY, requestTick);
+    window.addEventListener("resize", requestTick);
+    window.addEventListener("scroll", requestTick, { passive: true });
+    requestTick();
 }
 
 function initContactForm() {
@@ -177,7 +292,8 @@ function initContactForm() {
         };
 
         submitButton.disabled = true;
-        submitButton.textContent = "Sending...";
+        submitButton.setAttribute("aria-busy", "true");
+        submitButton.textContent = "Sending Message...";
 
         try {
             const response = await fetch(form.action || "https://formspree.io/f/xeozyrwa", {
@@ -202,6 +318,7 @@ function initContactForm() {
             );
         } finally {
             submitButton.disabled = false;
+            submitButton.removeAttribute("aria-busy");
             submitButton.textContent = defaultButtonText;
         }
     });
@@ -209,9 +326,11 @@ function initContactForm() {
 
 document.addEventListener("DOMContentLoaded", () => {
     setCurrentYear();
+    initPageReady();
     initHeader();
     initSmoothScroll();
     initRevealAnimations();
     initHeroVideo();
+    initHeroParallax();
     initContactForm();
 });
