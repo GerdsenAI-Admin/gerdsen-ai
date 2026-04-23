@@ -610,8 +610,7 @@ body.nav-open .site-header {
 }
 
 .process-step p,
-.proof-item p,
-.industry-row p {
+.proof-item p {
     margin: 0;
     color: var(--muted);
 }
@@ -656,34 +655,8 @@ body.nav-open .site-header {
     text-transform: uppercase;
 }
 
-.section-industries {
-    --section-bg: url("../images/proof/rover-rain.webp");
-    --section-position: center 58%;
-}
-
-.industry-list {
-    border-top: 1px solid var(--border);
-    background: rgba(4, 7, 14, 0.62);
-    backdrop-filter: blur(10px);
-}
-
-.industry-row {
-    display: grid;
-    grid-template-columns: minmax(210px, 0.42fr) minmax(0, 1fr);
-    gap: 2rem;
-    padding: clamp(1.4rem, 3vw, 2rem);
-    border-bottom: 1px solid var(--border);
-}
-
-.industry-row span {
-    color: var(--text);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.1;
-}
-
 .section-about {
-    --section-bg: url("../images/proof/engineering-expo.webp");
+    --section-bg: url("../images/proof/rover-rain.webp");
     --section-position: center 48%;
 }
 
@@ -1008,8 +981,7 @@ body.nav-open .site-header {
         grid-template-columns: 1fr;
     }
 
-    .process-step,
-    .industry-row {
+    .process-step {
         grid-template-columns: 1fr;
         gap: 0.65rem;
     }
