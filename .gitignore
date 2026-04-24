@@ -47,8 +47,32 @@ logs/
 
 # Environment variables
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+
+# Secrets, credentials, and keys (public repo safeguards)
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+id_rsa*
+id_ed25519*
+*.ppk
+secrets.*
+credentials.*
+*_rsa
+*_dsa
+.aws/
+.ssh/
+firebase-adminsdk*.json
+service-account*.json
+google-credentials*.json
+gcp-key*.json
+*-secret.yaml
+*-secret.yml
 
 # Build outputs
 dist/
