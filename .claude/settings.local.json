@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(node:*)",
+      "Bash(mv:*)",
+      "Bash(./serve-local.sh:*)",
+      "Bash(brew install:*)",
+      "Bash(gh:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(dig:*)",
+      "Bash(curl:*)",
+      "Bash(whois:*)",
+      "Bash(find /Users/gerdsenai/Documents/GerdsenAI_Website/client/src/components -maxdepth 1 -name \"*.tsx\" ! -path \"*/ui/*\" -exec wc -l {} +)",
+      "Bash(wc -l /Users/gerdsenai/Documents/GerdsenAI_Website/client/src/components/*.tsx)",
+      "Bash(wc -l /Users/gerdsenai/Documents/GerdsenAI_Website/client/src/hooks/*.ts /Users/gerdsenai/Documents/GerdsenAI_Website/client/src/hooks/*.tsx)",
+      "Bash(wc:*)",
+      "mcp__scn__scn_audit"
+    ],
+    "deny": []
+  }
+}
